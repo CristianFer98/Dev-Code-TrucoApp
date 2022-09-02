@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dev_Code_TrucoApp.Controllers
+namespace TrucoApp_DevCode.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -23,6 +23,7 @@ namespace Dev_Code_TrucoApp.Controllers
             _logger = logger;
         }
 
+        
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -35,5 +36,6 @@ namespace Dev_Code_TrucoApp.Controllers
             })
             .ToArray();
         }
+        
     }
 }

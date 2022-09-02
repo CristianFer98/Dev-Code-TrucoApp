@@ -7,7 +7,7 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-    <RootNamespace>Dev_Code_TrucoApp</RootNamespace>
+    <RootNamespace>TrucoApp_DevCode</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 using System;
 
-namespace Dev_Code_TrucoApp
+namespace TrucoApp_DevCode
 {
     public class WeatherForecast
     {
