@@ -1,6 +1,6 @@
 using System;
 
-namespace TrucoApp_DevCode
+namespace Router
 {
     public class WeatherForecast
     {
