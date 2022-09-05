@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import { Layout } from "../components/layout/Layout";
-import { Home } from "../components/home/Home";
-import { Account } from "../components/account/Account";
-import { Store } from "../components/store/Store";
-import { Rules } from "../components/rules/Rules";
+import { Layout } from "../components/Layout/Layout";
+import { Home } from "../components/Home/Home";
+import { Account } from "../components/Account/Account";
+import { Store } from "../components/Store/Store";
+import { Rules } from "../components/Rules/Rules";
 
 export const AppRouter = () => {
   return (
