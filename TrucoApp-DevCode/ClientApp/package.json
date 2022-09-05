@@ -1,47 +1,34 @@
 {
-  "name": "router",
+  "name": "truco-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "@mui/material": "^5.10.3",
-    "@mui/styled-engine-sc": "^5.10.3",
-    "bootstrap": "~4.6.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.2.0",
     "cdbreact": "^1.5.3",
-    "jquery": "~3.6.0",
-    "merge": "^2.1.1",
-    "oidc-client": "~1.11.5",
+    "eslint-plugin-react": "^7.31.6",
     "react": "^18.2.0",
-    "react-bootstrap-sidebar-menu": "^2.0.3",
+    "react-bootstrap": "^1.6.6",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
-    "react-pro-sidebar": "^0.7.1",
-    "react-router": "~5.2.1",
-    "react-router-bootstrap": "^0.25.0",
-    "react-router-dom": "~5.3.0",
-    "reactstrap": "~8.10.1",
-    "rimraf": "^3.0.2",
-    "styled-components": "^5.3.5"
-  },
-  "devDependencies": {
-    "ajv": "^6.9.1",
-    "cross-env": "^5.2.0",
-    "eslint-config-react-app": "^5.2.0",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "nan": "^2.14.1",
-    "react-scripts": "^5.0.0",
-    "typescript": "^3.7.5"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "react-router": "^5.2.1",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "rimraf ./build && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cross-env CI=true react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./src/"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -54,9 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "resolutions": {
-    "url-parse": ">=1.5.0",
-    "lodash": ">=4.17.21"
   }
 }
