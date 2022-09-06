@@ -16,7 +16,7 @@ function CollapsibleExample() {
     >
       <Container style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
         <NavLink
-          exact
+          exact  
           to="/"
           activeClassName="activeClicked"
           style={{ textDecoration: "none", color: "white" }}

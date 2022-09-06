@@ -10,7 +10,7 @@ import {
 
 import { NavLink } from 'react-router-dom';
 
-const Sidebar = () => {
+const MenuLateral = () => {
     return (
         <div style={{ display: 'flex', height: '90.5vh', overflow: 'scroll initial', margin: '0' }}>
             <CDBSidebar textColor="#fff" backgroundColor="#1A2930">
@@ -53,4 +53,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default MenuLateral;

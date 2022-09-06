@@ -7,4 +7,4 @@ export function Cuenta() {
         <h1 style={{color:"black"}}> Pagina de Cuenta personal </h1>
     </div>
 
-}
+} 

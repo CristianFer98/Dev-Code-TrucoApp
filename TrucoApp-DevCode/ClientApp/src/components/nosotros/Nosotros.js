@@ -6,3 +6,4 @@ export function Nosotros() {
         <h1 style={{ color: "black" }} > Pagina Nosotros </h1>
     </>;
 }
+   

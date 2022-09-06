@@ -1,16 +1,17 @@
 import React from "react";
-import NavMenu from "../navMenu/NavMenu";
-import Sidebar from "../sidebar/Sidebar";
+import MenuNav from "../menuNav/MenuNav";
+import MenuLateral from "../menuLateral/MenuLateral";
 import "./layout.css";
 
 export const Layout = ({ children }) => {
   return (
     <div>
-      <NavMenu />
+      <MenuNav />
       <div style={{ display: "flex" }}>
-        <Sidebar />
+        <MenuLateral />
         <div className="main">{children}</div>
       </div>
     </div>
   );
 };
+  
