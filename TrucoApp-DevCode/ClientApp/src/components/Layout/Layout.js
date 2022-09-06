@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NavMenu from "../navMenu/NavMenu";
 import Sidebar from "../sidebar/Sidebar";
-import "./layout.css";
+import "./Layout.css";
 
 export const Layout = ({ children }) => {
   return (
