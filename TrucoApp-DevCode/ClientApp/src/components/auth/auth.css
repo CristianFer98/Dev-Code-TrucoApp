@@ -1,0 +1,68 @@
+.divContainer {
+  height: 100vh;
+  width: 100vw;
+}
+
+.divPicture {
+  background-color: red;
+  background-image: url("../../img/pagina/truco.jpg");
+  background-position: center;
+}
+
+.loginBienvenido {
+  margin-bottom: -7px;
+}
+
+.buttonLogin {
+  color: white;
+  background-color: rgb(87, 226, 134);
+  width: 200px;
+}
+.buttonLogin:hover {
+  color: white;
+  background-color: rgb(67, 175, 103);
+  transition: ease 0.4s;
+}
+
+.buttonLoginGoogle {
+  color: white;
+  background-color: rgb(27, 23, 53);
+}
+
+.googleLogo {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+
+.forgotPassword {
+  color: #2474b6;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.registerLink {
+  font-size: 14px;
+}
+
+.registerLinkP {
+  color: #2474b6;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.registerLinkP:hover {
+  color: #08497e;
+  text-decoration: underline;
+  /* transition: ease 0.4s; */
+}
+
+.orLogin p {
+  position: relative;
+  top: 6px;
+}
+
+.orLogin hr {
+  width: 80px;
+}
