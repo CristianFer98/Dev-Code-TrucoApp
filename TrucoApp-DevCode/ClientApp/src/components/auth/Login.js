@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 
 export const Login = () => {
-  const [formValues, handleLoginInputChange] = useForm({
+  const [formLoginValues, handleLoginInputChange] = useForm({
     lEmail: "",
     lPassword: "",
   });
 
-  const { lEmail, lPassword } = formValues;
+  const { lEmail, lPassword } = formLoginValues;
 
   const handleInputChange = (e) => {
     e.preventDefault();
