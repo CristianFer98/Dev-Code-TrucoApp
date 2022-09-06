@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Layout } from "../components/layout/Layout";
 import { Inicio } from "../components/inicio/Inicio";
 import { Cuenta } from "../components/cuenta/Cuenta";
@@ -14,13 +14,14 @@ export const AppRouter = () => {
     <BrowserRouter>
       <Switch>
         <PublicRoute path="/auth" component={LoginRegistro} />
-        {/* <Layout exact path="/" component={Inicio} /> */}
+
         <Layout>
           <Route exact path="/" component={Inicio} />
           <Route exact path="/cuenta" component={Cuenta} />
           <Route exact path="/tienda" component={Tienda} />
           <Route exact path="/reglas" component={Reglas} />
           <Route exact path="/nosotros" component={Nosotros} />
+          <Redirect to="/" />
         </Layout>
       </Switch>
     </BrowserRouter>
