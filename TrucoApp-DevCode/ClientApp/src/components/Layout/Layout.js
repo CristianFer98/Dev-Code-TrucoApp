@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import NavMenu from "../NavMenu/NavMenu";
-import Sidebar from "../Sidebar/Sidebar";
+import NavMenu from "../navMenu/NavMenu";
+import Sidebar from "../sidebar/Sidebar";
 import "./Layout.css";
 
 export class Layout extends Component {

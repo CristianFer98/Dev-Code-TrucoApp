@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './Home.css'
-export class Home extends Component {
-  static displayName = Home.name;
+import './Inicio.css'
+
+export class Inicio extends Component {
+  static displayName = Inicio.name;
 
   render () {
       return (

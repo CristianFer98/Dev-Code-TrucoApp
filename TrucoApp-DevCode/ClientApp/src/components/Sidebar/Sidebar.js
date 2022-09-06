@@ -20,22 +20,22 @@ const Sidebar = () => {
 
                 <CDBSidebarContent className="sidebar-content">
                     <CDBSidebarMenu>
-                        <NavLink exact to="/account" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
+                        <NavLink exact to="/cuenta" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="user"> Cuenta</CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="chart-line">Nivel</CDBSidebarMenuItem>
                         </NavLink>
                         
-                        <NavLink exact to="/store" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
+                        <NavLink exact to="/tienda" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="shopping-bag">Tienda</CDBSidebarMenuItem>
                         </NavLink>
 
-                        <NavLink exact to="/rules" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
+                        <NavLink exact to="/reglas" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="sticky-note">Reglas</CDBSidebarMenuItem>
                         </NavLink>
 
-                        <NavLink exact to="/about" style={{ color: '#EAC67A', fontWeight:'bold' }} activeClassName="activeClicked">
+                        <NavLink exact to="/nosotros" style={{ color: '#EAC67A', fontWeight:'bold' }} activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="info"> Nosotros</CDBSidebarMenuItem>
                         </NavLink>
                     </CDBSidebarMenu>
