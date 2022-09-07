@@ -8,14 +8,17 @@ import { Reglas } from "../components/reglas/Reglas";
 import { Nosotros } from "../components/nosotros/Nosotros";
 import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
+import { useSelector } from "react-redux";
 
 export const AppRouter = () => {
+  const { uid } = useSelector((state) => state.auth);
+
   return (
     <BrowserRouter>
       <Switch>
-        <PublicRoute path="/auth" component={LoginRegistro} />
+        <PublicRoute logueado={!!uid} path="/auth" component={LoginRegistro} />
 
-        <Layout>
+        <Layout logueado={!!uid}>
           <Route exact path="/" component={Inicio} />
           <Route exact path="/cuenta" component={Cuenta} />
           <Route exact path="/tienda" component={Tienda} />

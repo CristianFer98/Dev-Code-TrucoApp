@@ -1,56 +1,103 @@
-﻿import React from 'react';
+﻿import React from "react";
 import {
-    CDBSidebar,
-    CDBSidebarContent,
-    CDBSidebarFooter,
-    CDBSidebarHeader,
-    CDBSidebarMenu,
-    CDBSidebarMenuItem,
-} from 'cdbreact';
+  CDBSidebar,
+  CDBSidebarContent,
+  CDBSidebarFooter,
+  CDBSidebarHeader,
+  CDBSidebarMenu,
+  CDBSidebarMenuItem,
+} from "cdbreact";
 
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { startLogout } from "../../actions/auth";
 
 const MenuLateral = () => {
-    return (
-        <div style={{ display: 'flex', height: '90.5vh', overflow: 'scroll initial', margin: '0' }}>
-            <CDBSidebar textColor="#fff" backgroundColor="#1A2930">
-                <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-                    Menu
-                </CDBSidebarHeader>
+  const dispatch = useDispatch();
 
-                <CDBSidebarContent className="sidebar-content">
-                    <CDBSidebarMenu>
-                        <NavLink exact to="/cuenta" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="user"> Cuenta</CDBSidebarMenuItem>
-                        </NavLink>
-                        <NavLink exact to="/" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="chart-line">Nivel</CDBSidebarMenuItem>
-                        </NavLink>
-                        
-                        <NavLink exact to="/tienda" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="shopping-bag">Tienda</CDBSidebarMenuItem>
-                        </NavLink>
+  const handleLogout = () => {
+    dispatch(startLogout());
+  };
 
-                        <NavLink exact to="/reglas" style={{ color: '#EAC67A', fontWeight: 'bold' }} activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="sticky-note">Reglas</CDBSidebarMenuItem>
-                        </NavLink>
+  return (
+    <div
+      style={{
+        display: "flex",
+        height: "90.5vh",
+        overflow: "scroll initial",
+        margin: "0",
+      }}
+    >
+      <CDBSidebar textColor="#fff" backgroundColor="#1A2930">
+        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+          Menu
+        </CDBSidebarHeader>
 
-                        <NavLink exact to="/nosotros" style={{ color: '#EAC67A', fontWeight:'bold' }} activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="info"> Nosotros</CDBSidebarMenuItem>
-                        </NavLink>
-                    </CDBSidebarMenu>
-                </CDBSidebarContent>
+        <CDBSidebarContent className="sidebar-content">
+          <CDBSidebarMenu>
+            <NavLink
+              exact
+              to="/cuenta"
+              style={{ color: "#EAC67A", fontWeight: "bold" }}
+              activeClassName="activeClicked"
+            >
+              <CDBSidebarMenuItem icon="user"> Cuenta</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink
+              exact
+              to="/"
+              style={{ color: "#EAC67A", fontWeight: "bold" }}
+              activeClassName="activeClicked"
+            >
+              <CDBSidebarMenuItem icon="chart-line">Nivel</CDBSidebarMenuItem>
+            </NavLink>
 
-                <CDBSidebarFooter>
+            <NavLink
+              exact
+              to="/tienda"
+              style={{ color: "#EAC67A", fontWeight: "bold" }}
+              activeClassName="activeClicked"
+            >
+              <CDBSidebarMenuItem icon="shopping-bag">
+                Tienda
+              </CDBSidebarMenuItem>
+            </NavLink>
 
-                    <NavLink exact to="/logout" style={{ color: '#B43326', fontWeight: 'bolder', textDecoration: 'none' }} activeClassName="activeClicked" >
-                        <CDBSidebarMenuItem icon="share">Cerrar Sesion</CDBSidebarMenuItem>
-                    </NavLink>
+            <NavLink
+              exact
+              to="/reglas"
+              style={{ color: "#EAC67A", fontWeight: "bold" }}
+              activeClassName="activeClicked"
+            >
+              <CDBSidebarMenuItem icon="sticky-note">Reglas</CDBSidebarMenuItem>
+            </NavLink>
 
-                </CDBSidebarFooter>
-            </CDBSidebar>
-        </div>
-    );
+            <NavLink
+              exact
+              to="/nosotros"
+              style={{ color: "#EAC67A", fontWeight: "bold" }}
+              activeClassName="activeClicked"
+            >
+              <CDBSidebarMenuItem icon="info"> Nosotros</CDBSidebarMenuItem>
+            </NavLink>
+          </CDBSidebarMenu>
+        </CDBSidebarContent>
+
+        <CDBSidebarFooter>
+          <button
+            onClick={handleLogout}
+            style={{
+              color: "#B43326",
+              fontWeight: "bolder",
+              textDecoration: "none",
+            }}
+          >
+            <CDBSidebarMenuItem icon="share">Cerrar Sesion</CDBSidebarMenuItem>
+          </button>
+        </CDBSidebarFooter>
+      </CDBSidebar>
+    </div>
+  );
 };
 
 export default MenuLateral;
