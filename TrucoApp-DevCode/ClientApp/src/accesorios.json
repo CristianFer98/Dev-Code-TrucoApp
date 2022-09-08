@@ -1,0 +1,24 @@
+{
+  "AccesoriosTienda": [
+    {
+      "imagen": "../assets/accesorios/mochila.png",
+      "descripcion": "Mochila 'Vale Cuatro'",
+      "precio": 8000.0
+    },
+    {
+      "imagen": "../assets/accesorios/mazo.png",
+      "descripcion": "Mazo 'Vale Cuatro'",
+      "precio": 700.0
+    },
+    {
+      "imagen": "../assets/accesorios/remera-black.png",
+      "descripcion": "Remera Black 'Vale Cuatro'",
+      "precio": 2800.0
+    },
+    {
+      "imagen": "../assets/accesorios/remera-white.png",
+      "descripcion": "Remera White 'Vale Cuatro'",
+      "precio": 2800.0
+    }
+  ]
+}
