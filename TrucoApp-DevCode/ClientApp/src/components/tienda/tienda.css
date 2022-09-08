@@ -1,0 +1,47 @@
+﻿
+.componente-store {
+    width: 100%;
+    min-height: 100%;
+    height: auto !important;
+    background-color: #d9d9d9;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    opacity:unset;
+}
+
+
+.titulo {
+    color:black;
+    display:inline-block;
+    text-align:center;
+    margin-bottom:8px;
+    padding:0;
+}
+
+.titulo-filtro{
+    background-color:#984b43;
+    padding:8px;
+    color:#eac67a;
+    width:auto;
+    margin-bottom:8px;
+}
+
+.componente-store,
+.accesorios {
+    display: flex;
+}
+
+.componente-store {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.accesorios{
+    width:100%;
+    flex-direction:row;
+    justify-content:space-between;
+    /*border:2px solid black;*/
+}
