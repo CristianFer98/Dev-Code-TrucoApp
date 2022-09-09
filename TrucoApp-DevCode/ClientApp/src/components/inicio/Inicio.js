@@ -1,9 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { jugar } from "../../actions/auth";
 
-export class Inicio extends Component {
-  static displayName = Inicio.name;
+export const Inicio = () => {
+  const dispatch = useDispatch();
 
-  render() {
-    return <div className="Home">Pagina Principal</div>;
-  }
-}
+  const handleJugar = (e) => {
+    e.preventDefault();
+    dispatch(jugar());
+  };
+
+  return (
+    <div className="Home p-5">
+      <button onClick={handleJugar} className="btn btn-primary">
+        Jugar
+      </button>
+    </div>
+  );
+};

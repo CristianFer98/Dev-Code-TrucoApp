@@ -9,6 +9,7 @@ import { Nosotros } from "../components/nosotros/Nosotros";
 import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
 import { useSelector } from "react-redux";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const AppRouter = () => {
   const { uid } = useSelector((state) => state.auth);
@@ -18,14 +19,16 @@ export const AppRouter = () => {
       <Switch>
         <PublicRoute logueado={!!uid} path="/auth" component={LoginRegistro} />
 
-        <Layout logueado={!!uid}>
-          <Route exact path="/" component={Inicio} />
-          <Route exact path="/cuenta" component={Cuenta} />
-          <Route exact path="/tienda" component={Tienda} />
-          <Route exact path="/reglas" component={Reglas} />
-          <Route exact path="/nosotros" component={Nosotros} />
-          <Redirect to="/" />
-        </Layout>
+        <PrivateRoute logueado={!!uid}>
+          <Layout>
+            <Route exact path="/" component={Inicio} />
+            <Route exact path="/cuenta" component={Cuenta} />
+            <Route exact path="/tienda" component={Tienda} />
+            <Route exact path="/reglas" component={Reglas} />
+            <Route exact path="/nosotros" component={Nosotros} />
+            <Redirect to="/" />
+          </Layout>
+        </PrivateRoute>
       </Switch>
     </BrowserRouter>
   );
