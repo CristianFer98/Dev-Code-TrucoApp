@@ -10,6 +10,12 @@ export const authReducer = (state = initialState, action) => {
         ...action.payload,
       };
 
+    case types.authJugar:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
     case types.authLogout:
       return {};
 
