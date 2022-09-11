@@ -10,6 +10,7 @@ import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
 import { useSelector } from "react-redux";
 import { PrivateRoute } from "./PrivateRoute";
+import { Truco1vs1 } from "../components/juego/Truco1vs1";
 
 export const AppRouter = () => {
   const { uid } = useSelector((state) => state.auth);
@@ -19,15 +20,22 @@ export const AppRouter = () => {
       <Switch>
         <PublicRoute logueado={!!uid} path="/auth" component={LoginRegistro} />
 
-        <PrivateRoute logueado={!!uid}>
-          <Layout>
-            <Route exact path="/" component={Inicio} />
-            <Route exact path="/cuenta" component={Cuenta} />
-            <Route exact path="/tienda" component={Tienda} />
-            <Route exact path="/reglas" component={Reglas} />
-            <Route exact path="/nosotros" component={Nosotros} />
-            <Redirect to="/" />
-          </Layout>
+        <PrivateRoute logueado={!!uid} path="/">
+          <Route path="/inicio">
+            <Layout>
+              <Route exact path="/inicio" component={Inicio} />
+              <Route exact path="/inicio/cuenta" component={Cuenta} />
+              <Route exact path="/inicio/tienda" component={Tienda} />
+              <Route exact path="/inicio/reglas" component={Reglas} />
+              <Route exact path="/inicio/nosotros" component={Nosotros} />
+              <Redirect to="/inicio" />
+            </Layout>
+          </Route>
+
+          <Route path="/juego">
+            <Truco1vs1 />
+          </Route>
+          <Redirect to="/inicio" />
         </PrivateRoute>
       </Switch>
     </BrowserRouter>
