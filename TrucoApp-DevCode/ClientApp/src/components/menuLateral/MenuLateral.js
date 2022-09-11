@@ -37,7 +37,7 @@ const MenuLateral = () => {
           <CDBSidebarMenu>
             <NavLink
               exact
-              to="/cuenta"
+              to="/inicio/cuenta"
               style={{ color: "#EAC67A", fontWeight: "bold" }}
               activeClassName="activeClicked"
             >
@@ -45,7 +45,7 @@ const MenuLateral = () => {
             </NavLink>
             <NavLink
               exact
-              to="/"
+              to="/inicio"
               style={{ color: "#EAC67A", fontWeight: "bold" }}
               activeClassName="activeClicked"
             >
@@ -54,7 +54,7 @@ const MenuLateral = () => {
 
             <NavLink
               exact
-              to="/tienda"
+              to="/inicio/tienda"
               style={{ color: "#EAC67A", fontWeight: "bold" }}
               activeClassName="activeClicked"
             >
@@ -65,7 +65,7 @@ const MenuLateral = () => {
 
             <NavLink
               exact
-              to="/reglas"
+              to="/inicio/reglas"
               style={{ color: "#EAC67A", fontWeight: "bold" }}
               activeClassName="activeClicked"
             >
@@ -74,7 +74,7 @@ const MenuLateral = () => {
 
             <NavLink
               exact
-              to="/nosotros"
+              to="/inicio/nosotros"
               style={{ color: "#EAC67A", fontWeight: "bold" }}
               activeClassName="activeClicked"
             >
