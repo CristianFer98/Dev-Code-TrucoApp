@@ -1,53 +1,73 @@
 ﻿import React, { useState, useEffect } from "react";
 import { db } from "../../firebase/Firebase";
-import { query, collection, orderBy, onSnapshot, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  query,
+  collection,
+  orderBy,
+  onSnapshot,
+  addDoc,
+  serverTimestamp,
+  limit,
+  
+} from "firebase/firestore";
+import "./chatGeneral.css";
 
 export function ChatGeneral() {
   const [mensajes, setMensajes] = useState([]);
-  const [input , setInput] = useState('');
+  const [input, setInput] = useState("");
   const fechaServidor = serverTimestamp();
 
   useEffect(() => {
-    const q = query(collection(db, "ChatGeneral"), orderBy('fecha'));
+    const q = query(collection(db, "ChatGeneral"),limit("10"), orderBy("fecha", "desc") );
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       let mensajes = [];
       QuerySnapshot.forEach((doc) => {
         mensajes.push({ ...doc.data(), id: doc.id });
       });
-      setMensajes(mensajes);
+      setMensajes(mensajes.reverse());
     });
     return () => unsubscribe();
   }, []);
 
-  const enviarMensaje = async(e)=>{
+  const enviarMensaje = async (e) => {
     e.preventDefault();
-    await addDoc(collection(db, 'ChatGeneral'), {
-        text: input,
-        fecha: fechaServidor,
-    })
-    setInput('');
-  }
+    await addDoc(collection(db, "ChatGeneral"), {
+      text: input,
+      fecha: fechaServidor,
+    });
+    setInput("");
+  };
 
-    return (
-        <div style={{ alignSelf: "end", backgroundColor: "#C2C2C2", height: "auto", borderRadius: "25PX" }} >
-            <h4 style={{ backgroundColor: "#1A2930", WebkitBorderTopLeftRadius: "25PX", color: "#C2C2C2", textAlign: "center" }}>Chat General</h4>
-      <ul>
+  return (
+    <div className="estiloChat">
+      <h3 className="headerChat">
+       Chat General
+      </h3>
+      <div>
         {mensajes.map((mensaje) => {
-            return (
-              <>
-              <li key={mensaje.id} style={{ color: "#1A2930" }}> 
-                        {mensaje.text}
-
-               </li>
-              </>
+          return (
+            <>
+              <p className="mensajes"
+                key={mensaje.id}>
+                Cristian98: {mensaje.text}
+              </p>
+            </>
           );
         })}
-      </ul>
 
-      <form onSubmit={enviarMensaje} >
-                <input type="text" placeholder="Mensaje" onChange={(e) => setInput(e.target.value)} value={input} style={{border:"none"}} />
-                <button type="submit" style={{border:"none"}}>Enviar</button>
-      </form>
+        <form onSubmit={enviarMensaje} style={{ display: "flex" }}>
+          <input
+            type="text"
+            placeholder="Mensaje"
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
+            style={{ border: "none", width: "80%" }}
+          />
+          <button type="submit" style={{ border: "none" }}>
+            Enviar
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

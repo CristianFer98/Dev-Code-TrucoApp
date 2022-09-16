@@ -1,0 +1,35 @@
+.estiloChat{
+    height: 100%;
+    width: 310px;
+    align-self:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color:#C2C2C2;
+    border-left: 1px solid gray;
+    overflow: auto;
+    margin-left: 30px;
+}
+
+.mensajes{
+    word-wrap: break-word;
+    color: black;
+    font-size: 17px;
+    padding-left: 2px;
+    font-family: monospace;
+}
+
+
+.headerChat{
+    background-image: url(../../assets/reverso.jpg);
+    background-size: 100%;
+    height: 60px;
+}
+
+h3{
+    padding-top: 8px;
+    text-align: center;
+    color: rgb(221, 202, 202);
+    background-color: #C2C2C2;
+    
+}

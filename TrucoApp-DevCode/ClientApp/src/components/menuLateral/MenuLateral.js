@@ -6,6 +6,7 @@ import {
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
+  cdbs,
 } from "cdbreact";
 
 import { NavLink } from "react-router-dom";
@@ -24,12 +25,11 @@ const MenuLateral = () => {
       style={{
         display: "flex",
         height: "90.5vh",
-        overflow: "scroll initial",
         margin: "0",
       }}
     >
       <CDBSidebar textColor="#fff" backgroundColor="#1A2930">
-        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+        <CDBSidebarHeader style={{height:"60px"}}prefix={<i className="fa fa-bars fa-large"></i>}>
           Menu
         </CDBSidebarHeader>
 
@@ -37,19 +37,20 @@ const MenuLateral = () => {
           <CDBSidebarMenu>
             <NavLink
               exact
+              to="/inicio"
+              style={{ color: "#EAC67A", fontWeight: "bold" }}
+             
+            >
+              <CDBSidebarMenuItem icon="home"> Home</CDBSidebarMenuItem>
+            </NavLink>
+
+            <NavLink
+              exact
               to="/inicio/cuenta"
               style={{ color: "#EAC67A", fontWeight: "bold" }}
               activeClassName="activeClicked"
             >
               <CDBSidebarMenuItem icon="user"> Cuenta</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink
-              exact
-              to="/inicio"
-              style={{ color: "#EAC67A", fontWeight: "bold" }}
-              activeClassName="activeClicked"
-            >
-              <CDBSidebarMenuItem icon="chart-line">Nivel</CDBSidebarMenuItem>
             </NavLink>
 
             <NavLink
@@ -76,24 +77,18 @@ const MenuLateral = () => {
               exact
               to="/inicio/nosotros"
               style={{ color: "#EAC67A", fontWeight: "bold" }}
-              activeClassName="activeClicked"
+              
             >
               <CDBSidebarMenuItem icon="info"> Nosotros</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
+
         <CDBSidebarFooter>
-          <button
-            onClick={handleLogout}
-            style={{
-              color: "#B43326",
-              fontWeight: "bolder",
-              textDecoration: "none",
-            }}
-          >
-            <CDBSidebarMenuItem icon="share">Cerrar Sesion</CDBSidebarMenuItem>
-          </button>
+
+        <CDBSidebarMenuItem icon="share" style={{color:"#B43326"}} onClick={handleLogout}>Cerrar Sesion</CDBSidebarMenuItem>
+
         </CDBSidebarFooter>
       </CDBSidebar>
     </div>

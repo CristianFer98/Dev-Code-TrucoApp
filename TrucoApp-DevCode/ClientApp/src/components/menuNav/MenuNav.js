@@ -22,7 +22,7 @@ function CollapsibleExample() {
           style={{ textDecoration: "none", color: "white" }}
         >
           <GiCardPlay size={25} />{" "}
-          <span style={{ fontSize: "20px" }}>Truco App</span>
+          <span style={{ fontSize: "20px" }}>vale cuatro</span>
         </NavLink>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
