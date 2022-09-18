@@ -114,7 +114,6 @@
 }
 
 .ceja-izq, .ceja-der {
-    border-top: 8px solid #000;
     width: 60px;
     height: 50px;
 }
@@ -325,4 +324,24 @@
 
 .pelo-canoso {
     background: #C2C2C2;
+}
+
+.ceja-negra {
+    border-top: 8px solid #000;
+}
+
+.ceja-castana{
+    border-top: 8px solid #624218;
+}
+
+.ceja-rubia{
+    border-top: 8px solid #D4C278;
+}
+
+.ceja-colorada{
+    border-top: 8px solid #FF9700;
+}
+
+.ceja-canosa{
+    border-top: 8px solid #C2C2C2;
 }
