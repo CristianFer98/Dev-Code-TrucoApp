@@ -1,8 +1,17 @@
 ﻿import React from "react";
 import "./avatar.css";
 import pelo from "./../../assets/avatar/pelo1.png";
+import peloCastano from "./../../assets/avatar/pelo2.png";
+import peloRubio from "./../../assets/avatar/pelo3.png";
+import peloColorado from "./../../assets/avatar/pelo4.png";
+import peloCanoso from "./../../assets/avatar/pelo5.png";
+
 import ropa from "./../../assets/avatar/ropa.png";
 
+const setPelo = (peloNuevo) =>{
+	let peloActual = document.querySelector("#pelo-actual");
+	peloActual.src=peloNuevo;
+}
 const setPiel = (colorNuevo)=>{
 
 	let colorActual = document.querySelector(".cabeza").classList[1];
@@ -42,7 +51,7 @@ export function Avatar() {
 						<div className="oreja-izq piel-default"></div>
 						<div className="cabeza piel-default">
 							<div className="contendor-pelo">
-								<img src={pelo}/>
+								<img id="pelo-actual" src={pelo}/>
 							</div>
 							<div className="cejas-ojos-nariz-boca">
 								<div className="contenedor-cejas">
@@ -118,11 +127,21 @@ export function Avatar() {
 							 onClick={()=>setPiel("piel-oscura")}></div>
 					</div>
 					<div className="modificar color-pelo">
-						<div className="pelo pelo-negro" title="pelo negro"></div>
-						<div className="pelo pelo-castano" title="pelo castaño"></div>
-						<div className="pelo pelo-rubio" title="pelo rubio"></div>
-						<div className="pelo pelo-colorado" title="pelo colorado"></div>
-						<div className="pelo pelo-canoso" title="pelo canoso"></div>
+						<div className="pelo pelo-negro" 
+							 title="pelo negro"
+							 onClick={()=>setPelo(pelo)}></div>
+						<div className="pelo pelo-castano"
+							 title="pelo castaño"
+							 onClick={()=>setPelo(peloCastano)}></div>
+						<div className="pelo pelo-rubio" 
+							 title="pelo rubio"
+							 onClick={()=>setPelo(peloRubio)}></div>
+						<div className="pelo pelo-colorado" 
+							 title="pelo colorado"
+							 onClick={()=>setPelo(peloColorado)}></div>
+						<div className="pelo pelo-canoso" 
+							 title="pelo canoso"
+							 onClick={()=>setPelo(peloCanoso)}></div>
 					</div>	
 				</div>
 			</div>
