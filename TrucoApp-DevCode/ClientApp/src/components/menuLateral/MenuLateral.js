@@ -79,7 +79,15 @@ const MenuLateral = () => {
               style={{ color: "#EAC67A", fontWeight: "bold" }}
               
             >
-              <CDBSidebarMenuItem icon="info"> Nosotros</CDBSidebarMenuItem>
+            <CDBSidebarMenuItem icon="info"> Nosotros</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink
+              exact
+              to="/inicio/avatar"
+              style={{ color: "#EAC67A", fontWeight: "bold" }}
+              
+            >
+              <CDBSidebarMenuItem icon="info"> Avatar</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
