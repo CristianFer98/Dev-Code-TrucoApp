@@ -1,0 +1,47 @@
+.mesasH3 {
+  text-shadow: rgb(70, 70, 70) 1px 0 10px;
+}
+
+.botonCrearMesa {
+  width: 10em;
+  height: 10em;
+  border-radius: 0.7em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #c9a45481;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.botonCrearMesa:hover {
+  background-color: rgba(128, 77, 0, 0.479);
+  transition: ease 0.4s;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px;
+}
+
+.mesaCarta {
+  width: 10em;
+  height: 10em;
+  background: linear-gradient(
+    to right,
+    rgba(100, 60, 0, 0.973),
+    rgba(158, 96, 2, 0.979)
+  );
+  border-radius: 0.7em;
+  display: flex;
+  align-items: center;
+  cursor: default;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.buttonPlay {
+  background-color: white;
+  color: rgb(114, 68, 0);
+  cursor: pointer;
+}
+
+.buttonPlay:hover {
+  background-color: rgba(65, 39, 0, 0.829);
+  color: white;
+  transition: ease 0.4s;
+}
