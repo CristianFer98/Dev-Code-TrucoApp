@@ -15,11 +15,16 @@
     opacity:unset;
 }
 
+.titulo{
+   display: inline-block;
+   text-align: left !important;
+}
 .componente-avatar-modificacion{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    /*border: 5px solid green;*/
 }
 .componente-principal {
     display: flex;
@@ -204,10 +209,10 @@
     z-index: 7;
 }
 
-    .componente-ropa img {
+.componente-ropa img {
         width: 100%;
         height: auto;
-    }
+}
 
 .contendor-brazos {
     display: flex;
@@ -249,6 +254,7 @@
     padding: 5px;
     margin-top: 5px;
     width: 50%;
+    /*border: 5px solid green;*/
 }
 .componente-cambio-aspecto > .modificar{
 
@@ -259,6 +265,8 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    padding: 20px;
+    border-bottom: 3px solid #1A2930;
 }
 
 .color-ojo > div, .color-piel > div, .color-pelo > div {
@@ -298,7 +306,7 @@
     background: #d1a3a4;
 }
 
-.piel-marron {
+.piel-morena {
     background: #a1665e;
 }
 
