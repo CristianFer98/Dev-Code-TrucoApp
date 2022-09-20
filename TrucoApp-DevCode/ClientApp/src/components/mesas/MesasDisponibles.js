@@ -1,30 +1,52 @@
 import React from "react";
 import { useHistory } from "react-router";
-import { BotonCrearMesa } from "./BotonCrearMesa";
+import { BotonCrearMesa } from ".//BotonCrearMesa";
 import { MesaDisponibleCard } from "./MesaDisponibleCard";
 import "./mesasDisponibles.css";
+import { ChatGeneral } from "../inicio/chat/ChatGeneral";
+import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
+import Button from "react-bootstrap/Button";
 
 export const MesasDisponibles = () => {
   const history = useHistory();
 
   const handleVolverInicio = (e) => {
     e.preventDefault();
-    history.push("/inicio");
+    history.push("/inicio/jugar");
   };
 
   return (
-    <div className="w-100 p-3">
-      <div>
-        <button onClick={handleVolverInicio} className="btn btn-primary">
-          Volver al inicio
-        </button>
+    <div style={{ display: "flex", width: "100%" }}>
+      <div style={{ display: "flex", width: "80%", flexDirection: "column" }}>
+        <InfoDeUsuario />
+        <div>
+          <div style={{display:"flex", justifyContent:"space-between", marginTop:"20px"}}>
+          <Button
+            variant="dark"
+            onClick={handleVolverInicio}
+            style={{ marginLeft: "50px" }}
+          >
+            Regresar al Inicio
+          </Button>{" "}
 
-        <h3 className="mesasH3 text-light mt-4">Mesas disponibles 1 vs 1:</h3>
+          <div style={{ marginRight: "50px" }}>
+              <Button variant="dark">1</Button>{" "}
+              <Button variant="dark">2</Button>{" "}
+              <Button variant="dark">3</Button>{" "}
+            </div>
+            </div>
+          <div
+            className="d-flex flex-wrap mt-4"
+            style={{ marginLeft: "40px", marginRight: "40px", marginTop:"0px" }}
+          >
+            <BotonCrearMesa />
+            <MesaDisponibleCard />
+          </div>
+        </div>
       </div>
 
-      <div className="d-flex flex-wrap mt-5">
-        <BotonCrearMesa />
-        <MesaDisponibleCard />
+      <div>
+        <ChatGeneral />
       </div>
     </div>
   );
