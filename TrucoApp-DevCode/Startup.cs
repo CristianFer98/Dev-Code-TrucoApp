@@ -1,10 +1,16 @@
+using Entidades;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repositorios;
+using Repositorios.Interfaces;
+using Servicios;
+using Servicios.Interfaces;
 
 namespace Router
 {
@@ -28,6 +34,13 @@ namespace Router
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddDbContext<DevCodeDBContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DevCodeDBContext")));
+
+            services.AddTransient<DevCodeDBContext>();
+            services.AddScoped<IMesaRepositorio, MesaRepositorio>();
+            services.AddScoped<IMesaServicio, MesaServicio>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

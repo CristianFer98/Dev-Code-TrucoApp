@@ -8,7 +8,6 @@ import {
   addDoc,
   serverTimestamp,
   limit,
-  
 } from "firebase/firestore";
 import "./chatGeneral.css";
 
@@ -18,7 +17,11 @@ export function ChatGeneral() {
   const fechaServidor = serverTimestamp();
 
   useEffect(() => {
-    const q = query(collection(db, "ChatGeneral"),limit("10"), orderBy("fecha", "desc") );
+    const q = query(
+      collection(db, "ChatGeneral"),
+      limit("10"),
+      orderBy("fecha", "desc")
+    );
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       let mensajes = [];
       QuerySnapshot.forEach((doc) => {
@@ -46,16 +49,11 @@ export function ChatGeneral() {
        Chat General
       </h3>
       <div>
-        {mensajes.map((mensaje) => {
-          return (
-            <>
-              <p className="mensajes"
-                key={mensaje.id}>
-                Cristian98: {mensaje.text}
-              </p>
-            </>
-          );
-        })}
+        {mensajes.map((mensaje) => (
+          <p className="mensajes" key={mensaje.id}>
+            Cristian98: {mensaje.text}
+          </p>
+        ))}
 
         <form onSubmit={enviarMensaje} style={{ display: "flex" }}>
           <input

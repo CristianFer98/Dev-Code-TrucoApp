@@ -12,6 +12,8 @@ import { LoginRegistro } from "../components/auth/LoginRegistro";
 import { useSelector } from "react-redux";
 import { PrivateRoute } from "./PrivateRoute";
 import { Truco1vs1 } from "../components/juego/Truco1vs1";
+import { Avatar } from "../components/avatar/Avatar";
+import { MesasDisponibles } from "../components/mesas/MesasDisponibles";
 
 export const AppRouter = () => {
   const { uid } = useSelector((state) => state.auth);
@@ -30,6 +32,9 @@ export const AppRouter = () => {
               <Route exact path="/inicio/reglas" component={Reglas} />
               <Route exact path="/inicio/nosotros" component={Nosotros} />
               <Route exact path="/inicio/torneos" component={Torneo}/>
+              <Route exact path="/inicio/avatar" component={Avatar} />
+              <Route exact path="/inicio/mesas" component={MesasDisponibles} />
+
               <Redirect to="/inicio" />
             </Layout>
           </Route>

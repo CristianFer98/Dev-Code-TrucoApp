@@ -1,0 +1,355 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+.componente-avatar{
+    width: 100%;
+    min-height: 100%;
+    height: auto !important;
+    background-color: #d9d9d9;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    opacity:unset;
+}
+
+.titulo{
+   display: inline-block;
+   text-align: left !important;
+}
+.componente-avatar-modificacion{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /*border: 5px solid green;*/
+}
+.componente-principal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*border: 5px solid green;*/
+    width: 20%;
+    margin: auto;
+    padding-top: 10%;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    /*border: 4px solid black;*/
+    align-items: center;
+    z-index: 8888;
+    width: 100%;
+}
+
+.cabeza {
+    position: relative;
+    z-index: 0;
+}
+
+.cabeza, .oreja-izq, .oreja-der {
+    border-radius: 50%;
+}
+
+.oreja-izq, .oreja-der {
+    width: 50px;
+    height: 60px;
+    position: relative;
+    z-index: -1;
+    margin: 0px -30px 0px -30px;
+}
+
+.cabeza {
+    width: 200px;
+    height:200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.contendor-pelo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+
+.contendor-pelo img {
+  width: 115%;
+  height: auto;
+  margin-left: 18px;
+}
+
+.contendor-ojos, .contenedor-cejas {
+    display: flex;
+    justify-content: space-between;
+    /*border: 2px solid red;*/
+    position: relative;
+}
+
+.contenedor-cejas{
+    /*border: 4px solid orange;*/
+    height:15%;
+}
+
+.cejas-ojos-nariz-boca {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 50%;
+    z-index: 9;
+    /*border: 3px solid rebeccapurple;*/
+}
+
+.contendor-ojos {
+    z-index: 0;
+    /*border: 3px solid green;*/
+}
+
+.contenedor-cejas {
+    z-index: -1;
+}
+
+.ceja-izq, .ceja-der {
+    width: 60px;
+    height: 50px;
+}
+
+.ceja-izq {
+    border-radius: 40px;
+    
+}
+
+.ceja-der {
+    border-radius: 20px;
+}
+.ojo-izq, .ceja-izq{
+    margin-right: 20px;
+}
+.ojo-izq, .ojo-der, .ojo, .piel, .pelo {
+    width: 58px;
+    height:50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ojo-izq, .ojo-der, .ojo {
+    background: #fff;
+    border: 1px solid #000;
+}
+
+.iris-izq, .iris-der, .iris {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height:20px;
+    border-radius: 50%;
+}
+
+.pupila-izq, .pupila-der, .pupila {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: black;
+}
+
+.nariz {
+    border-radius: 50%;
+    width: 20px;
+    height: 10px;
+    border-bottom: 5px solid #c58c85;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boca {
+    border-radius: 50%;
+    width: 40px;
+    height: 15px;
+    /*background: #c58c85;*/
+    margin-top: 0px;
+    border-bottom: 5px solid #c58c85;
+}
+
+.cuello {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 45px;
+    position: relative;
+    margin-top: -10%;
+    z-index: 6;
+}
+
+.componente-ropa {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 0%;
+    /*border: 5px solid red;*/
+    margin-top: -35px;
+    z-index: 7;
+}
+
+.componente-ropa img {
+        width: 100%;
+        height: auto;
+}
+
+.contendor-brazos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    /*border: 3px solid sienna;*/
+}
+
+.brazo-izq, .brazo-der {
+    border-radius: 50%;
+    width: 30px;
+    height: 100px;
+    position: relative;
+    margin-top: -100px;
+    
+}
+
+.brazo-izq {
+    margin-right: 50px;
+    /*transform: translateX(50px);
+    transform: rotate(40deg) translateY(50px);*/
+    transform: rotate(45deg);
+    
+}
+
+.brazo-der {
+    margin-left: 50px;
+    /*transform: translateX(50px);
+    transform: rotate(-40deg) translateY(50px);*/
+    transform: rotate(-45deg);
+}
+
+.componente-cambio-aspecto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin-top: 5px;
+    width: 50%;
+    /*border: 5px solid green;*/
+}
+.componente-cambio-aspecto > .modificar{
+
+    margin-bottom: 50px;
+}
+.color-ojo, .color-piel, .color-pelo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 3px solid #1A2930;
+}
+
+.color-ojo > div, .color-piel > div, .color-pelo > div {
+    margin-right: 10px;
+    cursor: pointer;
+ }
+
+.iris-celeste {
+    background: lightblue;
+}
+
+.iris-verde {
+    background: green;
+}
+
+.iris-marron {
+    background: brown;
+}
+
+.iris-negro {
+    background: black;
+}
+
+.iris-negro .pupila {
+    background: white;
+}
+
+.piel-default {
+    background: #FCDB2E;
+}
+
+.piel-rosa {
+    background: #ecbcb4;
+}
+
+.piel-morada {
+    background: #d1a3a4;
+}
+
+.piel-morena {
+    background: #a1665e;
+}
+
+.piel-oscura {
+    background: #503335;
+}
+
+.pelo-negro {
+    background: black;
+}
+
+.pelo-castano {
+    background: #624218;
+}
+
+.pelo-rubio {
+    background: #D4C278;
+}
+
+.pelo-colorado {
+    background: #FF9700;
+}
+
+.pelo-canoso {
+    background: #C2C2C2;
+}
+
+.ceja-negra {
+    border-top: 8px solid #000;
+}
+
+.ceja-castana{
+    border-top: 8px solid #624218;
+}
+
+.ceja-rubia{
+    border-top: 8px solid #D4C278;
+}
+
+.ceja-colorada{
+    border-top: 8px solid #FF9700;
+}
+
+.ceja-canosa{
+    border-top: 8px solid #C2C2C2;
+}
