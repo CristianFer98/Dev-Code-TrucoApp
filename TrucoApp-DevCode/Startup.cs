@@ -7,6 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repositorios;
+using Repositorios.Interfaces;
+using Servicios;
+using Servicios.Interfaces;
 
 namespace Router
 {
@@ -32,6 +36,10 @@ namespace Router
             });
 
             services.AddDbContext<DevCodeDBContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DevCodeDBContext")));
+
+            services.AddTransient<DevCodeDBContext>();
+            services.AddScoped<IMesaRepositorio, MesaRepositorio>();
+            services.AddScoped<IMesaServicio, MesaServicio>();
 
         }
 
