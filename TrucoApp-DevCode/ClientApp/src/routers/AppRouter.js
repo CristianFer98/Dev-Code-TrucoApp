@@ -5,6 +5,7 @@ import { Inicio } from "../components/inicio/Inicio";
 import { Cuenta } from "../components/cuenta/Cuenta";
 import { Tienda } from "../components/tienda/Tienda";
 import { Reglas } from "../components/reglas/Reglas";
+import { Torneo } from "../components/inicio/Torneo";
 import { Nosotros } from "../components/nosotros/Nosotros";
 import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
@@ -18,9 +19,9 @@ export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <PublicRoute logueado={!!uid} path="/auth" component={LoginRegistro} />
+        <PublicRoute logueado={!uid} path="/auth" component={LoginRegistro} />
 
-        <PrivateRoute logueado={!!uid} path="/">
+        <PrivateRoute logueado={!uid} path="/">
           <Route path="/inicio">
             <Layout>
               <Route exact path="/inicio" component={Inicio} />
@@ -28,6 +29,7 @@ export const AppRouter = () => {
               <Route exact path="/inicio/tienda" component={Tienda} />
               <Route exact path="/inicio/reglas" component={Reglas} />
               <Route exact path="/inicio/nosotros" component={Nosotros} />
+              <Route exact path="/inicio/torneos" component={Torneo}/>
               <Redirect to="/inicio" />
             </Layout>
           </Route>

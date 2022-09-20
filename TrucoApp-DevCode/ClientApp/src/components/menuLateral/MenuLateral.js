@@ -12,6 +12,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { startLogout } from "../../actions/auth";
+import "./menuLateral.css";
 
 const MenuLateral = () => {
   const dispatch = useDispatch();
@@ -24,71 +25,141 @@ const MenuLateral = () => {
     <div
       style={{
         display: "flex",
-        height: "90.5vh",
-        margin: "0",
+        height: "auto",
       }}
     >
-      <CDBSidebar textColor="#fff" backgroundColor="#1A2930">
-        <CDBSidebarHeader style={{height:"60px"}}prefix={<i className="fa fa-bars fa-large"></i>}>
-          Menu
-        </CDBSidebarHeader>
-
+      <CDBSidebar
+        breakpoint={1500}
+        toggled
+        textColor="#fff"
+        backgroundColor="#212529"
+      >
         <CDBSidebarContent className="sidebar-content">
+
           <CDBSidebarMenu>
-            <NavLink
-              exact
-              to="/inicio"
-              style={{ color: "#EAC67A", fontWeight: "bold" }}
-             
-            >
-              <CDBSidebarMenuItem icon="home"> Home</CDBSidebarMenuItem>
-            </NavLink>
+            <span className="home">
+              <NavLink
+                exact
+                to="/inicio/"
+                style={{
+                  color: "#EAC67A",
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                }}
+              >
+                <CDBSidebarMenuItem icon="home"
+                  style={{ marginBottom: "20px", marginLeft: "10px" }}> 
+                </CDBSidebarMenuItem>
+              </NavLink>
+            </span>
+            <div className="homeLeyenda">Inicio</div>
 
-            <NavLink
-              exact
-              to="/inicio/cuenta"
-              style={{ color: "#EAC67A", fontWeight: "bold" }}
-              activeClassName="activeClicked"
-            >
-              <CDBSidebarMenuItem icon="user"> Cuenta</CDBSidebarMenuItem>
-            </NavLink>
+            <span className="cuenta">
+              <NavLink
+                exact
+                to="/inicio/cuenta"
+                style={{
+                  color: "#EAC67A",
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                }}>
+                <CDBSidebarMenuItem
+                  icon="user"
+                  style={{ marginBottom: "20px" }}>
+                </CDBSidebarMenuItem>
+              </NavLink>
+            </span>
+            <div className="cuentaLeyenda">Cuenta</div>
 
-            <NavLink
-              exact
-              to="/inicio/tienda"
-              style={{ color: "#EAC67A", fontWeight: "bold" }}
-              activeClassName="activeClicked"
-            >
-              <CDBSidebarMenuItem icon="shopping-bag">
-                Tienda
-              </CDBSidebarMenuItem>
-            </NavLink>
+            <span className="tienda">
+              <NavLink
+                exact
+                to="/inicio/tienda"
+                style={{
+                  color: "#EAC67A",
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                }}
+              >
+                <CDBSidebarMenuItem
+                  icon="shopping-bag"
+                  style={{ marginBottom: "20px" }}>
+                </CDBSidebarMenuItem>
+              </NavLink>
+            </span>
+            <div className="tiendaLeyenda">Tienda</div>
 
-            <NavLink
-              exact
-              to="/inicio/reglas"
-              style={{ color: "#EAC67A", fontWeight: "bold" }}
-              activeClassName="activeClicked"
-            >
-              <CDBSidebarMenuItem icon="sticky-note">Reglas</CDBSidebarMenuItem>
-            </NavLink>
+            <span className="reglas">
+              <NavLink
+                exact
+                to="/inicio/reglas"
+                style={{
+                  color: "#EAC67A",
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                }}
+              >
+                <CDBSidebarMenuItem
+                  icon="sticky-note"
+                  style={{ marginBottom: "20px" }}>
+                </CDBSidebarMenuItem>
+              </NavLink>
+            </span>
+            <div className="reglasLeyenda">Reglas</div>
 
-            <NavLink
-              exact
-              to="/inicio/nosotros"
-              style={{ color: "#EAC67A", fontWeight: "bold" }}
-              
-            >
-              <CDBSidebarMenuItem icon="info"> Nosotros</CDBSidebarMenuItem>
-            </NavLink>
+            <span className="nosotros">
+              <NavLink
+                exact
+                to="/inicio/nosotros"
+                style={{
+                  color: "#EAC67A",
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                }}
+              >
+                <CDBSidebarMenuItem
+                  icon="info"
+                  style={{ marginBottom: "20px" }}>
+                </CDBSidebarMenuItem>
+              </NavLink>
+            </span>
+            <div className="nosotrosLeyenda">Info</div>
+
+            <span className="chatIcon">
+              <NavLink
+                exact
+                to="/inicio/chat"
+                style={{
+                  color: "#EAC67A",
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                }}
+              >
+                <CDBSidebarMenuItem
+                  icon="message"
+                  style={{ marginBottom: "20px" }}
+                >
+                </CDBSidebarMenuItem>
+              </NavLink>
+            </span>
+            <div className="chatLeyenda">Chat</div>
+
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
-
         <CDBSidebarFooter>
 
-        <CDBSidebarMenuItem icon="share" style={{color:"#B43326"}} onClick={handleLogout}>Cerrar Sesion</CDBSidebarMenuItem>
+        <span className="logout">
 
+          <CDBSidebarMenuItem
+            icon="share"
+            style={{ color: "#B43326" }}
+            onClick={handleLogout}
+          >
+            Cerrar Sesion
+          </CDBSidebarMenuItem>
+          </span>
+            <div className="logoutLeyenda">Salir</div>
         </CDBSidebarFooter>
       </CDBSidebar>
     </div>

@@ -39,7 +39,9 @@ export function ChatGeneral() {
   };
 
   return (
+    <div className="display">
     <div className="estiloChat">
+
       <h3 className="headerChat">
        Chat General
       </h3>
@@ -68,6 +70,7 @@ export function ChatGeneral() {
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 }
