@@ -1,0 +1,119 @@
+[{
+    "title":"Truco",
+    "rules": {
+        "rule1": {
+            "name": "rule1",
+            "description": "rule1 description",
+            "conditions": {
+                "condition1": {
+                    "name": "condition1",
+                    "description": "condition1 description",
+                    "condition": "true"
+                }
+            },
+            "actions": {
+                "action1": {
+                    "name": "action1",
+                    "description": "action1 description",
+                    "action": "true"
+                }
+            }
+        },
+        "rule2": {
+            "name": "rule2",
+            "description": "rule2 description",
+            "conditions": {
+                "condition1": {
+                    "name": "condition1",
+                    "description": "condition1 description",
+                    "condition": "true"
+                }
+            },
+            "actions": {
+                "action1": {
+                    "name": "action1",
+                    "description": "action1 description",
+                    "action": "true"
+                }
+            }
+        },
+        "rule3": {
+            "name": "rule3",
+            "description": "rule3 description",
+            "conditions": {
+                "condition1": {
+                    "name": "condition1",
+                    "description": "condition1 description",
+                    "condition": "true"
+                }
+            },
+            "actions": {
+                "action1": {
+                    "name": "action1",
+                    "description": "action1 description",
+                    "action": "true"
+                }
+            }
+        }
+    }
+ },
+ {
+    "title":"Envido",
+    "rules": {
+        "rule1": {
+            "name": "rule1",
+            "description": "rule1 description",
+            "conditions": {
+                "condition1": {
+                    "name": "condition1",
+                    "description": "condition1 description",
+                    "condition": "true"
+                }
+            },
+            "actions": {
+                "action1": {
+                    "name": "action1",
+                    "description": "action1 description",
+                    "action": "true"
+                }
+            }
+        },
+        "rule2": {
+            "name": "rule2",
+            "description": "rule2 description",
+            "conditions": {
+                "condition1": {
+                    "name": "condition1",
+                    "description": "condition1 description",
+                    "condition": "true"
+                }
+            },
+            "actions": {
+                "action1": {
+                    "name": "action1",
+                    "description": "action1 description",
+                    "action": "true"
+                }
+            }
+        },
+        "rule3": {
+            "name": "rule3",
+            "description": "rule3 description",
+            "conditions": {
+                "condition1": {
+                    "name": "condition1",
+                    "description": "condition1 description",
+                    "condition": "true"
+                }
+            },
+            "actions": {
+                "action1": {
+                    "name": "action1",
+                    "description": "action1 description",
+                    "action": "true"
+                }
+            }
+        }
+    }
+ }
+]
