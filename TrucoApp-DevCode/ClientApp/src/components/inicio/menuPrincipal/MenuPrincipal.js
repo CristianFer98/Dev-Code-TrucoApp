@@ -1,13 +1,9 @@
 import React from 'react';
-import unovsuno from '../../assets/1vs1.png'
-import dosvsdos from '../../assets/2vs2.png'
-import tresvstres from '../../assets/3vs3.png'
-import unovsmaquina from '../../assets/1vsmaquina.png'
-import torneo from '../../assets/copa.jpg'
+
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { jugar } from "../../actions/auth";
+import { jugar } from "../../../actions/auth";
 import './menuPrincipal.css'
 
 const MenuPrincipal = () => {
@@ -18,7 +14,7 @@ const MenuPrincipal = () => {
     const handleJugar = (e) => {
       e.preventDefault();
       dispatch(jugar());
-      history.push("/juego");
+      history.push("/inicio/mesas");
     };
     return (
 

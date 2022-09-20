@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect } from "react";
-import { db } from "../../firebase/Firebase";
+import { db } from "../../../firebase/Firebase";
 import {
   query,
   collection,
@@ -16,12 +16,16 @@ export function ChatGeneral() {
   const [input, setInput] = useState("");
   const fechaServidor = serverTimestamp();
 
+  //genero una query hacia la BD trayendo la coleccion ChatGeneral con un limite de 10 mensajes.
   useEffect(() => {
     const q = query(
       collection(db, "ChatGeneral"),
       limit("10"),
       orderBy("fecha", "desc")
     );
+
+    //hago una captura de esos datos lo guardo en un array con la info y el id (mensaje.push)
+    //lo guardo en mi constante mensajes (.reverse me invierte el array para mostrar bien el chat)
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       let mensajes = [];
       QuerySnapshot.forEach((doc) => {
@@ -32,6 +36,8 @@ export function ChatGeneral() {
     return () => unsubscribe();
   }, []);
 
+  //obtengo el evento, agrego el documento a la coleccion ChatGeneral
+  //en la BD con la info del input y la fecha del servidor
   const enviarMensaje = async (e) => {
     e.preventDefault();
     await addDoc(collection(db, "ChatGeneral"), {
@@ -41,13 +47,12 @@ export function ChatGeneral() {
     setInput("");
   };
 
+  /* Recorro mi state mensajes con un map
+     El form envia el mensaje, el input por cada cambio modifica el valor del input con el e.target.value
+  */
   return (
-    <div className="display">
     <div className="estiloChat">
-
-      <h3 className="headerChat">
-       Chat General
-      </h3>
+      <h3 className="headerChat">Chat General</h3>
       <div>
         {mensajes.map((mensaje) => (
           <p className="mensajes" key={mensaje.id}>
@@ -68,7 +73,6 @@ export function ChatGeneral() {
           </button>
         </form>
       </div>
-    </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 .estiloChat{
     display: flex;
     flex-direction: column;
-    background-image: url(../../assets/reverso.jpg);
+    background-image: url(../../../assets/reverso.jpg);
     overflow: auto;
     height: 90.5vh;
     justify-content: space-between;

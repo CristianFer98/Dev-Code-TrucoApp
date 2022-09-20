@@ -1,47 +1,45 @@
 ﻿.componente-accesorios,
 .accesorio-componente {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .componente-accesorios {
-    flex-direction: row;
-    justify-content: center;
-    /*border: 5px solid green;*/
-    width:100%;
+  flex-direction: row;
+  justify-content: center;
+  /*border: 5px solid green;*/
+  width: 100%;
 }
 
 .accesorio-componente {
-    flex-direction: column;
-    /*border:1px solid red;*/
+  flex-direction: column;
+  /*border:1px solid red;*/
 }
 
 .accesorio-imagen img {
-    width: 200px;
-    height: 200px;
+  width: 200px;
+  height: 200px;
 }
 
-.btn-detalles, 
-.btn-comprar{
-
-    padding:10px;
-    margin-bottom:4px;
+.btn-detalles,
+.btn-comprar {
+  padding: 10px;
+  margin-bottom: 4px;
 }
 
-
-.componente-btn{
-    text-align:center;
-    font-weight:bold;
-    font-size:14px;
+.componente-btn {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .btn-detalles {
-    color: #eac67a;
-    margin-top:4px;
-    background:#233237;
+  color: #eac67a;
+  margin-top: 4px;
+  background: #233237;
 }
 
 .btn-comprar {
-    color: #eac67a;
-    background: #984b43;
+  color: #eac67a;
+  background: #984b43;
 }
