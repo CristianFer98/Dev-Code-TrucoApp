@@ -22,10 +22,20 @@ namespace Router.Controllers
         }
 
         [HttpGet]
-        [Route("Mesas")]
-        public List<Mesa> Mesas()
+        [Route("ObtenerTodasLasMesas")]
+        public ActionResult Get()
         {
-            return _mesaServicio.ObtenerMesasDisponibles();
+            try
+            {
+
+                return StatusCode(StatusCodes.Status200OK, _mesaServicio.ObtenerMesasDisponibles());
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
         }
 
     }
