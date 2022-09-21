@@ -1,18 +1,18 @@
-import React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import { Layout } from "../components/layout/Layout";
-import { Inicio } from "../components/inicio/Inicio";
-import { Tienda } from "../components/tienda/Tienda";
-import { Reglas } from "../components/reglas/Reglas";
-import { Torneo } from "../components/torneo/Torneo";
-import { Nosotros } from "../components/nosotros/Nosotros";
-import { PublicRoute } from "./PublicRoute";
-import { LoginRegistro } from "../components/auth/LoginRegistro";
-import { useSelector } from "react-redux";
-import { PrivateRoute } from "./PrivateRoute";
-import { Truco1vs1 } from "../components/juego/Truco1vs1";
-import { Avatar } from "../components/avatar/Avatar";
-import { MesasDisponibles } from "../components/mesas/MesasDisponibles";
+import React from 'react';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Layout } from '../components/layout/Layout';
+import { Inicio } from '../components/inicio/Inicio';
+import { Tienda } from '../components/tienda/Tienda';
+import { Reglas } from '../components/reglas/Reglas';
+import { Torneo } from '../components/torneo/Torneo';
+import { Nosotros } from '../components/nosotros/Nosotros';
+import { PublicRoute } from './PublicRoute';
+import { LoginRegistro } from '../components/auth/LoginRegistro';
+import { useSelector } from 'react-redux';
+import { PrivateRoute } from './PrivateRoute';
+import { Truco1vs1 } from '../components/juego/Truco1vs1';
+import { Avatar } from '../components/avatar/Avatar';
+import { MesasDisponibles } from '../components/mesas/MesasDisponibles';
 
 export const AppRouter = () => {
   const { uid } = useSelector((state) => state.auth);
