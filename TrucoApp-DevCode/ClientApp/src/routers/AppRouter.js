@@ -21,9 +21,9 @@ export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <PublicRoute logueado={!uid} path="/auth" component={LoginRegistro} />
+        <PublicRoute logueado={!!uid} path="/auth" component={LoginRegistro} />
 
-        <PrivateRoute logueado={!uid} path="/">
+        <PrivateRoute logueado={!!uid} path="/">
           <Route path="/inicio">
             <Layout>
               <Route exact path="/inicio" component={Inicio} />

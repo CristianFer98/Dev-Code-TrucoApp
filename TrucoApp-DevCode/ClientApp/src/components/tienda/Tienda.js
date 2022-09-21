@@ -1,10 +1,10 @@
-﻿import React from "react";
-import "./tienda.css";
-import Accesorios from "./Accesorios";
-import mochila from "./../../assets/accesorios/mochila.png";
-import mazo from "./../../assets/accesorios/mazo.png";
-import remeraBlack from "./../../assets/accesorios/remera-black.png";
-import remeraWhite from "./../../assets/accesorios/remera-white.png";
+import React from 'react';
+import './tienda.css';
+import Accesorios from './Accesorios';
+import mochila from './../../assets/accesorios/mochila.png';
+import mazo from './../../assets/accesorios/mazo.png';
+import remeraBlack from './../../assets/accesorios/remera-black.png';
+import remeraWhite from './../../assets/accesorios/remera-white.png';
 
 //import { AccesoriosTienda } from "../acessorios.json";
 export function Tienda() {

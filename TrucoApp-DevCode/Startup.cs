@@ -41,6 +41,18 @@ namespace Router
             services.AddScoped<IMesaRepositorio, MesaRepositorio>();
             services.AddScoped<IMesaServicio, MesaServicio>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CORSPolicy",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins("https://localhost:3000");
+                    });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +74,7 @@ namespace Router
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseCors("CORSPolicy");
 
             app.UseEndpoints(endpoints =>
             {

@@ -5,8 +5,21 @@ import img from "../../assets/no-foto.jpg";
 export const MesaDisponibleCard = () => {
   const history = useHistory();
 
-  const handleJugar = () => {
-    history.push("/juego");
+  const handleJugar = async () => {
+    // history.push("/juego");
+
+    const resp = await fetch(
+      "https://localhost:44342/api/Mesas/obtenertodaslasmesas",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const body = await resp.json();
+    console.log(body);
   };
 
   return (

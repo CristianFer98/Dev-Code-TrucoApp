@@ -1,5 +1,5 @@
-﻿import React, { useState, useEffect } from "react";
-import { db } from "../../../firebase/Firebase";
+import React, { useState, useEffect } from 'react';
+import { db } from '../../../firebase/Firebase';
 import {
   query,
   collection,
@@ -8,20 +8,20 @@ import {
   addDoc,
   serverTimestamp,
   limit,
-} from "firebase/firestore";
-import "./chatGeneral.css";
+} from 'firebase/firestore';
+import './chatGeneral.css';
 
 export function ChatGeneral() {
   const [mensajes, setMensajes] = useState([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const fechaServidor = serverTimestamp();
 
   //genero una query hacia la BD trayendo la coleccion ChatGeneral con un limite de 10 mensajes.
   useEffect(() => {
     const q = query(
-      collection(db, "ChatGeneral"),
-      limit("10"),
-      orderBy("fecha", "desc")
+      collection(db, 'ChatGeneral'),
+      limit('10'),
+      orderBy('fecha', 'desc')
     );
 
     //hago una captura de esos datos lo guardo en un array con la info y el id (mensaje.push)
@@ -40,11 +40,11 @@ export function ChatGeneral() {
   //en la BD con la info del input y la fecha del servidor
   const enviarMensaje = async (e) => {
     e.preventDefault();
-    await addDoc(collection(db, "ChatGeneral"), {
+    await addDoc(collection(db, 'ChatGeneral'), {
       text: input,
       fecha: fechaServidor,
     });
-    setInput("");
+    setInput('');
   };
 
   /* Recorro mi state mensajes con un map
@@ -60,15 +60,15 @@ export function ChatGeneral() {
           </p>
         ))}
 
-        <form onSubmit={enviarMensaje} style={{ display: "flex" }}>
+        <form onSubmit={enviarMensaje} style={{ display: 'flex' }}>
           <input
             type="text"
             placeholder="Mensaje"
             onChange={(e) => setInput(e.target.value)}
             value={input}
-            style={{ border: "none", width: "80%" }}
+            style={{ border: 'none', width: '80%' }}
           />
-          <button type="submit" style={{ border: "none" }}>
+          <button type="submit" style={{ border: 'none' }}>
             Enviar
           </button>
         </form>
