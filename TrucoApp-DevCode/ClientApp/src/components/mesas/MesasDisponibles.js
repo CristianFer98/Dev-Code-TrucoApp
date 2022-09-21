@@ -40,7 +40,12 @@ export const MesasDisponibles = () => {
             style={{ marginLeft: "40px", marginRight: "40px", marginTop:"0px" }}
           >
             <BotonCrearMesa />
-            <MesaDisponibleCard />
+                      <MesaDisponibleCard />
+                      <MesaDisponibleCard />
+                      <MesaDisponibleCard />
+                      <MesaDisponibleCard />
+                      <MesaDisponibleCard />
+
           </div>
         </div>
       </div>

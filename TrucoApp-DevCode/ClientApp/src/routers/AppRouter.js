@@ -13,6 +13,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { Truco1vs1 } from "../components/juego/Truco1vs1";
 import { Avatar } from "../components/avatar/Avatar";
 import { MesasDisponibles } from "../components/mesas/MesasDisponibles";
+import TablaDeTorneo from "../components/torneo/TablaDeTorneo";
 
 export const AppRouter = () => {
   const { uid } = useSelector((state) => state.auth);
@@ -31,6 +32,7 @@ export const AppRouter = () => {
               <Route exact path="/inicio/reglas" component={Reglas} />
               <Route exact path="/inicio/nosotros" component={Nosotros} />
               <Route exact path="/inicio/torneos" component={Torneo} />
+              <Route exact path="/inicio/tabla" component={TablaDeTorneo} />
               <Route exact path="/inicio/mesas" component={MesasDisponibles} />
               <Redirect to="/inicio" />
             </Layout>
