@@ -1,9 +1,7 @@
 ﻿.main {
-    width: 100%;
-    height: 90.5vh;
-    background-image: url("../../assets/trucoHome.webp");
-    background-size: contain;
-    background-position-y: center;
-    display: flex;
-    
+  width: 100%;
+  height: auto;
+  background-image: url("../../assets/trucoHome.webp");
+  background-size: cover;
+  background-position-y: center;
 }

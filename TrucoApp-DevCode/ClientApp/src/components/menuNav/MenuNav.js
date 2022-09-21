@@ -12,7 +12,8 @@ function CollapsibleExample() {
       expand="lg"
       bg="dark"
       variant="dark"
-      style={{ borderBottom: "1px solid #2C3E50" }}
+      style={{backgroundColor:"#1A2930"}}
+      
     >
       <Container style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
         <NavLink
