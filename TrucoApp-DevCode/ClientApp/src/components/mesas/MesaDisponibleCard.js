@@ -5,21 +5,8 @@ import img from "../../assets/no-foto.jpg";
 export const MesaDisponibleCard = () => {
   const history = useHistory();
 
-  const handleJugar = async () => {
-    // history.push("/juego");
-
-    const resp = await fetch(
-      "https://localhost:44342/api/Mesas/obtenertodaslasmesas",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const body = await resp.json();
-    console.log(body);
+  const handleJugar = () => {
+    history.push("/juego");
   };
 
   return (
