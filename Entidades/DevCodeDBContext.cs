@@ -23,7 +23,6 @@ namespace Entidades
         {
             if (!optionsBuilder.IsConfigured)
             {
-
                 optionsBuilder.UseSqlServer("Server=DESKTOP-5204AT6\\SQLEXPRESS;Database=DevCodeDB;Trusted_Connection=True;");
             }
         }
