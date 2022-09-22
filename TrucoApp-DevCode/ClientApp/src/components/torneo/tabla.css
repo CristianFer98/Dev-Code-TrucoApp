@@ -1,0 +1,46 @@
+.participante{
+    background-color: rgb(179, 126, 12);
+    padding: 15px;
+    border-radius: 10px;
+    margin:20px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px;
+
+}
+
+.columna{
+    display: flex; 
+    flex-direction:column; 
+    justify-content:space-around;
+    height:75.5vh;
+    border-radius: 5px;
+
+}
+
+.cuartos{
+    background-color: #233237;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-radius: 10px;
+}
+
+.semifinal{
+    background-color: #832512;
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.final{
+   background-color: rgb(114, 103, 9);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   height: 50%;
+   border-radius: 15px;
+   width: 150px;
+}
+

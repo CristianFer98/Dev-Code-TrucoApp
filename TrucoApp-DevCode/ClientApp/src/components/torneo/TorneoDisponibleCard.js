@@ -5,8 +5,8 @@ import img from "../../assets/no-foto.jpg";
 export const TorneoDisponibleCard = () => {
   const history = useHistory();
 
-  const handleJugar = () => {
-    history.push("/juego");
+  const handleIngresar = () => {
+    history.push("/inicio/tabla");
   };
 
   return (
@@ -37,7 +37,7 @@ export const TorneoDisponibleCard = () => {
       </div>
 
       <p
-        onClick={handleJugar}
+        onClick={handleIngresar}
         className="buttonPlay fw-bolder cursor w-100 text-center rounded"
       >
         Jugar
