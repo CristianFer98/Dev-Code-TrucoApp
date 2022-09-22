@@ -2,6 +2,7 @@
   "Usuarios": [
     {
       "uid": 1,
+      "nombre": "Ivan Kek",
       "email": "ivan.kek@hotmail.com",
       "password": "1234"
     }

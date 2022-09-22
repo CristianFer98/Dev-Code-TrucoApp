@@ -76,7 +76,7 @@ export const MesasDisponibles = () => {
           >
             <BotonCrearMesa />
             {mesas.map((mesa) => (
-              <MesaDisponibleCard key={mesa.idMesa} />
+              <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
             ))}
           </div>
         </div>
