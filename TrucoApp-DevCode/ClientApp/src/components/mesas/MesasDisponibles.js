@@ -8,7 +8,7 @@ import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
 
 export const MesasDisponibles = () => {
-  // const history = useHistory();
+  const history = useHistory();
 
   const handleVolverInicio = (e) => {
     e.preventDefault();
