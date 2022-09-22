@@ -2,8 +2,11 @@ import React from "react";
 import { useHistory } from "react-router";
 import img from "../../assets/no-foto.jpg";
 
-export const MesaDisponibleCard = () => {
+export const MesaDisponibleCard = ({ mesa }) => {
   const history = useHistory();
+  const { Usuarios } = require("../../usuarios.json");
+  const { jugadorUno, tipo } = mesa;
+  const usuario = Usuarios.find((usuario) => usuario.uid === jugadorUno);
 
   const handleJugar = () => {
     history.push("/juego");
@@ -23,7 +26,7 @@ export const MesaDisponibleCard = () => {
           className="text-center mt-1"
           style={{ color: "#ffffff", fontSize: "0.68em" }}
         >
-          Ivan
+          {usuario.nombre}
         </div>
       </div>
 
@@ -32,7 +35,7 @@ export const MesaDisponibleCard = () => {
           A 30 puntos
         </p>
         <p style={{ fontSize: "0.8em" }} className="text-white my-0 fw-bolder">
-          Sin flor
+          {tipo}
         </p>
       </div>
 
