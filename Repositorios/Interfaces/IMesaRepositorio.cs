@@ -10,5 +10,6 @@ namespace Repositorios.Interfaces
     public interface IMesaRepositorio
     {
         public List<Mesa> ObtenerMesasDisponibles();
+        public void GuardarMesa(Mesa mesa);
     }
 }

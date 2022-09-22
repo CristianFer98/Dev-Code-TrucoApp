@@ -9,8 +9,7 @@ namespace Servicios.Interfaces
 {
     public interface IMesaServicio
     {
-
         public List<Mesa> ObtenerMesasDisponibles();
-
+        public void GuardarMesa(Mesa mesa);
     }
 }
