@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { BotonCrearMesa } from ".//BotonCrearMesa";
 import { MesaDisponibleCard } from "./MesaDisponibleCard";
@@ -8,12 +8,38 @@ import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
 
 export const MesasDisponibles = () => {
-  const history = useHistory();
+  // const history = useHistory();
 
   const handleVolverInicio = (e) => {
     e.preventDefault();
     history.push("/inicio");
   };
+
+  const [mesas, setMesas] = useState([]);
+
+  const obtenerMesasDisponibles = async () => {
+    const resp = await fetch(
+      "https://localhost:44342/api/Mesas/obtenertodaslasmesas",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (resp.ok) {
+      const data = await resp.json();
+      setMesas(data);
+      // console.log(data);
+    } else {
+      console.log("Status code: " + resp.status);
+    }
+  };
+
+  useEffect(() => {
+    obtenerMesasDisponibles();
+  }, []);
 
   return (
     <div style={{ display: "flex", width: "100%" }}>
@@ -49,12 +75,9 @@ export const MesasDisponibles = () => {
             }}
           >
             <BotonCrearMesa />
-                      <MesaDisponibleCard />
-                      <MesaDisponibleCard />
-                      <MesaDisponibleCard />
-                      <MesaDisponibleCard />
-                      <MesaDisponibleCard />
-
+            {mesas.map((mesa) => (
+              <MesaDisponibleCard key={mesa.idMesa} />
+            ))}
           </div>
         </div>
       </div>
