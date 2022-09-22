@@ -6,7 +6,7 @@ export const MesaDisponibleCard = () => {
   const history = useHistory();
 
   const handleJugar = async () => {
-    // history.push("/juego");
+     history.push("/juego");
 
     const resp = await fetch(
       "https://localhost:44342/api/Mesas/obtenertodaslasmesas",
