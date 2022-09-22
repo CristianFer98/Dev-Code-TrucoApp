@@ -31,7 +31,6 @@ export const MesasDisponibles = () => {
     if (resp.ok) {
       const data = await resp.json();
       setMesas(data);
-      // console.log(data);
     } else {
       console.log("Status code: " + resp.status);
     }
@@ -74,9 +73,10 @@ export const MesasDisponibles = () => {
               marginTop: "0px",
             }}
           >
-            <BotonCrearMesa />
+            <BotonCrearMesa obtenerMesasDisponibles={obtenerMesasDisponibles} />
+
             {mesas.map((mesa) => (
-              <MesaDisponibleCard key={mesa.idMesa} />
+              <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
             ))}
           </div>
         </div>

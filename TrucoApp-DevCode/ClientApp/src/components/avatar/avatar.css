@@ -5,8 +5,7 @@
 
 .componente-avatar{
     width: 100%;
-    min-height: 100%;
-    height: auto !important;
+    height: 100vh;
     background-color: #d9d9d9;
     display:flex;
     flex-direction:column;
@@ -232,7 +231,7 @@
 }
 
 .brazo-izq {
-    margin-right: 50px;
+    margin-right: 70px;
     /*transform: translateX(50px);
     transform: rotate(40deg) translateY(50px);*/
     transform: rotate(45deg);
@@ -240,7 +239,7 @@
 }
 
 .brazo-der {
-    margin-left: 50px;
+    margin-left: 70px;
     /*transform: translateX(50px);
     transform: rotate(-40deg) translateY(50px);*/
     transform: rotate(-45deg);
