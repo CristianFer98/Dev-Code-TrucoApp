@@ -24,5 +24,13 @@ namespace Repositorios
             return _dbContext.Mesas.ToList();
 
         }
+
+        public void GuardarMesa(Mesa mesa)
+        {
+            _dbContext.Mesas.Add(mesa);
+            _dbContext.SaveChanges();
+        }
+
+
     }
 }

@@ -38,5 +38,24 @@ namespace Router.Controllers
 
         }
 
+        [HttpPost]
+        [Route("Guardar")]
+        public ActionResult Post([FromBody] Mesa mesa)
+        {
+
+            try
+            {
+
+                _mesaServicio.GuardarMesa(mesa);
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
     }
 }
