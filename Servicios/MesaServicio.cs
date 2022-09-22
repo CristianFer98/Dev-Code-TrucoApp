@@ -19,9 +19,14 @@ namespace Servicios
             _mesaRepositorio = mesaRepositorio;
         }
 
+
         public List<Mesa> ObtenerMesasDisponibles()
         {
             return _mesaRepositorio.ObtenerMesasDisponibles();
+        }
+        public void GuardarMesa(Mesa mesa)
+        {
+            _mesaRepositorio.GuardarMesa(mesa);
         }
     }
 }
