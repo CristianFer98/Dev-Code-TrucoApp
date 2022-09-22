@@ -1,32 +1,11 @@
 import React from 'react';
 import './nosotros.css';
 import perfil from './../../assets/no-foto.jpg';
-import students from './../../assets/students.jpg';
 
 export function Nosotros() {
   return (
     <>
       <div className="nosotros-container container-fluid text-center">
-        <div className="row">
-          <div className="col">
-            <div
-              id="carouselExampleSlidesOnly"
-              className="carousel slide"
-              data-bs-ride="carousel"
-            >
-              <div className="carousel-inner">
-                <div className="carousel-item active">
-                  <img
-                    id="img-students"
-                    src={students}
-                    className="d-block w-100"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="row">
           <div className="col-12 col-md-6 col-xl-4">
             <div className="card m-5 p-2">
