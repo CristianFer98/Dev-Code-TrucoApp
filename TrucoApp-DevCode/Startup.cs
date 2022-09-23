@@ -81,11 +81,12 @@ namespace Router
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<MesasHub>("/mesashub");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
 
-                endpoints.MapHub<MesasHub>("/mesashub");
             });
 
             app.UseSpa(spa =>

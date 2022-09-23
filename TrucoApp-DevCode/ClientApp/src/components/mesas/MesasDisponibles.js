@@ -6,16 +6,36 @@ import "./mesasDisponibles.css";
 import { ChatGeneral } from "../inicio/chat/ChatGeneral";
 import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 
 export const MesasDisponibles = () => {
   const history = useHistory();
+  const [mesas, setMesas] = useState([]);
+  const [connection, setConnection] = useState();
 
   const handleVolverInicio = (e) => {
     e.preventDefault();
     history.push("/inicio");
   };
 
-  const [mesas, setMesas] = useState([]);
+  const iniciarConexion = async () => {
+    try {
+      const connection = new HubConnectionBuilder()
+        .withUrl("https://localhost:44342/mesashub")
+        .configureLogging(LogLevel.Information)
+        .build();
+
+      connection.on("ReceiveConnection", (message) => {
+        console.log(message);
+      });
+
+      await connection.start();
+      await connection.invoke("ConnectionSuccess");
+      setConnection(connection);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const obtenerMesasDisponibles = async () => {
     const resp = await fetch(
@@ -38,6 +58,7 @@ export const MesasDisponibles = () => {
 
   useEffect(() => {
     obtenerMesasDisponibles();
+    iniciarConexion();
   }, []);
 
   return (
