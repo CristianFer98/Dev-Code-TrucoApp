@@ -9,20 +9,7 @@ export const MesaDisponibleCard = ({ mesa }) => {
   const usuario = Usuarios.find((usuario) => usuario.uid === jugadorUno);
 
   const handleJugar = async () => {
-     history.push("/juego");
-
-    const resp = await fetch(
-      "https://localhost:44342/api/Mesas/obtenertodaslasmesas",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const body = await resp.json();
-    console.log(body);
+    history.push("/juego");
   };
 
   return (
