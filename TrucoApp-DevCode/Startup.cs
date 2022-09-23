@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Repositorios;
 using Repositorios.Interfaces;
+using Router.Hubs;
 using Servicios;
 using Servicios.Interfaces;
 
@@ -28,6 +29,8 @@ namespace Router
         {
 
             services.AddControllersWithViews();
+
+            services.AddSignalR();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -81,6 +84,8 @@ namespace Router
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+
+                endpoints.MapHub<MesasHub>("/mesashub");
             });
 
             app.UseSpa(spa =>
