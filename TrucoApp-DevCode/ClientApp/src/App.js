@@ -1,13 +1,16 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { AppRouter } from './routers/AppRouter';
-import { store } from './store/store';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import React from "react";
+import { Provider } from "react-redux";
+import { AppRouter } from "./routers/AppRouter";
+import { store } from "./store/store";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import { SocketProvider } from "./context/SocketContext";
 
 export const App = () => {
   return (
     <Provider store={store}>
-      <AppRouter />
+      <SocketProvider>
+        <AppRouter />
+      </SocketProvider>
     </Provider>
   );
 };
