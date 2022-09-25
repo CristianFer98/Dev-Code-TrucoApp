@@ -1,8 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useContext } from "react";
+import { SocketContext } from "../../context/SocketContext";
+import Swal from "sweetalert2";
 
 export const BotonCrearMesa = ({ obtenerMesasDisponibles }) => {
   const { uid } = useSelector((state) => state.auth);
+  const { connection } = useContext(SocketContext);
 
   const handleCrearMesa = async (e) => {
     e.preventDefault();
@@ -22,7 +26,8 @@ export const BotonCrearMesa = ({ obtenerMesasDisponibles }) => {
     });
 
     if (resp.ok) {
-      console.log("Mesa creada");
+      await connection.invoke("CrearMesa");
+      Swal.fire("Se creó la mesa", "", "success");
       obtenerMesasDisponibles();
     }
   };
