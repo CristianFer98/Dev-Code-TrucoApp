@@ -9,10 +9,9 @@ namespace Router.Hubs
     public class MesasHub : Hub
     {
 
-
         public async Task CrearMesa()
         {
-            await Clients.All.SendAsync("MesaCreada", "Se creó una mesa");
+            await Clients.All.SendAsync("MesaCreada");
         }
 
     }

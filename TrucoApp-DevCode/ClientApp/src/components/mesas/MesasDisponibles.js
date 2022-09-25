@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { BotonCrearMesa } from ".//BotonCrearMesa";
 import { MesaDisponibleCard } from "./MesaDisponibleCard";
@@ -6,10 +6,12 @@ import "./mesasDisponibles.css";
 import { ChatGeneral } from "../inicio/chat/ChatGeneral";
 import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
+import { SocketContext } from "../../context/SocketContext";
 
 export const MesasDisponibles = () => {
   const history = useHistory();
   const [mesas, setMesas] = useState([]);
+  const { connection } = useContext(SocketContext);
 
   const obtenerMesasDisponibles = async () => {
     const resp = await fetch(
@@ -33,6 +35,12 @@ export const MesasDisponibles = () => {
   useEffect(() => {
     obtenerMesasDisponibles();
   }, []);
+
+  useEffect(() => {
+    connection.on("MesaCreada", () => {
+      obtenerMesasDisponibles();
+    });
+  }, [connection]);
 
   const handleVolverInicio = async (e) => {
     e.preventDefault();
