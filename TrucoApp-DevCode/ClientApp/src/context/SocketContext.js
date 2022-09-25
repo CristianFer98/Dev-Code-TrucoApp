@@ -17,9 +17,9 @@ export const SocketProvider = ({ children }) => {
       .configureLogging(LogLevel.Information)
       .build();
 
-    connection.on("MesaCreada", (message) => {
-      console.log(message);
-    });
+    // connection.on("MesaCreada", (message) => {
+    //   console.log(message);
+    // });
 
     await connection.start();
     setConnection(connection);
