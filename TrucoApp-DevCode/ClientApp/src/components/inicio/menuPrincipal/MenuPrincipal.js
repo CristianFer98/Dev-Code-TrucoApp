@@ -1,18 +1,14 @@
 import React from "react";
 
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { jugar } from "../../../actions/auth";
 import "./menuPrincipal.css";
 
 const MenuPrincipal = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const handleJugar = (e) => {
     e.preventDefault();
-    dispatch(jugar());
     history.push("/inicio/mesas");
   };
   return (
@@ -23,19 +19,19 @@ const MenuPrincipal = () => {
         </span>
       </button>
 
-      <button onClick={handleJugar} className="boton" id="dosvsdos">
+      <button className="boton" id="dosvsdos">
         <span className="text">
           <h4>Dos VS Dos</h4>
         </span>
       </button>
 
-      <button onClick={handleJugar} className="boton" id="tresvstres">
+      <button className="boton" id="tresvstres">
         <span className="text">
           <h4>Tres VS Tres</h4>
         </span>
       </button>
 
-      <button onClick={handleJugar} className="boton" id="unovsmaquina">
+      <button className="boton" id="unovsmaquina">
         <span className="text">
           <h4>Uno vs Maquina</h4>
         </span>

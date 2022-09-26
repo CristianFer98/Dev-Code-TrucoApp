@@ -7,9 +7,14 @@ import { ChatGeneral } from "../inicio/chat/ChatGeneral";
 import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
 import { SocketContext } from "../../context/SocketContext";
+import { useDispatch, useSelector } from "react-redux";
+import { jugar } from "../../actions/auth";
 
 export const MesasDisponibles = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const { uid } = useSelector((state) => state.auth);
   const [mesas, setMesas] = useState([]);
   const { connection } = useContext(SocketContext);
 
@@ -38,6 +43,18 @@ export const MesasDisponibles = () => {
 
   useEffect(() => {
     connection.on("MesaCreada", () => {
+      obtenerMesasDisponibles();
+    });
+
+    connection.on("MesaOcupada", (jugadores) => {
+      const { jugadorUno, jugadorDos } = jugadores;
+
+      if (jugadorUno === uid || jugadorDos === uid) {
+        history.push("/juego");
+        dispatch(jugar());
+        console.log("Hola");
+      }
+
       obtenerMesasDisponibles();
     });
   }, [connection]);
