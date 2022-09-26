@@ -20,9 +20,7 @@ namespace Repositorios
 
         public List<Mesa> ObtenerMesasDisponibles()
         {
-
-            return _dbContext.Mesas.ToList();
-
+            return _dbContext.Mesas.Where(m => m.Estado == "Disponible").ToList();
         }
 
         public void GuardarMesa(Mesa mesa)
@@ -31,6 +29,14 @@ namespace Repositorios
             _dbContext.SaveChanges();
         }
 
+        public void EntrarAJugarAMesa(int idMesa, int idJugador)
+        {
+            Mesa mesa = _dbContext.Mesas.Where(m => m.IdMesa == idMesa).First();
+            mesa.JugadorDos = idJugador;
+            mesa.Estado = "Ocupada";
 
+            _dbContext.SaveChanges();
+
+        }
     }
 }
