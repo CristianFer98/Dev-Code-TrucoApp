@@ -11,5 +11,6 @@ namespace Repositorios.Interfaces
     {
         public List<Mesa> ObtenerMesasDisponibles();
         public void GuardarMesa(Mesa mesa);
+        public void EntrarAJugarAMesa(int idMesa, int idJugador);
     }
 }

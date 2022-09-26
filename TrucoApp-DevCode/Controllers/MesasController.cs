@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Servicios.Interfaces;
 using Entidades;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Router.Controllers
 {
@@ -55,6 +57,26 @@ namespace Router.Controllers
                 return BadRequest(ex.Message);
 
             }
+        }
+
+        [HttpPut]
+        [Route("EntrarAJugar/{idMesa:int}")]
+        //public ActionResult Put(int idMesa)
+        public ActionResult Put(int idMesa, [FromBody] int idJugador)
+        {
+
+            try
+            {
+                _mesaServicio.EntrarAJugarAMesa(idMesa, idJugador);
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
         }
 
     }

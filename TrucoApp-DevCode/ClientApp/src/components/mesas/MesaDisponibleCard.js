@@ -1,15 +1,35 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import Swal from "sweetalert2";
 import img from "../../assets/no-foto.jpg";
 
 export const MesaDisponibleCard = ({ mesa }) => {
   const history = useHistory();
+  const { uid } = useSelector((state) => state.auth);
   const { Usuarios } = require("../../usuarios.json");
-  const { jugadorUno, tipo } = mesa;
+  const { idMesa, jugadorUno, tipo } = mesa;
   const usuario = Usuarios.find((usuario) => usuario.uid === jugadorUno);
 
-  const handleJugar = async () => {
-    history.push("/juego");
+  const handleJugar = async (e) => {
+    e.preventDefault();
+    // history.push("/juego");
+
+    const idJugador = uid;
+    const resp = await fetch(
+      `https://localhost:44342/api/Mesas/EntrarAJugar/${idMesa}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: idJugador,
+      }
+    );
+
+    if (resp.ok) {
+      Swal.fire("Entraste a jugar a la mesa", "", "success");
+    }
   };
 
   return (
