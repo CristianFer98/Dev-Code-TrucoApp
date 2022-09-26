@@ -40,6 +40,10 @@ export const MesasDisponibles = () => {
     connection.on("MesaCreada", () => {
       obtenerMesasDisponibles();
     });
+
+    connection.on("MesaOcupada", () => {
+      obtenerMesasDisponibles();
+    });
   }, [connection]);
 
   const handleVolverInicio = async (e) => {

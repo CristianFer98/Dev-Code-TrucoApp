@@ -14,5 +14,10 @@ namespace Router.Hubs
             await Clients.All.SendAsync("MesaCreada");
         }
 
+        public async Task OcuparMesa()
+        {
+            await Clients.All.SendAsync("MesaOcupada");
+        }
+
     }
 }

@@ -8,6 +8,7 @@ using Servicios.Interfaces;
 using Entidades;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Router.Hubs;
 
 namespace Router.Controllers
 {

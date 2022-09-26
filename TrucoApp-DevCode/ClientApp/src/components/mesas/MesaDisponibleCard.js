@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Swal from "sweetalert2";
 import img from "../../assets/no-foto.jpg";
+import { SocketContext } from "../../context/SocketContext";
 
 export const MesaDisponibleCard = ({ mesa }) => {
   const history = useHistory();
@@ -10,6 +11,7 @@ export const MesaDisponibleCard = ({ mesa }) => {
   const { Usuarios } = require("../../usuarios.json");
   const { idMesa, jugadorUno, tipo } = mesa;
   const usuario = Usuarios.find((usuario) => usuario.uid === jugadorUno);
+  const { connection } = useContext(SocketContext);
 
   const handleJugar = async (e) => {
     e.preventDefault();
@@ -28,6 +30,7 @@ export const MesaDisponibleCard = ({ mesa }) => {
     );
 
     if (resp.ok) {
+      await connection.invoke("OcuparMesa");
       Swal.fire("Entraste a jugar a la mesa", "", "success");
     }
   };
