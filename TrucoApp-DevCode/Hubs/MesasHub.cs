@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Entidades;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace Router.Hubs
             await Clients.All.SendAsync("MesaCreada");
         }
 
-        public async Task OcuparMesa()
+        public async Task OcuparMesa(JugadoresMesa1vs1 jugadores)
         {
-            await Clients.All.SendAsync("MesaOcupada");
+            await Clients.All.SendAsync("MesaOcupada", jugadores);
         }
 
     }

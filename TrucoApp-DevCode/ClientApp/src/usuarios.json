@@ -5,6 +5,12 @@
       "nombre": "Ivan Kek",
       "email": "ivan.kek@hotmail.com",
       "password": "1234"
+    },
+    {
+      "uid": 2,
+      "nombre": "Lionel Messi",
+      "email": "lio.messi@hotmail.com",
+      "password": "1234"
     }
   ]
 }
