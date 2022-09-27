@@ -49,6 +49,8 @@ export const MesasDisponibles = () => {
     connection.on("MesaOcupada", (jugadores) => {
       const { jugadorUno, jugadorDos } = jugadores;
 
+      console.log(jugadores);
+
       if (jugadorUno === uid || jugadorDos === uid) {
         dispatch(jugar());
         history.push("/juego");
