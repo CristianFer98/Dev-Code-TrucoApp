@@ -92,12 +92,20 @@ namespace Servicios.Juego
             return Partidas.Where(p => p.Room == room).FirstOrDefault();
         }
 
-        public static void ActualizarPartida(Partida partida)
+        public static void ActualizarPartida(Jugada jugada)
         {
-            BuscarPartidaPorMesa(partida.Room).CartasJugadorUno = partida.CartasJugadorUno;
-            BuscarPartidaPorMesa(partida.Room).CartasJugadorDos = partida.CartasJugadorDos;
-            BuscarPartidaPorMesa(partida.Room).CartasJugadasJugadorUno = partida.CartasJugadasJugadorUno;
-            BuscarPartidaPorMesa(partida.Room).CartasJugadasJugadorDos = partida.CartasJugadasJugadorDos;
+            if (jugada.Turno == 1)
+            {
+                BuscarPartidaPorMesa(jugada.Room).CartasJugadasJugadorUno.Add(jugada.CartaJugada);
+                BuscarPartidaPorMesa(jugada.Room).CartasJugadorUno.Remove(jugada.CartaJugada);
+                BuscarPartidaPorMesa(jugada.Room).Turno = 2;
+            }
+            else if (jugada.Turno == 2)
+            {
+                BuscarPartidaPorMesa(jugada.Room).CartasJugadasJugadorDos.Add(jugada.CartaJugada);
+                BuscarPartidaPorMesa(jugada.Room).CartasJugadasJugadorDos.Remove(jugada.CartaJugada);
+                BuscarPartidaPorMesa(jugada.Room).Turno = 1;
+            }
         }
 
     }

@@ -6,15 +6,18 @@ const imagenCarta = require.context("../../assets/cartas", true);
 export const CartaJugador = ({ carta }) => {
   const { partida } = useSelector((state) => state.juego);
   const { uid } = useSelector((state) => state.auth);
-  const { turno, jugadorUno, jugadorDos } = partida;
+  const { room, turno, jugadorUno, jugadorDos } = partida;
   const { connection } = useContext(SocketContext);
 
-  const handleJugarCarta = (e) => {
-    //   await connection.invoke("JoinRoom", jugadores);
+  const handleJugarCarta = async (e) => {
+    e.preventDefault();
+    const jugada = { Room: room, Turno: turno, CartaJugada: carta };
+    await connection.invoke("TirarCarta", jugada);
   };
 
   return (
     <div
+      onClick={handleJugarCarta}
       className={
         uid === jugadorUno
           ? turno === 1

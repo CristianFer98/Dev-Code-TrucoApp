@@ -15,7 +15,6 @@ namespace Servicios.Juego
         public List<Carta> CartasJugadorDos { get; set; }
         public List<Carta> CartasJugadasJugadorUno { get; set; }
         public List<Carta> CartasJugadasJugadorDos { get; set; }
-
         public int Turno { get; set; }
 
     }

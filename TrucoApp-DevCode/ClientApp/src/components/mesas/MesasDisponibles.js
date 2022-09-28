@@ -66,12 +66,21 @@ export const MesasDisponibles = () => {
       const {
         cartasJugadorUno,
         cartasJugadorDos,
+        cartasJugadasJugadorUno,
+        cartasJugadasJugadorDos,
         jugadorUno,
         jugadorDos,
         room,
         turno,
       } = juego;
-      const partida = { jugadorUno, jugadorDos, room, turno };
+      const partida = {
+        jugadorUno,
+        jugadorDos,
+        cartasJugadasJugadorUno,
+        cartasJugadasJugadorDos,
+        room,
+        turno,
+      };
 
       dispatch(jugar());
       if (jugadorUno === uid) {

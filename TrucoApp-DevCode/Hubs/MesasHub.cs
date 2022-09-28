@@ -44,5 +44,13 @@ namespace Router.Hubs
             await Clients.Group(userRoom).SendAsync("EmpezarJuego", partida);
         }
 
+        public async Task TirarCarta(Jugada jugada)
+        {
+            string userRoom = Convert.ToString(jugada.Room);
+            JuegoServicio.ActualizarPartida(jugada);
+            Partida partidaActualizada = JuegoServicio.BuscarPartidaPorMesa(jugada.Room);
+            await Clients.Group(userRoom).SendAsync("CartaTirada", partidaActualizada);
+        }
+
     }
 }
