@@ -28,7 +28,7 @@ export const BotonCrearMesa = ({ obtenerMesasDisponibles }) => {
     if (resp.ok) {
       await connection.invoke("CrearMesa");
       Swal.fire("Se creó la mesa", "", "success");
-      obtenerMesasDisponibles();
+      // obtenerMesasDisponibles();
     }
   };
 

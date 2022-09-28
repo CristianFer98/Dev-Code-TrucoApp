@@ -18,13 +18,16 @@ namespace Router.Hubs
 
         public async Task OcuparMesa(JugadoresMesa1vs1 jugadores)
         {
+            jugadores.CartasRepartidas = JuegoServicio.RepartirCartas();
+            jugadores.Turno = JuegoServicio.AsignarTurno();
+            await Clients.All.SendAsync("MesaOcupada", jugadores);
+        }
 
-            JugadoresMesa1vs1 jugadoresYCartas = new JugadoresMesa1vs1();
-            jugadoresYCartas.JugadorUno = jugadores.JugadorUno;
-            jugadoresYCartas.JugadorDos = jugadores.JugadorDos;
-            jugadoresYCartas.CartasRepartidas = JuegoServicio.RepartirCartas();
-
-            await Clients.All.SendAsync("MesaOcupada", jugadoresYCartas);
+        public async Task JoinRoom(JugadoresMesa1vs1 jugadores)
+        {
+            string userRoom = Convert.ToString(jugadores.Room);
+            await Groups.AddToGroupAsync(Context.ConnectionId, userRoom);
+            await Clients.Group(userRoom).SendAsync("EmpezarJuego", jugadores);
         }
 
     }

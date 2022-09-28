@@ -8,9 +8,11 @@ namespace Router.Hubs
 {
     public class JugadoresMesa1vs1
     {
+        public int Room { get; set; }
         public int JugadorUno { get; set; }
         public int JugadorDos { get; set; }
         public List<Carta> CartasRepartidas { get; set; }
+        public int Turno { get; set; }
 
     }
 

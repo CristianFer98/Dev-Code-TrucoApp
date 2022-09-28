@@ -56,12 +56,12 @@ namespace Servicios.Juego
 
         public static List<Carta> RepartirCartas()
         {
-            List<Carta> CartasRepartidas = new List<Carta>();
-            List<int> Numeros = new List<int>();
+            List<Carta> CartasRepartidas = new();
+            List<int> Numeros = new();
 
             for (int i = 0; Numeros.Count < 6; i++)
             {
-                Random Objeto = new Random();
+                Random Objeto = new();
                 int RandomNumero = Objeto.Next(0, 40);
 
                 if (!Numeros.Contains(RandomNumero))
@@ -70,9 +70,15 @@ namespace Servicios.Juego
                     CartasRepartidas.Add(Mazo[RandomNumero]);
                 }
             }
-
             return CartasRepartidas;
+        }
 
+        public static int AsignarTurno()
+        {
+            Random Objeto = new();
+            int RandomNumero = Objeto.Next(1, 3);
+
+            return RandomNumero;
         }
 
     }

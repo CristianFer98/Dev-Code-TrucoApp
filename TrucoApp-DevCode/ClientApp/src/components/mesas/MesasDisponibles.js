@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import { SocketContext } from "../../context/SocketContext";
 import { useDispatch, useSelector } from "react-redux";
 import { jugar } from "../../actions/auth";
+import { repartirCartas } from "../../actions/juego";
 
 export const MesasDisponibles = () => {
   const history = useHistory();
@@ -37,6 +38,10 @@ export const MesasDisponibles = () => {
     }
   };
 
+  const joinRoom = async (jugadores) => {
+    await connection.invoke("JoinRoom", jugadores);
+  };
+
   useEffect(() => {
     obtenerMesasDisponibles();
   }, []);
@@ -49,15 +54,45 @@ export const MesasDisponibles = () => {
     connection.on("MesaOcupada", (jugadores) => {
       const { jugadorUno, jugadorDos } = jugadores;
 
-      console.log(jugadores);
-
       if (jugadorUno === uid || jugadorDos === uid) {
-        dispatch(jugar());
-        history.push("/juego");
+        joinRoom(jugadores);
       }
 
       obtenerMesasDisponibles();
       connection.off("MesaOcupada");
+    });
+
+    connection.on("EmpezarJuego", (juego) => {
+      const { cartasRepartidas, jugadorUno, jugadorDos, room, turno } = juego;
+      const partida = { jugadorUno, jugadorDos, room, turno };
+
+      dispatch(jugar());
+      if (jugadorUno === uid) {
+        dispatch(
+          repartirCartas({
+            ...partida,
+            cartas: [
+              cartasRepartidas[0],
+              cartasRepartidas[2],
+              cartasRepartidas[4],
+            ],
+          })
+        );
+      } else if (jugadorDos === uid) {
+        dispatch(
+          repartirCartas({
+            ...partida,
+            cartas: [
+              cartasRepartidas[1],
+              cartasRepartidas[3],
+              cartasRepartidas[5],
+            ],
+          })
+        );
+      }
+      history.push("/juego");
+      connection.off("EmpezarJuego");
+      // obtenerMesasDisponibles();
     });
   }, [connection]);
 
