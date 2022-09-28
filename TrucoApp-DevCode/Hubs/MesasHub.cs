@@ -19,6 +19,7 @@ namespace Router.Hubs
         public async Task OcuparMesa(JugadoresMesa1vs1 jugadores)
         {
             jugadores.CartasRepartidas = JuegoServicio.RepartirCartas();
+            jugadores.Turno = JuegoServicio.AsignarTurno();
             await Clients.All.SendAsync("MesaOcupada", jugadores);
         }
 

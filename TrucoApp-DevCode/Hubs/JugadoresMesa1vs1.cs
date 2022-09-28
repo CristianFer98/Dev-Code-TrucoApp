@@ -12,6 +12,7 @@ namespace Router.Hubs
         public int JugadorUno { get; set; }
         public int JugadorDos { get; set; }
         public List<Carta> CartasRepartidas { get; set; }
+        public int Turno { get; set; }
 
     }
 

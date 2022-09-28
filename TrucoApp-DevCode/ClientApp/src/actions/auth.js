@@ -34,10 +34,9 @@ const login = (uid, email, password) => ({
   },
 });
 
-export const jugar = (room) => ({
+export const jugar = () => ({
   type: types.authJugar,
   payload: {
     jugando: true,
-    mesa: room,
   },
 });

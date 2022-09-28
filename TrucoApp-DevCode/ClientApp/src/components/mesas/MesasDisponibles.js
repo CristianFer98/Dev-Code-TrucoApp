@@ -63,26 +63,32 @@ export const MesasDisponibles = () => {
     });
 
     connection.on("EmpezarJuego", (juego) => {
-      const { cartasRepartidas, jugadorUno, jugadorDos, room } = juego;
-      const cartasJugadorUno = [
-        cartasRepartidas[0],
-        cartasRepartidas[2],
-        cartasRepartidas[4],
-      ];
-      const cartasJugadorDos = [
-        cartasRepartidas[1],
-        cartasRepartidas[3],
-        cartasRepartidas[5],
-      ];
+      const { cartasRepartidas, jugadorUno, jugadorDos, room, turno } = juego;
+      const partida = { jugadorUno, jugadorDos, room, turno };
 
-      // console.log(juego);
-      dispatch(jugar(room));
+      dispatch(jugar());
       if (jugadorUno === uid) {
-        console.log(cartasJugadorUno);
-        dispatch(repartirCartas(cartasJugadorUno));
+        dispatch(
+          repartirCartas({
+            ...partida,
+            cartas: [
+              cartasRepartidas[0],
+              cartasRepartidas[2],
+              cartasRepartidas[4],
+            ],
+          })
+        );
       } else if (jugadorDos === uid) {
-        console.log(cartasJugadorDos);
-        dispatch(repartirCartas(cartasJugadorDos));
+        dispatch(
+          repartirCartas({
+            ...partida,
+            cartas: [
+              cartasRepartidas[1],
+              cartasRepartidas[3],
+              cartasRepartidas[5],
+            ],
+          })
+        );
       }
       history.push("/juego");
       connection.off("EmpezarJuego");

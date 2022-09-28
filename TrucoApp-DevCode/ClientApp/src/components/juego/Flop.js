@@ -11,15 +11,15 @@ export const Flop = () => {
       <div className="w-100 d-flex flex-column align-items-center">
         <div className="divFlop h-100">
           <div className="d-flex h-50 mb-2">
+            {/* <CartaMesa />
             <CartaMesa />
-            <CartaMesa />
-            <CartaMesa />
+            <CartaMesa /> */}
           </div>
 
           <div className="d-flex h-50">
+            {/* <CartaMesa />
             <CartaMesa />
-            <CartaMesa />
-            <CartaMesa />
+            <CartaMesa /> */}
           </div>
         </div>
       </div>

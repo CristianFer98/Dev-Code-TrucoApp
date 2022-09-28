@@ -1,8 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import noFoto from "../../assets/no-foto.jpg";
 import { CartaJugador } from "./CartaJugador";
 
 export const Jugador = () => {
+  const { partida } = useSelector((state) => state.juego);
+  const { cartas } = partida;
+
   return (
     <div className="divPlayer2 d-flex flex-column">
       <div className="w-100 player2 d-flex justify-content-center">
@@ -19,9 +23,9 @@ export const Jugador = () => {
         </div>
 
         <div className="d-flex divCardsPlayer">
-          <CartaJugador />
-          <CartaJugador />
-          <CartaJugador />
+          {cartas.map((carta) => (
+            <CartaJugador key={carta.id} carta={carta} />
+          ))}
         </div>
       </div>
     </div>
