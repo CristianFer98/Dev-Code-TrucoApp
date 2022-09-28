@@ -26,8 +26,9 @@ export const MesaDisponibleCard = ({ mesa }) => {
     );
 
     if (resp.ok) {
+      const room = idMesa;
       const jugadorDos = uid;
-      await connection.invoke("OcuparMesa", { jugadorUno, jugadorDos });
+      await connection.invoke("OcuparMesa", { room, jugadorUno, jugadorDos });
     }
   };
 
