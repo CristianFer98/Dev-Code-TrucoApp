@@ -16,18 +16,32 @@ namespace Router.Hubs
             await Clients.All.SendAsync("MesaCreada");
         }
 
-        public async Task OcuparMesa(JugadoresMesa1vs1 jugadores)
+        public async Task OcuparMesa(Partida partida)
         {
-            jugadores.CartasRepartidas = JuegoServicio.RepartirCartas();
-            jugadores.Turno = JuegoServicio.AsignarTurno();
-            await Clients.All.SendAsync("MesaOcupada", jugadores);
+            List<Carta> CartasRepartidas = JuegoServicio.RepartirCartas();
+            partida.CartasJugadorUno = new List<Carta>()
+            {
+                CartasRepartidas[0],
+                CartasRepartidas[2],
+                CartasRepartidas[4],
+            };
+            partida.CartasJugadorDos = new List<Carta>()
+            {
+                CartasRepartidas[1],
+                CartasRepartidas[3],
+                CartasRepartidas[5],
+            };
+
+            partida.Turno = JuegoServicio.AsignarTurno();
+            await Clients.All.SendAsync("MesaOcupada", partida);
         }
 
-        public async Task JoinRoom(JugadoresMesa1vs1 jugadores)
+        public async Task JoinRoom(Partida partida)
         {
-            string userRoom = Convert.ToString(jugadores.Room);
+            string userRoom = Convert.ToString(partida.Room);
             await Groups.AddToGroupAsync(Context.ConnectionId, userRoom);
-            await Clients.Group(userRoom).SendAsync("EmpezarJuego", jugadores);
+            JuegoServicio.AgregarPartida(partida);
+            await Clients.Group(userRoom).SendAsync("EmpezarJuego", partida);
         }
 
     }

@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
+import { SocketContext } from "../../context/SocketContext";
 const imagenCarta = require.context("../../assets/cartas", true);
 
 export const CartaJugador = ({ carta }) => {
   const { partida } = useSelector((state) => state.juego);
   const { uid } = useSelector((state) => state.auth);
   const { turno, jugadorUno, jugadorDos } = partida;
+  const { connection } = useContext(SocketContext);
+
+  const handleJugarCarta = (e) => {
+    //   await connection.invoke("JoinRoom", jugadores);
+  };
 
   return (
     <div

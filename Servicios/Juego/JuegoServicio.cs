@@ -9,6 +9,7 @@ namespace Servicios.Juego
     public class JuegoServicio
     {
 
+        public static List<Partida> Partidas { get; set; } = new();
         public static List<Carta> Mazo { get; set; } = new List<Carta>()
         {
             new Carta(1, 1, "Espada", 1, 1, "./Espada/1Espada.png"),
@@ -79,6 +80,24 @@ namespace Servicios.Juego
             int RandomNumero = Objeto.Next(1, 3);
 
             return RandomNumero;
+        }
+
+        public static void AgregarPartida(Partida partida)
+        {
+            Partidas.Add(partida);
+        }
+
+        public static Partida BuscarPartidaPorMesa(int room)
+        {
+            return Partidas.Where(p => p.Room == room).FirstOrDefault();
+        }
+
+        public static void ActualizarPartida(Partida partida)
+        {
+            BuscarPartidaPorMesa(partida.Room).CartasJugadorUno = partida.CartasJugadorUno;
+            BuscarPartidaPorMesa(partida.Room).CartasJugadorDos = partida.CartasJugadorDos;
+            BuscarPartidaPorMesa(partida.Room).CartasJugadasJugadorUno = partida.CartasJugadasJugadorUno;
+            BuscarPartidaPorMesa(partida.Room).CartasJugadasJugadorDos = partida.CartasJugadasJugadorDos;
         }
 
     }

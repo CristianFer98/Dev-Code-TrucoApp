@@ -7,8 +7,6 @@ export const juegoReducer = (state = initialState, action) => {
     case types.juegoRepartirCartas:
       return {
         ...state,
-        cartasJugadasRival: [],
-        cartasJugadasJugador: [],
         ...action.payload,
       };
 
