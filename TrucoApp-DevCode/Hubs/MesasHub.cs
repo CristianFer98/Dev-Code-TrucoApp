@@ -13,7 +13,7 @@ namespace Router.Hubs
 
         public async Task CrearMesa()
         {
-            await Clients.All.SendAsync("MesaCreada");
+            await Clients.All.SendAsync("MesasActualizadas");
         }
 
         public async Task OcuparMesa(Partida partida)
@@ -33,6 +33,7 @@ namespace Router.Hubs
             };
 
             partida.Turno = JuegoServicio.AsignarTurno();
+            await Clients.All.SendAsync("MesasActualizadas");
             await Clients.All.SendAsync("MesaOcupada", partida);
         }
 

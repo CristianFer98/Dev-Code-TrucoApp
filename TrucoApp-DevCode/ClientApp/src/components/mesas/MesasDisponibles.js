@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router";
 import { BotonCrearMesa } from ".//BotonCrearMesa";
 import { MesaDisponibleCard } from "./MesaDisponibleCard";
@@ -8,101 +8,10 @@ import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
 import { SocketContext } from "../../context/SocketContext";
 import { useDispatch, useSelector } from "react-redux";
-import { jugar } from "../../actions/auth";
-import { repartirCartas } from "../../actions/juego";
 
 export const MesasDisponibles = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-
-  const { uid } = useSelector((state) => state.auth);
-  const [mesas, setMesas] = useState([]);
-  const { connection } = useContext(SocketContext);
-
-  const obtenerMesasDisponibles = async () => {
-    const resp = await fetch(
-      "https://localhost:44342/api/Mesas/obtenertodaslasmesas",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (resp.ok) {
-      const data = await resp.json();
-      setMesas(data);
-    } else {
-      console.log("Status code: " + resp.status);
-    }
-  };
-
-  const joinRoom = async (jugadores) => {
-    await connection.invoke("JoinRoom", jugadores);
-  };
-
-  useEffect(() => {
-    obtenerMesasDisponibles();
-  }, []);
-
-  useEffect(() => {
-    connection.on("MesaCreada", () => {
-      obtenerMesasDisponibles();
-    });
-
-    connection.on("MesaOcupada", (jugadores) => {
-      const { jugadorUno, jugadorDos } = jugadores;
-
-      if (jugadorUno === uid || jugadorDos === uid) {
-        joinRoom(jugadores);
-      }
-
-      obtenerMesasDisponibles();
-      connection.off("MesaOcupada");
-    });
-
-    connection.on("EmpezarJuego", (juego) => {
-      const {
-        cartasJugadorUno,
-        cartasJugadorDos,
-        cartasJugadasJugadorUno,
-        cartasJugadasJugadorDos,
-        jugadorUno,
-        jugadorDos,
-        room,
-        turno,
-      } = juego;
-      const partida = {
-        jugadorUno,
-        jugadorDos,
-        cartasJugadasJugadorUno,
-        cartasJugadasJugadorDos,
-        room,
-        turno,
-      };
-
-      dispatch(jugar());
-      if (jugadorUno === uid) {
-        dispatch(
-          repartirCartas({
-            ...partida,
-            cartas: cartasJugadorUno,
-          })
-        );
-      } else if (jugadorDos === uid) {
-        dispatch(
-          repartirCartas({
-            ...partida,
-            cartas: cartasJugadorDos,
-          })
-        );
-      }
-      history.push("/juego");
-      connection.off("EmpezarJuego");
-      // obtenerMesasDisponibles();
-    });
-  }, [connection]);
+  const { mesas1vs1 } = useSelector((state) => state.mesas);
 
   const handleVolverInicio = async (e) => {
     e.preventDefault();
@@ -142,9 +51,9 @@ export const MesasDisponibles = () => {
               marginTop: "0px",
             }}
           >
-            <BotonCrearMesa obtenerMesasDisponibles={obtenerMesasDisponibles} />
+            <BotonCrearMesa />
 
-            {mesas.map((mesa) => (
+            {mesas1vs1.map((mesa) => (
               <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
             ))}
           </div>

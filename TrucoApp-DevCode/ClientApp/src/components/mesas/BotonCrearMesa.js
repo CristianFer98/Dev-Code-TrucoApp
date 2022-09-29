@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { SocketContext } from "../../context/SocketContext";
 import Swal from "sweetalert2";
 
-export const BotonCrearMesa = ({ obtenerMesasDisponibles }) => {
+export const BotonCrearMesa = () => {
   const { uid } = useSelector((state) => state.auth);
   const { connection } = useContext(SocketContext);
 
@@ -28,7 +28,6 @@ export const BotonCrearMesa = ({ obtenerMesasDisponibles }) => {
     if (resp.ok) {
       await connection.invoke("CrearMesa");
       Swal.fire("Se creó la mesa", "", "success");
-      // obtenerMesasDisponibles();
     }
   };
 

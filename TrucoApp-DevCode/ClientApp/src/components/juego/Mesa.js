@@ -10,9 +10,9 @@ export const Mesa = () => {
         className="h-100 d-flex align-items-center flex-column 
       justify-content-between"
       >
-        <Rival />
+        {/* <Rival /> */}
         <Flop />
-        <Jugador />
+        {/* <Jugador /> */}
       </div>
     </div>
   );
