@@ -9,14 +9,16 @@ import remeraWhite from './../../assets/accesorios/remera-white.png';
 //import { AccesoriosTienda } from "../acessorios.json";
 export function Tienda() {
   const accesorios = [
-    { imagen: mochila, descripcion: "Mochila 'Vale Cuatro'", precio: 8000.0 },
-    { imagen: mazo, descripcion: "Mazo 'Vale Cuatro'", precio: 7000.0 },
+    { id:1, imagen: mochila, descripcion: "Mochila 'Vale Cuatro'", precio: 8000.0 },
+    { id:2, imagen: mazo, descripcion: "Mazo 'Vale Cuatro'", precio: 7000.0 },
     {
+      id:3,
       imagen: remeraBlack,
       descripcion: "Remera Black 'Vale Cuatro'",
       precio: 2800.0,
     },
     {
+      id:4,
       imagen: remeraWhite,
       descripcion: "Remera White 'Vale Cuatro'",
       precio: 2800.0,
@@ -37,6 +39,7 @@ export function Tienda() {
         {accesorios.map((accesorio, i) => (
           <Accesorios
             key={i}
+            id={accesorio.id}
             imagen={accesorio.imagen}
             descripcion={accesorio.descripcion}
             precio={accesorio.precio}
