@@ -4,4 +4,5 @@ export const types = {
   authJugar: "[auth] Jugar",
   juegoRepartirCartas: "[juego] Repartir cartas",
   juegoTirarCarta: "[juego] Tirar carta",
+  mesasObtenerMesas: "[mesas] Obtener mesas",
 };
