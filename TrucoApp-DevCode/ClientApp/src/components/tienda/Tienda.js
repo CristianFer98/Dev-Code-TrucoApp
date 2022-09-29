@@ -1,6 +1,7 @@
 import React from 'react';
 import './tienda.css';
 import Accesorios from './Accesorios';
+import { Link } from 'react-router-dom';
 import mochila from './../../assets/accesorios/mochila.png';
 import mazo from './../../assets/accesorios/mazo.png';
 import remeraBlack from './../../assets/accesorios/remera-black.png';
@@ -32,7 +33,9 @@ export function Tienda() {
           <h5 class="text-center mb-3">
             Mira los accesorios extras para tu avatar
           </h5>
-          <a href="#" class="btn btn-primary">Acceder</a>
+          <Link to="/inicio/tienda-avatar" className="btn btn-primary" style={{textDecoration:'none', color:'white'}}>
+            Acceder
+          </Link>
       </div>
       <br />
       <div className="accesorios">
