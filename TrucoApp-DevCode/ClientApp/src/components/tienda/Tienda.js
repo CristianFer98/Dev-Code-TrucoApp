@@ -26,7 +26,12 @@ export function Tienda() {
     <div className="componente-store">
       <h1 className="titulo"> Tienda de Accesorios</h1>
       <br />
-      <h3 className="titulo-filtro">Orden más vendidos</h3>
+      <div class="alert alert-primary d-flex flex-column" role="alert" style={{width:'50%'}}>
+          <h5 class="text-center mb-3">
+            Mira los accesorios extras para tu avatar
+          </h5>
+          <a href="#" class="btn btn-primary">Acceder</a>
+      </div>
       <br />
       <div className="accesorios">
         {accesorios.map((accesorio, i) => (
