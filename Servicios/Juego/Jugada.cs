@@ -8,9 +8,8 @@ namespace Servicios.Juego
 {
     public class Jugada
     {
-        public int Room { get; set; }
-        public int Turno { get; set; }
         public Carta CartaJugada { get; set; }
-
+        public Partida Partida { get; set; }
+        public string Canto { get; set; }
     }
 }

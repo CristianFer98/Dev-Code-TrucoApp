@@ -1,10 +1,14 @@
 import React from "react";
-import mazo from "../../assets/cartas/Mazo.png";
+const imagenCarta = require.context("../../assets/cartas", true);
 
-export const CartaMesa = () => {
+export const CartaMesa = ({ carta, animation }) => {
   return (
-    <div>
-      <img className="cardTable" src={mazo} alt="cartaMesa" />
+    <div className={`animate__animated ${animation}`}>
+      <img
+        className="cardTable"
+        src={imagenCarta(carta.imagen)}
+        alt="cartaMesa"
+      />
     </div>
   );
 };
