@@ -15,12 +15,12 @@ const Accesorios = ({ id, imagen, descripcion, precio }) => {
         <strong className="card-text">${precio}</strong>
      </div>
       <div className="d-flex flex-column">
-        <span class="badge bg-success mb-2 p-3" style={{cursor:'pointer'}}>
+        <span className="badge bg-success mb-2 p-3" style={{cursor:'pointer'}}>
           <Link to={`/inicio/tienda/${id}`} style={{textDecoration:'none', color:'white'}}>
             VER DETALLES
           </Link>
         </span>
-        <span class="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
+        <span className="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
       </div>
     </div>
   </div>

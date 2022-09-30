@@ -16,46 +16,46 @@ export function TiendaAvatar() {
             </div>
             <div className="card- d-flex flex-row">
                 <div className="card">
-                    <img className="card-img-top" src={ropaV2} alt="Card image cap"/>
+                    <img className="card-img-top" src={ropaV2} alt="remera-version2"/>
                     <div className="card-body">
                        <p className="card-text d-flex flex-column text-center">
                             <strong> $300</strong>
-                            <span class="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
+                            <span className="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
                         </p>
                     </div>
                 </div>
 
                 <div className="card" >
-                    <img className="card-img-top" src={ropaV3} alt="Card image cap"/>
+                    <img className="card-img-top" src={ropaV3} alt="remera-version3"/>
                     <div className="card-body">
                        <p className="card-text d-flex flex-column text-center">
                             <strong> $300</strong>
-                            <span class="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
+                            <span className="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
                         </p>
                     </div>
                 </div>
 
                 <div className="card">
-                    <img className="card-img-top" src={ropaV4} alt="Card image cap"/>
+                    <img className="card-img-top" src={ropaV4} alt="remera-version4"/>
                     <div className="card-body">
                         <p className="card-text d-flex flex-column text-center">
                             <strong> $300</strong>
-                            <span class="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
+                            <span className="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
                         </p>
                     </div>
                 </div>
 
                 <div className="card">
-                    <img className="card-img-top" src={ropaV5} alt="Card image cap"/>
+                    <img className="card-img-top" src={ropaV5} alt="remera-version5"/>
                     <div className="card-body">
                         <p className="card-text d-flex flex-column text-center">
                             <strong> $300</strong>
-                            <span class="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
+                            <span className="badge bg-danger p-3" style={{cursor:'pointer'}}>COMPRAR</span>
                         </p>
                     </div>
                 </div>
             </div>
-            <a href="#" className="btn btn-danger mt-3">COMPRAR TODO</a>
+            <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3">COMPRAR TODO</a>
       </div> 
      
     </div>

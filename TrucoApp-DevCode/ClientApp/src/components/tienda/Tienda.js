@@ -10,8 +10,18 @@ import remeraWhite from './../../assets/accesorios/remera-white.png';
 //import { AccesoriosTienda } from "../acessorios.json";
 export function Tienda() {
   const accesorios = [
-    { id:1, imagen: mochila, descripcion: "Mochila 'Vale Cuatro'", precio: 8000.0 },
-    { id:2, imagen: mazo, descripcion: "Mazo 'Vale Cuatro'", precio: 7000.0 },
+    { 
+      id:1, 
+      imagen: mochila, 
+      descripcion: "Mochila 'Vale Cuatro'", 
+      precio: 8000.0 
+    },
+    { 
+      id:2, 
+      imagen: mazo, 
+      descripcion: "Mazo 'Vale Cuatro'", 
+      precio: 700.0 
+    },
     {
       id:3,
       imagen: remeraBlack,
@@ -29,9 +39,9 @@ export function Tienda() {
     <div className="componente-store">
       <h1 className="titulo"> Tienda de Accesorios</h1>
       <br />
-      <div class="alert alert-primary d-flex flex-column" role="alert" style={{width:'50%'}}>
-          <h5 class="text-center mb-3">
-            Mira los accesorios extras para tu avatar
+      <div className="alert alert-primary d-flex flex-column" role="alert" style={{width:'50%'}}>
+          <h5 className="text-center mb-3">
+            Mira los accesorios para tu avatar
           </h5>
           <Link to="/inicio/tienda-avatar" className="btn btn-primary" style={{textDecoration:'none', color:'white'}}>
             Acceder

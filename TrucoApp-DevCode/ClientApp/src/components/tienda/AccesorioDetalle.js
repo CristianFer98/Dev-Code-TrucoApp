@@ -20,7 +20,7 @@ const AccesorioDetalle = ({ imagen, descripcion, detalle1, detalle2, detalle3, p
                         Precio: <strong>${precio}</strong>
                     </li>
                     <div className="d-flex flex-column">
-                    <span class="badge bg-danger p-3" style={{ cursor: 'pointer', fontSize:'20px' }}>COMPRAR</span>
+                    <span className="badge bg-danger p-3" style={{ cursor: 'pointer', fontSize:'20px' }}>COMPRAR</span>
                 </div>
                 </ul>
             </div>
