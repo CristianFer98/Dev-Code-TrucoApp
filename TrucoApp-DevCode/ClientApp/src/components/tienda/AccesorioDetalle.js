@@ -3,7 +3,7 @@ import './accesorios.css';
 import { Link } from 'react-router-dom';
 const AccesorioDetalle = ({ imagen, descripcion, detalle1, detalle2, detalle3, precio }) => {
   return (
-    <><h1 className="text-center mb-4">{descripcion}</h1>
+    <><h1 className="text-center mt-4 mb-4">{descripcion}</h1>
     <div className="card p-4 border-0" style={{ width: '50rem' }}>
        <div className="d-flex flex-row justify-content-center">
             <div className="accesorio-componente">
