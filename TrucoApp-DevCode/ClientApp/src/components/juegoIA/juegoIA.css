@@ -1,0 +1,142 @@
+
+/*Contenedor mas grande, define el ancho y largo de la pagina*/
+.juegoIA {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 90.5vh;
+}
+
+.puntaje{
+  text-align: center;
+  font-size: 20px;
+  color: whitesmoke;
+  height: 70px;
+  background-color: #6d6414;
+  width: 50%;
+  margin-bottom: 50px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  font-size: bold;
+  opacity: 0.9;
+}
+
+/*Elemento del centro, circulo donde se van colocando las cartas*/
+.mesaIA {
+  height: 420px;
+  width: 420px;
+  background-color: rgb(11, 95, 11);
+  border-radius: 100%;
+  align-self: center;
+  border: 5px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 55px;
+}
+
+.seccionDelMedio{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+}
+
+/*Seccion derecha superior, cartas de la maquina*/
+.cartasDelaMaquina {
+  background-color: #233237;
+  box-shadow: rgba(0, 0, 0, 0.3) 5px 0px 10px 10px;
+  height: 150px;
+  width: 30%;
+  opacity: 0.9;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/*Define la seccion de la mano del jugador y los botones de accion*/
+.jugador{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 30%;
+}
+
+/*Estilos de botones de accion*/
+.botonesDeAccion{
+  border: none;
+  height: 40px;
+  width: 25%;
+  border-radius: 10px;
+  background-color: #233237;
+  color:aliceblue
+}
+
+
+/*contenedor de botones quiero, no quiero*/
+.quieroIA{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background-color: #6d0a0a;
+  height: 50px;
+  align-items: center;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+
+}
+
+/*contenedor de botones envido, real envido, falta envido*/
+.envidoIA{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background-color: #b6a616;
+  height: 50px;
+  align-items: center;
+}
+
+/*contenedor de botones truco, re truco, vale cuatro*/
+.trucoIA{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background-color: #b6a616;
+  height: 50px;
+  align-items: center;
+}
+
+/*Contenedor azul que tiene las cartas del jugador*/
+.cartasDelJugador {
+  background-color: #233237;
+  box-shadow: rgba(0, 0, 0, 0.3) 5px 0px 10px 10px;
+  height: 200px;
+  width: 100%;
+  align-self: flex-end;
+  opacity: 0.9;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:flex-end;
+}
+.mano{
+  display: flex; 
+  flex-direction: column; 
+}
+.botonTirar{
+  border: none;
+  margin: 3px;
+  background-color: #C2C2C2;
+  border-radius: 5px;
+}
+
+
