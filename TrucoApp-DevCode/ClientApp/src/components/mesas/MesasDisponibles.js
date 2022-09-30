@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useHistory } from "react-router";
 import { BotonCrearMesa } from ".//BotonCrearMesa";
 import { MesaDisponibleCard } from "./MesaDisponibleCard";
@@ -6,8 +6,7 @@ import "./mesasDisponibles.css";
 import { ChatGeneral } from "../inicio/chat/ChatGeneral";
 import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
-import { SocketContext } from "../../context/SocketContext";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const MesasDisponibles = () => {
   const history = useHistory();

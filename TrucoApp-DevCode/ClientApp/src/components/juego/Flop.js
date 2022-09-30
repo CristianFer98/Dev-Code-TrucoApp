@@ -1,6 +1,6 @@
 import React from "react";
 import mazo from "../../assets/cartas/Mazo.png";
-import { CartaMesa } from "./CartaMesa";
+// import { CartaMesa } from "./CartaMesa";
 
 export const Flop = () => {
   return (
