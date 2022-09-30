@@ -1,8 +1,9 @@
 import React from 'react';
 import './accesorios.css';
+import { Link } from 'react-router-dom';
 const AccesorioDetalle = ({ imagen, descripcion, detalle1, detalle2, detalle3, precio }) => {
   return (
-    <><h1 className="text-center mb-4">{descripcion}</h1>
+    <><h1 className="text-center mt-5 mb-4">{descripcion}</h1>
     <div className="card p-4 border-0" style={{ width: '50rem' }}>
        <div className="d-flex flex-row justify-content-center">
             <div className="accesorio-componente">
@@ -25,7 +26,9 @@ const AccesorioDetalle = ({ imagen, descripcion, detalle1, detalle2, detalle3, p
                 </ul>
             </div>
        </div>
-          
+       <Link to="/inicio/tienda" className="btn btn-success mt-3" style={{textDecoration:'none', color:'white'}}>
+                VOLVER
+      </Link>
     </div></>
     
   );

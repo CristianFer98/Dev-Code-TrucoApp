@@ -46,7 +46,7 @@ export function TiendaDetalle() {
       ];
       
     return (
-        <div className="componente-store">
+        <div className="componente-store" style={{height:'100%'}}>
             <AccesorioDetalle
                 imagen={accesorios[id-1].imagen}
                 descripcion={accesorios[id-1].descripcion}

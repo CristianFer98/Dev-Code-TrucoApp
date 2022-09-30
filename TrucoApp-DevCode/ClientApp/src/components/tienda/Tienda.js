@@ -36,8 +36,8 @@ export function Tienda() {
     },
   ];
   return (
-    <div className="componente-store">
-      <h1 className="titulo"> Tienda de Accesorios</h1>
+    <div className="componente-store" style={{height:'100%'}}>
+      <h1 className="titulo mt-5"> Tienda de Accesorios</h1>
       <br />
       <div className="alert alert-primary d-flex flex-column" role="alert" style={{width:'50%'}}>
           <h5 className="text-center mb-3">
