@@ -9,3 +9,8 @@ export const tirarCarta = (partida) => ({
   type: types.tirarCarta,
   payload: { partida },
 });
+
+export const salirDeMesa = () => ({
+  type: types.authDejarDeJugar,
+  payload: { jugando: false },
+});
