@@ -1,5 +1,6 @@
 import React from 'react';
 import './tienda.css';
+import { Link } from 'react-router-dom';
 import ropaV2 from './../../assets/avatar/ropa-v2.png';
 import ropaV3 from './../../assets/avatar/ropa-v3.png';
 import ropaV4 from './../../assets/avatar/ropa-v4.png';
@@ -57,7 +58,9 @@ export function TiendaAvatar() {
             </div>
             <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3">COMPRAR TODO</a>
       </div> 
-     
+      <Link to="/inicio/tienda" className="btn btn-success mt-3" style={{textDecoration:'none', color:'white'}}>
+                VOLVER
+      </Link>
     </div>
   );
 }

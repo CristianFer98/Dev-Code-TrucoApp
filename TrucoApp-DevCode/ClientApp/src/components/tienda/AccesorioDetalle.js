@@ -1,5 +1,6 @@
 import React from 'react';
 import './accesorios.css';
+import { Link } from 'react-router-dom';
 const AccesorioDetalle = ({ imagen, descripcion, detalle1, detalle2, detalle3, precio }) => {
   return (
     <><h1 className="text-center mb-4">{descripcion}</h1>
@@ -25,7 +26,9 @@ const AccesorioDetalle = ({ imagen, descripcion, detalle1, detalle2, detalle3, p
                 </ul>
             </div>
        </div>
-          
+       <Link to="/inicio/tienda" className="btn btn-success mt-3" style={{textDecoration:'none', color:'white'}}>
+                VOLVER
+      </Link>
     </div></>
     
   );
