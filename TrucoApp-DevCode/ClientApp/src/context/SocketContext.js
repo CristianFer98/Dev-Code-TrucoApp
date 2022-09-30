@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
-import { repartirCartas } from "../actions/juego";
+import { repartirCartas, tirarCarta } from "../actions/juego";
 
 export const SocketContext = createContext();
 
@@ -68,23 +68,34 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("EmpezarJuego", (juego) => {
-      const { cartasJugadorUno, cartasJugadorDos, ...partida } = juego;
+      const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
+        juego;
       dispatch(jugar());
-      if (partida.jugadorUno === uid) {
-        dispatch(
-          repartirCartas({
-            ...partida,
-            cartas: cartasJugadorUno,
-          })
-        );
-      } else if (partida.jugadorDos === uid) {
-        dispatch(
-          repartirCartas({
-            ...partida,
-            cartas: cartasJugadorDos,
-          })
-        );
-      }
+      dispatch(
+        repartirCartas({
+          ...partida,
+          cartasJugadasJugadorUno: [],
+          cartasJugadasJugadorDos: [],
+        })
+      );
+    });
+  }, [connection, dispatch, uid]);
+
+  useEffect(() => {
+    connection?.on("CartaTirada", (juego) => {
+      const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
+        juego;
+      dispatch(
+        tirarCarta({
+          ...partida,
+          cartasJugadasJugadorUno: !!cartasJugadasJugadorUno
+            ? cartasJugadasJugadorUno
+            : [],
+          cartasJugadasJugadorDos: !!cartasJugadasJugadorDos
+            ? cartasJugadasJugadorDos
+            : [],
+        })
+      );
     });
   }, [connection, dispatch, uid]);
 

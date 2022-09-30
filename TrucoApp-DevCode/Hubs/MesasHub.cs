@@ -54,9 +54,8 @@ namespace Router.Hubs
 
         public async Task TirarCarta(Jugada jugada)
         {
-            string userRoom = Convert.ToString(jugada.Room);
-            JuegoServicio.ActualizarPartida(jugada);
-            Partida partidaActualizada = JuegoServicio.BuscarPartidaPorMesa(jugada.Room);
+            string userRoom = Convert.ToString(jugada.Partida.Room);
+            Partida partidaActualizada = JuegoServicio.ActualizarPartida(jugada);
             await Clients.Group(userRoom).SendAsync("CartaTirada", partidaActualizada);
         }
 

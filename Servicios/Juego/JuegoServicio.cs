@@ -8,8 +8,6 @@ namespace Servicios.Juego
 {
     public class JuegoServicio
     {
-
-        public static List<Partida> Partidas { get; set; } = new();
         public static List<Carta> Mazo { get; set; } = new List<Carta>()
         {
             new Carta(1, 1, "Espada", 1, 1, "./Espada/1Espada.png"),
@@ -82,30 +80,23 @@ namespace Servicios.Juego
             return RandomNumero;
         }
 
-        public static void AgregarPartida(Partida partida)
-        {
-            Partidas.Add(partida);
-        }
 
-        public static Partida BuscarPartidaPorMesa(int room)
+        public static Partida ActualizarPartida(Jugada jugada)
         {
-            return Partidas.Where(p => p.Room == room).FirstOrDefault();
-        }
+            if (jugada.Partida.Turno == 1)
+            {
+                //jugada.Partida.CartasJugadasJugadorUno?.Add(jugada.CartaJugada);
+                //jugada.Partida.CartasJugadorUno?.Remove(jugada.CartaJugada);
+                jugada.Partida.Turno = 2;
+            }
+            else if (jugada.Partida.Turno == 2)
+            {
+                //jugada.Partida.CartasJugadasJugadorDos?.Add(jugada.CartaJugada);
+                //jugada.Partida.CartasJugadorDos?.Remove(jugada.CartaJugada);
+                jugada.Partida.Turno = 1;
+            }
 
-        public static void ActualizarPartida(Jugada jugada)
-        {
-            if (jugada.Turno == 1)
-            {
-                BuscarPartidaPorMesa(jugada.Room).CartasJugadasJugadorUno.Add(jugada.CartaJugada);
-                BuscarPartidaPorMesa(jugada.Room).CartasJugadorUno.Remove(jugada.CartaJugada);
-                BuscarPartidaPorMesa(jugada.Room).Turno = 2;
-            }
-            else if (jugada.Turno == 2)
-            {
-                BuscarPartidaPorMesa(jugada.Room).CartasJugadasJugadorDos.Add(jugada.CartaJugada);
-                BuscarPartidaPorMesa(jugada.Room).CartasJugadasJugadorDos.Remove(jugada.CartaJugada);
-                BuscarPartidaPorMesa(jugada.Room).Turno = 1;
-            }
+            return jugada.Partida;
         }
 
     }

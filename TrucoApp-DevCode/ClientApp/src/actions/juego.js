@@ -6,7 +6,7 @@ export const repartirCartas = (partida) => ({
 });
 
 export const tirarCarta = (partida) => ({
-  type: types.tirarCarta,
+  type: types.juegoTirarCarta,
   payload: { partida },
 });
 
