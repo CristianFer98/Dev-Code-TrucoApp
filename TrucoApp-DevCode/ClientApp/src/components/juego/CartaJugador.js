@@ -51,7 +51,7 @@ export const CartaJugador = ({ carta }) => {
       }
     >
       <img
-        className="animate__animated animate__fadeIn cardPlayer"
+        className="animate__animated animate__fadeInTopLeft cardPlayer"
         src={imagenCarta(carta.imagen)}
         alt="cartaJugador"
       />
