@@ -26,13 +26,8 @@ const MenuLateral = () => {
         height: 'auto',
       }}
     >
-      <CDBSidebar
-        breakpoint={1500}
-        toggled
-        textColor="#fff"
-        backgroundColor="#212529"
-      >
-        <CDBSidebarContent className="sidebar-content">
+      <CDBSidebar breakpoint={1500} toggled textColor="#fff">
+        <CDBSidebarContent className="sidebar-content bg-dark">
           <CDBSidebarMenu>
             <span className="home">
               <NavLink
@@ -144,7 +139,7 @@ const MenuLateral = () => {
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
-        <CDBSidebarFooter>
+        <CDBSidebarFooter className="bg-dark">
           <span className="logout">
             <CDBSidebarMenuItem
               icon="share"
