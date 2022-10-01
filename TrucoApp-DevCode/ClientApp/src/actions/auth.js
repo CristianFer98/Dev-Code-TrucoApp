@@ -9,7 +9,9 @@ export const startLogin = (email, password) => {
     );
 
     if (usuario) {
-      dispatch(login(usuario.uid, usuario.email, usuario.password));
+      dispatch(
+        login(usuario.uid, usuario.email, usuario.password, usuario.nombre)
+      );
     }
   };
 };
@@ -24,12 +26,13 @@ const logout = () => ({
   type: types.authLogout,
 });
 
-const login = (uid, email, password) => ({
+const login = (uid, email, password, nombre) => ({
   type: types.authLogin,
   payload: {
     uid,
     email,
     password,
+    nombre,
     jugando: false,
   },
 });

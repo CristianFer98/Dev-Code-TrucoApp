@@ -85,14 +85,10 @@ namespace Servicios.Juego
         {
             if (jugada.Partida.Turno == 1)
             {
-                //jugada.Partida.CartasJugadasJugadorUno?.Add(jugada.CartaJugada);
-                //jugada.Partida.CartasJugadorUno?.Remove(jugada.CartaJugada);
                 jugada.Partida.Turno = 2;
             }
             else if (jugada.Partida.Turno == 2)
             {
-                //jugada.Partida.CartasJugadasJugadorDos?.Add(jugada.CartaJugada);
-                //jugada.Partida.CartasJugadorDos?.Remove(jugada.CartaJugada);
                 jugada.Partida.Turno = 1;
             }
 

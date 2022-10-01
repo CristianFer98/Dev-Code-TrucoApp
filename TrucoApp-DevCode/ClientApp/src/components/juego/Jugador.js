@@ -6,7 +6,7 @@ import { CartaJugador } from "./CartaJugador";
 export const Jugador = () => {
   const { partida } = useSelector((state) => state.juego);
   const { jugadorUno } = partida;
-  const { uid } = useSelector((state) => state.auth);
+  const { uid, nombre } = useSelector((state) => state.auth);
 
   return (
     <div className="divPlayer2 d-flex flex-column">
@@ -20,7 +20,9 @@ export const Jugador = () => {
               alt="userFoto"
             />
           </div>
-          <div className="playerName fw-bolder text-white px-2 py-1">Ivan</div>
+          <div className="playerName fw-bolder text-white px-2 py-1">
+            {nombre}
+          </div>
         </div>
 
         <div className="d-flex divCardsPlayer">
