@@ -1,15 +1,15 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { startLogin } from "../../actions/auth";
-import { useForm } from "../../hooks/useForm";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { startLogin } from '../../actions/auth';
+import { useForm } from '../../hooks/useForm';
 
 export const Login = () => {
   const dispatch = useDispatch();
 
   const [formLoginValues, handleLoginInputChange] = useForm({
-    lEmail: "",
-    lPassword: "",
+    lEmail: '',
+    lPassword: '',
   });
 
   const { lEmail, lPassword } = formLoginValues;
@@ -68,7 +68,7 @@ export const Login = () => {
 
               <button
                 type="submit"
-                className="buttonLogin d-flex justify-content-center align-items-center align-self-center mt-2 btn"
+                className="buttonLogin d-flex justify-content-center align-items-center align-self-center mt-2 btn btn-primary"
               >
                 Ingresar
               </button>
