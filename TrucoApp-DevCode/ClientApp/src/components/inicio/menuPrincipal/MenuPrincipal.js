@@ -11,6 +11,11 @@ const MenuPrincipal = () => {
     e.preventDefault();
     history.push("/inicio/mesas");
   };
+
+  const jugarContraLaMaquina = (e) => {
+    e.preventDefault();
+    history.push("/inicio/juegoia");
+  };
   return (
     <div className="menuPrincipal">
       <button onClick={handleJugar} className="boton" id="unovsuno">
@@ -31,7 +36,7 @@ const MenuPrincipal = () => {
         </span>
       </button>
 
-      <button className="boton" id="unovsmaquina">
+      <button className="boton" onClick={jugarContraLaMaquina} id="unovsmaquina">
         <span className="text">
           <h4>Uno vs Maquina</h4>
         </span>

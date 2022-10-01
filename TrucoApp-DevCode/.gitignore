@@ -180,8 +180,8 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 /node_modules
-*.appsettings
-*.DevCodeDBContext
+*.appsettings.json
+*.DevCodeDBContext.cs
 
 # RIA/Silverlight projects
 Generated_Code/

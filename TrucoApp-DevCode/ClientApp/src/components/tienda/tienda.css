@@ -1,4 +1,6 @@
-﻿
+﻿* {
+    scroll-behavior: smooth;
+  }
 .componente-store {
     width: 100%;
     height: 100vh;
@@ -41,6 +43,6 @@
 .accesorios{
     width:100%;
     flex-direction:row;
-    justify-content:space-between;
+    justify-content:space-around;
     /*border:2px solid black;*/
 }

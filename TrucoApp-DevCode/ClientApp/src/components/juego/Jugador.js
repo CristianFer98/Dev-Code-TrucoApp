@@ -5,7 +5,8 @@ import { CartaJugador } from "./CartaJugador";
 
 export const Jugador = () => {
   const { partida } = useSelector((state) => state.juego);
-  const { cartas } = partida;
+  const { jugadorUno } = partida;
+  const { uid, nombre } = useSelector((state) => state.auth);
 
   return (
     <div className="divPlayer2 d-flex flex-column">
@@ -19,13 +20,19 @@ export const Jugador = () => {
               alt="userFoto"
             />
           </div>
-          <div className="playerName fw-bolder text-white px-2 py-1">Ivan</div>
+          <div className="playerName fw-bolder text-white px-2 py-1">
+            {nombre}
+          </div>
         </div>
 
         <div className="d-flex divCardsPlayer">
-          {cartas.map((carta) => (
-            <CartaJugador key={carta.id} carta={carta} />
-          ))}
+          {uid === jugadorUno
+            ? partida.cartasJugadorUno.map((carta) => (
+                <CartaJugador key={carta.id} carta={carta} />
+              ))
+            : partida.cartasJugadorDos.map((carta) => (
+                <CartaJugador key={carta.id} carta={carta} />
+              ))}
         </div>
       </div>
     </div>

@@ -8,7 +8,6 @@ namespace Servicios.Juego
 {
     public class JuegoServicio
     {
-
         public static List<Carta> Mazo { get; set; } = new List<Carta>()
         {
             new Carta(1, 1, "Espada", 1, 1, "./Espada/1Espada.png"),
@@ -79,6 +78,21 @@ namespace Servicios.Juego
             int RandomNumero = Objeto.Next(1, 3);
 
             return RandomNumero;
+        }
+
+
+        public static Partida ActualizarPartida(Jugada jugada)
+        {
+            if (jugada.Partida.Turno == 1)
+            {
+                jugada.Partida.Turno = 2;
+            }
+            else if (jugada.Partida.Turno == 2)
+            {
+                jugada.Partida.Turno = 1;
+            }
+
+            return jugada.Partida;
         }
 
     }
