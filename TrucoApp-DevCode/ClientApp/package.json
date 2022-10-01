@@ -29,6 +29,7 @@
     "react-slick": "^0.29.0",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
+    "sass": "^1.55.0",
     "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.4.33",
     "web-vitals": "^2.1.4"

@@ -27,7 +27,7 @@ export const Rival = () => {
           ? partida.cartasJugadorDos.map((carta) => (
               <div key={carta.id * 11} className="d-flex divCardOponent me-1">
                 <img
-                  className="animate__animated animate__fadeIn cardOponent"
+                  className="animate__animated animate__fadeInBottomLeft cardOponent"
                   src={mazo}
                   alt="card"
                 />
@@ -36,7 +36,7 @@ export const Rival = () => {
           : partida.cartasJugadorUno.map((carta) => (
               <div key={carta.id * 11} className="d-flex divCardOponent me-1">
                 <img
-                  className="animate__animated animate__fadeIn cardOponent"
+                  className="animate__animated animate__fadeInBottomLeft cardOponent"
                   src={mazo}
                   alt="card"
                 />
