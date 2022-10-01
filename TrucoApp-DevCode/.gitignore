@@ -179,8 +179,9 @@ ClientBin/
 *.pfx
 *.publishsettings
 orleans.codegen.cs
-
 /node_modules
+*.appsettings
+*.DevCodeDBContext
 
 # RIA/Silverlight projects
 Generated_Code/
