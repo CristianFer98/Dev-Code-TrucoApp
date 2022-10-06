@@ -10,16 +10,18 @@ import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
 import { useSelector } from "react-redux";
 import { PrivateRoute } from "./PrivateRoute";
-
+import { useAuth0 } from "@auth0/auth0-react";
 export const AppRouter = () => {
   const { uid } = useSelector((state) => state.auth);
-
+  const {
+    isAuthenticated
+  } = useAuth0();
   return (
     <BrowserRouter>
       <Switch>
-        <PublicRoute logueado={!!uid} path="/auth" component={LoginRegistro} />
-
-        <PrivateRoute logueado={!!uid}>
+        <PublicRoute logueado={!!isAuthenticated} path="/auth" component={LoginRegistro} />
+        console.log(isAuthenticated)
+        <PrivateRoute logueado={!!isAuthenticated}>
           <Layout>
             <Route exact path="/" component={Inicio} />
             <Route exact path="/cuenta" component={Cuenta} />
