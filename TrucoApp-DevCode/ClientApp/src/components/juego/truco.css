@@ -1,0 +1,450 @@
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 0px) {
+  .board {
+    height: 80%;
+    width: 100%;
+    background: rgb(53, 158, 97);
+    border-radius: 210px;
+    background: linear-gradient(
+      180deg,
+      rgba(53, 158, 97, 1) 0%,
+      rgba(37, 138, 79, 1) 100%
+    );
+    border: 15px solid #201506;
+
+    box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0.08) inset,
+      rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+      rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+      rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+      rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+      rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+      rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  }
+
+  .divCardPlayerTurn {
+    padding: 0%;
+    width: 60px;
+    height: 90px;
+  }
+  .divCardPlayer {
+    padding: 0%;
+    opacity: 0.5;
+    width: 60px;
+    height: 90px;
+  }
+
+  .player2 {
+    position: absolute;
+    bottom: 150px;
+    right: 15px;
+  }
+
+  .player1Avatar {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0px;
+    left: 0;
+    right: 200px;
+  }
+
+  .player2Avatar {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 0px;
+    left: 0;
+    right: 180px;
+  }
+
+  .cardTable {
+    margin: 0px 5px 0px 5px;
+    height: 90px;
+    width: 58px;
+  }
+
+  .deck {
+    margin: 0px 5px 0px 5px;
+    height: 70px;
+    width: 50px;
+    padding: 2px;
+  }
+
+  .divFlopSides {
+    width: 8em;
+    height: 15em;
+
+    /* position: absolute; */
+    /* bottom: 0;
+      left: 0;
+      right: 0; */
+  }
+
+  .divChant {
+    top: 115px;
+  }
+}
+
+@media (min-width: 413px) {
+  .player2 {
+    position: absolute;
+    bottom: 100px;
+    right: 15px;
+  }
+
+  .player2Avatar {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 0px;
+    left: 0;
+    right: 280px;
+  }
+
+  .cardTable {
+    margin: 0px 5px 0px 5px;
+    height: 110px;
+    width: 68px;
+  }
+
+  .deck {
+    margin: 0px 5px 0px 5px;
+    height: 90px;
+    width: 60px;
+    padding: 2px;
+  }
+}
+
+@media (min-width: 670px) {
+  .player2 {
+    position: absolute;
+    bottom: 70px;
+    right: 15px;
+  }
+
+  .player1Avatar {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0px;
+    left: 0;
+    right: 230px;
+  }
+
+  .player2Avatar {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 0px;
+    left: 0;
+    right: 330px;
+  }
+
+  .divCardPlayer {
+    padding: 0%;
+    width: 75px;
+    height: 110px;
+  }
+
+  .divCardPlayerTurn {
+    padding: 0%;
+    width: 75px;
+    height: 110px;
+  }
+
+  .divFlop {
+    width: 15em;
+    height: 15em;
+    /* position: absolute; */
+    /* bottom: 0;
+      left: 0;
+      right: 0; */
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .board {
+    height: 30em;
+    width: 40em;
+  }
+
+  .divChant {
+    top: 130px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+/* @media (min-width: 992px) {
+  } */
+
+/* X-Large devices (large desktops, 1200px and up) */
+
+/* @media (min-width: 1400px) {
+  } */
+
+.player1 {
+  position: relative;
+  bottom: 65px;
+  height: 80px;
+}
+
+.player1Img {
+  width: 60px;
+  height: 60px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.player2Img {
+  /* width: 60px;
+    height: 60px; */
+  /* z-index: -1; */
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.divPlayer2ImgNotTurn {
+  border: 4px solid rgb(212, 212, 212);
+}
+
+.player2ImgNotTurn {
+  /* opacity: 0.4; */
+  width: 73px;
+  height: 73px;
+}
+.player1ImgNotTurn {
+  /* opacity: 0.4; */
+  width: 60px;
+  height: 60px;
+}
+
+.player2ImgFinishedTimer {
+  opacity: 0.4;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.playerName {
+  background-color: rgba(0, 0, 0, 0.685);
+  position: relative;
+  bottom: 5px;
+}
+
+.divCardsOponent {
+  position: relative;
+  bottom: 5px;
+}
+.divCardsPlayer {
+  position: relative;
+  left: 13px;
+}
+
+.divCardPlayerTurn:hover {
+  transition: ease 0.3s;
+  border-radius: 5%;
+  padding: 0%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  z-index: 555555 !important;
+  cursor: pointer;
+}
+
+.cardPlayer {
+  width: 100%;
+  object-fit: cover;
+  padding: 0%;
+  border-radius: 8%;
+}
+
+.divButtons {
+  position: relative;
+  top: 70px;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  z-index: 555555;
+}
+
+.buttonPlayer2 {
+  border: 1px solid rgb(75, 75, 75);
+  border-left: 3px solid rgb(19, 19, 19);
+  border-right: 3px solid rgb(19, 19, 19);
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(43, 43, 43, 1) 0%,
+    rgba(62, 62, 62, 1) 8%,
+    rgba(42, 42, 42, 1) 37%,
+    rgba(28, 28, 28, 1) 48%,
+    rgba(27, 27, 27, 1) 85%,
+    rgba(56, 56, 56, 1) 92%,
+    rgba(13, 13, 13, 1) 94%
+  );
+  width: 120px;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0.1) inset,
+    rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  z-index: 555555 !important;
+}
+
+.buttonPlayer2:hover {
+  border-radius: 5%;
+  padding: 0%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
+  transition: 0.4s ease;
+  /* z-index: 555555 !important; */
+  cursor: pointer;
+}
+
+.buttonPlayerQuiero {
+  border: 1px solid rgb(0, 116, 25);
+  border-left: 3px solid rgb(0, 34, 7);
+  border-right: 3px solid rgb(0, 34, 7);
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 121, 22, 1) 0%,
+    rgba(0, 156, 28, 1) 8%,
+    rgba(1, 102, 19, 1) 37%,
+    rgba(0, 82, 15, 1) 48%,
+    rgba(0, 79, 14, 1) 85%,
+    rgba(0, 108, 20, 1) 92%,
+    rgba(0, 116, 21, 1) 94%
+  );
+  width: 120px;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0.1) inset,
+    rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.buttonPlayerQuiero:hover {
+  border-radius: 5%;
+  padding: 0%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
+  transition: 0.4s ease;
+  /* z-index: 555555 !important; */
+  cursor: pointer;
+}
+
+.buttonPlayer2Mazo {
+  border: 1px solid rgb(85, 7, 7);
+  border-left: 3px solid rgb(26, 0, 0);
+  border-right: 3px solid rgb(29, 0, 0);
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(121, 0, 0, 1) 0%,
+    rgba(193, 0, 0, 1) 8%,
+    rgba(92, 0, 0, 1) 37%,
+    rgba(79, 0, 0, 1) 48%,
+    rgba(31, 0, 0, 1) 85%,
+    rgba(84, 0, 0, 1) 92%,
+    rgba(46, 0, 0, 1) 94%
+  );
+  width: 120px;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0.1) inset,
+    rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.buttonPlayer2Mazo:hover {
+  border-radius: 5%;
+  padding: 0%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
+  transition: 0.4s ease;
+  /* z-index: 555555 !important; */
+  cursor: pointer;
+}
+
+.divCardOponent {
+  padding: 0%;
+  width: 40px;
+  height: 62px;
+}
+
+.cardOponent {
+  width: 100%;
+  object-fit: cover;
+  padding: 0%;
+  border-radius: 3px;
+
+  /* border-radius: 3px; */
+}
+
+.buttonLeaveTable {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.divGame {
+  position: relative;
+  bottom: 40px;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  /* position: absolute;
+    top: 150px;
+    bottom: 0; */
+}
+
+.counterDiv {
+  position: absolute;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  right: 0;
+  top: 11%;
+}
+
+.timer {
+  z-index: -1;
+  font-family: "Montserrat";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-wrapper {
+  z-index: 1;
+}
+
+.divChant {
+  z-index: 1;
+  background-color: rgb(255, 255, 103);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  border-radius: 5px;
+  width: 180px;
+  height: 45px;
+  position: absolute;
+  bottom: 0px;
+  margin-right: 130px;
+}
+
+.divChant:before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: -25px;
+  transform: rotate(90deg);
+  z-index: 1;
+  border: solid 15px transparent;
+  border-right-color: #fff;
+}

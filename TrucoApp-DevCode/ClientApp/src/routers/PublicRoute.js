@@ -7,6 +7,6 @@ export const PublicRoute = ({ component: Component, logueado }) => {
       <Component />
     </div>
   ) : (
-    <Redirect to="/" />
+    <Redirect to="/inicio" />
   );
 };

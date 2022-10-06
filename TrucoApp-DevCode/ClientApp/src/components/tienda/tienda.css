@@ -1,14 +1,15 @@
-﻿
+﻿* {
+    scroll-behavior: smooth;
+  }
 .componente-store {
     width: 100%;
-    min-height: 100%;
-    height: auto !important;
+    height: 100vh;
     background-color: #d9d9d9;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    opacity:unset;
+    opacity:unset;   
 }
 
 
@@ -42,6 +43,6 @@
 .accesorios{
     width:100%;
     flex-direction:row;
-    justify-content:space-between;
+    justify-content:space-around;
     /*border:2px solid black;*/
 }

@@ -1,13 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useForm } from "../../hooks/useForm";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useForm } from '../../hooks/useForm';
 
 export const Registro = () => {
   const [formRegisterValues, handleRegisterInputChange] = useForm({
-    rName: "",
-    rEmail: "",
-    rPassword: "",
-    rPasswordConfirm: "",
+    rName: '',
+    rEmail: '',
+    rPassword: '',
+    rPasswordConfirm: '',
   });
 
   const { rName, rEmail, rPassword, rPasswordConfirm } = formRegisterValues;
@@ -81,7 +81,7 @@ export const Registro = () => {
               </div>
               <button
                 type="submit"
-                className="buttonLogin d-flex justify-content-center align-self-center mt-4 mb-2 btn"
+                className="buttonLogin d-flex justify-content-center align-self-center mt-4 mb-2 btn btn-primary"
               >
                 Registrarse
               </button>

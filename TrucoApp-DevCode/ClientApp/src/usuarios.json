@@ -2,12 +2,20 @@
   "Usuarios": [
     {
       "uid": 1,
+      "nombre": "Ivan Kek",
       "email": "ivan.kek@hotmail.com",
       "password": "1234"
     },
     {
       "uid": 2,
-      "email": "lucas@gmail.com",
+      "nombre": "Lionel Messi",
+      "email": "lio.messi@hotmail.com",
+      "password": "1234"
+    },
+    {
+      "uid": 3,
+      "nombre": "Cristiano Ronaldo",
+      "email": "cristiano@hotmail.com",
       "password": "1234"
     }
   ]

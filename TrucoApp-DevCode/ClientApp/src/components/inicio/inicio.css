@@ -1,0 +1,23 @@
+.contenedorPrimario {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.contenedorSecundario {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+@media only screen and (max-width: 1130px) {
+  .contenedorSecundario {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 915px) {
+  .chat {
+    display: none;
+  }
+}
