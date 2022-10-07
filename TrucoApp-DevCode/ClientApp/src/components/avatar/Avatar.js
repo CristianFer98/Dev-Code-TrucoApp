@@ -1,59 +1,29 @@
 import React from 'react';
 import './avatar.css';
-import pelo from './../../assets/avatar/pelo1.png';
-import peloCastano from './../../assets/avatar/pelo2.png';
-import peloRubio from './../../assets/avatar/pelo3.png';
-import peloColorado from './../../assets/avatar/pelo4.png';
-import peloCanoso from './../../assets/avatar/pelo5.png';
+import imagenes from './Imagenes';
+import { 
+  mostrarAvatarSeleccionadoMasConfiguracion,
+  setPelo,
+  setPiel,
+  setOjos
+} from './Funciones';
 
-import ropa from './../../assets/avatar/ropa.png';
-
-const setPelo = (peloNuevo, cejaColorNuevo) => {
-  let peloActual = document.querySelector('#pelo-actual');
-  let cejaColorActual = document.querySelector('.ceja-izq').classList[1];
-  document.querySelector('.ceja-izq').classList.remove(cejaColorActual);
-  document.querySelector('.ceja-der').classList.remove(cejaColorActual);
-  document.querySelector('.ceja-izq').classList.add(cejaColorNuevo);
-  document.querySelector('.ceja-der').classList.add(cejaColorNuevo);
-  peloActual.src = peloNuevo;
-};
-const setPiel = (colorNuevo) => {
-  let colorActual = document.querySelector('.cabeza').classList[1];
-
-  document.querySelector('.cabeza').classList.remove(colorActual);
-  document.querySelector('.oreja-der').classList.remove(colorActual);
-  document.querySelector('.oreja-izq').classList.remove(colorActual);
-  document.querySelector('.cuello').classList.remove(colorActual);
-  document.querySelector('.brazo-der').classList.remove(colorActual);
-  document.querySelector('.brazo-izq').classList.remove(colorActual);
-
-  document.querySelector('.cabeza').classList.add(colorNuevo);
-  document.querySelector('.oreja-der').classList.add(colorNuevo);
-  document.querySelector('.oreja-izq').classList.add(colorNuevo);
-  document.querySelector('.cuello').classList.add(colorNuevo);
-  document.querySelector('.brazo-der').classList.add(colorNuevo);
-  document.querySelector('.brazo-izq').classList.add(colorNuevo);
-};
-
-const setOjos = (colorNuevo) => {
-  let colorActual = document.querySelector('.iris-der').classList[1];
-
-  document.querySelector('.iris-izq').classList.remove(colorActual);
-  document.querySelector('.iris-der').classList.remove(colorActual);
-  document.querySelector('.iris-izq').classList.add(colorNuevo);
-  document.querySelector('.iris-der').classList.add(colorNuevo);
-};
 export function Avatar() {
   return (
-    <div className="componente-avatar">
-      <h1 className="titulo">Crea tu avatar y personalizalo</h1>
+    <div className="componente-avatar" style={{height:'100%'}}>
+      <h1 className="titulo mt-4">Crea tu avatar y personalizalo</h1>
+      <div class="alert alert-primary text-center mt-3 mb-0" role="alert" style={{width:'50%'}}>
+      Selecciona un avatar, modifícalo y guárdalo.
+      <br/>
+      Así de simple!
+    </div>
       <div className="componente-avatar-modificacion">
-        <div className="componente-principal">
+        <div className="componente-principal version-m" >
           <div className="avatar">
             <div className="oreja-izq piel-default"></div>
             <div className="cabeza piel-default">
               <div className="contendor-pelo">
-                <img alt="" id="pelo-actual" src={pelo} />
+                <img alt="" id="pelo-actual" src={imagenes['pelo-v1-m-negro']} className="pelo-m pelo-v1-m-negro"/>
               </div>
               <div className="cejas-ojos-nariz-boca">
                 <div className="contenedor-cejas">
@@ -80,15 +50,69 @@ export function Avatar() {
           </div>
           <div className="cuello piel-default"></div>
           <div className="componente-ropa">
-            <img alt="" src={ropa} />
+            <img alt="" src={imagenes.ropa} />
           </div>
           <div className="contendor-brazos">
             <div className="brazo-izq piel-default"></div>
             <div className="brazo-der piel-default"></div>
           </div>
+          <button 
+           type="button"
+           class="btn btn-primary mt-2"
+           onClick={() => mostrarAvatarSeleccionadoMasConfiguracion('.version-f')}
+           >
+            Opción 1
+          </button>
         </div>
 
-        <div className="componente-cambio-aspecto">
+        <div className="componente-principal version-f">
+          <div className="avatar">
+            <div className="oreja-izq piel-default" style={{display:'none'}}></div>
+            <div className="cabeza piel-default">
+              <div className="contendor-pelo">
+                <img alt="" id="pelo-actual" src={imagenes['pelo-v2-f-negro']} className="pelo-f pelo-v2-f-negro"/>
+              </div>
+              <div className="cejas-ojos-nariz-boca-f">
+                <div className="contenedor-cejas">
+                  <div className="ceja-izq ceja-negra"></div>
+                  <div className="ceja-der ceja-negra"></div>
+                </div>
+                <div className="contendor-ojos">
+                  <div className="ojo-izq">
+                    <div className="iris-izq iris-marron">
+                      <div className="pupila-izq"></div>
+                    </div>
+                  </div>
+                  <div className="ojo-der">
+                    <div className="iris-der iris-marron">
+                      <div className="pupila-der"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="nariz"></div>
+                <div className="boca"></div>
+              </div>
+            </div>
+            <div className="oreja-der piel-default" style={{display:'none'}}></div>
+          </div>
+          <div className="cuello piel-default"></div>
+          <div className="componente-ropa">
+            <img alt="" src={imagenes.ropa} />
+          </div>
+          <div className="contendor-brazos">
+            <div className="brazo-izq piel-default"></div>
+            <div className="brazo-der piel-default"></div>
+          </div>
+          <button 
+            type="button" 
+            class="btn btn-primary mt-2"
+            onClick={() => mostrarAvatarSeleccionadoMasConfiguracion('.version-m')}
+          >
+              Opción 2
+          </button>
+        </div>
+
+        <div className="componente-cambio-aspecto ocultar" style={{display:'none'}}>
           <strong style={{ fontSize: '18px' }}>Color de ojos</strong>
           <div className="modificar color-ojo">
             <div
@@ -150,27 +174,27 @@ export function Avatar() {
             <div
               className="pelo pelo-negro"
               title="pelo negro"
-              onClick={() => setPelo(pelo, 'ceja-negra')}
+              onClick={() => setPelo('negro', 'ceja-negra')}
             ></div>
             <div
               className="pelo pelo-castano"
               title="pelo castaño"
-              onClick={() => setPelo(peloCastano, 'ceja-castana')}
+              onClick={() => setPelo('castano', 'ceja-castana')}
             ></div>
             <div
               className="pelo pelo-rubio"
               title="pelo rubio"
-              onClick={() => setPelo(peloRubio, 'ceja-rubia')}
+              onClick={() => setPelo('rubio', 'ceja-rubia')}
             ></div>
             <div
               className="pelo pelo-colorado"
               title="pelo colorado"
-              onClick={() => setPelo(peloColorado, 'ceja-colorada')}
+              onClick={() => setPelo('colorado', 'ceja-colorada')}
             ></div>
             <div
               className="pelo pelo-canoso"
               title="pelo canoso"
-              onClick={() => setPelo(peloCanoso, 'ceja-canosa')}
+              onClick={() => setPelo('canoso', 'ceja-canosa')}
             ></div>
           </div>
         </div>
