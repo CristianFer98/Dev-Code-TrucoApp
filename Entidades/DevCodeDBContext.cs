@@ -18,6 +18,7 @@ namespace Entidades
         }
 
         public virtual DbSet<Mesa> Mesas { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,6 +47,25 @@ namespace Entidades
                 entity.Property(e => e.Tipo)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasKey(e => e.IdUsuario);
+
+                entity.ToTable("Usuario");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(1024);
+
+                entity.Property(e => e.NombreCompleto)
+                    .IsRequired()
+                    .HasMaxLength(256);
             });
 
             OnModelCreatingPartial(modelBuilder);

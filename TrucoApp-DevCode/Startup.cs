@@ -42,7 +42,9 @@ namespace Router
 
             services.AddTransient<DevCodeDBContext>();
             services.AddScoped<IMesaRepositorio, MesaRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IMesaServicio, MesaServicio>();
+            services.AddScoped<IUsuarioServicio, UsuarioServicio>();
 
             services.AddCors(options =>
             {
