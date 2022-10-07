@@ -5,17 +5,16 @@ import {
   mostrarAvatarSeleccionadoMasConfiguracion,
   setPelo,
   setPiel,
-  setOjos
+  setOjos,
+  guardarAvatar
 } from './Funciones';
 
 export function Avatar() {
   return (
     <div className="componente-avatar" style={{height:'100%'}}>
       <h1 className="titulo mt-4">Crea tu avatar y personalizalo</h1>
-      <div class="alert alert-primary text-center mt-3 mb-0" role="alert" style={{width:'50%'}}>
+      <div class="alert alert-primary text-center mt-3 mb-0 mensaje" role="alert" style={{width:'50%'}}>
       Selecciona un avatar, modifícalo y guárdalo.
-      <br/>
-      Así de simple!
     </div>
       <div className="componente-avatar-modificacion">
         <div className="componente-principal version-m" >
@@ -56,13 +55,24 @@ export function Avatar() {
             <div className="brazo-izq piel-default"></div>
             <div className="brazo-der piel-default"></div>
           </div>
-          <button 
-           type="button"
-           class="btn btn-primary mt-2"
-           onClick={() => mostrarAvatarSeleccionadoMasConfiguracion('.version-f')}
-           >
-            Opción 1
-          </button>
+          <div className="d-flex flex-row justify-content-center align-items-center">
+              <button 
+              type="button"
+              class="btn btn-primary mt-2 opcion me-3"
+              onClick={() => mostrarAvatarSeleccionadoMasConfiguracion('.version-f')}
+              >
+                Opción 1
+              </button>
+              <button 
+              type="button"
+              class="btn btn-primary mt-2 guardar"
+              style={{display:"none"}}
+              onClick={() => guardarAvatar()}
+              >
+                Guardar
+              </button>
+          </div>
+          
         </div>
 
         <div className="componente-principal version-f">
@@ -103,13 +113,24 @@ export function Avatar() {
             <div className="brazo-izq piel-default"></div>
             <div className="brazo-der piel-default"></div>
           </div>
-          <button 
-            type="button" 
-            class="btn btn-primary mt-2"
-            onClick={() => mostrarAvatarSeleccionadoMasConfiguracion('.version-m')}
-          >
-              Opción 2
-          </button>
+          <div className="d-flex flex-row justify-content-center align-items-center">
+              <button 
+                type="button" 
+                class="btn btn-primary mt-2 opcion me-3"
+                onClick={() => mostrarAvatarSeleccionadoMasConfiguracion('.version-m')}
+              >
+                  Opción 2
+              </button>
+              <button 
+              type="button"
+              class="btn btn-primary mt-2 guardar"
+              style={{display:"none"}}
+              onClick={() => guardarAvatar()}
+              >
+                Guardar
+              </button>
+          </div>
+          
         </div>
 
         <div className="componente-cambio-aspecto ocultar" style={{display:'none'}}>

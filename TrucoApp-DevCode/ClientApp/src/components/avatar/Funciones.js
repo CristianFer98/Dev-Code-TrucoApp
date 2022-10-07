@@ -3,6 +3,7 @@ export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=
   
     let ocultarAvatarNoSeleccionado= document.querySelector(`${avatarNoSeleccionado}`);
     ocultarAvatarNoSeleccionado.remove();
+    document.querySelector('.guardar').style.display="block";
     document.querySelector('.componente-cambio-aspecto').style.display="block";
  
  }
@@ -61,4 +62,11 @@ export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=
    document.querySelector('.iris-izq').classList.add(colorNuevo);
    document.querySelector('.iris-der').classList.add(colorNuevo);
  };
+
+ export const guardarAvatar= ()=>{
+    console.log("guardado");
+    document.querySelector('.mensaje').classList.remove('alert-primary');
+    document.querySelector('.mensaje').classList.add('alert-success');
+    document.querySelector('.mensaje').innerHTML=`<i class="fa-solid fa-check"></i> Guardado con éxito`;
+ }
  
