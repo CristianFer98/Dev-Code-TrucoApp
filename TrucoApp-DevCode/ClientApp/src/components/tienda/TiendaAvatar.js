@@ -2,7 +2,7 @@ import React from 'react';
 import './tienda.css';
 import { Link } from 'react-router-dom';
 import peloV1F from './../../assets/avatar/pelo-v1-f.png';
-import peloV2F from './../../assets/avatar/pelo-v2-f.png';
+import peloV2F from './../../assets/avatar/pelo-v2-f-negro.png';
 import peloV2M from './../../assets/avatar/pelo-v2-m.png';
 import peloV3M from './../../assets/avatar/pelo-v3-m.png';
 import ropaV2 from './../../assets/avatar/ropa-v2.png';
