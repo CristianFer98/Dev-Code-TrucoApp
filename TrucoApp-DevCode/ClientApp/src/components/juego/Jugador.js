@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import noFoto from "../../assets/no-foto.jpg";
+import { Botones } from "./botones/Botones";
 import { CartaJugador } from "./CartaJugador";
 
 export const Jugador = () => {
@@ -35,6 +36,8 @@ export const Jugador = () => {
               ))}
         </div>
       </div>
+
+      <Botones />
     </div>
   );
 };

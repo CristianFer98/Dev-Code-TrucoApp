@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../context/SocketContext";
+import { isMyTurn } from "../../helpers/truco/getUserTurno";
 const imagenCarta = require.context("../../assets/cartas", true);
 
 export const CartaJugador = ({ carta }) => {
@@ -41,11 +42,7 @@ export const CartaJugador = ({ carta }) => {
     <div
       onClick={handleJugarCarta}
       className={
-        uid === jugadorUno
-          ? turno === 1
-            ? "divCardPlayerTurn"
-            : "divCardPlayer"
-          : uid === jugadorDos && turno === 2
+        isMyTurn(uid, jugadorUno, jugadorDos, turno)
           ? "divCardPlayerTurn"
           : "divCardPlayer"
       }
