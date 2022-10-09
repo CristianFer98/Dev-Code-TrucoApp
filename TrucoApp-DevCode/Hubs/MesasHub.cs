@@ -47,15 +47,42 @@ namespace Router.Hubs
             };
 
             partida.Turno = JuegoServicio.AsignarTurno();
+            partida.Repartidor = JuegoServicio.CambiarTurno(JuegoServicio.AsignarTurno());
+            partida.Mano = 1;
 
             await Clients.Group(userRoom).SendAsync("EmpezarJuego", partida);
-
         }
 
-        public async Task TirarCarta(Jugada jugada)
+        public async Task VolverARepartir(Partida partida)
         {
-            string userRoom = Convert.ToString(jugada.Partida.Room);
-            Partida partidaActualizada = JuegoServicio.ActualizarPartida(jugada);
+            string userRoom = Convert.ToString(partida.Room);
+
+            List<Carta> CartasRepartidas = JuegoServicio.RepartirCartas();
+            partida.CartasJugadorUno = new List<Carta>()
+            {
+                CartasRepartidas[0],
+                CartasRepartidas[2],
+                CartasRepartidas[4],
+            };
+            partida.CartasJugadorDos = new List<Carta>()
+            {
+                CartasRepartidas[1],
+                CartasRepartidas[3],
+                CartasRepartidas[5],
+            };
+
+            partida.Turno = partida.Repartidor;
+            partida.Repartidor = JuegoServicio.CambiarTurno(partida.Repartidor);
+            partida.Mano = 1;
+            partida.GanadorMano = null;
+
+            await Clients.Group(userRoom).SendAsync("EmpezarOtraMano", partida);
+        }
+
+        public async Task TirarCarta(Partida partida)
+        {
+            string userRoom = Convert.ToString(partida.Room);
+            Partida partidaActualizada = JuegoServicio.ActualizarPartida(partida);
             await Clients.Group(userRoom).SendAsync("CartaTirada", partidaActualizada);
         }
 

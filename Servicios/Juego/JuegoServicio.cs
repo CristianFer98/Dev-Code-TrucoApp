@@ -52,7 +52,6 @@ namespace Servicios.Juego
             new Carta(40, 4, "Basto", 14, 4, "./Basto/4Basto.png"),
         };
 
-
         public static List<Carta> RepartirCartas()
         {
             List<Carta> CartasRepartidas = new();
@@ -80,19 +79,146 @@ namespace Servicios.Juego
             return RandomNumero;
         }
 
-
-        public static Partida ActualizarPartida(Jugada jugada)
+        public static Partida ActualizarPartida(Partida partida)
         {
-            if (jugada.Partida.Turno == 1)
-            {
-                jugada.Partida.Turno = 2;
-            }
-            else if (jugada.Partida.Turno == 2)
-            {
-                jugada.Partida.Turno = 1;
-            }
+            //Gana mano jugadorUno: 1, gana mano jugadorDos: 2, empardan 0, si es null es que un solo jugador tiró una carta y el otro todavía no tiro.
+            int? GanadorManoUno = (partida.CartasJugadasJugadorUno.Count > 0 && partida.CartasJugadasJugadorDos.Count > 0) ? CartaGanadora(partida.CartasJugadasJugadorUno[0], partida.CartasJugadasJugadorDos[0]) : null;
 
-            return jugada.Partida;
+            int? GanadorManoDos = (partida.CartasJugadasJugadorUno.Count > 1 && partida.CartasJugadasJugadorDos.Count > 1) ? CartaGanadora(partida.CartasJugadasJugadorUno[1], partida.CartasJugadasJugadorDos[1]) : null;
+
+            int? GanadorManoTres = (partida.CartasJugadasJugadorUno.Count > 2 && partida.CartasJugadasJugadorDos.Count > 2) ? CartaGanadora(partida.CartasJugadasJugadorUno[2], partida.CartasJugadasJugadorDos[2]) : null;
+
+            if (partida.Mano == 1)
+            {
+                if (GanadorManoUno != null)
+                {
+                    if (GanadorManoUno != 0)
+                    {
+                        partida.Turno = (int)GanadorManoUno;
+                    }
+                    else
+                    {
+                        partida.Turno = CambiarTurno(partida.Repartidor);
+                    }
+                    partida.Mano = 2;
+                }
+                else
+                {
+                    partida.Turno = CambiarTurno(partida.Turno);
+                }
+            }
+            else if (partida.Mano == 2)
+            {
+                if (GanadorManoDos != null)
+                {
+                    if (GanadorManoUno != 0)
+                    {
+                        if (GanadorManoUno == GanadorManoDos)
+                        {
+                            //Gana el que ganó primera y segunda mano
+                            partida.Turno = 0;
+                            partida.GanadorMano = (int)GanadorManoDos;
+                        }
+                        else
+                        {
+                            if (GanadorManoDos != 0)
+                            {
+                                //Definen en tercera mano
+                                partida.Turno = (int)GanadorManoDos;
+                                partida.Mano = 3;
+                            }
+                            else
+                            {
+                                //Gana el que ganó la mano uno porque en la mano dos empardaron
+                                partida.Turno = 0;
+                                partida.GanadorMano = (int)GanadorManoUno;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (GanadorManoDos != 0)
+                        {
+                            //Gana el que gano la segunda mando porque en la mano uno empardaron
+                            partida.Turno = 0;
+                            partida.GanadorMano = (int)GanadorManoDos;
+                        }
+                        else
+                        {
+                            //Vuelve a empardar y definen en tercera mano
+                            partida.Turno = CambiarTurno(partida.Repartidor);
+                            partida.Mano = 3;
+                        }
+                    }
+                }
+                else
+                {
+                    partida.Turno = CambiarTurno(partida.Turno);
+                }
+            }
+            else
+            {
+                if (partida.Mano == 3)
+                {
+                    if (GanadorManoTres != null)
+                    {
+                        if (GanadorManoTres != 0)
+                        {
+                            //Gana el que gano una de las dos primeras manos y la mano tres.
+                            partida.Turno = 0;
+                            partida.GanadorMano = (int)GanadorManoTres;
+                        }
+                        else
+                        {
+                            if (GanadorManoUno != 0)
+                            {
+                                //Gana el que gano la mano uno porque empardaron en la tercera.
+                                partida.Turno = 0;
+                                partida.GanadorMano = (int)GanadorManoUno;
+                            }
+                            else
+                            {
+                                //Gana el que es mano porque empardaron las tres manos.
+                                partida.Turno = 0;
+                                partida.GanadorMano = CambiarTurno(partida.Repartidor);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        partida.Turno = CambiarTurno(partida.Turno);
+                    }
+                }
+            }
+            return partida;
+        }
+
+        public static int CambiarTurno(int turno)
+        {
+            if (turno == 1)
+            {
+                return 2;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        public static int CartaGanadora(Carta cartaJugadorUno, Carta cartaJugadorDos)
+        {
+            if (cartaJugadorUno.RankingValorTruco < cartaJugadorDos.RankingValorTruco)
+            {
+                return 1;
+            }
+            else if (cartaJugadorUno.RankingValorTruco > cartaJugadorDos.RankingValorTruco)
+            {
+                return 2;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
     }

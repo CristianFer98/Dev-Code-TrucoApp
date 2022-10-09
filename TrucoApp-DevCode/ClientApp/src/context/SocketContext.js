@@ -82,6 +82,20 @@ export const SocketProvider = ({ children }) => {
   }, [connection, dispatch, uid]);
 
   useEffect(() => {
+    connection?.on("EmpezarOtraMano", (juego) => {
+      const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
+        juego;
+      dispatch(
+        repartirCartas({
+          ...partida,
+          cartasJugadasJugadorUno: [],
+          cartasJugadasJugadorDos: [],
+        })
+      );
+    });
+  }, [connection, dispatch, uid]);
+
+  useEffect(() => {
     connection?.on("CartaTirada", (juego) => {
       const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
         juego;
