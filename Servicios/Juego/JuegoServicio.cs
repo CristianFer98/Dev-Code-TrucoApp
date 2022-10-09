@@ -116,8 +116,7 @@ namespace Servicios.Juego
                         if (GanadorManoUno == GanadorManoDos)
                         {
                             //Gana el que ganó primera y segunda mano
-                            partida.Turno = 0;
-                            partida.GanadorMano = (int)GanadorManoDos;
+                            partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoDos);
                         }
                         else
                         {
@@ -130,8 +129,7 @@ namespace Servicios.Juego
                             else
                             {
                                 //Gana el que ganó la mano uno porque en la mano dos empardaron
-                                partida.Turno = 0;
-                                partida.GanadorMano = (int)GanadorManoUno;
+                                partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoUno);
                             }
                         }
                     }
@@ -140,8 +138,7 @@ namespace Servicios.Juego
                         if (GanadorManoDos != 0)
                         {
                             //Gana el que gano la segunda mando porque en la mano uno empardaron
-                            partida.Turno = 0;
-                            partida.GanadorMano = (int)GanadorManoDos;
+                            partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoDos);
                         }
                         else
                         {
@@ -165,22 +162,19 @@ namespace Servicios.Juego
                         if (GanadorManoTres != 0)
                         {
                             //Gana el que gano una de las dos primeras manos y la mano tres.
-                            partida.Turno = 0;
-                            partida.GanadorMano = (int)GanadorManoTres;
+                            partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoTres);
                         }
                         else
                         {
                             if (GanadorManoUno != 0)
                             {
                                 //Gana el que gano la mano uno porque empardaron en la tercera.
-                                partida.Turno = 0;
-                                partida.GanadorMano = (int)GanadorManoUno;
+                                partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoUno);
                             }
                             else
                             {
                                 //Gana el que es mano porque empardaron las tres manos.
-                                partida.Turno = 0;
-                                partida.GanadorMano = CambiarTurno(partida.Repartidor);
+                                partida = AsignarPuntosAGanadorMano(partida, CambiarTurno(partida.Repartidor));
                             }
                         }
                     }
@@ -190,6 +184,25 @@ namespace Servicios.Juego
                     }
                 }
             }
+            return partida;
+        }
+
+        public static Partida AsignarPuntosAGanadorMano(Partida partida, int ganadorMano)
+        {
+
+            partida.GanadorMano = ganadorMano;
+            partida.Turno = 0;
+
+            if (ganadorMano == 1)
+            {
+                partida.PuntosJugadorUno++;
+
+            }
+            else
+            {
+                partida.PuntosJugadorDos++;
+            }
+
             return partida;
         }
 

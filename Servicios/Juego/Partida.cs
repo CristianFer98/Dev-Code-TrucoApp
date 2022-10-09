@@ -19,5 +19,7 @@ namespace Servicios.Juego
         public int Repartidor { get; set; }
         public int Mano { get; set; }
         public int? GanadorMano { get; set; }
+        public int PuntosJugadorUno { get; set; }
+        public int PuntosJugadorDos { get; set; }
     }
 }

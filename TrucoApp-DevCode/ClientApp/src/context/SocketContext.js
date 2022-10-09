@@ -61,7 +61,7 @@ export const SocketProvider = ({ children }) => {
         await connection.invoke("JoinRoom", room);
       } else if (jugadorDos === uid) {
         await connection.invoke("JoinRoom", room);
-        await connection.invoke("SortearTurno", partida);
+        await connection.invoke("InicializarMano", partida);
       }
     });
   }, [connection, uid]);
@@ -70,21 +70,11 @@ export const SocketProvider = ({ children }) => {
     connection?.on("EmpezarJuego", (juego) => {
       const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
         juego;
-      dispatch(jugar());
-      dispatch(
-        repartirCartas({
-          ...partida,
-          cartasJugadasJugadorUno: [],
-          cartasJugadasJugadorDos: [],
-        })
-      );
-    });
-  }, [connection, dispatch, uid]);
 
-  useEffect(() => {
-    connection?.on("EmpezarOtraMano", (juego) => {
-      const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
-        juego;
+      partida.puntosJugadorUno === 0 &&
+        partida.puntosJugadorDos === 0 &&
+        dispatch(jugar());
+
       dispatch(
         repartirCartas({
           ...partida,

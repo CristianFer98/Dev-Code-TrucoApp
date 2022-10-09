@@ -17,7 +17,7 @@ export const Mesa = () => {
     !!ganadorMano &&
       repartidor === uid &&
       setTimeout(async () => {
-        await connection.invoke("VolverARepartir", partida);
+        await connection.invoke("InicializarMano", partida);
       }, 2000);
   }, [ganadorMano, connection, partida, repartidor, uid]);
 
