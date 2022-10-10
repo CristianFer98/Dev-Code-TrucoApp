@@ -21,5 +21,7 @@ namespace Servicios.Juego
         public int? GanadorMano { get; set; }
         public int PuntosJugadorUno { get; set; }
         public int PuntosJugadorDos { get; set; }
+        public Envido Envido { get; set; }
+        public Truco Truco { get; set; }
     }
 }

@@ -234,5 +234,38 @@ namespace Servicios.Juego
             }
         }
 
+        public static List<string> EncontrarCartasMismoPalo(List<Carta> cartas)
+        {
+            List<string> PalosDeCartas = cartas.Select(c => c.Palo).ToList();
+
+            List<string> PalosRepetidos = new List<string>();
+
+            for (int i = 0; i < PalosDeCartas.Count; i++)
+            {
+                if (PalosDeCartas.IndexOf(PalosDeCartas[i]) != i)
+                {
+                    PalosRepetidos.Add(PalosDeCartas[i]);
+                }
+            }
+
+            return PalosRepetidos;
+        }
+
+        public static int ContarTantoJugador(List<Carta> cartas)
+        {
+            if (EncontrarCartasMismoPalo(cartas).Count > 0)
+            {
+                List<Carta> ListaCartasMismoPalo = cartas.Where(c => c.Palo == EncontrarCartasMismoPalo(cartas)[0]).ToList();
+                return EncontrarCartasMismoPalo(cartas).Count == 1
+                    ? ListaCartasMismoPalo[0].RankingValorEnvido + ListaCartasMismoPalo[1].RankingValorEnvido + 20
+                    : ListaCartasMismoPalo.OrderByDescending(c => c.RankingValorEnvido).ToList()[0].RankingValorEnvido +
+                      ListaCartasMismoPalo.OrderByDescending(c => c.RankingValorEnvido).ToList()[1].RankingValorEnvido + 20;
+            }
+            else
+            {
+                return cartas.OrderByDescending(c => c.RankingValorEnvido).ToList()[0].RankingValorEnvido;
+            }
+        }
+
     }
 }

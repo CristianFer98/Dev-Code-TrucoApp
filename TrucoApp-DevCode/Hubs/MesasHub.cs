@@ -33,19 +33,26 @@ namespace Router.Hubs
             string userRoom = Convert.ToString(partida.Room);
 
             List<Carta> CartasRepartidas = JuegoServicio.RepartirCartas();
-            partida.CartasJugadorUno = new List<Carta>()
+            List<Carta> cartasJugadorUno = new()
             {
                 CartasRepartidas[0],
                 CartasRepartidas[2],
                 CartasRepartidas[4],
             };
-            partida.CartasJugadorDos = new List<Carta>()
+            List<Carta> cartasJugadorDos = new()
             {
                 CartasRepartidas[1],
                 CartasRepartidas[3],
                 CartasRepartidas[5],
             };
+            partida.CartasJugadorUno = cartasJugadorUno;
+            partida.CartasJugadorDos = cartasJugadorDos;
             partida.Mano = 1;
+
+            Envido envido = new();
+            envido.TantoJugadorUno = JuegoServicio.ContarTantoJugador(cartasJugadorUno);
+            envido.TantoJugadorDos = JuegoServicio.ContarTantoJugador(cartasJugadorDos);
+            partida.Envido = envido;
 
             if (partida.PuntosJugadorUno == 0 && partida.PuntosJugadorDos == 0)
             {
