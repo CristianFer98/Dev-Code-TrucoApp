@@ -6,8 +6,7 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
-import { repartirCartas, tirarCarta } from "../actions/juego";
-
+import { cantarEnvido, repartirCartas, tirarCarta } from "../actions/juego";
 export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
@@ -68,8 +67,12 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("EmpezarJuego", (juego) => {
-      const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
-        juego;
+      const {
+        cartasJugadasJugadorUno,
+        cartasJugadasJugadorDos,
+        envido,
+        ...partida
+      } = juego;
 
       partida.puntosJugadorUno === 0 &&
         partida.puntosJugadorDos === 0 &&
@@ -80,6 +83,10 @@ export const SocketProvider = ({ children }) => {
           ...partida,
           cartasJugadasJugadorUno: [],
           cartasJugadasJugadorDos: [],
+          envido: {
+            ...envido,
+            envidosCantados: [],
+          },
         })
       );
     });
@@ -102,6 +109,12 @@ export const SocketProvider = ({ children }) => {
       );
     });
   }, [connection, dispatch, uid]);
+
+  useEffect(() => {
+    connection?.on("EnvidoCantado", (juego) => {
+      dispatch(cantarEnvido(juego));
+    });
+  }, [connection, dispatch]);
 
   return (
     <SocketContext.Provider value={{ connection }}>

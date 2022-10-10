@@ -267,5 +267,35 @@ namespace Servicios.Juego
             }
         }
 
+        public static int CalcularPuntosEnvido(List<string> envidosCantados, int puntosJugadorUno, int puntosJugadorDos)
+        {
+
+            List<dynamic> envidosCantadosDinamicos = envidosCantados.Cast<dynamic>().ToList();
+            List<dynamic> envidosCantadosConvertidos = envidosCantadosDinamicos.Select(e => e == "envido" ? 2 : e == "real envido" ? 3 : e).ToList();
+
+
+            if (envidosCantadosConvertidos.Contains("quiero"))
+            {
+                if (!envidosCantadosConvertidos.Contains("falta envido"))
+                {
+                    envidosCantadosConvertidos.RemoveAt(envidosCantadosConvertidos.Count - 1);
+                }
+                else
+                {
+                    envidosCantadosConvertidos.Clear();
+                    envidosCantadosConvertidos.Add(puntosJugadorUno > puntosJugadorDos ?
+                    30 - puntosJugadorUno : 30 - puntosJugadorDos);
+                }
+            }
+            else
+            {
+                envidosCantadosConvertidos.RemoveAt(envidosCantadosConvertidos.Count - 1);
+                envidosCantadosConvertidos.RemoveAt(envidosCantadosConvertidos.Count - 1);
+                if (envidosCantadosConvertidos.Count == 0) envidosCantadosConvertidos.Add(1);
+            }
+
+            return envidosCantadosConvertidos.Cast<int>().ToList().Sum();
+        }
+
     }
 }

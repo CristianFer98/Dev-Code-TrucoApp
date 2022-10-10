@@ -14,6 +14,11 @@ export const juegoReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
+    case types.juegoCantarEnvido:
+      return {
+        ...state,
+        ...action.payload,
+      };
 
     default:
       return state;

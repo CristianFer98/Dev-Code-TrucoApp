@@ -14,3 +14,8 @@ export const salirDeMesa = () => ({
   type: types.authDejarDeJugar,
   payload: { jugando: false },
 });
+
+export const cantarEnvido = (partida) => ({
+  type: types.juegoCantarEnvido,
+  payload: { partida },
+});

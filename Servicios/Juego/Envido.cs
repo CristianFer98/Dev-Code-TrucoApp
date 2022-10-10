@@ -10,7 +10,7 @@ namespace Servicios.Juego
     {
         public int TantoJugadorUno { get; set; }
         public int TantoJugadorDos { get; set; }
-        public List<string> TipoEnvidoEnJuego { get; set; }
+        public List<string> EnvidosCantados { get; set; }
         public int JugadorQueCantoPrimeroEnvido { get; set; }
         public int JugadorQueDebeResponderEnvido { get; set; }
         public bool EstadoEnvidoCantado { get; set; }

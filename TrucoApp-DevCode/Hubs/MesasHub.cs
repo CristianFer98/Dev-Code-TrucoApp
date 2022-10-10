@@ -76,5 +76,11 @@ namespace Router.Hubs
             await Clients.Group(userRoom).SendAsync("CartaTirada", partidaActualizada);
         }
 
+        public async Task CantarEnvido(Partida partida)
+        {
+            string userRoom = Convert.ToString(partida.Room);
+            await Clients.Group(userRoom).SendAsync("EnvidoCantado", partida);
+        }
+
     }
 }
