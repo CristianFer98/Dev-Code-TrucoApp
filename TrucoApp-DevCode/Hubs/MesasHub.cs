@@ -79,6 +79,36 @@ namespace Router.Hubs
         public async Task CantarEnvido(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
+            int jugadorQueCantaEnvido = JuegoServicio.CambiarTurno(partida.Envido.JugadorQueDebeResponderEnvido);
+
+            if (partida.Envido.EnvidosCantados[^1] == "quiero")
+            {
+                partida.Turno = JuegoServicio.CambiarTurno(partida.Repartidor);
+                partida.Envido.EstadoEnvidoCantado = false;
+                partida.Envido.EstadoCantarTantos = true;
+                partida.Envido.JugadorQueDebeResponderEnvido = JuegoServicio.CambiarTurno(partida.Repartidor);
+            }
+            else if (partida.Envido.EnvidosCantados[^1] == "no quiero")
+            {
+                partida.Turno = partida.Envido.JugadorQueCantoPrimeroEnvido;
+                partida.Envido.EstadoEnvidoCantado = false;
+                partida.Envido.EstadoCantarTantos = false;
+                partida.Envido.JugadorQueDebeResponderEnvido = 0;
+                partida.Envido.JugadorQueCantoPrimeroEnvido = 0;
+
+                if (jugadorQueCantaEnvido == 1)
+                {
+                    partida.PuntosJugadorDos += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+                else
+                {
+                    partida.PuntosJugadorUno += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+            }
+            else
+            {
+                partida.Turno = partida.Envido.JugadorQueDebeResponderEnvido;
+            }
             await Clients.Group(userRoom).SendAsync("EnvidoCantado", partida);
         }
 
