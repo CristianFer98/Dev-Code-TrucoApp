@@ -20,12 +20,7 @@ const MenuLateral = () => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        height: 'auto',
-      }}
-    >
+    <div id="sidebar">
       <CDBSidebar breakpoint={1500} toggled textColor="#fff">
         <CDBSidebarContent className="sidebar-content bg-dark">
           <CDBSidebarMenu>
@@ -145,9 +140,7 @@ const MenuLateral = () => {
               icon="share"
               style={{ color: '#B43326' }}
               onClick={handleLogout}
-            >
-              Cerrar Sesion
-            </CDBSidebarMenuItem>
+            ></CDBSidebarMenuItem>
           </span>
           <div className="logoutLeyenda">Salir</div>
         </CDBSidebarFooter>

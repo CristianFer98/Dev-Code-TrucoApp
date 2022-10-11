@@ -1,3 +1,9 @@
+#sidebar{
+    height: 100vh;
+    display: grid;
+    margin-top: 70px;
+}
+
 .homeLeyenda {
     background-color: rgb(235, 235, 220); 
     display: none;

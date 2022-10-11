@@ -1,9 +1,11 @@
 ﻿* {
     scroll-behavior: smooth;
   }
+
+
 .componente-store {
     width: 100%;
-    height: 100vh;
+    margin-left: 40px;
     background-color: #d9d9d9;
     display:flex;
     flex-direction:column;

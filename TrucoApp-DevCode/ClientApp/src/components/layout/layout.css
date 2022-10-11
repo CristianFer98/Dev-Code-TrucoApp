@@ -1,7 +1,15 @@
 ﻿.main {
   width: 100%;
-  height: auto;
+  height: 100vh;
   background-image: url("../../assets/trucoHome.webp");
   background-size: cover;
   background-position-y: center;
+}
+
+.MuiDrawer-paper {
+  width: 80px !important;
+  }
+  
+#root{
+  background-color: #d9d9d9;
 }

@@ -16,4 +16,6 @@
     background-attachment: fixed;
     background-color: #d9d9d9;
     white-space: pre-wrap;
+    padding-left:180px!important;
+    padding-top: 80px!important;
 }

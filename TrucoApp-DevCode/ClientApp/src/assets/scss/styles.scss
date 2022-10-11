@@ -22,22 +22,24 @@ $gray-900: #212529;
 $black: #000;
 
 // theme colors
-$teal-blue: #447a93;
-$pewter-blue: #95b3c3;
+$gunmetal: #132f3f;
+$cg-blue: #467893;
+$deep-space-sparkle: #3c5867;
+$medium-aquamarine: #6addbb;
 $alice-blue: #ecf0f4;
-$mantis: #6ac355;
+$mantis: #69c257;
 $bud-green: #64b85f;
 $candy-pink: #df6470;
 $earth-yellow: #e7ac68;
 
-$primary: $teal-blue;
-$secondary: $gray-600;
+$primary: $cg-blue;
+$secondary: $deep-space-sparkle;
 $success: $mantis;
-$info: $pewter-blue;
+$info: $medium-aquamarine;
 $warning: $earth-yellow;
 $danger: $candy-pink;
 $light: $alice-blue;
-$dark: #132f3f;
+$dark: $gunmetal;
 
 $theme-colors: (
   'primary': $primary,
