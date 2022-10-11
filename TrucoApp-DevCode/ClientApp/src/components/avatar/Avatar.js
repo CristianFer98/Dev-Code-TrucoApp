@@ -13,7 +13,7 @@ import {
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
-  //const [IdUsuario, setIdUsuario] = useState('');
+  const [IdUsuario, setIdUsuario] = useState(3);
   const [Pelo, setEstadoPelo] = useState('pelo');
   const [Ceja, setEstadoCeja] = useState('');
   const [ColorDePiel, setEstadoColorDePiel] = useState('');
@@ -21,20 +21,32 @@ export function Avatar() {
   const [Ropa, setEstadoRopa] = useState(imagenes.ropa);
 
    const handleSubmit= async (e) =>{
-      e.preventDefault();
-      /*try{
-          const resp = await axios.post(url, { 
-                                              Pelo:Pelo, 
-                                              Ceja:Ceja,
-                                              ColorDePiel:ColorDePiel,
-                                              ColorDeOjos:ColorDeOjos, 
-                                              Ropa:Ropa 
-                                        });
-          console.log(resp.data);
-      }catch(error){
-          console.log(error.response);
-      }*/
-      console.log(Pelo, Ceja, ColorDePiel, ColorDeOjos, Ropa);
+      e.preventDefault(); 
+         const resp = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              IdUsuario:IdUsuario,
+              Pelo:Pelo, 
+              Ceja:Ceja,
+              ColorDePiel:ColorDePiel,
+              ColorDeOjos:ColorDeOjos, 
+              Ropa:Ropa 
+            })
+          });
+          if (resp.ok) {
+            console.log("guardado con exito");
+            document.querySelector('.mensaje').classList.remove('alert-primary');
+            document.querySelector('.mensaje').classList.add('alert-success');
+            document.querySelector('.mensaje').innerHTML=`<i className="fa-solid fa-check"></i> Guardado con éxito`;
+            //console.log(IdUsuario, Pelo, Ceja, ColorDePiel, ColorDeOjos, Ropa);
+          } else{
+      
+              console.log("error, no se pudo guardar");
+          }     
+     
   }
 
   return (
