@@ -3,9 +3,8 @@ import Cartas from './Cartas';
 
 export function Reglas() {
   return (
-    <div className="rules-container container-fluid text-center p-5">
+    <div className="rules-container container-fluid text-center">
       <div className="container">
-        {' '}
         <div className="row">
           <div className="col">
             <h1 className="my-4 text-center">Reglas del Truco</h1>

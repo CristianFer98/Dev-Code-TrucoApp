@@ -4,10 +4,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 import imagotipo from './../../assets/imagotipo-c.png';
+import './menuNav.css';
 
 function CollapsibleExample() {
   return (
     <Navbar
+      id="navbar"
       collapseOnSelect
       expand="lg"
       bg="dark"
