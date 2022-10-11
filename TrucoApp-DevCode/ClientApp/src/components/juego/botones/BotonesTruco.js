@@ -9,7 +9,7 @@ export const BotonesTruco = () => {
       >
         Truco
       </div>
-      <div
+      {/* <div
         id="re truco"
         className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
       >
@@ -21,7 +21,7 @@ export const BotonesTruco = () => {
         className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
       >
         Vale cuatro
-      </div>
+      </div> */}
     </>
   );
 };

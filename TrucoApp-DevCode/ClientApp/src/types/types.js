@@ -7,4 +7,5 @@ export const types = {
   juegoRepartirCartas: "[juego] Repartir cartas",
   juegoTirarCarta: "[juego] Tirar carta",
   juegoCantarEnvido: "[juego] Cantar envido",
+  juegoBloquearTurnos: "[juego] Bloquear turnos",
 };

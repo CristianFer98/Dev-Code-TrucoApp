@@ -20,6 +20,12 @@ export const juegoReducer = (state = initialState, action) => {
         ...action.payload,
       };
 
+    case types.juegoBloquearTurnos:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
     default:
       return state;
   }
