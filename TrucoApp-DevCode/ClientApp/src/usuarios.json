@@ -5,7 +5,6 @@
       "nombre": "Ivan Kek",
       "email": "ivan.kek@hotmail.com",
       "password": "1234"
-<<<<<<< HEAD
     },
     {
       "uid": 2,
@@ -18,8 +17,6 @@
       "nombre": "Cristiano Ronaldo",
       "email": "cristiano@hotmail.com",
       "password": "1234"
-=======
->>>>>>> parent of 0b9f2a5 (add auth0)
     }
   ]
 }

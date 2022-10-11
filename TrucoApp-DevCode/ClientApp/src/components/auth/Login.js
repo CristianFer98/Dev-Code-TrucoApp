@@ -1,30 +1,18 @@
 import React from "react";
-<<<<<<< HEAD
-import { Cuenta } from "../cuenta/Cuenta";
-import { LoginButton } from "./LoginButton";
-import LogoutButton from "./Logout";
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { startLogin } from '../../actions/auth';
 import { useForm } from '../../hooks/useForm';
-=======
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { startLogin } from "../../actions/auth";
-import { useForm } from "../../hooks/useForm";
->>>>>>> parent of 0b9f2a5 (add auth0)
+
 
 export const Login = () => {
   const dispatch = useDispatch();
 
   const [formLoginValues, handleLoginInputChange] = useForm({
-<<<<<<< HEAD
     lEmail: '',
     lPassword: '',
-=======
-    lEmail: "",
-    lPassword: "",
->>>>>>> parent of 0b9f2a5 (add auth0)
   });
 
   const { lEmail, lPassword } = formLoginValues;
