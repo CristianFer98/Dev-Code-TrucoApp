@@ -1,14 +1,15 @@
-import imagenes from './Imagenes';
+import imagenes from './AvatarImagenes';
+
 export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=>{
   
     let ocultarAvatarNoSeleccionado= document.querySelector(`${avatarNoSeleccionado}`);
     ocultarAvatarNoSeleccionado.remove();
-    document.querySelector('.guardar').style.display="block";
+    document.querySelector('.guardarAvatar').style.display="block";
     document.querySelector('.componente-cambio-aspecto').style.display="block";
  
  }
  
- export const getPeloAvatar = () =>{
+ export const getPeloActualAvatar = () =>{
    let img = document.querySelector('#pelo-actual');
    let imagenActual = img.classList[1];
    let posicionUltimoGuion = imagenActual.lastIndexOf("-");   
@@ -30,7 +31,7 @@ export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=
    document.querySelector('.ceja-der').classList.remove(cejaColorActual);
    document.querySelector('.ceja-izq').classList.add(cejaColorNuevo);
    document.querySelector('.ceja-der').classList.add(cejaColorNuevo);
-    let nombreImg=getPeloAvatar();
+    let nombreImg=getPeloActualAvatar();
     let nuevoValor=nombreImg+peloColorNuevo;
     modificarClaseImgPelo(nuevoValor);
     peloActual.src=imagenes[`${nuevoValor}`];
@@ -63,10 +64,24 @@ export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=
    document.querySelector('.iris-der').classList.add(colorNuevo);
  };
 
- export const guardarAvatar= ()=>{
-    console.log("guardado");
-    document.querySelector('.mensaje').classList.remove('alert-primary');
-    document.querySelector('.mensaje').classList.add('alert-success');
-    document.querySelector('.mensaje').innerHTML=`<i class="fa-solid fa-check"></i> Guardado con éxito`;
+ export const setRopa = (ropaNueva) =>{
+  document.querySelector('#ropaActual').src=imagenes[`${ropaNueva}`];;
+}
+
+ export const getPelo = () =>{
+  return document.querySelector('#pelo-actual').classList[1];
  }
+
+ export const getPiel = () =>{
+  return document.querySelector('.cabeza').classList[1];
+ }
+
+ export const getOjos = () =>{
+  return document.querySelector('.iris-izq').classList[1];
+ }
+
+export const getRopa = () =>{
+  return document.querySelector('#ropaActual').classList[0];
+ }
+
  
