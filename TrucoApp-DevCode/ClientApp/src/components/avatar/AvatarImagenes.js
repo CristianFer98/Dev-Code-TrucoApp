@@ -23,4 +23,5 @@ export default{
     "pelo-v2-f-colorado": peloFColorado,
     "pelo-v2-f-canoso": peloFCanoso,
     "ropa": ropa
+    
 }
