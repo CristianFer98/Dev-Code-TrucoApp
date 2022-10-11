@@ -116,6 +116,12 @@ export const SocketProvider = ({ children }) => {
     });
   }, [connection, dispatch]);
 
+  useEffect(() => {
+    connection?.on("TantosCantados", (juego) => {
+      dispatch(cantarEnvido(juego));
+    });
+  }, [connection, dispatch]);
+
   return (
     <SocketContext.Provider value={{ connection }}>
       {children}

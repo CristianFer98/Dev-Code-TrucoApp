@@ -79,7 +79,7 @@ namespace Router.Hubs
         public async Task CantarEnvido(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
-            int jugadorQueCantaEnvido = JuegoServicio.CambiarTurno(partida.Envido.JugadorQueDebeResponderEnvido);
+            int jugadorQueCantaEnvido = partida.Turno;
 
             if (partida.Envido.EnvidosCantados[^1] == "quiero")
             {
@@ -110,6 +110,36 @@ namespace Router.Hubs
                 partida.Turno = partida.Envido.JugadorQueDebeResponderEnvido;
             }
             await Clients.Group(userRoom).SendAsync("EnvidoCantado", partida);
+        }
+
+        public async Task CantarTantos(Partida partida)
+        {
+            string userRoom = Convert.ToString(partida.Room);
+            if (partida.Turno == partida.Repartidor)
+            {
+                partida.Turno = partida.Envido.JugadorQueCantoPrimeroEnvido;
+                partida.Envido.JugadorQueDebeResponderEnvido = 0;
+                partida.Envido.JugadorQueCantoPrimeroEnvido = 0;
+                partida.Envido.EstadoCantarTantos = false;
+
+                if (JuegoServicio.EnvidoMasAlto(partida.Repartidor, partida.Envido.TantoCantadoJugadorUno, partida.Envido.TantoCantadoJugadorDos) == 1)
+                {
+                    partida.PuntosJugadorUno += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+                else
+                {
+                    partida.PuntosJugadorDos += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+
+            }
+            else
+            {
+                partida.Turno = JuegoServicio.CambiarTurno(partida.Turno);
+                partida.Envido.JugadorQueDebeResponderEnvido = JuegoServicio.CambiarTurno(partida.Turno);
+            }
+
+            await Clients.Group(userRoom).SendAsync("TantosCantados", partida);
+
         }
 
     }

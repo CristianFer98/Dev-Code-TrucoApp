@@ -1,13 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import {
+  botonesTantos,
   sePuedeCantarEnvidos,
   sePuedeCantarQuieroNoQuiero,
+  sePuedeCantarTruco,
 } from "../../../helpers/truco/getUserTurno";
 import { BotonesEnvido } from "./BotonesEnvido";
 import { BotonesQuieroNoQuiero } from "./BotonesQuieroNoQuiero";
 import { BotonesTruco } from "./BotonesTruco";
 import { BotonIrAlMazo } from "./BotonIrAlMazo";
+import { BotonTantoEnvido } from "./BotonTantoEnvido";
 
 export const Botones = () => {
   const { uid } = useSelector((state) => state.auth);
@@ -37,16 +40,33 @@ export const Botones = () => {
           jugadorUno,
           jugadorDos,
           turno,
-          estadoEnvidoCantado,
-          estadoCantarTantos,
-          jugadorQueDebeResponderEnvido,
           envidosCantados,
+          estadoCantarTantos,
           mano
         ) && <BotonesEnvido />}
 
-        <BotonesTruco />
+        {botonesTantos(
+          envidosCantados,
+          estadoCantarTantos,
+          uid,
+          jugadorUno,
+          jugadorDos,
+          turno
+        ) && <BotonTantoEnvido />}
 
-        <BotonIrAlMazo />
+        {sePuedeCantarTruco(
+          uid,
+          jugadorUno,
+          jugadorDos,
+          turno,
+          estadoEnvidoCantado,
+          estadoCantarTantos
+        ) && (
+          <>
+            <BotonesTruco />
+            <BotonIrAlMazo />
+          </>
+        )}
       </div>
     </div>
   );

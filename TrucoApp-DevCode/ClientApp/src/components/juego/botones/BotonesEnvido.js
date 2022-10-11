@@ -3,6 +3,9 @@ import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../context/SocketContext";
 import {
+  botonEnvido,
+  botonFaltaEnvido,
+  botonRealEnvido,
   getUserPlayer,
   sePuedeCantarEnvidos,
 } from "../../../helpers/truco/getUserTurno";
@@ -12,13 +15,8 @@ export const BotonesEnvido = () => {
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
   const { envido, jugadorUno, jugadorDos, turno, mano } = partida;
-  const {
-    jugadorQueCantoPrimeroEnvido,
-    envidosCantados,
-    estadoCantarTantos,
-    estadoEnvidoCantado,
-    jugadorQueDebeResponderEnvido,
-  } = envido;
+  const { jugadorQueCantoPrimeroEnvido, envidosCantados, estadoCantarTantos } =
+    envido;
 
   const handleEnvido = async (e) => {
     e.preventDefault();
@@ -28,10 +26,8 @@ export const BotonesEnvido = () => {
       jugadorUno,
       jugadorDos,
       turno,
-      estadoEnvidoCantado,
-      estadoCantarTantos,
-      jugadorQueDebeResponderEnvido,
       envidosCantados,
+      estadoCantarTantos,
       mano
     ) &&
       (await connection.invoke("CantarEnvido", {
@@ -52,28 +48,33 @@ export const BotonesEnvido = () => {
 
   return (
     <>
-      <div
-        onClick={handleEnvido}
-        className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
-        id="envido"
-      >
-        Envido
-      </div>
-
-      <div
-        onClick={handleEnvido}
-        className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
-        id="real envido"
-      >
-        Real Envido
-      </div>
-      <div
-        onClick={handleEnvido}
-        className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
-        id="falta envido"
-      >
-        Falta Envido
-      </div>
+      {botonEnvido(envidosCantados) && (
+        <div
+          onClick={handleEnvido}
+          className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
+          id="envido"
+        >
+          Envido
+        </div>
+      )}
+      {botonRealEnvido(envidosCantados) && (
+        <div
+          onClick={handleEnvido}
+          className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
+          id="real envido"
+        >
+          Real Envido
+        </div>
+      )}
+      {botonFaltaEnvido(envidosCantados) && (
+        <div
+          onClick={handleEnvido}
+          className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
+          id="falta envido"
+        >
+          Falta Envido
+        </div>
+      )}
     </>
   );
 };

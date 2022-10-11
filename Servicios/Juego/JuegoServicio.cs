@@ -238,7 +238,7 @@ namespace Servicios.Juego
         {
             List<string> PalosDeCartas = cartas.Select(c => c.Palo).ToList();
 
-            List<string> PalosRepetidos = new List<string>();
+            List<string> PalosRepetidos = new();
 
             for (int i = 0; i < PalosDeCartas.Count; i++)
             {
@@ -295,6 +295,22 @@ namespace Servicios.Juego
             }
 
             return envidosCantadosConvertidos.Cast<int>().ToList().Sum();
+        }
+
+        public static int EnvidoMasAlto(int repartidor, int tantoJugadorUno, int tantoJugadorDos)
+        {
+            if (tantoJugadorUno > tantoJugadorDos)
+            {
+                return 1;
+            }
+            else if (tantoJugadorUno < tantoJugadorDos)
+            {
+                return 2;
+            }
+            else
+            {
+                return repartidor == 1 ? 2 : 1;
+            }
         }
 
     }
