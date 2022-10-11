@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Entidades
+{
+    public class Avatar
+    {
+        public int IdUsuario { get; set;}
+        public string Pelo { get; set; }
+        public string Ceja { get; set; }
+        public string ColorDePiel { get; set; }
+        public string ColorDeOjos { get; set; }
+        public string Ropa { get; set; }
+    }
+}
