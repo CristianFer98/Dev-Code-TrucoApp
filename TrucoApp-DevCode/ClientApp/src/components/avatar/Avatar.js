@@ -11,6 +11,7 @@ import {
 } from './Funciones';
 
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
+
 export function Avatar() {
   //const [IdUsuario, setIdUsuario] = useState('');
   const [Pelo, setEstadoPelo] = useState('pelo');
