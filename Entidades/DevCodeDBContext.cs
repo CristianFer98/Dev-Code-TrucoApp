@@ -18,6 +18,8 @@ namespace Entidades
         }
 
         public virtual DbSet<Mesa> Mesas { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Avatar> Avatars { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,6 +48,47 @@ namespace Entidades
                 entity.Property(e => e.Tipo)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasKey(e => e.IdUsuario);
+
+                entity.ToTable("Usuario");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(1024);
+
+                entity.Property(e => e.NombreCompleto)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<Avatar>(entity =>
+            {
+                entity.HasKey(e => e.IdUsuario);
+
+                entity.ToTable("Avatar");
+
+                entity.Property(e => e.Pelo)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ColorDePiel)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ColorDeOjos)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                entity.Property(e => e.Ropa)
+                   .IsRequired()
+                   .HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);
