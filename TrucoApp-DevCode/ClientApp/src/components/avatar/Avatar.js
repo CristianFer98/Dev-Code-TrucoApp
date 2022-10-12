@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import './avatar.css';
 import imagenes from './AvatarImagenes';
-//import axios from 'axios';
 import { 
   mostrarAvatarSeleccionadoMasConfiguracion,
   setPelo,
@@ -13,12 +12,13 @@ import {
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
+  let ropa = imagenes.ropa;
   const [IdUsuario, setIdUsuario] = useState(3);
   const [Pelo, setEstadoPelo] = useState('pelo');
-  const [Ceja, setEstadoCeja] = useState('');
-  const [ColorDePiel, setEstadoColorDePiel] = useState('');
-  const [ColorDeOjos, setEstadoColorDeOjos] = useState('');
-  const [Ropa, setEstadoRopa] = useState(imagenes.ropa);
+  const [Ceja, setEstadoCeja] = useState('ceja-negra');
+  const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');
+  const [ColorDeOjos, setEstadoColorDeOjos] = useState('iris-marron');
+  const [Ropa, setEstadoRopa] = useState(ropa);
 
    const handleSubmit= async (e) =>{
       e.preventDefault(); 
@@ -41,9 +41,7 @@ export function Avatar() {
             document.querySelector('.mensaje').classList.remove('alert-primary');
             document.querySelector('.mensaje').classList.add('alert-success');
             document.querySelector('.mensaje').innerHTML=`<i className="fa-solid fa-check"></i> Guardado con éxito`;
-            //console.log(IdUsuario, Pelo, Ceja, ColorDePiel, ColorDeOjos, Ropa);
           } else{
-      
               console.log("error, no se pudo guardar");
           }     
      
