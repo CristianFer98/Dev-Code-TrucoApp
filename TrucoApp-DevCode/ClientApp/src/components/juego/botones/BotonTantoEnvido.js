@@ -30,6 +30,7 @@ export const BotonTantoEnvido = () => {
           numeroJugador === 1 ? tantoJugadorUno : tantoCantadoJugadorUno,
         tantoCantadoJugadorDos:
           numeroJugador === 2 ? tantoJugadorDos : tantoCantadoJugadorDos,
+        cantoTanto: e.target.id,
       },
     });
   };

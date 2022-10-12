@@ -8,4 +8,6 @@ export const types = {
   juegoTirarCarta: "[juego] Tirar carta",
   juegoCantarEnvido: "[juego] Cantar envido",
   juegoBloquearTurnos: "[juego] Bloquear turnos",
+  uiSetChantBox: "[ui] Set chant box",
+  uiRemoveChantBox: "[ui] Remove chant box",
 };
