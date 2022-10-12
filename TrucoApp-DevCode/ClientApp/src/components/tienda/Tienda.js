@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import mochila from './../../assets/accesorios/mochila.png';
 import mazo from './../../assets/accesorios/mazo.png';
 import remeraBlack from './../../assets/accesorios/remera-black.png';
-import remeraWhite from './../../assets/accesorios/remera-white.png';
+import taza from './../../assets/accesorios/taza.png';
 
 //import { AccesoriosTienda } from "../acessorios.json";
 export function Tienda() {
@@ -24,16 +24,17 @@ export function Tienda() {
     },
     {
       id:3,
+      imagen: taza,
+      descripcion: "Taza 'Vale Cuatro'",
+      precio: 800.0,
+    },
+    {
+      id:4,
       imagen: remeraBlack,
       descripcion: "Remera Black 'Vale Cuatro'",
       precio: 2800.0,
     },
-    {
-      id:4,
-      imagen: remeraWhite,
-      descripcion: "Remera White 'Vale Cuatro'",
-      precio: 2800.0,
-    },
+   
   ];
   return (
     <div className="componente-store" style={{height:'100%'}}>

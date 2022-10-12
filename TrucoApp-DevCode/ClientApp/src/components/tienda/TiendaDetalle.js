@@ -4,7 +4,7 @@ import AccesorioDetalle from './AccesorioDetalle';
 import mochila from './../../assets/accesorios/mochila.png';
 import mazo from './../../assets/accesorios/mazo.png';
 import remeraBlack from './../../assets/accesorios/remera-black.png';
-import remeraWhite from './../../assets/accesorios/remera-white.png';
+import taza from './../../assets/accesorios/taza.png';
 import { useParams } from 'react-router';
 
 export function TiendaDetalle() {
@@ -27,22 +27,22 @@ export function TiendaDetalle() {
         },
         {
           idA:3,
+          imagen: taza,
+          descripcion: "Taza 'Vale Cuatro'",
+          detalle1:"Colores: Blanco",
+          detalle2:"-",
+          detalle3:"Cantidad: 100",
+          precio: 800.0,
+        },
+        {
+          idA:4,
           imagen: remeraBlack,
           descripcion: "Remera Black 'Vale Cuatro'",
           detalle1:"Colores: Negro",
           detalle2:"Talles: S, M, L, XL, XXL",
           detalle3:"Cantidad: 100",
           precio: 2800.0,
-        },
-        {
-          idA:4,
-          imagen: remeraWhite,
-          descripcion: "Remera White 'Vale Cuatro'",
-          detalle1:"Colores: Blanco",
-          detalle2:"Talles: S, M, L, XL, XXL",
-          detalle3:"Cantidad: 100",
-          precio: 2800.0,
-        },
+        }
       ];
       
     return (
