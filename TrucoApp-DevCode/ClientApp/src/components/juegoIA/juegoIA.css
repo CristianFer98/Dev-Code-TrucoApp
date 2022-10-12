@@ -50,7 +50,7 @@
   background-color: #233237;
   box-shadow: rgba(0, 0, 0, 0.3) 5px 0px 10px 10px;
   height: 150px;
-  width: 30%;
+  width: 100%;
   opacity: 0.9;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -59,6 +59,20 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
+}
+
+.cuadroDeDialogo{
+  color: rgba(255, 255, 255, 0.753);
+  font-size: larger;
+  font-weight: bold;
+  background-color: #777;
+  background-image: linear-gradient(0deg, rgb(17, 104, 36), rgb(83, 148, 94));
+  padding: 20px;
+  width: 60%;
+  height: 70px;
+  margin-top: 10px;
+  text-align: center;
+  border-radius: 20px;
 }
 
 /*Define la seccion de la mano del jugador y los botones de accion*/
@@ -73,8 +87,8 @@
 /*Estilos de botones de accion*/
 .botonesDeAccion{
   border: none;
-  height: 40px;
-  width: 25%;
+  height: 45px;
+  width: 30%;
   border-radius: 10px;
   background-color: #233237;
   color:aliceblue
