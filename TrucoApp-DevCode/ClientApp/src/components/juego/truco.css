@@ -427,7 +427,7 @@
 
 .divChant {
   z-index: 1;
-  background-color: rgb(255, 255, 103);
+  background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px;
   border-radius: 5px;
@@ -446,5 +446,5 @@
   transform: rotate(90deg);
   z-index: 1;
   border: solid 15px transparent;
-  border-right-color: #fff;
+  border-right-color: #f1f1f1;
 }

@@ -17,5 +17,7 @@ namespace Servicios.Juego
         public bool EstadoCantarTantos { get; set; }
         public int TantoCantadoJugadorUno { get; set; }
         public int TantoCantadoJugadorDos { get; set; }
+        public int JugadorQueCantoEnvido { get; set; }
+        public string CantoTanto { get; set; }
     }
 }

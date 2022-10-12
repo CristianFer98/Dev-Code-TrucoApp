@@ -7,6 +7,8 @@ import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
 import { cantarEnvido, repartirCartas, tirarCarta } from "../actions/juego";
+import { checkChantSet } from "../actions/ui";
+import { getUserPlayer } from "../helpers/truco/getUserTurno";
 export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
@@ -112,13 +114,40 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("EnvidoCantado", (juego) => {
+      const { envido, jugadorUno, jugadorDos } = juego;
+      const { jugadorQueCantoEnvido, envidosCantados } = envido;
       dispatch(cantarEnvido(juego));
+      dispatch(
+        checkChantSet(
+          jugadorQueCantoEnvido,
+          envidosCantados[envidosCantados.length - 1],
+          getUserPlayer(uid, jugadorUno, jugadorDos)
+        )
+      );
     });
   }, [connection, dispatch]);
 
   useEffect(() => {
     connection?.on("TantosCantados", (juego) => {
+      const { envido, jugadorUno, jugadorDos } = juego;
+      const {
+        jugadorQueCantoEnvido,
+        cantoTanto,
+        tantoCantadoJugadorUno,
+        tantoCantadoJugadorDos,
+      } = envido;
+      const tanto =
+        getUserPlayer(uid, jugadorUno, jugadorDos) === 1
+          ? tantoCantadoJugadorUno
+          : tantoCantadoJugadorDos;
       dispatch(cantarEnvido(juego));
+      dispatch(
+        checkChantSet(
+          jugadorQueCantoEnvido,
+          cantoTanto,
+          getUserPlayer(uid, jugadorUno, jugadorDos)
+        )
+      );
     });
   }, [connection, dispatch]);
 

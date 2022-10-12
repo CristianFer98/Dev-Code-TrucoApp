@@ -79,6 +79,7 @@ namespace Router.Hubs
         public async Task CantarEnvido(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
+            partida.Envido.JugadorQueCantoEnvido = partida.Turno;
             int jugadorQueCantaEnvido = partida.Turno;
 
             if (partida.Envido.EnvidosCantados[^1] == "quiero")
@@ -115,6 +116,8 @@ namespace Router.Hubs
         public async Task CantarTantos(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
+            partida.Envido.JugadorQueCantoEnvido = partida.Turno;
+
             if (partida.Turno == partida.Repartidor)
             {
                 partida.Turno = partida.Envido.JugadorQueCantoPrimeroEnvido;
