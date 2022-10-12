@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import noFoto from "../../assets/no-foto.jpg";
+import { isMyTurn } from "../../helpers/truco/getUserTurno";
+import { Botones } from "./botones/Botones";
 import { CartaJugador } from "./CartaJugador";
 
 export const Jugador = () => {
   const { partida } = useSelector((state) => state.juego);
-  const { jugadorUno } = partida;
+  const { jugadorUno, jugadorDos, turno } = partida;
   const { uid, nombre } = useSelector((state) => state.auth);
 
   return (
@@ -35,6 +37,8 @@ export const Jugador = () => {
               ))}
         </div>
       </div>
+
+      {isMyTurn(uid, jugadorUno, jugadorDos, turno) && <Botones />}
     </div>
   );
 };

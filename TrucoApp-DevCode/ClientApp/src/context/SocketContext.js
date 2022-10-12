@@ -6,8 +6,9 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
-import { repartirCartas, tirarCarta } from "../actions/juego";
-
+import { cantarEnvido, repartirCartas, tirarCarta } from "../actions/juego";
+import { checkChantSet } from "../actions/ui";
+import { getUserPlayer } from "../helpers/truco/getUserTurno";
 export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
@@ -61,21 +62,33 @@ export const SocketProvider = ({ children }) => {
         await connection.invoke("JoinRoom", room);
       } else if (jugadorDos === uid) {
         await connection.invoke("JoinRoom", room);
-        await connection.invoke("SortearTurno", partida);
+        await connection.invoke("InicializarMano", partida);
       }
     });
   }, [connection, uid]);
 
   useEffect(() => {
     connection?.on("EmpezarJuego", (juego) => {
-      const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
-        juego;
-      dispatch(jugar());
+      const {
+        cartasJugadasJugadorUno,
+        cartasJugadasJugadorDos,
+        envido,
+        ...partida
+      } = juego;
+
+      partida.puntosJugadorUno === 0 &&
+        partida.puntosJugadorDos === 0 &&
+        dispatch(jugar());
+
       dispatch(
         repartirCartas({
           ...partida,
           cartasJugadasJugadorUno: [],
           cartasJugadasJugadorDos: [],
+          envido: {
+            ...envido,
+            envidosCantados: [],
+          },
         })
       );
     });
@@ -98,6 +111,45 @@ export const SocketProvider = ({ children }) => {
       );
     });
   }, [connection, dispatch, uid]);
+
+  useEffect(() => {
+    connection?.on("EnvidoCantado", (juego) => {
+      const { envido, jugadorUno, jugadorDos } = juego;
+      const { jugadorQueCantoEnvido, envidosCantados } = envido;
+      dispatch(cantarEnvido(juego));
+      dispatch(
+        checkChantSet(
+          jugadorQueCantoEnvido,
+          envidosCantados[envidosCantados.length - 1],
+          getUserPlayer(uid, jugadorUno, jugadorDos)
+        )
+      );
+    });
+  }, [connection, dispatch]);
+
+  useEffect(() => {
+    connection?.on("TantosCantados", (juego) => {
+      const { envido, jugadorUno, jugadorDos } = juego;
+      const {
+        jugadorQueCantoEnvido,
+        cantoTanto,
+        tantoCantadoJugadorUno,
+        tantoCantadoJugadorDos,
+      } = envido;
+      const tanto =
+        getUserPlayer(uid, jugadorUno, jugadorDos) === 1
+          ? tantoCantadoJugadorUno
+          : tantoCantadoJugadorDos;
+      dispatch(cantarEnvido(juego));
+      dispatch(
+        checkChantSet(
+          jugadorQueCantoEnvido,
+          cantoTanto,
+          getUserPlayer(uid, jugadorUno, jugadorDos)
+        )
+      );
+    });
+  }, [connection, dispatch]);
 
   return (
     <SocketContext.Provider value={{ connection }}>
