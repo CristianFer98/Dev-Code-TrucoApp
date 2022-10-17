@@ -1,41 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './tienda.css';
 import Accesorios from './Accesorios';
 import { Link } from 'react-router-dom';
-import mochila from './../../assets/accesorios/mochila.png';
-import mazo from './../../assets/accesorios/mazo.png';
-import remeraBlack from './../../assets/accesorios/remera-black.png';
-import taza from './../../assets/accesorios/taza.png';
+import imagenes from './TiendaImagenes';
 
-//import { AccesoriosTienda } from "../acessorios.json";
 export function Tienda() {
-  const accesorios = [
-    { 
-      id:1, 
-      imagen: mochila, 
-      descripcion: "Mochila 'Vale Cuatro'", 
-      precio: 8000.0 
-    },
-    { 
-      id:2, 
-      imagen: mazo, 
-      descripcion: "Mazo 'Vale Cuatro'", 
-      precio: 700.0 
-    },
-    {
-      id:3,
-      imagen: taza,
-      descripcion: "Taza 'Vale Cuatro'",
-      precio: 800.0,
-    },
-    {
-      id:4,
-      imagen: remeraBlack,
-      descripcion: "Remera Black 'Vale Cuatro'",
-      precio: 2800.0,
-    },
-   
-  ];
+
+const url = "https://localhost:44342/api/Producto/ObtenerProductos";
+
+const [accesorios, setAccesorios] = useState([]);
+
+const getProductos = ()=>{
+    fetch(url)
+    .then(res=> res.json())
+    .then(data=>setAccesorios(data));
+    console.table(accesorios);
+}
+getProductos();
   return (
     <div className="componente-store" style={{height:'100%'}}>
       <h1 className="titulo mt-5"> Tienda de Accesorios</h1>
@@ -53,20 +34,13 @@ export function Tienda() {
         {accesorios.map((accesorio, i) => (
           <Accesorios
             key={i}
-            id={accesorio.id}
-            imagen={accesorio.imagen}
+            id={accesorio.idProducto}
+            imagen={imagenes[`${accesorio.imagen}`]}
             descripcion={accesorio.descripcion}
             precio={accesorio.precio}
           />
         ))}
       </div>
     </div>
-
-    /*AccesoriosTienda.map( (accesorio)=>
-            <Accesorios
-                imagen={accesorio.imagen}
-                descripcion={accesorio.descripcion}
-                precio={accesorio.precio}
-            />*/
   );
 }
