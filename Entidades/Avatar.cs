@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#nullable disable
 
 namespace Entidades
 {
-    public class Avatar
+    public partial class Avatar
     {
-        public int IdUsuario { get; set;}
+        public int IdUsuario { get; set; }
         public string Pelo { get; set; }
         public string Ceja { get; set; }
         public string ColorDePiel { get; set; }
         public string ColorDeOjos { get; set; }
         public string Ropa { get; set; }
+
+        public virtual Usuario IdUsuarioNavigation { get; set; }
     }
 }
