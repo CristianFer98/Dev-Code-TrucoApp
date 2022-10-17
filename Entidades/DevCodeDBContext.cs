@@ -17,21 +17,38 @@ namespace Entidades
         {
         }
 
+        public virtual DbSet<Avatar> Avatars { get; set; }
         public virtual DbSet<Mesa> Mesas { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
-        public virtual DbSet<Avatar> Avatars { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-5204AT6\\SQLEXPRESS;Database=DevCodeDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=DevCodeDB;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
+
+            modelBuilder.Entity<Avatar>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Avatar");
+
+                entity.Property(e => e.Ceja).HasMaxLength(50);
+
+                entity.Property(e => e.ColorDeOjos).HasMaxLength(50);
+
+                entity.Property(e => e.ColorDePiel).HasMaxLength(50);
+
+                entity.Property(e => e.Pelo).HasMaxLength(50);
+
+                entity.Property(e => e.Ropa).HasMaxLength(50);
+            });
 
             modelBuilder.Entity<Mesa>(entity =>
             {
@@ -52,43 +69,16 @@ namespace Entidades
 
             modelBuilder.Entity<Usuario>(entity =>
             {
-                entity.HasKey(e => e.IdUsuario);
+                entity.HasKey(e => e.IdUsuario)
+                    .HasName("IdUsuario");
 
                 entity.ToTable("Usuario");
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(256);
+                entity.Property(e => e.Email).HasMaxLength(256);
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(1024);
+                entity.Property(e => e.NombreCompleto).HasMaxLength(256);
 
-                entity.Property(e => e.NombreCompleto)
-                    .IsRequired()
-                    .HasMaxLength(256);
-            });
-
-            modelBuilder.Entity<Avatar>(entity =>
-            {
-                entity.HasKey(e => e.IdUsuario);
-
-                entity.ToTable("Avatar");
-
-                entity.Property(e => e.Pelo)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.ColorDePiel)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.ColorDeOjos)
-                    .IsRequired()
-                    .HasMaxLength(50);
-                entity.Property(e => e.Ropa)
-                   .IsRequired()
-                   .HasMaxLength(50);
+                entity.Property(e => e.Password).HasMaxLength(1024);
             });
 
             OnModelCreatingPartial(modelBuilder);
