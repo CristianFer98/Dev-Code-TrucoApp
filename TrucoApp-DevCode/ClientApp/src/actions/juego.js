@@ -20,6 +20,11 @@ export const cantarEnvido = (partida) => ({
   payload: { partida },
 });
 
+export const cantarTruco = (partida) => ({
+  type: types.juegoCantarTruco,
+  payload: { partida },
+});
+
 export const bloquearTurnos = (partida) => ({
   type: types.juegoBloquearTurnos,
   payload: { partida: { ...partida, turno: 0 } },

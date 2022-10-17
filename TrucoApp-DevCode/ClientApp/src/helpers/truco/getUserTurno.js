@@ -38,12 +38,18 @@ export const sePuedeCantarQuieroNoQuiero = (
   turno,
   estadoEnvidoCantado,
   estadoCantarTantos,
-  jugadorQueDebeResponderEnvido
+  jugadorQueDebeResponderEnvido,
+  estadoTrucoCantado,
+  jugadorQueDebeResponderTruco
 ) => {
-  return isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
+  return (isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
     estadoEnvidoCantado &&
     !estadoCantarTantos &&
-    getUserPlayer(uid, jugadorUno, jugadorDos) === jugadorQueDebeResponderEnvido
+    getUserPlayer(uid, jugadorUno, jugadorDos) ===
+      jugadorQueDebeResponderEnvido) ||
+    (estadoTrucoCantado &&
+      getUserPlayer(uid, jugadorUno, jugadorDos) ===
+        jugadorQueDebeResponderTruco)
     ? true
     : false;
 };

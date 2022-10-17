@@ -6,7 +6,12 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
-import { cantarEnvido, repartirCartas, tirarCarta } from "../actions/juego";
+import {
+  cantarEnvido,
+  cantarTruco,
+  repartirCartas,
+  tirarCarta,
+} from "../actions/juego";
 import { checkChantSet } from "../actions/ui";
 import { getUserPlayer } from "../helpers/truco/getUserTurno";
 export const SocketContext = createContext();
@@ -73,6 +78,7 @@ export const SocketProvider = ({ children }) => {
         cartasJugadasJugadorUno,
         cartasJugadasJugadorDos,
         envido,
+        truco,
         ...partida
       } = juego;
 
@@ -88,6 +94,10 @@ export const SocketProvider = ({ children }) => {
           envido: {
             ...envido,
             envidosCantados: [],
+          },
+          truco: {
+            ...truco,
+            trucosCantados: [],
           },
         })
       );
@@ -136,15 +146,30 @@ export const SocketProvider = ({ children }) => {
         tantoCantadoJugadorUno,
         tantoCantadoJugadorDos,
       } = envido;
-      const tanto =
-        getUserPlayer(uid, jugadorUno, jugadorDos) === 1
-          ? tantoCantadoJugadorUno
-          : tantoCantadoJugadorDos;
+      // const tanto =
+      //   getUserPlayer(uid, jugadorUno, jugadorDos) === 1
+      //     ? tantoCantadoJugadorUno
+      //     : tantoCantadoJugadorDos;
       dispatch(cantarEnvido(juego));
       dispatch(
         checkChantSet(
           jugadorQueCantoEnvido,
           cantoTanto,
+          getUserPlayer(uid, jugadorUno, jugadorDos)
+        )
+      );
+    });
+  }, [connection, dispatch]);
+
+  useEffect(() => {
+    connection?.on("TrucoCantado", (juego) => {
+      const { truco, jugadorUno, jugadorDos } = juego;
+      const { jugadorQueCantoTruco, trucosCantados } = truco;
+      dispatch(cantarTruco(juego));
+      dispatch(
+        checkChantSet(
+          jugadorQueCantoTruco,
+          trucosCantados[trucosCantados.length - 1],
           getUserPlayer(uid, jugadorUno, jugadorDos)
         )
       );

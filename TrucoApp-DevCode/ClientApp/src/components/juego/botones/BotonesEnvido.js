@@ -20,7 +20,6 @@ export const BotonesEnvido = () => {
 
   const handleEnvido = async (e) => {
     e.preventDefault();
-
     sePuedeCantarEnvidos(
       uid,
       jugadorUno,

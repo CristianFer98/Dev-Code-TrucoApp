@@ -11,28 +11,38 @@ export const BotonTantoEnvido = () => {
   const { connection } = useContext(SocketContext);
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
-  const { repartidor, jugadorUno, jugadorDos, envido } = partida;
+  const { repartidor, jugadorUno, jugadorDos, envido, turno } = partida;
   const {
     tantoJugadorUno,
     tantoJugadorDos,
     tantoCantadoJugadorUno,
     tantoCantadoJugadorDos,
+    estadoCantarTantos,
+    envidosCantados,
   } = envido;
   const numeroJugador = getUserPlayer(uid, jugadorUno, jugadorDos);
 
   const handleCantarTantos = async (e) => {
     e.preventDefault();
-    await connection.invoke("CantarTantos", {
-      ...partida,
-      Envido: {
-        ...envido,
-        tantoCantadoJugadorUno:
-          numeroJugador === 1 ? tantoJugadorUno : tantoCantadoJugadorUno,
-        tantoCantadoJugadorDos:
-          numeroJugador === 2 ? tantoJugadorDos : tantoCantadoJugadorDos,
-        cantoTanto: e.target.id,
-      },
-    });
+    botonesTantos(
+      envidosCantados,
+      estadoCantarTantos,
+      uid,
+      jugadorUno,
+      jugadorDos,
+      turno
+    ) &&
+      (await connection.invoke("CantarTantos", {
+        ...partida,
+        Envido: {
+          ...envido,
+          tantoCantadoJugadorUno:
+            numeroJugador === 1 ? tantoJugadorUno : tantoCantadoJugadorUno,
+          tantoCantadoJugadorDos:
+            numeroJugador === 2 ? tantoJugadorDos : tantoCantadoJugadorDos,
+          cantoTanto: e.target.id,
+        },
+      }));
   };
 
   return (
