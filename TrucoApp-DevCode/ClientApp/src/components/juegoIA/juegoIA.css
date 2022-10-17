@@ -49,30 +49,35 @@
 .cartasDelaMaquina {
   background-color: #233237;
   box-shadow: rgba(0, 0, 0, 0.3) 5px 0px 10px 10px;
-  height: 150px;
+  height: 200px;
   width: 100%;
   opacity: 0.9;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  margin-right: 10px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  align-self: flex-end;
+
 }
 
 .cuadroDeDialogo{
-  color: rgba(255, 255, 255, 0.753);
-  font-size: larger;
+  color: rgba(253, 253, 253, 0.753);
+  font-size: 30px;
   font-weight: bold;
   background-color: #777;
   background-image: linear-gradient(0deg, rgb(17, 104, 36), rgb(83, 148, 94));
-  padding: 20px;
-  width: 60%;
-  height: 70px;
-  margin-top: 10px;
-  text-align: center;
+  width: 100%;
+  height: 90px;
+  margin-bottom: 20px;
   border-radius: 20px;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
 }
 
 /*Define la seccion de la mano del jugador y los botones de accion*/
