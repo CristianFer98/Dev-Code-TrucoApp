@@ -161,7 +161,6 @@ const JuegoIA = () => {
     setTurnoMaquina(false);
     setJugoMaquina(true);
     let randomCantaTruco = Math.round(Math.random() * 1);
-    console.log(randomCantaTruco)
     if(randomCantaTruco == 1){
       maquinaCantaTruco();
     }
@@ -332,6 +331,7 @@ const JuegoIA = () => {
       setEnvidoCantado(true);
       let puntosDeEnvidoJugador = calcularEnvido("jugador");
       let puntosDeEnvidoMaquina = calcularEnvido("maquina");
+      console.log(puntosDeEnvidoJugador)
       if (puntosDeEnvidoMaquina <= 23) {
         maquinaNoQuiereEnvido(1);
         return true;
@@ -419,10 +419,23 @@ const JuegoIA = () => {
     let puntaje = 0;
     let cartas = _.filter(mano, { suit: palo });
 
-    if (cartas.length == 2 || cartas.length == 3) {
+    if (cartas.length == 2) {
       puntaje = calcularEnvidoComun(cartas);
     }
    
+    if(cartas.length == 3){
+
+      let cartasOrdenadas = cartas.sort(function(a,b){
+        return (a.number < b.number ? 1 : (a.number > b.number ? -1 : 0));
+      })
+
+      if(cartasOrdenadas.find((carta)=> carta.number > 9 && carta.number < 13)){
+        puntaje = calcularEnvidoComun(cartasOrdenadas);
+      } else {
+        cartasOrdenadas.pop()
+        puntaje = calcularEnvidoComun(cartasOrdenadas);
+      }
+    }
     return puntaje;
   };
  
@@ -508,10 +521,8 @@ const JuegoIA = () => {
   };
 
   const cantarReTruco = () => {
-    //VER COMO PODER CANTAR RE TRUCO SI EL MENSAJE SE BORRA
-    if (mensajeMaquina == 'CANTO TRUCO' || mensajeMaquina != 'SI QUIERO') {
-      if(mensajeMaquina != 'QUIERO RE TRUCO'){
-        console.log('entro')
+    if (mensajeMaquina == 'CANTO TRUCO') {
+      if(mensajeMaquina != 'QUIERO RE TRUCO' && mensajeMaquina != 'QUIERO VALE CUATRO'){
       let cartasEnManoMaquina = manoMaquina.length;
       let puntajeDeCartasMaquina = sumarPuntosDeLaManoMaquina();
  
@@ -544,7 +555,7 @@ const JuegoIA = () => {
           maquinaNoQuiereTruco(1);
         } else {
           if (puntajeDeCartasMaquina < 4) {
-            maquinaQuiereReTruco();
+            maquinaQuiereValeCuatro();
           } else {
             maquinaAceptaTruco(2);
           }
@@ -557,7 +568,7 @@ const JuegoIA = () => {
           maquinaNoQuiereTruco(1);
         } else {
           if (puntajeDeCartasMaquina < 4) {
-            maquinaQuiereReTruco();
+            maquinaQuiereValeCuatro();
           } else {
             maquinaAceptaTruco(2);
           }
@@ -568,8 +579,8 @@ const JuegoIA = () => {
   };
 
   const cantarValeCuatro = () => {
-    if (mensajeMaquina == "QUIERO RE TRUCO" || mensajeMaquina != 'SI QUIERO') {
-      if(mensajeMaquina != 'CANTO TRUCO'){
+    if (mensajeMaquina == "QUIERO RE TRUCO") {
+      if(mensajeMaquina != 'CANTO TRUCO' && mensajeMaquina != 'QUIERO VALE CUATRO'){
       let cartasEnManoMaquina = manoMaquina.length;
       let puntajeDeCartasMaquina = sumarPuntosDeLaManoMaquina();
  
