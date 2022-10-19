@@ -21,27 +21,6 @@ namespace Repositorios
         {
             throw new NotImplementedException();
         }
-
-        public List <Color> GetColoresPorIdProducto(int idProducto)
-        {
-           List<Color> cc =(from c in _dbContext.Colors 
-                       join pc in _dbContext.ProductoColors
-                       on c.IdColor equals pc.IdColor
-                       where pc.IdProducto == idProducto
-                       select c).ToList();
-            return cc;
-        }
-
-        public List<Talle> GetTallesPorIdProducto(int idProducto)
-        {
-            List<Talle> tt = (from t in _dbContext.Talles
-                              join pTalles in _dbContext.ProductoTalles
-                              on t.IdTalles equals pTalles.IdTalles
-                              where pTalles.IdProducto == idProducto
-                              select t).ToList();
-            return tt;
-        }
-
         public Producto GetProductoPorId(int idProducto)
         {
             return _dbContext.Productos.Find(idProducto);

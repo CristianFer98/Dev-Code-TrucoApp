@@ -12,8 +12,6 @@ namespace Repositorios.Interfaces
         public List<Producto> GetProductos();
         public Producto GetProductoPorId(int idProducto);
         public void ComprarProducto(int idProducto);
-        public List <Color> GetColoresPorIdProducto(int idProducto);
-        public List<Talle> GetTallesPorIdProducto(int idProducto);
     }
 }
 
