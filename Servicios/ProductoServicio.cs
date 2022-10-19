@@ -25,7 +25,7 @@ namespace Servicios
 
         public Producto GetProductoPorId(int idProducto)
         {
-            throw new NotImplementedException();
+           return _productoRepositorio.GetProductoPorId(idProducto);
         }
 
         public List<Producto> GetProductos()

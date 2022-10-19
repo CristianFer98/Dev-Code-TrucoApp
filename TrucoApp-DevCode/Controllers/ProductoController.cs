@@ -32,5 +32,22 @@ namespace Router.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Route("ObtenerProductoPorId/{idProducto:int}")]
+        public ActionResult ObtenerProductoPorId(int idProducto)
+        {
+            try
+            {
+
+                return StatusCode(StatusCodes.Status200OK, _productoServicio.GetProductoPorId(idProducto));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }

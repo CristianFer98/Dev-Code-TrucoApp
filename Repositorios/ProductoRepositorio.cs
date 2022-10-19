@@ -24,7 +24,7 @@ namespace Repositorios
 
         public Producto GetProductoPorId(int idProducto)
         {
-            throw new NotImplementedException();
+            return _dbContext.Productos.Find(idProducto);
         }
 
         public List <Producto> GetProductos()
