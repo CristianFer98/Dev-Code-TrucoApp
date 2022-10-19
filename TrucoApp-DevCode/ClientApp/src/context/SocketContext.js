@@ -146,10 +146,6 @@ export const SocketProvider = ({ children }) => {
         tantoCantadoJugadorUno,
         tantoCantadoJugadorDos,
       } = envido;
-      // const tanto =
-      //   getUserPlayer(uid, jugadorUno, jugadorDos) === 1
-      //     ? tantoCantadoJugadorUno
-      //     : tantoCantadoJugadorDos;
       dispatch(cantarEnvido(juego));
       dispatch(
         checkChantSet(

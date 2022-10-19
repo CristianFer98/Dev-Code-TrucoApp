@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../context/SocketContext";
 import {
+  botonesTantos,
   envidoMasAlto,
   getUserPlayer,
 } from "../../../helpers/truco/getUserTurno";

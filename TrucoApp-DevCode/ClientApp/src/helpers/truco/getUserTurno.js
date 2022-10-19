@@ -146,3 +146,76 @@ export const sePuedeCantarTruco = (
     return false;
   }
 };
+
+export const botonTruco = (
+  uid,
+  jugadorUno,
+  jugadorDos,
+  turno,
+  trucosCantados
+) => {
+  if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
+    return !trucosCantados.find((e) => e === "truco") && true;
+  } else {
+    return false;
+  }
+};
+
+export const botonReTruco = (
+  uid,
+  jugadorUno,
+  jugadorDos,
+  turno,
+  trucosCantados,
+  jugadorQueCantoTruco,
+  jugadorQueDebeResponderTruco,
+  estadoTrucoCantado
+) => {
+  if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
+    if (
+      !!trucosCantados.find((e) => e === "truco") &&
+      !trucosCantados.find((e) => e === "re truco")
+    ) {
+      return (
+        (getUserPlayer(uid, jugadorUno, jugadorDos) !== jugadorQueCantoTruco &&
+          estadoTrucoCantado) ||
+        (getUserPlayer(uid, jugadorUno, jugadorDos) === jugadorQueCantoTruco &&
+          jugadorQueDebeResponderTruco ===
+            getUserPlayer(uid, jugadorUno, jugadorDos) &&
+          true)
+      );
+    }
+  } else {
+    return false;
+  }
+};
+
+export const botonValeCuatro = (
+  uid,
+  jugadorUno,
+  jugadorDos,
+  turno,
+  trucosCantados,
+  jugadorQueCantoTruco,
+  jugadorQueDebeResponderTruco,
+  estadoTrucoCantado
+) => {
+  if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
+    if (
+      !!trucosCantados.find((e) => e === "truco") &&
+      !!trucosCantados.find((e) => e === "re truco") &&
+      !trucosCantados.find((e) => e === "vale cuatro")
+    ) {
+      return (
+        (getUserPlayer(uid, jugadorUno, jugadorDos) !== jugadorQueCantoTruco &&
+          estadoTrucoCantado) ||
+        (getUserPlayer(uid, jugadorUno, jugadorDos) === jugadorQueCantoTruco &&
+          jugadorQueDebeResponderTruco ===
+            getUserPlayer(uid, jugadorUno, jugadorDos) &&
+          true)
+      );
+    }
+  } else {
+    return false;
+  }
+};

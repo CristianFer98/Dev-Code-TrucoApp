@@ -438,7 +438,6 @@ namespace Servicios.Juego
             else
             {
                 partida.Truco.EstadoTrucoCantado = false;
-                partida.Truco.JugadorQueDebeResponderTruco = 0;
 
                 if (partida.Truco.TrucosCantados[^1] == "no quiero")
                 {
@@ -449,6 +448,7 @@ namespace Servicios.Juego
                 else
                 {
                     partida.Turno = partida.Truco.JugadorQueCantoPrimeroTruco;
+                    partida.Truco.JugadorQueDebeResponderTruco = jugadorQueCantaTruco;
                 }
             }
             return partida;
