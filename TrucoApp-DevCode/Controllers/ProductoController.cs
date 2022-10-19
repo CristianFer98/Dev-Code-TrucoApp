@@ -49,5 +49,22 @@ namespace Router.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Route("ObtenerColoresPorIdProducto/{idProducto:int}")]
+        public ActionResult ObtenerColoresPorIdProducto(int idProducto)
+        {
+            try
+            {
+
+                return StatusCode(StatusCodes.Status200OK, _productoServicio.GetColoresPorIdProducto(idProducto));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }

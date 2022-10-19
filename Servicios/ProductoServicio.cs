@@ -32,5 +32,11 @@ namespace Servicios
         {
             return _productoRepositorio.GetProductos();
         }
+
+        public List<Color> GetColoresPorIdProducto(int idProducto)
+        {
+            return _productoRepositorio.GetColoresPorIdProducto(idProducto);
+        }
+
     }
 }

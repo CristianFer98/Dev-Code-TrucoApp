@@ -2,7 +2,27 @@ import React from 'react';
 import './accesorios.css';
 import imagenes from './TiendaImagenes';
 import { Link } from 'react-router-dom';
-const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marca,tipoBaraja, precio }) => {
+const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marca,tipoBaraja, precio, colores }) => {
+  
+  const listaColores=(descripcion) =>{
+    return (<span className={`${descripcion}`} style={{marginRight:'10px'}}></span>);
+  }
+
+  const getColores=()=>{
+
+      if(colores.length!=0){
+        const listadoColores=
+        colores.map((color)=>
+       listaColores(color.descripcion)
+      );
+      return listadoColores;
+    }else{
+
+      return null;
+    }
+    
+  }
+  
   return (
     <><h1 className="text-center mt-5 mb-4">{descripcion}</h1>
     <div className="card p-4 border-0" style={{ width: '50rem' }}>
@@ -15,6 +35,12 @@ const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marc
             <div className="detalles d-flex flex-row ms-5">
 
                 <ul className="list-group list-group-flush">
+                    <li className="list-group-item mb-2"  style={ getColores()==null ? { display:'none'} : {display : 'block'} }>
+                      <strong>Colores: </strong>
+                      <div className="d-flex justify-content-start">
+                        {getColores()}
+                      </div>
+                    </li>
                     <li className="list-group-item mb-2"  style={ medidas==null ? { display:'none'} : {display : 'block'} }>
                       <strong>Medidas: </strong> {medidas}
                     </li>

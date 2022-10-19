@@ -9,6 +9,8 @@ export function TiendaDetalle() {
     const url = `https://localhost:44342/api/Producto/ObtenerProductoPorId/${id}`;
 
     const [accesorio, setAccesorio] = useState([]);
+    const [colores, setColores] = useState([]);
+
     console.log(id)
     const getProducto = ()=>{
           fetch(url)
@@ -16,8 +18,16 @@ export function TiendaDetalle() {
           .then(data=>setAccesorio(data));
           console.log(accesorio);
     }
+
+    const getColores = ()=>{
+      fetch(`https://localhost:44342/api/Producto/ObtenerColoresPorIdProducto/${id}`)
+          .then(res=> res.json())
+          .then(data=>setColores(data));
+          console.log("Colores: ",colores);
+    }
     
     getProducto();
+    getColores();
 
     return (
         <div className="componente-store" style={{height:'100%'}}>
@@ -29,6 +39,7 @@ export function TiendaDetalle() {
                 marca={accesorio.marca}
                 tipoBaraja={accesorio.tipoBaraja}
                 precio={accesorio.precio}
+                colores = {colores}
             />
         </div>
         

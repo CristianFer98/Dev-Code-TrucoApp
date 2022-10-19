@@ -22,6 +22,16 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
+        public List <Color> GetColoresPorIdProducto(int idProducto)
+        {
+           List<Color> cc =(from c in _dbContext.Colors 
+                       join pc in _dbContext.ProductoColors
+                       on c.IdColor equals pc.IdColor
+                       where pc.IdProducto == idProducto
+                       select c).ToList();
+            return cc;
+        }
+
         public Producto GetProductoPorId(int idProducto)
         {
             return _dbContext.Productos.Find(idProducto);
@@ -31,5 +41,7 @@ namespace Repositorios
         {
             return _dbContext.Productos.Take(4).ToList();
         }
+
+
     }
 }

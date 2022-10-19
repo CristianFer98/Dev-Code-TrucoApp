@@ -12,5 +12,7 @@ namespace Servicios.Interfaces
         public List<Producto> GetProductos();
         public Producto GetProductoPorId(int idProducto);
         public void ComprarProducto(int idProducto);
+        public List<Color> GetColoresPorIdProducto(int idProducto);
+
     }
 }
