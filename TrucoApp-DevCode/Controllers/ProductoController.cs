@@ -66,5 +66,22 @@ namespace Router.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Route("ObtenerTallesPorIdProducto/{idProducto:int}")]
+        public ActionResult ObtenerTallesPorIdProducto(int idProducto)
+        {
+            try
+            {
+
+                return StatusCode(StatusCodes.Status200OK, _productoServicio.GetTallesPorIdProducto(idProducto));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }

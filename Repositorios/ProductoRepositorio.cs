@@ -32,6 +32,16 @@ namespace Repositorios
             return cc;
         }
 
+        public List<Talle> GetTallesPorIdProducto(int idProducto)
+        {
+            List<Talle> tt = (from t in _dbContext.Talles
+                              join pTalles in _dbContext.ProductoTalles
+                              on t.IdTalles equals pTalles.IdTalles
+                              where pTalles.IdProducto == idProducto
+                              select t).ToList();
+            return tt;
+        }
+
         public Producto GetProductoPorId(int idProducto)
         {
             return _dbContext.Productos.Find(idProducto);

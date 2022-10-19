@@ -2,10 +2,16 @@ import React from 'react';
 import './accesorios.css';
 import imagenes from './TiendaImagenes';
 import { Link } from 'react-router-dom';
-const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marca,tipoBaraja, precio, colores }) => {
+const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marca,tipoBaraja, precio, colores, talles }) => {
   
   const listaColores=(descripcion) =>{
     return (<span className={`${descripcion}`} style={{marginRight:'10px'}}></span>);
+  }
+
+  const listaTalles = (idTalle,color, descripcion) =>{
+    return (<option value={`${idTalle}`} name={`remera-${color}-${descripcion}`}>
+              {descripcion}
+            </option>);
   }
 
   const getColores=()=>{
@@ -22,6 +28,21 @@ const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marc
     }
     
   }
+
+  const getTalles=(color)=>{
+
+    if(talles.length!=0){
+      const listadoTalles=
+      talles.map((talle)=>
+     listaTalles(talle.idTalle, color, talle.descripcion)
+    );
+    return listadoTalles;
+  }else{
+
+    return null;
+  }
+  
+}
   
   return (
     <><h1 className="text-center mt-5 mb-4">{descripcion}</h1>
@@ -40,6 +61,13 @@ const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marc
                       <div className="d-flex justify-content-start">
                         {getColores()}
                       </div>
+                    </li>
+                    <li className="list-group-item mb-2"  style={ getTalles()==null ? { display:'none'} : {display : 'block'} }>
+                      <strong>Talles: </strong>
+                      <select name="remera" className="d-flex justify-content-start">
+                        <option>Talles disponibles</option>
+                        {getTalles("color")}
+                      </select>
                     </li>
                     <li className="list-group-item mb-2"  style={ medidas==null ? { display:'none'} : {display : 'block'} }>
                       <strong>Medidas: </strong> {medidas}
