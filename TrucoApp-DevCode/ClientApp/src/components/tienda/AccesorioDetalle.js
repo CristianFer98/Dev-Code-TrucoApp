@@ -9,7 +9,7 @@ const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marc
   }
 
   const listaTalles = (idTalle,color, descripcion) =>{
-    return (<option value={`${idTalle}`} name={`remera-${color}-${descripcion}`}>
+    return (<option value={`${idTalle}`} name={`remera-${color}-${descripcion}`} className="text-center">
               {descripcion}
             </option>);
   }

@@ -22,14 +22,14 @@ export function TiendaDetalle() {
     }
 
     const getColores = ()=>{
-      fetch(`https://localhost:44342/api/Producto/ObtenerColoresPorIdProducto/${id}`)
+      fetch(`https://localhost:44342/api/Color/ObtenerColoresPorIdProducto/${id}`)
           .then(res=> res.json())
           .then(data=>setColores(data));
           //console.log("Colores: ",colores);
     }
 
     const getTalles = ()=>{
-      fetch(`https://localhost:44342/api/Producto/ObtenerTallesPorIdProducto/${id}`)
+      fetch(`https://localhost:44342/api/Talle/ObtenerTallesPorIdProducto/${id}`)
           .then(res=> res.json())
           .then(data=>setTalles(data));
           //console.log("Talles: ",talles);
