@@ -6,17 +6,17 @@ import imagenes from './TiendaImagenes';
 
 export function Tienda() {
 
-const url = "https://localhost:44342/api/Producto/ObtenerProductos";
+  const url = "https://localhost:44342/api/Producto/ObtenerProductos";
 
-const [accesorios, setAccesorios] = useState([]);
+  const [accesorios, setAccesorios] = useState([]);
 
-const getProductos = ()=>{
-    fetch(url)
-    .then(res=> res.json())
-    .then(data=>setAccesorios(data));
-    console.table(accesorios);
-}
-getProductos();
+  const getProductos = ()=>{
+      fetch(url)
+      .then(res=> res.json())
+      .then(data=>setAccesorios(data));
+      console.table(accesorios);
+  }
+  getProductos();
   return (
     <div className="componente-store" style={{height:'100%'}}>
       <h1 className="titulo mt-5"> Tienda de Accesorios</h1>
