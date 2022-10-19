@@ -95,10 +95,14 @@
   height: 45px;
   width: 30%;
   border-radius: 10px;
-  background-color: #233237;
+  background-color: #133a47;
   color:aliceblue
 }
 
+.botonesDeAccion:hover{
+    background-color: #082630;
+    
+}
 
 /*contenedor de botones quiero, no quiero*/
 .quieroIA{
@@ -147,10 +151,12 @@
   justify-content: center;
   align-items:flex-end;
 }
+
 .mano{
   display: flex; 
   flex-direction: column; 
 }
+
 .botonTirar{
   border: none;
   margin: 3px;
@@ -159,3 +165,39 @@
 }
 
 
+/* Dialogo jugador IA*/
+
+.vinetaJugadorIA{
+  position:relative;
+}
+
+.globoJugadorIA{
+  position: absolute;
+  width: 130px;
+  height: 50px; 
+  top: 250px;
+  left: 180px;
+  padding: 5px;
+  border-radius: 2em;
+  font-family: sans-serif;
+  z-index: 10; 
+  background-color: rgb(58, 126, 48);
+  filter: drop-shadow(0px 0px 1px black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  font-size: 15px;
+}
+
+.globoJugadorIA::before{
+  content: '';
+  position: absolute; 
+  z-index: -1;
+  width: 10px;
+  height: 10px;
+  right: 125px;
+  top: 20px;
+  background-color: rgb(58, 126, 48);
+  transform: skewX(45deg);
+}
