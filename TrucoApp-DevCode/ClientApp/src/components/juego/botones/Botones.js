@@ -5,6 +5,7 @@ import {
   sePuedeCantarEnvidos,
   sePuedeCantarQuieroNoQuiero,
   sePuedeCantarTruco,
+  sePuedeIrAlMazo,
 } from "../../../helpers/truco/getUserTurno";
 import { BotonesEnvido } from "./BotonesEnvido";
 import { BotonesQuieroNoQuiero } from "./BotonesQuieroNoQuiero";
@@ -68,7 +69,15 @@ export const Botones = () => {
         ) && (
           <>
             <BotonesTruco />
-            <BotonIrAlMazo />
+            {sePuedeIrAlMazo(
+              uid,
+              jugadorUno,
+              jugadorDos,
+              turno,
+              estadoEnvidoCantado,
+              estadoCantarTantos,
+              estadoTrucoCantado
+            ) && <BotonIrAlMazo />}
           </>
         )}
       </div>

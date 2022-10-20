@@ -22,11 +22,30 @@ export const sePuedeTirarCarta = (
   jugadorDos,
   turno,
   estadoEnvidoCantado,
-  estadoCantarTantos
+  estadoCantarTantos,
+  estadoTrucoCantado
 ) => {
   return isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
     !estadoEnvidoCantado &&
-    !estadoCantarTantos
+    !estadoCantarTantos &&
+    !estadoTrucoCantado
+    ? true
+    : false;
+};
+
+export const sePuedeIrAlMazo = (
+  uid,
+  jugadorUno,
+  jugadorDos,
+  turno,
+  estadoEnvidoCantado,
+  estadoCantarTantos,
+  estadoTrucoCantado
+) => {
+  return isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
+    !estadoEnvidoCantado &&
+    !estadoCantarTantos &&
+    !estadoTrucoCantado
     ? true
     : false;
 };

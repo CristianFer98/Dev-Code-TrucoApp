@@ -7,8 +7,9 @@ const imagenCarta = require.context("../../assets/cartas", true);
 export const CartaJugador = ({ carta }) => {
   const { partida } = useSelector((state) => state.juego);
   const { uid } = useSelector((state) => state.auth);
-  const { turno, jugadorUno, jugadorDos, envido } = partida;
+  const { turno, jugadorUno, jugadorDos, envido, truco } = partida;
   const { estadoEnvidoCantado, estadoCantarTantos } = envido;
+  const { estadoTrucoCantado } = truco;
   const { connection } = useContext(SocketContext);
 
   const handleJugarCarta = async (e) => {
@@ -21,7 +22,8 @@ export const CartaJugador = ({ carta }) => {
         jugadorDos,
         turno,
         estadoEnvidoCantado,
-        estadoCantarTantos
+        estadoCantarTantos,
+        estadoTrucoCantado
       )
     ) {
       if (uid === jugadorUno && turno === 1) {
@@ -54,7 +56,8 @@ export const CartaJugador = ({ carta }) => {
           jugadorDos,
           turno,
           estadoEnvidoCantado,
-          estadoCantarTantos
+          estadoCantarTantos,
+          estadoTrucoCantado
         )
           ? "divCardPlayerTurn"
           : "divCardPlayer"

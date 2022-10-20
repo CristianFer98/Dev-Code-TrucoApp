@@ -52,6 +52,13 @@ namespace Servicios.Juego
             new Carta(40, 4, "Basto", 14, 4, "./Basto/4Basto.png"),
         };
 
+        //enum GanadorMano
+        //{
+        //    GanadorManos = 1,
+        //    NoQuiero = 2,
+        //    IrseAlMazo = 3
+        //}
+
         public static List<Carta> RepartirCartas()
         {
             List<Carta> CartasRepartidas = new();
@@ -187,20 +194,44 @@ namespace Servicios.Juego
             return partida;
         }
 
-        public static Partida AsignarPuntosAGanadorMano(Partida partida, int ganadorMano)
+        public static Partida SumarPuntosTruco(Partida partida, int ganadorMano, int puntosASumar)
         {
-
-            partida.GanadorMano = ganadorMano;
-            partida.Turno = 0;
-
             if (ganadorMano == 1)
             {
-                partida.PuntosJugadorUno++;
+                partida.PuntosJugadorUno += puntosASumar;
 
             }
             else
             {
-                partida.PuntosJugadorDos++;
+                partida.PuntosJugadorDos += puntosASumar;
+            }
+
+            return partida;
+        }
+
+        public static Partida AsignarPuntosAGanadorMano(Partida partida, int ganadorMano)
+        {
+
+            partida.Turno = 0;
+            partida.Truco.JugadorQueCantoPrimeroTruco = 0;
+            partida.Truco.JugadorQueDebeResponderTruco = 0;
+            partida.GanadorMano = ganadorMano;
+            int PuntosGanadosTruco = CalcularPuntosTruco(partida.Truco.TrucosCantados);
+
+            if (partida.Truco.TrucosCantados[0] == "no quiero" && partida.Envido.EnvidosCantados.Count == 0 && partida.Mano == 1 && partida.CartasJugadasJugadorUno.Count == 0 && partida.CartasJugadasJugadorDos.Count == 0)
+            {
+                partida = SumarPuntosTruco(partida, ganadorMano, 2);
+            }
+            else
+            {
+                if (partida.Truco.TrucosCantados.Count == 0)
+                {
+                    partida = SumarPuntosTruco(partida, ganadorMano, 1);
+                }
+                else
+                {
+                    partida = SumarPuntosTruco(partida, ganadorMano, PuntosGanadosTruco);
+                }
             }
 
             return partida;
@@ -441,9 +472,7 @@ namespace Servicios.Juego
 
                 if (partida.Truco.TrucosCantados[^1] == "no quiero")
                 {
-                    partida.Turno = 0;
-                    partida.Truco.JugadorQueCantoPrimeroTruco = 0;
-                    partida.Truco.JugadorQueDebeResponderTruco = 0;
+                    partida = AsignarPuntosAGanadorMano(partida, CambiarTurno(jugadorQueCantaTruco));
                 }
                 else
                 {
