@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -17,6 +17,7 @@ namespace Entidades
         {
         }
 
+        public virtual DbSet<Accesorio> Accesorios { get; set; }
         public virtual DbSet<Avatar> Avatars { get; set; }
         public virtual DbSet<Color> Colors { get; set; }
         public virtual DbSet<Mesa> Mesas { get; set; }
@@ -38,6 +39,22 @@ namespace Entidades
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
+
+            modelBuilder.Entity<Accesorio>(entity =>
+            {
+                entity.HasKey(e => e.IdAccesorio)
+                    .HasName("IdAccesorio");
+
+                entity.ToTable("Accesorio");
+
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Imagen)
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
+            });
 
             modelBuilder.Entity<Avatar>(entity =>
             {
