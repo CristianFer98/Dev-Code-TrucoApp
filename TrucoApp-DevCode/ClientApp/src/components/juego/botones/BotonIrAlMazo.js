@@ -2,31 +2,20 @@ import React from "react";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../context/SocketContext";
-import { sePuedeIrAlMazo } from "../../../helpers/truco/getUserTurno";
+import { ocultarBotonesYAcciones } from "../../../helpers/truco/ocultarBotonesYAcciones";
+import { tiposBotones } from "../../../types/tiposBotones";
 
 export const BotonIrAlMazo = () => {
   const { connection } = useContext(SocketContext);
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
-  const { envido, truco, jugadorUno, jugadorDos, turno } = partida;
-  const { estadoEnvidoCantado, estadoCantarTantos } = envido;
-
-  const { estadoTrucoCantado, trucosCantados } = truco;
+  const { truco } = partida;
+  const { trucosCantados } = truco;
 
   const handleIrAlMazo = async (e) => {
     e.preventDefault();
 
-    if (
-      sePuedeIrAlMazo(
-        uid,
-        jugadorUno,
-        jugadorDos,
-        turno,
-        estadoEnvidoCantado,
-        estadoCantarTantos,
-        estadoTrucoCantado
-      )
-    ) {
+    if (ocultarBotonesYAcciones(uid, partida, tiposBotones.irAlMazo)) {
       await connection.invoke("CantarTruco", {
         ...partida,
         Truco: {

@@ -2,39 +2,33 @@ import React from "react";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../context/SocketContext";
-import {
-  botonReTruco,
-  botonTruco,
-  botonValeCuatro,
-} from "../../../helpers/truco/getUserTurno";
+import { ocultarBotonesYAcciones } from "../../../helpers/truco/ocultarBotonesYAcciones";
+import { tiposBotones } from "../../../types/tiposBotones";
 
 export const BotonesTruco = () => {
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
-  const { truco, jugadorUno, jugadorDos, turno } = partida;
-  const {
-    trucosCantados,
-    jugadorQueCantoTruco,
-    jugadorQueDebeResponderTruco,
-    estadoTrucoCantado,
-  } = truco;
+  const { truco } = partida;
+  const { trucosCantados } = truco;
   const { connection } = useContext(SocketContext);
 
   const handleTruco = async (e) => {
     e.preventDefault();
 
-    await connection.invoke("CantarTruco", {
-      ...partida,
-      Truco: {
-        ...truco,
-        trucosCantados: [...trucosCantados, e.target.id],
-      },
-    });
+    if (ocultarBotonesYAcciones(uid, partida, tiposBotones.truco)) {
+      await connection.invoke("CantarTruco", {
+        ...partida,
+        Truco: {
+          ...truco,
+          trucosCantados: [...trucosCantados, e.target.id],
+        },
+      });
+    }
   };
 
   return (
     <>
-      {botonTruco(uid, jugadorUno, jugadorDos, turno, trucosCantados) && (
+      {ocultarBotonesYAcciones(uid, partida, tiposBotones.botonTruco) && (
         <div
           onClick={handleTruco}
           id="truco"
@@ -43,16 +37,7 @@ export const BotonesTruco = () => {
           Truco
         </div>
       )}
-      {botonReTruco(
-        uid,
-        jugadorUno,
-        jugadorDos,
-        turno,
-        trucosCantados,
-        jugadorQueCantoTruco,
-        jugadorQueDebeResponderTruco,
-        estadoTrucoCantado
-      ) && (
+      {ocultarBotonesYAcciones(uid, partida, tiposBotones.botonReTruco) && (
         <div
           onClick={handleTruco}
           id="re truco"
@@ -61,16 +46,7 @@ export const BotonesTruco = () => {
           Re truco
         </div>
       )}
-      {botonValeCuatro(
-        uid,
-        jugadorUno,
-        jugadorDos,
-        turno,
-        trucosCantados,
-        jugadorQueCantoTruco,
-        jugadorQueDebeResponderTruco,
-        estadoTrucoCantado
-      ) && (
+      {ocultarBotonesYAcciones(uid, partida, tiposBotones.botonValeCuatro) && (
         <div
           onClick={handleTruco}
           id="vale cuatro"

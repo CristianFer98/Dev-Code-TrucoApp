@@ -3,36 +3,28 @@ import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../context/SocketContext";
 import {
-  botonesTantos,
   envidoMasAlto,
   getUserPlayer,
 } from "../../../helpers/truco/getUserTurno";
+import { ocultarBotonesYAcciones } from "../../../helpers/truco/ocultarBotonesYAcciones";
+import { tiposBotones } from "../../../types/tiposBotones";
 
 export const BotonTantoEnvido = () => {
   const { connection } = useContext(SocketContext);
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
-  const { repartidor, jugadorUno, jugadorDos, envido, turno } = partida;
+  const { repartidor, jugadorUno, jugadorDos, envido } = partida;
   const {
     tantoJugadorUno,
     tantoJugadorDos,
     tantoCantadoJugadorUno,
     tantoCantadoJugadorDos,
-    estadoCantarTantos,
-    envidosCantados,
   } = envido;
   const numeroJugador = getUserPlayer(uid, jugadorUno, jugadorDos);
 
   const handleCantarTantos = async (e) => {
     e.preventDefault();
-    botonesTantos(
-      envidosCantados,
-      estadoCantarTantos,
-      uid,
-      jugadorUno,
-      jugadorDos,
-      turno
-    ) &&
+    ocultarBotonesYAcciones(uid, partida, tiposBotones.tantos) &&
       (await connection.invoke("CantarTantos", {
         ...partida,
         Envido: {

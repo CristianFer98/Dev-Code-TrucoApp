@@ -2,43 +2,24 @@ import React from "react";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../context/SocketContext";
-import {
-  getUserPlayer,
-  sePuedeCantarQuieroNoQuiero,
-} from "../../../helpers/truco/getUserTurno";
+import { getUserPlayer } from "../../../helpers/truco/getUserTurno";
+import { ocultarBotonesYAcciones } from "../../../helpers/truco/ocultarBotonesYAcciones";
+import { tiposBotones } from "../../../types/tiposBotones";
 
 export const BotonesQuieroNoQuiero = () => {
   const { connection } = useContext(SocketContext);
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
-  const { envido, truco, jugadorUno, jugadorDos, turno } = partida;
-  const {
-    jugadorQueCantoPrimeroEnvido,
-    envidosCantados,
-    estadoEnvidoCantado,
-    estadoCantarTantos,
-    jugadorQueDebeResponderEnvido,
-  } = envido;
+  const { envido, truco, jugadorUno, jugadorDos } = partida;
+  const { jugadorQueCantoPrimeroEnvido, envidosCantados, estadoEnvidoCantado } =
+    envido;
 
-  const { estadoTrucoCantado, jugadorQueDebeResponderTruco, trucosCantados } =
-    truco;
+  const { estadoTrucoCantado, trucosCantados } = truco;
 
   const handleQuieroNoQuiero = async (e) => {
     e.preventDefault();
 
-    if (
-      sePuedeCantarQuieroNoQuiero(
-        uid,
-        jugadorUno,
-        jugadorDos,
-        turno,
-        estadoEnvidoCantado,
-        estadoCantarTantos,
-        jugadorQueDebeResponderEnvido,
-        estadoTrucoCantado,
-        jugadorQueDebeResponderTruco
-      )
-    )
+    if (ocultarBotonesYAcciones(uid, partida, tiposBotones.quieroNoQuiero))
       if (estadoEnvidoCantado) {
         await connection.invoke("CantarEnvido", {
           ...partida,
