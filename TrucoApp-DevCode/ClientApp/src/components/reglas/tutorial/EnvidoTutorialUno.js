@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "./tutorial.css";
+import "./envidoTutorial.css";
+import "./globoDialogo.css";
+
 import {
   barajarCartasParaEnvidoJugador,
   barajarCartasParaEnvidoMaquina,
@@ -10,7 +12,7 @@ const EnvidoTutorialUno = () => {
   let cartasJugador = barajarCartasParaEnvidoJugador();
   let cartasMaquina = barajarCartasParaEnvidoMaquina();
 
-  const [ejemploUno, setEjemploUno] = useState(cartasJugador[0]);
+  const [manoJugador, setManoJugador] = useState(cartasJugador[0]);
   const [manoMaquina, setManoMaquina] = useState(cartasMaquina[0]);
   const [comenzo, setComenzo] = useState(false);
   const [mensajeJugador, setMensajeJugador] = useState('');
@@ -139,13 +141,13 @@ const EnvidoTutorialUno = () => {
   }
 
 
-  const ejemploUnoJugador = ejemploUno.map((carta) => (
+  const manoJugadorLista = manoJugador.map((carta) => (
     <div className="mano" key={carta.id}>
       <img src={carta.image} width={75}></img>
     </div>
   ));
 
-  const ejemploUnoMaquina = manoMaquina.map((carta) => (
+  const manoMaquinaLista = manoMaquina.map((carta) => (
     <div style={{ opacity: "0.6" }} key={carta.id}>
       <img src={carta.image} width={75}></img>
     </div>
@@ -153,22 +155,25 @@ const EnvidoTutorialUno = () => {
  
 
   return (
-    <div className="contenedorTutorial">
+    <div className="envidoContenedorTutorial">
       <div className="envidoTutorial">
         <button className="botonComenzar" onClick={() => comenzar()}>
           Ejemplo 1 : Comenzar
         </button>
 
-        <div className="sectorMaquinaTutorial">{ejemploUnoMaquina}</div>
-        <div class="vinetaMaquinaEjemploUno">
-          <p class="globoMaquinaEjemploUno">{mensajeMaquina}</p>
+        <div className="envidoManoMaquina">{manoMaquinaLista}</div>
+
+        <div className="vinetaMaquinaUno">
+          <p className="dialogoMaquinaUno">{mensajeMaquina}</p>
         </div>
-        <div className="mesaTutorial"></div>
-        <div class="vinetaJugadorEjemploUno">
-          <p class="globoJugadorEjemploUno">{mensajeJugador}</p>
+
+        <div className="envidoMesa"></div>
+        <div className="vinetaJugadorUno">
+          <p className="dialogoJugadorUno">{mensajeJugador}</p>
         </div>
-        <div className="sectorJugadorTutorial">{ejemploUnoJugador}</div>
-        <div className="acciones">
+
+        <div className="envidoManoJugador">{manoJugadorLista}</div>
+        <div className="envidoAcciones">
           <button
             className="botonEnvidoTutorial"
             onClick={() => cantarEnvido()}

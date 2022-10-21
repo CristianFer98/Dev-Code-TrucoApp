@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./tutorial.css";
+import "./envidoTutorial.css";
+import "./globoDialogo.css"
 import {
   barajarCartasParaEnvidoJugador,
   barajarCartasParaEnvidoMaquina,
@@ -124,21 +125,21 @@ const EnvidoTutorialDos = () => {
     </div>
   ));
   return (
-    <div className="contenedorTutorial">
+    <div className="envidoContenedorTutorial">
       <div className="envidoTutorial">
         <button className="botonComenzar" onClick={() => comenzar()}>
           Ejemplo 2 : Comenzar
         </button>
 
-        <div className="sectorMaquinaTutorial">{ejemploUnoMaquina}</div>
-        <div class="vinetaMaquinaEjemploDos">
-          <p class="globoMaquinaEjemploDos">{mensajeMaquina}</p>
+        <div className="envidoManoMaquina">{ejemploUnoMaquina}</div>
+        <div className="vinetaMaquinaDos">
+          <p className="dialogoMaquinaDos">{mensajeMaquina}</p>
         </div>
-        <div className="mesaTutorial"></div>
-        <div class="vinetaJugadorEjemploDos">
-          <p class="globoJugadorEjemploDos">{mensajeJugador}</p>
+        <div className="envidoMesa"></div>
+        <div className="vinetaJugadorDos">
+          <p className="dialogoJugadorDos">{mensajeJugador}</p>
         </div>
-        <div className="sectorJugadorTutorial">{ejemploUnoJugador}</div>
+        <div className="envidoManoJugador">{ejemploUnoJugador}</div>
         <div className="acciones">
           <button className="botonEnvidoTutorial" onClick={() => quiero()}>
             Quiero

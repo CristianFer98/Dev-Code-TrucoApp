@@ -365,7 +365,6 @@ const cards = [
     let manos = []
     let manoUnoJugador = []
     let manoDosJugador = []
-    let manoTresJugador = []
 
     //DEFINO LAS CARTAS PARA LA PRIMERA MANO
     manoUnoJugador.push(cards.find(card => card.id == 9));
@@ -377,14 +376,9 @@ const cards = [
     manoDosJugador.push(cards.find(card => card.id == 38));
     manoDosJugador.push(cards.find(card => card.id == 13));
 
-    //DEFINO LAS CARTAS PARA FLOR
-    manoTresJugador.push(cards.find(card => card.id == 13))
-    manoTresJugador.push(cards.find(card => card.id == 4))
-    manoTresJugador.push(cards.find(card => card.id == 34))
 
     manos.push(manoUnoJugador);
     manos.push(manoDosJugador);
-    manos.push(manoTresJugador);
 
     return manos;
   }
@@ -393,7 +387,6 @@ const cards = [
     let manos = []
     let manoUnoMaquina = []
     let manoDosMaquina = []
-    let manoTresMaquina = []
 
     //DEFINO LAS CARTAS PARA LA PRIMERA MANO
     manoUnoMaquina.push(cards.find(card => card.id == 1));
@@ -405,17 +398,40 @@ const cards = [
     manoDosMaquina.push(cards.find(card => card.id == 28));
     manoDosMaquina.push(cards.find(card => card.id == 1));
 
-    //DEFINO LAS CARTAS PARA FLOR
-    manoTresMaquina.push(cards.find(card => card.id == 13))
-    manoTresMaquina.push(cards.find(card => card.id == 4))
-    manoTresMaquina.push(cards.find(card => card.id == 34))
+   
 
     manos.push(manoUnoMaquina);
     manos.push(manoDosMaquina);
-    manos.push(manoTresMaquina);
 
     return manos;
   }
   
+  export function barajarCartasParaTrucoJugador(){
+    let manos=[];
+    let manoUnoJugador=[];
+
+    //DEFINO LAS CARTAS 
+    manoUnoJugador.push(cards.find(card => card.id == 1));
+    manoUnoJugador.push(cards.find(card => card.id == 7));
+    manoUnoJugador.push(cards.find(card => card.id == 26));
+
+    manos.push(manoUnoJugador);
+
+    return manos;
+  }
+
+  export function barajarCartasParaTrucoMaquina(){
+    let manos=[];
+    let manoUnoMaquina=[];
+
+    //DEFINO LAS CARTAS 
+    manoUnoMaquina.push(cards.find(card => card.id == 18));
+    manoUnoMaquina.push(cards.find(card => card.id == 3));
+    manoUnoMaquina.push(cards.find(card => card.id == 12));
+
+    manos.push(manoUnoMaquina);
+
+    return manos;
+  }
   
   

@@ -1,0 +1,66 @@
+.envidoContenedorTutorial{
+    width: 40%;
+}
+
+.envidoTutorial{
+    background-image: linear-gradient(0deg, rgb(27, 32, 28), rgb(27, 87, 37));
+    height: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+.envidoManoMaquina{
+    display: flex;
+    justify-content: space-around;
+}
+
+.envidoManoJugador{
+   display: flex;
+   justify-content: space-around;
+}
+
+
+.envidoMesa{
+    background-image: linear-gradient(0deg, rgb(17, 104, 36), rgb(83, 148, 94));
+    height: 200px;
+    width: 90%;
+    align-self: center;
+    border-radius: 15px;
+    border: 2px solid black
+}
+
+.acciones{
+    display: flex;
+    justify-content: space-between;
+}
+
+.botonComenzar{
+    width: 70%;
+    align-self: center;
+    background-color: rgb(235, 176, 16);
+    border-radius: 5px;
+    border: none;
+    margin: 2px;
+}
+
+.botonComenzar:hover{
+    background-color: rgb(255, 187, 0);
+    transition: 0.5s;
+}
+
+.botonEnvidoTutorial{
+    width: 30%;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(187, 146, 35);
+    margin:2px
+}
+
+.botonEnvidoTutorial:hover{
+    background-color: rgb(243, 181, 10);
+    transition: 0.5s;
+}
+

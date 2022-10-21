@@ -942,8 +942,8 @@ const JuegoIA = () => {
       {/*seccion del jugador*/}
       
       <div className="jugador">
-      <div class="vinetaJugadorIA">
-          <p class="globoJugadorIA">{mensajeJugador}</p>
+      <div className="vinetaJugadorIA">
+          <p className="globoJugadorIA">{mensajeJugador}</p>
         </div>
         <div className="quieroIA">
           <button className="botonesDeAccion" onClick={() => quiero()}>

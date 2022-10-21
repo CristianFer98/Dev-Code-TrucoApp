@@ -2,7 +2,7 @@
 import Cartas from "./Cartas";
 import EnvidoTutorialUno from "./tutorial/EnvidoTutorialUno";
 import EnvidoTutorialDos from "./tutorial/EnvidoTutorialDos";
-
+import TrucoTutorialUno from "./tutorial/TrucoTutorialUno";
 export function Reglas() {
   return (
     <div className="rules-container container-fluid text-center p-5">
@@ -282,6 +282,17 @@ export function Reglas() {
           </div>
         </div>
       </div>
+
+      <div style={{
+              display: "flex",
+              flexWrap: "wrap",
+              width: "100%",
+              justifyContent: "space-around",
+            }}
+          >
+            <TrucoTutorialUno />
+
+          </div>
     </div>
   );
 }
