@@ -43,3 +43,21 @@
   color: #eac67a;
   background: #984b43;
 }
+.negro, .blanco, .gris{
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+}
+
+.negro{
+  background: #000;
+}
+
+.blanco{
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.gris{
+  background: #8f8f8f;
+}

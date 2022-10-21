@@ -44,9 +44,17 @@ namespace Router
             services.AddScoped<IMesaRepositorio, MesaRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IAvatarRepositorio, AvatarRepositorio>();
+            services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
+            services.AddScoped<IColorRepositorio,ColorRepositorio>();
+            services.AddScoped<ITalleRepositorio, TalleRepositorio>();
+            services.AddScoped<IAccesorioRepositorio, AccesorioRepositorio>();
             services.AddScoped<IMesaServicio, MesaServicio>();
             services.AddScoped<IUsuarioServicio, UsuarioServicio>();
             services.AddScoped<IAvatarServicio, AvatarServicio>();
+            services.AddScoped<IProductoServicio, ProductoServicio>();
+            services.AddScoped<IColorServicio, ColorServicio>();
+            services.AddScoped<ITalleServicio, TalleServicio>();
+            services.AddScoped<IAccesorioServicio, AccesorioServicio>();
 
             services.AddCors(options =>
             {

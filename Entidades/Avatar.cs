@@ -13,5 +13,7 @@ namespace Entidades
         public string ColorDePiel { get; set; }
         public string ColorDeOjos { get; set; }
         public string Ropa { get; set; }
+
+        public virtual Usuario IdUsuarioNavigation { get; set; }
     }
 }
