@@ -55,18 +55,25 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
     case tiposBotones.envido:
       if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
         return (
+          mano === 1 &&
           !envidosCantados.find((e) => e === "quiero" || e === "no quiero") &&
           !estadoCantarTantos &&
           trucosCantados.length < 2 &&
-          !verSiJugadorYaJugoCarta(
+          (!verSiJugadorYaJugoCarta(
             uid,
             jugadorUno,
             jugadorDos,
             cartasJugadasJugadorUno,
             cartasJugadasJugadorDos
-          ) &&
-          envidosCantados.length === 0 &&
-          mano === 1 &&
+          ) ||
+            (verSiJugadorYaJugoCarta(
+              uid,
+              jugadorUno,
+              jugadorDos,
+              cartasJugadasJugadorUno,
+              cartasJugadasJugadorDos
+            ) &&
+              estadoEnvidoCantado)) &&
           true
         );
       } else {
@@ -129,21 +136,21 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
 
     case tiposBotones.botonReTruco:
       if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
-        if (
-          !!trucosCantados.find((e) => e === "truco") &&
-          !trucosCantados.find((e) => e === "re truco")
-        ) {
-          return (
-            (getUserPlayer(uid, jugadorUno, jugadorDos) !==
-              jugadorQueCantoTruco &&
-              estadoTrucoCantado) ||
-            (getUserPlayer(uid, jugadorUno, jugadorDos) ===
-              jugadorQueCantoTruco &&
-              jugadorQueDebeResponderTruco ===
-                getUserPlayer(uid, jugadorUno, jugadorDos) &&
-              true)
-          );
-        }
+        if (!!trucosCantados.find((e) => e === "truco"))
+          if (!trucosCantados.find((e) => e === "re truco")) {
+            return (
+              (getUserPlayer(uid, jugadorUno, jugadorDos) !==
+                jugadorQueCantoTruco &&
+                estadoTrucoCantado) ||
+              (getUserPlayer(uid, jugadorUno, jugadorDos) ===
+                jugadorQueCantoTruco &&
+                jugadorQueDebeResponderTruco ===
+                  getUserPlayer(uid, jugadorUno, jugadorDos) &&
+                true)
+            );
+          } else {
+            return false;
+          }
       } else {
         return false;
       }
