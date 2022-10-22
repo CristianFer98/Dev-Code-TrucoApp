@@ -22,7 +22,7 @@ namespace Router.Controllers
             try
             {
                 _avatarServicio.GuardarAvatar(
-                    avatar.IdUsuario,
+                    avatar.IdUsuarioAvatar,
                     avatar.Pelo, 
                     avatar.Ceja,
                     avatar.ColorDeOjos,

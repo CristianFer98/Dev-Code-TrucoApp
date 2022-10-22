@@ -12,13 +12,12 @@ import {
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
-  let ropa = imagenes.ropa;
-  const [IdUsuario, setIdUsuario] = useState(3);
+  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(1);
   const [Pelo, setEstadoPelo] = useState('pelo');
   const [Ceja, setEstadoCeja] = useState('ceja-negra');
   const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');
   const [ColorDeOjos, setEstadoColorDeOjos] = useState('iris-marron');
-  const [Ropa, setEstadoRopa] = useState(ropa);
+  const [Ropa, setEstadoRopa] = useState('ropa');
 
    const handleSubmit= async (e) =>{
       e.preventDefault(); 
@@ -28,7 +27,7 @@ export function Avatar() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              IdUsuario:IdUsuario,
+              IdUsuarioAvatar:IdUsuarioAvatar,
               Pelo:Pelo, 
               Ceja:Ceja,
               ColorDePiel:ColorDePiel,
@@ -40,9 +39,12 @@ export function Avatar() {
             console.log("guardado con exito");
             document.querySelector('.mensaje').classList.remove('alert-primary');
             document.querySelector('.mensaje').classList.add('alert-success');
-            document.querySelector('.mensaje').innerHTML=`<i className="fa-solid fa-check"></i> Guardado con éxito`;
+            document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Guardado con éxito";
           } else{
               console.log("error, no se pudo guardar");
+              document.querySelector('.mensaje').classList.remove('alert-primary');
+              document.querySelector('.mensaje').classList.add('alert-danger');
+              document.querySelector('.mensaje').innerHTML="<i class='fa-solid fa-xmark'></i> Hubo un error intente más tarde";
           }     
      
   }

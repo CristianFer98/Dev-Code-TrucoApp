@@ -58,9 +58,12 @@ namespace Entidades
 
             modelBuilder.Entity<Avatar>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IdUsuarioAvatar)
+                    .HasName("IdUsuarioAvatar");
 
                 entity.ToTable("Avatar");
+
+                entity.Property(e => e.IdUsuarioAvatar).ValueGeneratedNever();
 
                 entity.Property(e => e.Ceja).HasMaxLength(50);
 
@@ -71,12 +74,6 @@ namespace Entidades
                 entity.Property(e => e.Pelo).HasMaxLength(50);
 
                 entity.Property(e => e.Ropa).HasMaxLength(50);
-
-                entity.HasOne(d => d.IdUsuarioNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.IdUsuario)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_usuario");
             });
 
             modelBuilder.Entity<Color>(entity =>
