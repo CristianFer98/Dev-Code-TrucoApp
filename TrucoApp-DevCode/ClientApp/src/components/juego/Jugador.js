@@ -16,14 +16,6 @@ export const Jugador = () => {
       <div className="w-100 player2 d-flex justify-content-center">
         <div className="player2Avatar d-flex flex-column align-items-center">
           <Countdown image={noFoto} />
-          {/* <div className="divPlayer2ImgNotTurn rounded-circle">
-            <img
-              referrerPolicy="no-referrer"
-              className="player2ImgNotTurn rounded-circle"
-              src={noFoto}
-              alt="userFoto"
-            />
-          </div> */}
           <div className="playerName fw-bolder text-white px-2 py-1">
             {nombre}
           </div>

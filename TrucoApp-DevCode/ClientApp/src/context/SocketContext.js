@@ -165,7 +165,9 @@ export const SocketProvider = ({ children }) => {
       dispatch(
         checkChantSet(
           jugadorQueCantoTruco,
-          trucosCantados[trucosCantados.length - 1],
+          trucosCantados[trucosCantados.length - 1] === "no quiero"
+            ? "me voy al mazo"
+            : trucosCantados[trucosCantados.length - 1],
           getUserPlayer(uid, jugadorUno, jugadorDos)
         )
       );

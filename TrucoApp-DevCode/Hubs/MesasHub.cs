@@ -48,6 +48,7 @@ namespace Router.Hubs
             partida.CartasJugadorUno = cartasJugadorUno;
             partida.CartasJugadorDos = cartasJugadorDos;
             partida.Mano = 1;
+            partida.JugadasRealizadas = 0;
 
             Envido envido = new();
             Truco truco = new Truco();

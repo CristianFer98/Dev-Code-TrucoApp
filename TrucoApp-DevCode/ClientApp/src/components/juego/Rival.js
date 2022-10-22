@@ -13,14 +13,6 @@ export const Rival = () => {
     <div className="w-100 player1 d-flex align-items-center justify-content-center">
       <div className="player1Avatar d-flex flex-column align-items-center me-2">
         <CountdownRival image={noFoto} />
-        {/* <div className="divPlayer2ImgNotTurn rounded-circle">
-          <img
-            referrerPolicy="no-referrer"
-            className="player1ImgNotTurn rounded-circle"
-            src={noFoto}
-            alt="userFoto"
-          />
-        </div> */}
         <div className="playerName fw-bolder text-white px-2 py-1">Rival</div>
       </div>
 

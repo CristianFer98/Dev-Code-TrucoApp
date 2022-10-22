@@ -88,6 +88,8 @@ namespace Servicios.Juego
 
             int? GanadorManoTres = (partida.CartasJugadasJugadorUno.Count > 2 && partida.CartasJugadasJugadorDos.Count > 2) ? CartaGanadora(partida.CartasJugadasJugadorUno[2], partida.CartasJugadasJugadorDos[2]) : null;
 
+            partida.JugadasRealizadas += 1;
+
             if (partida.Mano == 1)
             {
                 if (GanadorManoUno != null)
@@ -388,6 +390,7 @@ namespace Servicios.Juego
         public static Partida EnvidoTurnos(Partida partida)
         {
             partida.Envido.JugadorQueCantoEnvido = partida.Turno;
+            partida.JugadasRealizadas += 1;
             int jugadorQueCantaEnvido = partida.Turno;
 
             if (partida.Envido.EnvidosCantados[^1] == "quiero")
@@ -426,6 +429,7 @@ namespace Servicios.Juego
         public static Partida TantosEnvidoTurnos(Partida partida)
         {
             partida.Envido.JugadorQueCantoEnvido = partida.Turno;
+            partida.JugadasRealizadas += 1;
 
             if (partida.Turno == partida.Repartidor)
             {
@@ -468,6 +472,8 @@ namespace Servicios.Juego
         public static Partida TrucoTurnos(Partida partida)
         {
             partida.Truco.JugadorQueCantoTruco = partida.Turno;
+            partida.JugadasRealizadas += 1;
+            
             int jugadorQueCantaTruco = partida.Turno;
 
             if (partida.Truco.TrucosCantados[^1] == "truco" || partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro")
