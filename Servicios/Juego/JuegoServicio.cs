@@ -52,13 +52,6 @@ namespace Servicios.Juego
             new Carta(40, 4, "Basto", 14, 4, "./Basto/4Basto.png"),
         };
 
-        //enum GanadorMano
-        //{
-        //    GanadorManos = 1,
-        //    NoQuiero = 2,
-        //    IrseAlMazo = 3
-        //}
-
         public static List<Carta> RepartirCartas()
         {
             List<Carta> CartasRepartidas = new();
@@ -191,6 +184,7 @@ namespace Servicios.Juego
                     }
                 }
             }
+
             return partida;
         }
 
@@ -218,15 +212,15 @@ namespace Servicios.Juego
             partida.GanadorMano = ganadorMano;
             int PuntosGanadosTruco = CalcularPuntosTruco(partida.Truco.TrucosCantados);
 
-            if (partida.Truco.TrucosCantados[0] == "no quiero" && partida.Envido.EnvidosCantados.Count == 0 && partida.Mano == 1 && partida.CartasJugadasJugadorUno.Count == 0 && partida.CartasJugadasJugadorDos.Count == 0)
+            if (partida.Truco.TrucosCantados.Count == 0)
             {
-                partida = SumarPuntosTruco(partida, ganadorMano, 2);
+                partida = SumarPuntosTruco(partida, ganadorMano, 1);
             }
             else
             {
-                if (partida.Truco.TrucosCantados.Count == 0)
+                if (partida.Truco.TrucosCantados[0] == "no quiero" && partida.Envido.EnvidosCantados.Count == 0 && partida.Mano == 1 && partida.CartasJugadasJugadorUno.Count == 0 && partida.CartasJugadasJugadorDos.Count == 0)
                 {
-                    partida = SumarPuntosTruco(partida, ganadorMano, 1);
+                    partida = SumarPuntosTruco(partida, ganadorMano, 2);
                 }
                 else
                 {
@@ -346,41 +340,49 @@ namespace Servicios.Juego
 
         public static int CalcularPuntosTruco(List<string> trucosCantados)
         {
-            List<string> trucosCantadosDinamicos = trucosCantados.Cast<string>().ToList();
-            List<string> trucosCantadosConvertidos = trucosCantadosDinamicos.Select(e => e == "truco" ? "2" : e == "re truco" ? "3" : e == "vale cuatro" ? "4" : e).ToList();
-
-            List<string> trucosCantadosReconvertidos = trucosCantadosConvertidos.Where(e => e != "quiero").ToList();
-
-            if (trucosCantadosReconvertidos.Count != 1)
+            if (trucosCantados.Count == 0)
             {
-                if (trucosCantadosConvertidos.Contains("no quiero"))
-                {
-                    if (trucosCantadosConvertidos[^2] != "quiero")
-                    {
-                        trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
-                        trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
-                        if (trucosCantadosReconvertidos.Count == 0)
-                        {
-                            trucosCantadosReconvertidos.Add("1");
-                        }
-                    }
-                    else
-                    {
-                        trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
-                        if (trucosCantadosReconvertidos.Count == 0)
-                        {
-                            trucosCantadosReconvertidos.Add("1");
-                        }
-                    }
-                }
+                return 1;
             }
             else
             {
-                trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
-                trucosCantadosReconvertidos.Add("1");
+                List<string> trucosCantadosDinamicos = trucosCantados.Cast<string>().ToList();
+                List<string> trucosCantadosConvertidos = trucosCantadosDinamicos.Select(e => e == "truco" ? "2" : e == "re truco" ? "3" : e == "vale cuatro" ? "4" : e).ToList();
+
+                List<string> trucosCantadosReconvertidos = trucosCantadosConvertidos.Where(e => e != "quiero").ToList();
+
+                if (trucosCantadosReconvertidos.Count != 1)
+                {
+                    if (trucosCantadosConvertidos.Contains("no quiero"))
+                    {
+                        if (trucosCantadosConvertidos[^2] != "quiero")
+                        {
+                            trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
+                            trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
+                            if (trucosCantadosReconvertidos.Count == 0)
+                            {
+                                trucosCantadosReconvertidos.Add("1");
+                            }
+                        }
+                        else
+                        {
+                            trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
+                            if (trucosCantadosReconvertidos.Count == 0)
+                            {
+                                trucosCantadosReconvertidos.Add("1");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
+                    trucosCantadosReconvertidos.Add("1");
+                }
+
+                return Int32.Parse(trucosCantadosReconvertidos[^1]);
             }
 
-            return Int32.Parse(trucosCantadosReconvertidos[^1]);
         }
 
         public static Partida EnvidoTurnos(Partida partida)
@@ -417,6 +419,7 @@ namespace Servicios.Juego
                 partida.Turno = partida.Envido.JugadorQueDebeResponderEnvido;
             }
 
+            partida = VerificarSiAlguienGanoElPartido(partida);
             return partida;
         }
 
@@ -446,9 +449,21 @@ namespace Servicios.Juego
                 partida.Envido.JugadorQueDebeResponderEnvido = JuegoServicio.CambiarTurno(partida.Turno);
             }
 
+            partida = VerificarSiAlguienGanoElPartido(partida);
+
             return partida;
         }
 
+        public static Partida VerificarSiAlguienGanoElPartido(Partida partida)
+        {
+            if (partida.PuntosJugadorUno >= 30 || partida.PuntosJugadorDos >= 30)
+            {
+                partida.Turno = 0;
+                partida.GanadorPartida = partida.PuntosJugadorUno >= 30 ? 1 : 2;
+            }
+
+            return partida;
+        }
 
         public static Partida TrucoTurnos(Partida partida)
         {
@@ -480,6 +495,8 @@ namespace Servicios.Juego
                     partida.Truco.JugadorQueDebeResponderTruco = jugadorQueCantaTruco;
                 }
             }
+
+            partida = VerificarSiAlguienGanoElPartido(partida);
             return partida;
         }
 
