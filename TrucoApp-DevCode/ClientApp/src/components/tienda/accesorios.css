@@ -43,21 +43,21 @@
   color: #eac67a;
   background: #984b43;
 }
-.negro, .blanco, .gris{
+.black, .white, .grey{
   border-radius: 100px;
   width: 30px;
   height: 30px;
 }
 
-.negro{
+.black{
   background: #000;
 }
 
-.blanco{
+.white{
   background: #fff;
   border: 1px solid #000;
 }
 
-.gris{
+.grey{
   background: #8f8f8f;
 }

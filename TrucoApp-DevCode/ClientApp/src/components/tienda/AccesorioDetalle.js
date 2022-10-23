@@ -4,8 +4,20 @@ import imagenes from './TiendaImagenes';
 import { Link } from 'react-router-dom';
 const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marca,tipoBaraja, precio, colores, talles }) => {
   
-  const listaColores=(descripcion) =>{
-    return (<span className={`${descripcion}`} style={{marginRight:'10px'}}></span>);
+  const cambiarProducto = (producto, color) =>{
+    const imgProducto = document.querySelector('#foto-producto');
+    let posicionUltimoGuion = producto.lastIndexOf("-");   
+    let prod = producto.substring( 0 , posicionUltimoGuion+1);
+    imgProducto.src=imagenes[`${prod}${color}`];
+  }
+  const listaColores=(descripcion, producto) =>{
+    return (<span 
+              className={`${descripcion}`} 
+              onClick={()=>cambiarProducto(producto, descripcion)}
+              style={{marginRight:'10px', cursor:'pointer'}}
+            >
+
+            </span>);
   }
 
   const listaTalles = (idTalle,color, descripcion) =>{
@@ -19,7 +31,7 @@ const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marc
       if(colores.length!=0){
         const listadoColores=
         colores.map((color)=>
-       listaColores(color.descripcion)
+       listaColores(color.descripcion, imagen)
       );
       return listadoColores;
     }else{
@@ -50,7 +62,7 @@ const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marc
        <div className="d-flex flex-row justify-content-center">
             <div className="accesorio-componente">
                 <div className="accesorio-imagen p-5" style={{ background: '#d9d9d9'}}>
-                    <img className="card-img-top" src={imagenes[imagen]} alt={descripcion} style={{ width:'400px', height:'400px' }}/>
+                    <img className="card-img-top" id="foto-producto" src={imagenes[imagen]} alt={descripcion} style={{ width:'400px', height:'400px' }}/>
                 </div>
             </div>
             <div className="detalles d-flex flex-row ms-5">
