@@ -8,6 +8,16 @@ export const getUserPlayer = (uid, jugadorUno, jugadorDos) => {
   }
 };
 
+export const getRivalPlayer = (uid, jugadorUno, jugadorDos) => {
+  if (uid === jugadorUno) {
+    return 2;
+  } else if (uid === jugadorDos) {
+    return 1;
+  } else {
+    return false;
+  }
+};
+
 export const isMyTurn = (uid, jugadorUno, jugadorDos, turno) => {
   if (getUserPlayer(uid, jugadorUno, jugadorDos) === turno) {
     return true;

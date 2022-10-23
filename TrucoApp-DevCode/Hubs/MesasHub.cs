@@ -28,6 +28,7 @@ namespace Router.Hubs
             await Groups.AddToGroupAsync(Context.ConnectionId, userRoom);
         }
 
+
         public async Task InicializarMano(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
@@ -51,7 +52,7 @@ namespace Router.Hubs
             partida.JugadasRealizadas = 0;
 
             Envido envido = new();
-            Truco truco = new Truco();
+            Truco truco = new();
             envido.TantoJugadorUno = JuegoServicio.ContarTantoJugador(cartasJugadorUno);
             envido.TantoJugadorDos = JuegoServicio.ContarTantoJugador(cartasJugadorDos);
             partida.Envido = envido;
