@@ -89,6 +89,7 @@ export const SocketProvider = ({ children }) => {
       dispatch(
         repartirCartas({
           ...partida,
+          horarioDeUltimoMovimiento: new Date(),
           cartasJugadasJugadorUno: [],
           cartasJugadasJugadorDos: [],
           envido: {
@@ -111,6 +112,7 @@ export const SocketProvider = ({ children }) => {
       dispatch(
         tirarCarta({
           ...partida,
+          horarioDeUltimoMovimiento: new Date(),
           cartasJugadasJugadorUno: !!cartasJugadasJugadorUno
             ? cartasJugadasJugadorUno
             : [],
@@ -126,7 +128,9 @@ export const SocketProvider = ({ children }) => {
     connection?.on("EnvidoCantado", (juego) => {
       const { envido, jugadorUno, jugadorDos } = juego;
       const { jugadorQueCantoEnvido, envidosCantados } = envido;
-      dispatch(cantarEnvido(juego));
+      dispatch(
+        cantarEnvido({ ...juego, horarioDeUltimoMovimiento: new Date() })
+      );
       dispatch(
         checkChantSet(
           jugadorQueCantoEnvido,
@@ -140,13 +144,10 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     connection?.on("TantosCantados", (juego) => {
       const { envido, jugadorUno, jugadorDos } = juego;
-      const {
-        jugadorQueCantoEnvido,
-        cantoTanto,
-        tantoCantadoJugadorUno,
-        tantoCantadoJugadorDos,
-      } = envido;
-      dispatch(cantarEnvido(juego));
+      const { jugadorQueCantoEnvido, cantoTanto } = envido;
+      dispatch(
+        cantarEnvido({ ...juego, horarioDeUltimoMovimiento: new Date() })
+      );
       dispatch(
         checkChantSet(
           jugadorQueCantoEnvido,
@@ -161,7 +162,9 @@ export const SocketProvider = ({ children }) => {
     connection?.on("TrucoCantado", (juego) => {
       const { truco, jugadorUno, jugadorDos } = juego;
       const { jugadorQueCantoTruco, trucosCantados } = truco;
-      dispatch(cantarTruco(juego));
+      dispatch(
+        cantarTruco({ ...juego, horarioDeUltimoMovimiento: new Date() })
+      );
       dispatch(
         checkChantSet(
           jugadorQueCantoTruco,

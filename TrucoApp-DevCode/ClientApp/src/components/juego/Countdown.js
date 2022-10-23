@@ -30,7 +30,7 @@ export const Countdown = ({ image }) => {
       <CountdownCircleTimer
         key={jugadasRealizadas}
         isPlaying={isMyTurn(uid, jugadorUno, jugadorDos, turno) ? true : false}
-        duration={10}
+        duration={15}
         size={80}
         strokeWidth={4}
         colors={

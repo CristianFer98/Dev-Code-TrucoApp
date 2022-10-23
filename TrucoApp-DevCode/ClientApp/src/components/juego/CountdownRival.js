@@ -17,6 +17,7 @@ export const CountdownRival = ({ image }) => {
     cartasJugadorDos,
     cartasJugadasJugadorUno,
     cartasJugadasJugadorDos,
+    ganadorMano,
     envido,
     truco,
   } = partida;
@@ -113,7 +114,9 @@ export const CountdownRival = ({ image }) => {
           referrerPolicy="no-referrer"
           alt="userFoto"
           className={`rounded-circle w-100 h-100 ${
-            !isMyTurn(uid, jugadorUno, jugadorDos, turno) && !ganadorPartida
+            !isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
+            !ganadorPartida &&
+            !ganadorMano
               ? "player2Img"
               : "player2ImgFinishedTimer"
           }`}
@@ -128,15 +131,19 @@ export const CountdownRival = ({ image }) => {
       <CountdownCircleTimer
         key={jugadasRealizadas}
         isPlaying={
-          !isMyTurn(uid, jugadorUno, jugadorDos, turno) && !ganadorPartida
+          !isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
+          !ganadorPartida &&
+          !ganadorMano
             ? true
             : false
         }
-        duration={10}
+        duration={15}
         size={80}
         strokeWidth={4}
         colors={
-          !isMyTurn(uid, jugadorUno, jugadorDos, turno) && !ganadorPartida
+          !isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
+          !ganadorPartida &&
+          !ganadorMano
             ? ["#19FF57", "#F7B801", "#A30000", "#A30000"]
             : [
                 "rgb(212, 212, 212)",
