@@ -44,8 +44,10 @@ export function TiendaAvatar() {
               <h3 className="card-title text-dark">Pelo</h3>
             </div>
             <div className="card- d-flex flex-row">
-                {getListadoPelo().map((pelo) => (
+                {getListadoPelo().map((pelo,i) => (
                     <Card
+                    key={i}
+                    id={pelo.idAccesorio}
                     imagen={pelo.imagen}
                     precio={pelo.precio}
                     comprado={pelo.comprado}
@@ -60,8 +62,10 @@ export function TiendaAvatar() {
               <h3 className="card-title text-dark">Ropa</h3>
             </div>
             <div className="card- d-flex flex-row">
-                {getListadoRopa().map((ropa) => (
+                {getListadoRopa().map((ropa, i) => (
                     <Card
+                    key={i}
+                    id={ropa.idAccesorio}
                     imagen={ropa.imagen}
                     precio={ropa.precio}
                     comprado={ropa.comprado}
