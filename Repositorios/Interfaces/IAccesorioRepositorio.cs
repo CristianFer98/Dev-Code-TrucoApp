@@ -10,5 +10,6 @@ namespace Repositorios.Interfaces
     public interface IAccesorioRepositorio
     {
         public List<Accesorio> GetAccesorios();
+        public void Comprar(int idAccesorio);
     }
 }

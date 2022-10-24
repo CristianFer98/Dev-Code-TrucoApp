@@ -17,6 +17,13 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
+        public void Comprar(int idAccesorio)
+        {
+           Accesorio accesorio= _dbContext.Accesorios.Find(idAccesorio);
+            accesorio.Comprado = true;
+            _dbContext.SaveChanges();
+        }
+
         public List<Accesorio> GetAccesorios()
         {
             return _dbContext.Accesorios.ToList();
