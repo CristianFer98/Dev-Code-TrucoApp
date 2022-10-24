@@ -65,7 +65,7 @@ export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=
  };
 
  export const setRopa = (ropaNueva) =>{
-  document.querySelector('#ropaActual').src=imagenes[`${ropaNueva}`];;
+  document.querySelector('#ropaActual').src=imagenes[`${ropaNueva}`];
 }
 
 

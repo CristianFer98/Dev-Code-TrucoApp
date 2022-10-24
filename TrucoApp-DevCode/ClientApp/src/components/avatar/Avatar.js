@@ -7,7 +7,8 @@ import {
   mostrarAvatarSeleccionadoMasConfiguracion,
   setPelo,
   setPiel,
-  setOjos
+  setOjos,
+  setRopa
 } from './Funciones';
 
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
@@ -341,7 +342,7 @@ export function Avatar() {
                       <button 
                         className={`${ropa.imagen} btn border-0 ${ropa.comprado==true ?'':'disabled'}`}
                         style={{width:'200%', height:'auto'}}
-                        onClick={()=>setPelo(ropa.imagen)}>
+                        onClick={()=>setRopa(ropa.imagen)}>
                           <img src={imagenes[ropa.imagen]} style={{width:'90%', height:'auto', cursor:'pointer'}}/>
                       </button>
                   ))}
