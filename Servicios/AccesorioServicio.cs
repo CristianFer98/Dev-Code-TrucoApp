@@ -17,6 +17,12 @@ namespace Servicios
         {
             _accesorioRepositorio = accesorioRepositorio;
         }
+
+        public void Comprar(int idAccesorio)
+        {
+            _accesorioRepositorio.Comprar(idAccesorio);
+        }
+
         public List<Accesorio> GetAccesorios()
         {
             return _accesorioRepositorio.GetAccesorios();

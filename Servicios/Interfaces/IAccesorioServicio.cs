@@ -10,5 +10,6 @@ namespace Servicios.Interfaces
     public interface IAccesorioServicio
     {
         public List<Accesorio> GetAccesorios();
+        public void Comprar(int idAccesorio);
     }
 }
