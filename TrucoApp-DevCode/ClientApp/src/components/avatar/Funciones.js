@@ -68,20 +68,5 @@ export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=
   document.querySelector('#ropaActual').src=imagenes[`${ropaNueva}`];;
 }
 
- export const getPelo = () =>{
-  return document.querySelector('#pelo-actual').classList[1];
- }
-
- export const getPiel = () =>{
-  return document.querySelector('.cabeza').classList[1];
- }
-
- export const getOjos = () =>{
-  return document.querySelector('.iris-izq').classList[1];
- }
-
-export const getRopa = () =>{
-  return document.querySelector('#ropaActual').classList[0];
- }
 
  
