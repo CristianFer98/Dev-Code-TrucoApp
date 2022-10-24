@@ -280,7 +280,11 @@
 
     margin-bottom: 50px;
 }
-.color-ojo, .color-piel, .color-pelo {
+.color-ojo, 
+.color-piel, 
+.color-pelo, 
+.cambio-pelo, 
+.cambio-ropa {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -303,7 +307,7 @@
 }
 
 .iris-marron {
-    background: brown;
+    background: #4E2D05;
 }
 
 .iris-negro {
