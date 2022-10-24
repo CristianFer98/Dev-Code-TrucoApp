@@ -11,6 +11,13 @@ namespace Router.Hubs
     public class MesasHub : Hub
     {
 
+        private readonly IDictionary<string, UserConnection> _connections;
+
+        public MesasHub(IDictionary<string, UserConnection> connections)
+        {
+            _connections = connections;
+        }
+
         public async Task CrearMesa()
         {
             await Clients.All.SendAsync("MesasActualizadas");
@@ -22,12 +29,40 @@ namespace Router.Hubs
             await Clients.All.SendAsync("MesaOcupada", partida);
         }
 
-        public async Task JoinRoom(int room)
+        public async Task JoinRoom(int user, int room)
         {
             string userRoom = Convert.ToString(room);
+
+            UserConnection userConnection = new()
+            {
+                User = user,
+                Room = userRoom
+            };
+            _connections[Context.ConnectionId] = userConnection;
+
             await Groups.AddToGroupAsync(Context.ConnectionId, userRoom);
         }
 
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
+            {
+                _connections.Remove(Context.ConnectionId);
+
+                SendConnectedUsers(userConnection.Room);
+            }
+
+            return base.OnDisconnectedAsync(exception);
+
+        }
+
+        public Task SendConnectedUsers(string room)
+        {
+            var users = _connections.Values.Where(c => c.Room == room).Select(c => c.User);
+
+            return Clients.Group(room).SendAsync("UsersInRoom", users);
+
+        }
 
         public async Task InicializarMano(Partida partida)
         {
@@ -61,7 +96,7 @@ namespace Router.Hubs
             if (partida.PuntosJugadorUno == 0 && partida.PuntosJugadorDos == 0)
             {
                 partida.Turno = JuegoServicio.AsignarTurno();
-                partida.Repartidor = JuegoServicio.CambiarTurno(JuegoServicio.AsignarTurno());
+                partida.Repartidor = JuegoServicio.CambiarTurno(partida.Turno);
             }
             else
             {
@@ -70,6 +105,7 @@ namespace Router.Hubs
                 partida.GanadorMano = null;
             }
 
+            await SendConnectedUsers(userRoom);
             await Clients.Group(userRoom).SendAsync("EmpezarJuego", partida);
         }
 

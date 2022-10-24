@@ -12,6 +12,7 @@ using Repositorios.Interfaces;
 using Router.Hubs;
 using Servicios;
 using Servicios.Interfaces;
+using System.Collections.Generic;
 
 namespace Router
 {
@@ -37,6 +38,8 @@ namespace Router
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());
 
             services.AddDbContext<DevCodeDBContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DevCodeDBContext")));
 

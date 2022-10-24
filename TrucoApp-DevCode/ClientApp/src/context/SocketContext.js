@@ -64,13 +64,19 @@ export const SocketProvider = ({ children }) => {
       const { jugadorUno, jugadorDos, room } = partida;
 
       if (jugadorUno === uid) {
-        await connection.invoke("JoinRoom", room);
+        await connection.invoke("JoinRoom", uid, room);
       } else if (jugadorDos === uid) {
-        await connection.invoke("JoinRoom", room);
+        await connection.invoke("JoinRoom", uid, room);
         await connection.invoke("InicializarMano", partida);
       }
     });
   }, [connection, uid]);
+
+  useEffect(() => {
+    connection?.on("UsersInRoom", (usuarios) => {
+      console.log(usuarios);
+    });
+  }, [connection]);
 
   useEffect(() => {
     connection?.on("EmpezarJuego", (juego) => {
