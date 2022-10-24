@@ -31,5 +31,24 @@ namespace Router.Controllers
             }
 
         }
+
+        [HttpPut]
+        [Route("ComprarAccesorio/{idAccesorio:int}")]
+        public ActionResult ComprarAccesorio(int idAccesorio)
+        {
+
+            try
+            {
+                _accesorioServicio.Comprar(idAccesorio);
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
     }
 }
