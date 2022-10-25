@@ -88,6 +88,8 @@ namespace Servicios.Juego
 
             int? GanadorManoTres = (partida.CartasJugadasJugadorUno.Count > 2 && partida.CartasJugadasJugadorDos.Count > 2) ? CartaGanadora(partida.CartasJugadasJugadorUno[2], partida.CartasJugadasJugadorDos[2]) : null;
 
+            partida.JugadasRealizadas += 1;
+
             if (partida.Mano == 1)
             {
                 if (GanadorManoUno != null)
@@ -184,23 +186,48 @@ namespace Servicios.Juego
                     }
                 }
             }
+
+            return partida;
+        }
+
+        public static Partida SumarPuntosTruco(Partida partida, int ganadorMano, int puntosASumar)
+        {
+            if (ganadorMano == 1)
+            {
+                partida.PuntosJugadorUno += puntosASumar;
+
+            }
+            else
+            {
+                partida.PuntosJugadorDos += puntosASumar;
+            }
+
             return partida;
         }
 
         public static Partida AsignarPuntosAGanadorMano(Partida partida, int ganadorMano)
         {
 
-            partida.GanadorMano = ganadorMano;
             partida.Turno = 0;
+            partida.Truco.JugadorQueCantoPrimeroTruco = 0;
+            partida.Truco.JugadorQueDebeResponderTruco = 0;
+            partida.GanadorMano = ganadorMano;
+            int PuntosGanadosTruco = CalcularPuntosTruco(partida.Truco.TrucosCantados);
 
-            if (ganadorMano == 1)
+            if (partida.Truco.TrucosCantados.Count == 0)
             {
-                partida.PuntosJugadorUno++;
-
+                partida = SumarPuntosTruco(partida, ganadorMano, 1);
             }
             else
             {
-                partida.PuntosJugadorDos++;
+                if (partida.Truco.TrucosCantados[0] == "no quiero" && partida.Envido.EnvidosCantados.Count == 0 && partida.Mano == 1 && partida.CartasJugadasJugadorUno.Count == 0 && partida.CartasJugadasJugadorDos.Count == 0)
+                {
+                    partida = SumarPuntosTruco(partida, ganadorMano, 2);
+                }
+                else
+                {
+                    partida = SumarPuntosTruco(partida, ganadorMano, PuntosGanadosTruco);
+                }
             }
 
             return partida;
@@ -310,6 +337,188 @@ namespace Servicios.Juego
             else
             {
                 return repartidor == 1 ? 2 : 1;
+            }
+        }
+
+        public static int CalcularPuntosTruco(List<string> trucosCantados)
+        {
+            if (trucosCantados.Count == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                List<string> trucosCantadosDinamicos = trucosCantados.Cast<string>().ToList();
+                List<string> trucosCantadosConvertidos = trucosCantadosDinamicos.Select(e => e == "truco" ? "2" : e == "re truco" ? "3" : e == "vale cuatro" ? "4" : e).ToList();
+
+                List<string> trucosCantadosReconvertidos = trucosCantadosConvertidos.Where(e => e != "quiero").ToList();
+
+                if (trucosCantadosReconvertidos.Count != 1)
+                {
+                    if (trucosCantadosConvertidos.Contains("no quiero"))
+                    {
+                        if (trucosCantadosConvertidos[^2] != "quiero")
+                        {
+                            trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
+                            trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
+                            if (trucosCantadosReconvertidos.Count == 0)
+                            {
+                                trucosCantadosReconvertidos.Add("1");
+                            }
+                        }
+                        else
+                        {
+                            trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
+                            if (trucosCantadosReconvertidos.Count == 0)
+                            {
+                                trucosCantadosReconvertidos.Add("1");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
+                    trucosCantadosReconvertidos.Add("1");
+                }
+
+                return Int32.Parse(trucosCantadosReconvertidos[^1]);
+            }
+
+        }
+
+        public static Partida EnvidoTurnos(Partida partida)
+        {
+            partida.Envido.JugadorQueCantoEnvido = partida.Turno;
+            partida.JugadasRealizadas += 1;
+            int jugadorQueCantaEnvido = partida.Turno;
+
+            if (partida.Envido.EnvidosCantados[^1] == "quiero")
+            {
+                partida.Turno = JuegoServicio.CambiarTurno(partida.Repartidor);
+                partida.Envido.EstadoEnvidoCantado = false;
+                partida.Envido.EstadoCantarTantos = true;
+                partida.Envido.JugadorQueDebeResponderEnvido = JuegoServicio.CambiarTurno(partida.Repartidor);
+            }
+            else if (partida.Envido.EnvidosCantados[^1] == "no quiero")
+            {
+                partida.Turno = partida.Envido.JugadorQueCantoPrimeroEnvido;
+                partida.Envido.EstadoEnvidoCantado = false;
+                partida.Envido.EstadoCantarTantos = false;
+                partida.Envido.JugadorQueDebeResponderEnvido = 0;
+                partida.Envido.JugadorQueCantoPrimeroEnvido = 0;
+
+                if (jugadorQueCantaEnvido == 1)
+                {
+                    partida.PuntosJugadorDos += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+                else
+                {
+                    partida.PuntosJugadorUno += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+            }
+            else
+            {
+                partida.Turno = partida.Envido.JugadorQueDebeResponderEnvido;
+            }
+
+            partida = VerificarSiAlguienGanoElPartido(partida);
+            return partida;
+        }
+
+        public static Partida TantosEnvidoTurnos(Partida partida)
+        {
+            partida.Envido.JugadorQueCantoEnvido = partida.Turno;
+            partida.JugadasRealizadas += 1;
+
+            if (partida.Turno == partida.Repartidor)
+            {
+                partida.Turno = partida.Envido.JugadorQueCantoPrimeroEnvido;
+                partida.Envido.JugadorQueDebeResponderEnvido = 0;
+                partida.Envido.JugadorQueCantoPrimeroEnvido = 0;
+                partida.Envido.EstadoCantarTantos = false;
+
+                if (JuegoServicio.EnvidoMasAlto(partida.Repartidor, partida.Envido.TantoCantadoJugadorUno, partida.Envido.TantoCantadoJugadorDos) == 1)
+                {
+                    partida.PuntosJugadorUno += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+                else
+                {
+                    partida.PuntosJugadorDos += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+            }
+            else
+            {
+                partida.Turno = JuegoServicio.CambiarTurno(partida.Turno);
+                partida.Envido.JugadorQueDebeResponderEnvido = JuegoServicio.CambiarTurno(partida.Turno);
+            }
+
+            partida = VerificarSiAlguienGanoElPartido(partida);
+
+            return partida;
+        }
+
+        public static Partida VerificarSiAlguienGanoElPartido(Partida partida)
+        {
+            if (partida.PuntosJugadorUno >= 30 || partida.PuntosJugadorDos >= 30)
+            {
+                partida.Turno = 0;
+                partida.GanadorPartida = partida.PuntosJugadorUno >= 30 ? 1 : 2;
+            }
+
+            return partida;
+        }
+
+        public static Partida TrucoTurnos(Partida partida)
+        {
+            partida.Truco.JugadorQueCantoTruco = partida.Turno;
+            partida.JugadasRealizadas += 1;
+
+            int jugadorQueCantaTruco = partida.Turno;
+
+            if (partida.Truco.TrucosCantados[^1] == "truco" || partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro")
+            {
+                partida.Turno = JuegoServicio.CambiarTurno(jugadorQueCantaTruco);
+                partida.Truco.EstadoTrucoCantado = true;
+                partida.Truco.JugadorQueDebeResponderTruco = JuegoServicio.CambiarTurno(jugadorQueCantaTruco);
+
+                if (partida.Truco.TrucosCantados[^1] == "truco" || (partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro") && partida.Truco.TrucosCantados[^2] == "quiero")
+                {
+                    partida.Truco.JugadorQueCantoPrimeroTruco = jugadorQueCantaTruco;
+                }
+            }
+            else
+            {
+                partida.Truco.EstadoTrucoCantado = false;
+
+                if (partida.Truco.TrucosCantados[^1] == "no quiero")
+                {
+                    partida = AsignarPuntosAGanadorMano(partida, CambiarTurno(jugadorQueCantaTruco));
+                }
+                else
+                {
+                    partida.Turno = partida.Truco.JugadorQueCantoPrimeroTruco;
+                    partida.Truco.JugadorQueDebeResponderTruco = jugadorQueCantaTruco;
+                }
+            }
+
+            partida = VerificarSiAlguienGanoElPartido(partida);
+            return partida;
+        }
+
+        public static int VerificarCantidadDeJugadasAutomaticas(Partida partida)
+        {
+            if (partida.JugadasAutomaticasJugadorUno > 2)
+            {
+                return 1;
+            }
+            else if (partida.JugadasAutomaticasJugadorDos > 2)
+            {
+                return 2;
+            }
+            else
+            {
+                return 0;
             }
         }
 

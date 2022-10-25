@@ -10,24 +10,31 @@ import { Rival } from "./Rival";
 
 export const Mesa = () => {
   const { uid } = useSelector((state) => state.auth);
-  const { partida } = useSelector((state) => state.juego);
+  const { partida, usuariosConectados } = useSelector((state) => state.juego);
   const { ganadorMano, repartidor, puntosJugadorUno, puntosJugadorDos } =
     partida;
   const { chantBox } = useSelector((state) => state.ui);
   const { connection } = useContext(SocketContext);
 
   useEffect(() => {
-    if (puntosJugadorUno < 30 && puntosJugadorDos < 30) {
-      !!ganadorMano &&
-        repartidor === uid &&
-        setTimeout(async () => {
-          await connection.invoke("InicializarMano", partida);
-        }, 2000);
+    if (usuariosConectados.length === 2) {
+      if (puntosJugadorUno < 30 && puntosJugadorDos < 30) {
+        !!ganadorMano &&
+          repartidor === uid &&
+          setTimeout(async () => {
+            await connection.invoke("InicializarMano", partida);
+          }, 2000);
+      } else {
+        puntosJugadorUno >= 30
+          ? Swal.fire("Ganador jugador uno", "", "success")
+          : puntosJugadorDos >= 30 &&
+            Swal.fire("Ganador jugador dos", "", "success");
+      }
     } else {
-      puntosJugadorUno >= 30
-        ? Swal.fire("Ganador jugador uno", "", "success")
-        : puntosJugadorDos >= 30 &&
-          Swal.fire("Ganador jugador dos", "", "success");
+      usuariosConectados[0] === partida.jugadorUno
+        ? Swal.fire("Ganador jugador uno, rival abandonó.", "", "success")
+        : usuariosConectados[0] === partida.jugadorDos &&
+          Swal.fire("Ganador jugador dos, rival abandonó.", "", "success");
     }
   }, [
     puntosJugadorUno,
@@ -37,6 +44,7 @@ export const Mesa = () => {
     partida,
     repartidor,
     uid,
+    usuariosConectados,
   ]);
 
   return (

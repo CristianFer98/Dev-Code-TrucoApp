@@ -6,6 +6,8 @@ import {
   envidoMasAlto,
   getUserPlayer,
 } from "../../../helpers/truco/getUserTurno";
+import { ocultarBotonesYAcciones } from "../../../helpers/truco/ocultarBotonesYAcciones";
+import { tiposBotones } from "../../../types/tiposBotones";
 
 export const BotonTantoEnvido = () => {
   const { connection } = useContext(SocketContext);
@@ -22,17 +24,18 @@ export const BotonTantoEnvido = () => {
 
   const handleCantarTantos = async (e) => {
     e.preventDefault();
-    await connection.invoke("CantarTantos", {
-      ...partida,
-      Envido: {
-        ...envido,
-        tantoCantadoJugadorUno:
-          numeroJugador === 1 ? tantoJugadorUno : tantoCantadoJugadorUno,
-        tantoCantadoJugadorDos:
-          numeroJugador === 2 ? tantoJugadorDos : tantoCantadoJugadorDos,
-        cantoTanto: e.target.id,
-      },
-    });
+    ocultarBotonesYAcciones(uid, partida, tiposBotones.tantos) &&
+      (await connection.invoke("CantarTantos", {
+        ...partida,
+        Envido: {
+          ...envido,
+          tantoCantadoJugadorUno:
+            numeroJugador === 1 ? tantoJugadorUno : tantoCantadoJugadorUno,
+          tantoCantadoJugadorDos:
+            numeroJugador === 2 ? tantoJugadorDos : tantoCantadoJugadorDos,
+          cantoTanto: e.target.id,
+        },
+      }));
   };
 
   return (

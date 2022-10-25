@@ -12,5 +12,6 @@ namespace Servicios.Juego
         public int JugadorQueCantoPrimeroTruco { get; set; }
         public int JugadorQueDebeResponderTruco { get; set; }
         public bool EstadoTrucoCantado { get; set; }
+        public int JugadorQueCantoTruco { get; set; }
     }
 }
