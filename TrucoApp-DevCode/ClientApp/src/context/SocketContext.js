@@ -11,6 +11,7 @@ import {
   cantarTruco,
   repartirCartas,
   tirarCarta,
+  usuariosConectados,
 } from "../actions/juego";
 import { checkChantSet } from "../actions/ui";
 import { getUserPlayer } from "../helpers/truco/getUserTurno";
@@ -18,6 +19,7 @@ export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
   const { uid } = useSelector((state) => state.auth);
+  const { partida } = useSelector((state) => state.juego);
   const [connection, setConnection] = useState();
   const dispatch = useDispatch();
 
@@ -74,9 +76,9 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("UsersInRoom", (usuarios) => {
-      console.log(usuarios);
+      dispatch(usuariosConectados(usuarios));
     });
-  }, [connection]);
+  }, [connection, dispatch]);
 
   useEffect(() => {
     connection?.on("EmpezarJuego", (juego) => {

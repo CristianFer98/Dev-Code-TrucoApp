@@ -132,6 +132,7 @@ export const CountdownRival = ({ image }) => {
         key={jugadasRealizadas}
         isPlaying={
           !isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
+          turno !== 0 &&
           !ganadorPartida &&
           !ganadorMano
             ? true
@@ -142,6 +143,7 @@ export const CountdownRival = ({ image }) => {
         strokeWidth={4}
         colors={
           !isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
+          turno !== 0 &&
           !ganadorPartida &&
           !ganadorMano
             ? ["#19FF57", "#F7B801", "#A30000", "#A30000"]

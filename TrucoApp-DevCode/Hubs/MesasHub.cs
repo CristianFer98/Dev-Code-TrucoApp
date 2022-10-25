@@ -56,6 +56,16 @@ namespace Router.Hubs
 
         }
 
+        public async Task DejarMesa(int room)
+        {
+            string userRoom = Convert.ToString(room);
+
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, userRoom);
+            _connections.Remove(Context.ConnectionId);
+
+            await SendConnectedUsers(userRoom);
+        }
+
         public Task SendConnectedUsers(string room)
         {
             var users = _connections.Values.Where(c => c.Room == room).Select(c => c.User);
