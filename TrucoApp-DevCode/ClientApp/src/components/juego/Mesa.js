@@ -11,14 +11,8 @@ import { Rival } from "./Rival";
 export const Mesa = () => {
   const { uid } = useSelector((state) => state.auth);
   const { partida, usuariosConectados } = useSelector((state) => state.juego);
-  const {
-    ganadorMano,
-    repartidor,
-    puntosJugadorUno,
-    puntosJugadorDos,
-    jugadorUno,
-    jugadorDos,
-  } = partida;
+  const { ganadorMano, repartidor, puntosJugadorUno, puntosJugadorDos } =
+    partida;
   const { chantBox } = useSelector((state) => state.ui);
   const { connection } = useContext(SocketContext);
 

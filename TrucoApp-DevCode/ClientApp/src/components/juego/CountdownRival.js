@@ -20,6 +20,8 @@ export const CountdownRival = ({ image }) => {
     ganadorMano,
     envido,
     truco,
+    jugadasAutomaticasJugadorUno,
+    jugadasAutomaticasJugadorDos,
   } = partida;
   const {
     estadoEnvidoCantado,
@@ -39,6 +41,14 @@ export const CountdownRival = ({ image }) => {
     if (estadoEnvidoCantado) {
       await connection.invoke("CantarEnvido", {
         ...partida,
+        jugadasAutomaticasJugadorUno:
+          rival === 1
+            ? jugadasAutomaticasJugadorUno + 1
+            : jugadasAutomaticasJugadorUno,
+        jugadasAutomaticasJugadorDos:
+          rival === 2
+            ? jugadasAutomaticasJugadorDos + 1
+            : jugadasAutomaticasJugadorDos,
         Envido: {
           ...envido,
           envidosCantados: [...envidosCantados, "no quiero"],
@@ -48,6 +58,14 @@ export const CountdownRival = ({ image }) => {
       if (estadoTrucoCantado) {
         await connection.invoke("CantarTruco", {
           ...partida,
+          jugadasAutomaticasJugadorUno:
+            rival === 1
+              ? jugadasAutomaticasJugadorUno + 1
+              : jugadasAutomaticasJugadorUno,
+          jugadasAutomaticasJugadorDos:
+            rival === 2
+              ? jugadasAutomaticasJugadorDos + 1
+              : jugadasAutomaticasJugadorDos,
           Truco: {
             ...truco,
             trucosCantados: [...trucosCantados, "no quiero"],
@@ -60,6 +78,14 @@ export const CountdownRival = ({ image }) => {
   const cantarTantosAutomaticamente = async () => {
     await connection.invoke("CantarTantos", {
       ...partida,
+      jugadasAutomaticasJugadorUno:
+        rival === 1
+          ? jugadasAutomaticasJugadorUno + 1
+          : jugadasAutomaticasJugadorUno,
+      jugadasAutomaticasJugadorDos:
+        rival === 2
+          ? jugadasAutomaticasJugadorDos + 1
+          : jugadasAutomaticasJugadorDos,
       Envido: {
         ...envido,
         tantoCantadoJugadorUno:

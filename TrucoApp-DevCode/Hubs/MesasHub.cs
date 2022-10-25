@@ -102,6 +102,8 @@ namespace Router.Hubs
             envido.TantoJugadorDos = JuegoServicio.ContarTantoJugador(cartasJugadorDos);
             partida.Envido = envido;
             partida.Truco = truco;
+            partida.JugadasAutomaticasJugadorUno = 0;
+            partida.JugadasAutomaticasJugadorDos = 0;
 
             if (partida.PuntosJugadorUno == 0 && partida.PuntosJugadorDos == 0)
             {
@@ -122,6 +124,7 @@ namespace Router.Hubs
         public async Task TirarCarta(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
+
             Partida partidaActualizada = JuegoServicio.ActualizarPartida(partida);
             await Clients.Group(userRoom).SendAsync("CartaTirada", partidaActualizada);
         }

@@ -473,7 +473,7 @@ namespace Servicios.Juego
         {
             partida.Truco.JugadorQueCantoTruco = partida.Turno;
             partida.JugadasRealizadas += 1;
-            
+
             int jugadorQueCantaTruco = partida.Turno;
 
             if (partida.Truco.TrucosCantados[^1] == "truco" || partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro")
@@ -504,6 +504,22 @@ namespace Servicios.Juego
 
             partida = VerificarSiAlguienGanoElPartido(partida);
             return partida;
+        }
+
+        public static int VerificarCantidadDeJugadasAutomaticas(Partida partida)
+        {
+            if (partida.JugadasAutomaticasJugadorUno > 2)
+            {
+                return 1;
+            }
+            else if (partida.JugadasAutomaticasJugadorDos > 2)
+            {
+                return 2;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
     }
