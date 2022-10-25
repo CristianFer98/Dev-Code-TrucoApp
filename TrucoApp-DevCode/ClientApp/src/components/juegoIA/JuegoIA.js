@@ -9,6 +9,7 @@ const JuegoIA = () => {
   const [manoJugador, setManoJugador] = useState(cartas[0]);
   const [mesaJugador, setMesaJugador] = useState([]);
   const [puntajeJugador, setPuntajeJugador] = useState(0);
+  const [mensajeJugador, setMensajeJugador] = useState("");
 
   //Maquina
   const [manoMaquina, setManoMaquina] = useState(cartas[1]);
@@ -161,7 +162,6 @@ const JuegoIA = () => {
     setTurnoMaquina(false);
     setJugoMaquina(true);
     let randomCantaTruco = Math.round(Math.random() * 1);
-    console.log(randomCantaTruco)
     if(randomCantaTruco == 1){
       maquinaCantaTruco();
     }
@@ -286,6 +286,9 @@ const JuegoIA = () => {
   /* ACCIONAR DEL USUARIO - CANTAR ENVIDO, JUNTO CON LA RESPUESTA DE LA MAQUINA */
   const maquinaNoQuiereEnvido = (puntos) => {
     setMensajeMaquina("NO QUIERO");
+    setTimeout(() => {
+      setMensajeMaquina('');
+    }, 1000);
     setPuntajeJugador(puntajeJugador + puntos);
     setEnvidoCantado(true);
     setConfirmarAccion(false);
@@ -330,8 +333,15 @@ const JuegoIA = () => {
 
     if (envidoCantado == false && mensajeMaquina != 'ENVIDO' && mensajeMaquina != 'REAL ENVIDO' && mensajeMaquina != 'FALTA ENVIDO') {
       setEnvidoCantado(true);
+      
+      setMensajeJugador('ENVIDO')
+      setTimeout(() => {
+        setMensajeJugador('');
+      }, 1000);
+
       let puntosDeEnvidoJugador = calcularEnvido("jugador");
       let puntosDeEnvidoMaquina = calcularEnvido("maquina");
+      console.log(puntosDeEnvidoJugador)
       if (puntosDeEnvidoMaquina <= 23) {
         maquinaNoQuiereEnvido(1);
         return true;
@@ -349,13 +359,20 @@ const JuegoIA = () => {
       if (puntosDeEnvidoMaquina >= 24 && puntosDeEnvidoMaquina <= 28){
         evaluarGanadorDeEnvido(puntosDeEnvidoMaquina, puntosDeEnvidoJugador, 2);   
       }
-      
+
+     
     }
   };
 
   const cantarRealEnvido = () => {
     if (envidoCantado == false && mensajeMaquina != 'REAL ENVIDO' && mensajeMaquina != 'FALTA ENVIDO') {
       setEnvidoCantado(true);
+
+      setMensajeJugador('REAL ENVIDO')
+      setTimeout(() => {
+        setMensajeJugador('');
+      }, 1000);
+
       let puntosDeEnvidoJugador = calcularEnvido("jugador");
       let puntosDeEnvidoMaquina = calcularEnvido("maquina");
 
@@ -372,12 +389,18 @@ const JuegoIA = () => {
       if(puntosDeEnvidoMaquina > 28 && puntosDeEnvidoMaquina < 32){
         evaluarGanadorDeEnvido(puntosDeEnvidoMaquina, puntosDeEnvidoJugador, 3);   
       }
+    
     }
   };
 
-
   const cantarFaltaEnvido = () => {
     if (envidoCantado == false && mensajeMaquina != 'FALTA ENVIDO') {
+
+      setMensajeJugador('FALTA ENVIDO')
+      setTimeout(() => {
+        setMensajeJugador('');
+      }, 1000);
+
       let puntosDeEnvidoJugador = calcularEnvido("jugador");
       let puntosDeEnvidoMaquina = calcularEnvido("maquina");
 
@@ -389,6 +412,7 @@ const JuegoIA = () => {
       if(puntosDeEnvidoMaquina >= 32){
         evaluarGanadorDeEnvido(puntosDeEnvidoMaquina, puntosDeEnvidoJugador, 15);   
       }
+     
     }
   };
 
@@ -419,10 +443,23 @@ const JuegoIA = () => {
     let puntaje = 0;
     let cartas = _.filter(mano, { suit: palo });
 
-    if (cartas.length == 2 || cartas.length == 3) {
+    if (cartas.length == 2) {
       puntaje = calcularEnvidoComun(cartas);
     }
    
+    if(cartas.length == 3){
+
+      let cartasOrdenadas = cartas.sort(function(a,b){
+        return (a.number < b.number ? 1 : (a.number > b.number ? -1 : 0));
+      })
+
+      if(cartasOrdenadas.find((carta)=> carta.number > 9 && carta.number < 13)){
+        puntaje = calcularEnvidoComun(cartasOrdenadas);
+      } else {
+        cartasOrdenadas.pop()
+        puntaje = calcularEnvidoComun(cartasOrdenadas);
+      }
+    }
     return puntaje;
   };
  
@@ -438,11 +475,17 @@ const JuegoIA = () => {
   const evaluarGanadorDeEnvido = (puntosMaquina, puntosJugador, puntosParaElGanador) =>{
     if(puntosJugador > puntosMaquina){
       setPuntajeJugador(puntajeJugador + puntosParaElGanador);
-      setMensajeMaquina(puntosMaquina + " ¡Me ganaste!");
+      setMensajeMaquina("¡SON BUENAS!");
+      setTimeout(() => {
+        setMensajeMaquina('');
+      }, 500);
       setConfirmarAccion(false);
     } else {
       setPuntajeMaquina(puntajeMaquina + puntosParaElGanador);
       setMensajeMaquina(puntosMaquina + " ¡Gano yo!");
+      setTimeout(() => {
+        setMesaMaquina('');
+      }, 500);
       setConfirmarAccion(false);
     }
   }
@@ -504,14 +547,14 @@ const JuegoIA = () => {
           }
         }
       }
+      setMensajeJugador('TRUCO')
+      
     }
   };
 
   const cantarReTruco = () => {
-    //VER COMO PODER CANTAR RE TRUCO SI EL MENSAJE SE BORRA
-    if (mensajeMaquina == 'CANTO TRUCO' || mensajeMaquina != 'SI QUIERO') {
-      if(mensajeMaquina != 'QUIERO RE TRUCO'){
-        console.log('entro')
+    if (mensajeMaquina == 'CANTO TRUCO') {
+      if(mensajeMaquina != 'QUIERO RE TRUCO' && mensajeMaquina != 'QUIERO VALE CUATRO'){
       let cartasEnManoMaquina = manoMaquina.length;
       let puntajeDeCartasMaquina = sumarPuntosDeLaManoMaquina();
  
@@ -544,7 +587,7 @@ const JuegoIA = () => {
           maquinaNoQuiereTruco(1);
         } else {
           if (puntajeDeCartasMaquina < 4) {
-            maquinaQuiereReTruco();
+            maquinaQuiereValeCuatro();
           } else {
             maquinaAceptaTruco(2);
           }
@@ -557,19 +600,20 @@ const JuegoIA = () => {
           maquinaNoQuiereTruco(1);
         } else {
           if (puntajeDeCartasMaquina < 4) {
-            maquinaQuiereReTruco();
+            maquinaQuiereValeCuatro();
           } else {
             maquinaAceptaTruco(2);
           }
         }
       }
+      setMensajeJugador('RE TRUCO')
     }
   }
   };
 
   const cantarValeCuatro = () => {
-    if (mensajeMaquina == "QUIERO RE TRUCO" || mensajeMaquina != 'SI QUIERO') {
-      if(mensajeMaquina != 'CANTO TRUCO'){
+    if (mensajeMaquina == "QUIERO RE TRUCO") {
+      if(mensajeMaquina != 'CANTO TRUCO' && mensajeMaquina != 'QUIERO VALE CUATRO'){
       let cartasEnManoMaquina = manoMaquina.length;
       let puntajeDeCartasMaquina = sumarPuntosDeLaManoMaquina();
  
@@ -609,6 +653,7 @@ const JuegoIA = () => {
           maquinaAceptaTruco(3);
         } 
       }
+      setMensajeJugador('VALE CUATRO')
     }
   }
   };
@@ -659,12 +704,16 @@ const JuegoIA = () => {
     if (confirmarAccion == true) {
       if (mensajeMaquina == "CANTO TRUCO") {
         aceptarTruco(1);
+        setMensajeJugador('QUIERO')
       }
       if (mensajeMaquina == "QUIERO RE TRUCO") {
         aceptarTruco(2);
+        setMensajeJugador('¡QUIERO!')
+
       }
       if (mensajeMaquina == "QUIERO VALE CUATRO") {
         aceptarTruco(3);
+        setMensajeJugador('¡SI, QUIERO!')
       }
       if (mensajeMaquina == 'ENVIDO') {
         if(mesaJugador.length == 1){
@@ -684,6 +733,7 @@ const JuegoIA = () => {
         }
         aceptarEnvido(15);
       }
+    
     }
   };
 
@@ -692,6 +742,7 @@ const JuegoIA = () => {
       if ( mensajeMaquina == "ENVIDO" || mensajeMaquina == "REAL ENVIDO" || mensajeMaquina == "FALTA ENVIDO") {
         rechazarEnvido();
         setEnvidoCantado(true);
+
       }
       if (mensajeMaquina == "CANTO TRUCO") {
         rechazarTruco(1);
@@ -703,7 +754,10 @@ const JuegoIA = () => {
         rechazarTruco(3);
       }
       setConfirmarAccion(false);
+      setMensajeJugador('NO QUIERO')
+      
     }
+
   };
 
   const aceptarTruco = (nivelDeTruco) => {
@@ -744,9 +798,13 @@ const JuegoIA = () => {
     let envidoMaquina = parseInt(localStorage.getItem("envidoMaquina"));
     let envidoJugador = parseInt(localStorage.getItem("envidoJugador"));
 
+    setMensajeJugador('QUIERO, '+ envidoJugador )
+    setTimeout(() => {
+      setMensajeJugador('');
+    }, 500);
     if (envidoJugador > envidoMaquina) {
       setPuntajeJugador(puntajeJugador + valor);
-      setMensajeMaquina(envidoMaquina + ' Ganaste');
+      setMensajeMaquina('Son buenas');
 
     } else {
       setPuntajeMaquina(puntajeMaquina + valor);
@@ -760,6 +818,9 @@ const JuegoIA = () => {
     setTurnoMaquina(true);
     setPuntajeMaquina(puntajeMaquina + 1);
     setMensajeMaquina("");
+    setTimeout(() => {
+      setMensajeJugador('');
+    }, 500);
     if(mesaJugador.length == 1){
       maquinaTiraCarta();
     }
@@ -817,6 +878,7 @@ const JuegoIA = () => {
       }
 
       setMensajeMaquina("");
+      setMensajeJugador("");
       setNivelDeTruco(0);
     }
   };
@@ -878,14 +940,17 @@ const JuegoIA = () => {
   return (
     <div className="juegoIA">
       {/*seccion del jugador*/}
+      
       <div className="jugador">
+      <div className="vinetaJugadorIA">
+          <p className="globoJugadorIA">{mensajeJugador}</p>
+        </div>
         <div className="quieroIA">
           <button className="botonesDeAccion" onClick={() => quiero()}>
             Quiero
           </button>
           <button
             className="botonesDeAccion"
-            style={{ backgroundColor: "#b6a616" }}
             onClick={() => meVoyAlMaso()}
           >
             Me voy al Mazo

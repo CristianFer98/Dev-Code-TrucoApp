@@ -2,7 +2,7 @@
 {
     public class AvatartDto
     {
-        public int IdUsuario { get; set; }
+        public int IdUsuarioAvatar { get; set; }
         public string Pelo { get; set; }
         public string Ceja { get; set; }
         public string ColorDePiel { get; set; }

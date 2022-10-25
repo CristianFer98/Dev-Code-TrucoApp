@@ -21,7 +21,7 @@ namespace Servicios
         {
             var avatar = new Avatar
             {
-                IdUsuario = idUsuario,
+                IdUsuarioAvatar = idUsuario,
                 Pelo = pelo,
                 Ceja = ceja,
                 ColorDeOjos = colorDeOjos,
