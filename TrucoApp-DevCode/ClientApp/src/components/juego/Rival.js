@@ -2,6 +2,7 @@ import React from "react";
 import noFoto from "../../assets/no-foto.jpg";
 import mazo from "../../assets/cartas/Mazo.png";
 import { useSelector } from "react-redux";
+import { CountdownRival } from "./CountdownRival";
 
 export const Rival = () => {
   const { uid } = useSelector((state) => state.auth);
@@ -11,14 +12,7 @@ export const Rival = () => {
   return (
     <div className="w-100 player1 d-flex align-items-center justify-content-center">
       <div className="player1Avatar d-flex flex-column align-items-center me-2">
-        <div className="divPlayer2ImgNotTurn rounded-circle">
-          <img
-            referrerPolicy="no-referrer"
-            className="player1ImgNotTurn rounded-circle"
-            src={noFoto}
-            alt="userFoto"
-          />
-        </div>
+        <CountdownRival image={noFoto} />
         <div className="playerName fw-bolder text-white px-2 py-1">Rival</div>
       </div>
 

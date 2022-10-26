@@ -24,5 +24,8 @@ namespace Servicios.Juego
         public Envido Envido { get; set; }
         public Truco Truco { get; set; }
         public int? GanadorPartida { get; set; }
+        public int JugadasRealizadas { get; set; }
+        public int JugadasAutomaticasJugadorUno { get; set; }
+        public int JugadasAutomaticasJugadorDos { get; set; }
     }
 }

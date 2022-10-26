@@ -2,34 +2,20 @@ import React from "react";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../context/SocketContext";
-import {
-  botonEnvido,
-  botonFaltaEnvido,
-  botonRealEnvido,
-  getUserPlayer,
-  sePuedeCantarEnvidos,
-} from "../../../helpers/truco/getUserTurno";
+import { getUserPlayer } from "../../../helpers/truco/getUserTurno";
+import { ocultarBotonesYAcciones } from "../../../helpers/truco/ocultarBotonesYAcciones";
+import { tiposBotones } from "../../../types/tiposBotones";
 
 export const BotonesEnvido = () => {
   const { connection } = useContext(SocketContext);
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
-  const { envido, jugadorUno, jugadorDos, turno, mano } = partida;
-  const { jugadorQueCantoPrimeroEnvido, envidosCantados, estadoCantarTantos } =
-    envido;
+  const { envido, jugadorUno, jugadorDos } = partida;
+  const { jugadorQueCantoPrimeroEnvido, envidosCantados } = envido;
 
   const handleEnvido = async (e) => {
     e.preventDefault();
-
-    sePuedeCantarEnvidos(
-      uid,
-      jugadorUno,
-      jugadorDos,
-      turno,
-      envidosCantados,
-      estadoCantarTantos,
-      mano
-    ) &&
+    ocultarBotonesYAcciones(uid, partida, tiposBotones.envido) &&
       (await connection.invoke("CantarEnvido", {
         ...partida,
         Envido: {
@@ -48,7 +34,7 @@ export const BotonesEnvido = () => {
 
   return (
     <>
-      {botonEnvido(envidosCantados) && (
+      {ocultarBotonesYAcciones(uid, partida, tiposBotones.botonEnvido) && (
         <div
           onClick={handleEnvido}
           className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
@@ -57,7 +43,7 @@ export const BotonesEnvido = () => {
           Envido
         </div>
       )}
-      {botonRealEnvido(envidosCantados) && (
+      {ocultarBotonesYAcciones(uid, partida, tiposBotones.botonRealEnvido) && (
         <div
           onClick={handleEnvido}
           className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
@@ -66,7 +52,7 @@ export const BotonesEnvido = () => {
           Real Envido
         </div>
       )}
-      {botonFaltaEnvido(envidosCantados) && (
+      {ocultarBotonesYAcciones(uid, partida, tiposBotones.botonFaltaEnvido) && (
         <div
           onClick={handleEnvido}
           className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"

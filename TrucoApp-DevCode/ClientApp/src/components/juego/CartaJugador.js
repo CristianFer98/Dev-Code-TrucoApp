@@ -1,29 +1,20 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../context/SocketContext";
-import { isMyTurn, sePuedeTirarCarta } from "../../helpers/truco/getUserTurno";
+import { ocultarBotonesYAcciones } from "../../helpers/truco/ocultarBotonesYAcciones";
+import { tiposBotones } from "../../types/tiposBotones";
 const imagenCarta = require.context("../../assets/cartas", true);
 
 export const CartaJugador = ({ carta }) => {
-  const { partida } = useSelector((state) => state.juego);
   const { uid } = useSelector((state) => state.auth);
-  const { turno, jugadorUno, jugadorDos, envido } = partida;
-  const { estadoEnvidoCantado, estadoCantarTantos } = envido;
+  const { partida } = useSelector((state) => state.juego);
+  const { turno, jugadorUno, jugadorDos } = partida;
   const { connection } = useContext(SocketContext);
 
   const handleJugarCarta = async (e) => {
     e.preventDefault();
 
-    if (
-      sePuedeTirarCarta(
-        uid,
-        jugadorUno,
-        jugadorDos,
-        turno,
-        estadoEnvidoCantado,
-        estadoCantarTantos
-      )
-    ) {
+    if (ocultarBotonesYAcciones(uid, partida, tiposBotones.cartas)) {
       if (uid === jugadorUno && turno === 1) {
         await connection.invoke("TirarCarta", {
           ...partida,
@@ -48,14 +39,7 @@ export const CartaJugador = ({ carta }) => {
     <div
       onClick={handleJugarCarta}
       className={
-        sePuedeTirarCarta(
-          uid,
-          jugadorUno,
-          jugadorDos,
-          turno,
-          estadoEnvidoCantado,
-          estadoCantarTantos
-        )
+        ocultarBotonesYAcciones(uid, partida, tiposBotones.cartas)
           ? "divCardPlayerTurn"
           : "divCardPlayer"
       }
