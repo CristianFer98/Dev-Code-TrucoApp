@@ -4,7 +4,7 @@ import img from "../../assets/no-foto.jpg";
 import { SocketContext } from "../../context/SocketContext";
 
 export const MesaDisponibleCard = ({ mesa }) => {
-  const { uid } = useSelector((state) => state.auth);
+  const { uid, nombre } = useSelector((state) => state.auth);
   const { Usuarios } = require("../../usuarios.json");
   const { idMesa, jugadorUno, tipo } = mesa;
   const usuario = Usuarios.find((usuario) => usuario.uid === jugadorUno);
@@ -46,7 +46,7 @@ export const MesaDisponibleCard = ({ mesa }) => {
           className="text-center mt-1"
           style={{ color: "#ffffff", fontSize: "0.68em" }}
         >
-          {usuario.nombre}
+          {nombre}
         </div>
       </div>
 
