@@ -117,7 +117,6 @@ namespace Router.Hubs
                 partida.GanadorMano = null;
             }
 
-            await SendConnectedUsers(userRoom);
             await Clients.Group(userRoom).SendAsync("EmpezarJuego", partida);
         }
 

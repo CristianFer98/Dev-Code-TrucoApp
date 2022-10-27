@@ -17,7 +17,7 @@ export const Mesa = () => {
   const { connection } = useContext(SocketContext);
 
   useEffect(() => {
-    if (usuariosConectados.length === 2) {
+    if (!usuariosConectados) {
       if (puntosJugadorUno < 30 && puntosJugadorDos < 30) {
         !!ganadorMano &&
           repartidor === uid &&
