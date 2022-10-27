@@ -1,6 +1,8 @@
 import React from 'react';
 import './infoDeUsuario.css';
 
+
+
 const InfoDeUsuario = () => {
   return (
     <div className="informacion bg-warning">

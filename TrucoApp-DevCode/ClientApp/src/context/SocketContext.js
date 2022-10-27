@@ -6,12 +6,20 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
-import { repartirCartas, tirarCarta } from "../actions/juego";
-
+import {
+  cantarEnvido,
+  cantarTruco,
+  repartirCartas,
+  tirarCarta,
+  usuariosConectados,
+} from "../actions/juego";
+import { checkChantSet } from "../actions/ui";
+import { getUserPlayer } from "../helpers/truco/getUserTurno";
 export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
   const { uid } = useSelector((state) => state.auth);
+  const { partida } = useSelector((state) => state.juego);
   const [connection, setConnection] = useState();
   const dispatch = useDispatch();
 
@@ -58,24 +66,48 @@ export const SocketProvider = ({ children }) => {
       const { jugadorUno, jugadorDos, room } = partida;
 
       if (jugadorUno === uid) {
-        await connection.invoke("JoinRoom", room);
+        await connection.invoke("JoinRoom", uid, room);
       } else if (jugadorDos === uid) {
-        await connection.invoke("JoinRoom", room);
-        await connection.invoke("SortearTurno", partida);
+        await connection.invoke("JoinRoom", uid, room);
+        await connection.invoke("InicializarMano", partida);
       }
     });
   }, [connection, uid]);
 
   useEffect(() => {
+    connection?.on("UsersInRoom", (usuarios) => {
+      dispatch(usuariosConectados(usuarios));
+    });
+  }, [connection, dispatch]);
+
+  useEffect(() => {
     connection?.on("EmpezarJuego", (juego) => {
-      const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
-        juego;
-      dispatch(jugar());
+      const {
+        cartasJugadasJugadorUno,
+        cartasJugadasJugadorDos,
+        envido,
+        truco,
+        ...partida
+      } = juego;
+
+      partida.puntosJugadorUno === 0 &&
+        partida.puntosJugadorDos === 0 &&
+        dispatch(jugar());
+
       dispatch(
         repartirCartas({
           ...partida,
+          horarioDeUltimoMovimiento: new Date(),
           cartasJugadasJugadorUno: [],
           cartasJugadasJugadorDos: [],
+          envido: {
+            ...envido,
+            envidosCantados: [],
+          },
+          truco: {
+            ...truco,
+            trucosCantados: [],
+          },
         })
       );
     });
@@ -88,6 +120,7 @@ export const SocketProvider = ({ children }) => {
       dispatch(
         tirarCarta({
           ...partida,
+          horarioDeUltimoMovimiento: new Date(),
           cartasJugadasJugadorUno: !!cartasJugadasJugadorUno
             ? cartasJugadasJugadorUno
             : [],
@@ -98,6 +131,59 @@ export const SocketProvider = ({ children }) => {
       );
     });
   }, [connection, dispatch, uid]);
+
+  useEffect(() => {
+    connection?.on("EnvidoCantado", (juego) => {
+      const { envido, jugadorUno, jugadorDos } = juego;
+      const { jugadorQueCantoEnvido, envidosCantados } = envido;
+      dispatch(
+        cantarEnvido({ ...juego, horarioDeUltimoMovimiento: new Date() })
+      );
+      dispatch(
+        checkChantSet(
+          jugadorQueCantoEnvido,
+          envidosCantados[envidosCantados.length - 1],
+          getUserPlayer(uid, jugadorUno, jugadorDos)
+        )
+      );
+    });
+  }, [connection, dispatch]);
+
+  useEffect(() => {
+    connection?.on("TantosCantados", (juego) => {
+      const { envido, jugadorUno, jugadorDos } = juego;
+      const { jugadorQueCantoEnvido, cantoTanto } = envido;
+      dispatch(
+        cantarEnvido({ ...juego, horarioDeUltimoMovimiento: new Date() })
+      );
+      dispatch(
+        checkChantSet(
+          jugadorQueCantoEnvido,
+          cantoTanto,
+          getUserPlayer(uid, jugadorUno, jugadorDos)
+        )
+      );
+    });
+  }, [connection, dispatch]);
+
+  useEffect(() => {
+    connection?.on("TrucoCantado", (juego) => {
+      const { truco, jugadorUno, jugadorDos } = juego;
+      const { jugadorQueCantoTruco, trucosCantados } = truco;
+      dispatch(
+        cantarTruco({ ...juego, horarioDeUltimoMovimiento: new Date() })
+      );
+      dispatch(
+        checkChantSet(
+          jugadorQueCantoTruco,
+          trucosCantados[trucosCantados.length - 1] === "no quiero"
+            ? "me voy al mazo"
+            : trucosCantados[trucosCantados.length - 1],
+          getUserPlayer(uid, jugadorUno, jugadorDos)
+        )
+      );
+    });
+  }, [connection, dispatch]);
 
   return (
     <SocketContext.Provider value={{ connection }}>

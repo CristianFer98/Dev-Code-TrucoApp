@@ -28,6 +28,7 @@
 .componente-principal {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap-reverse;
     justify-content: center;
     align-items: center;
     /*border: 5px solid green;*/
@@ -79,12 +80,21 @@
     z-index: 5;
 }
 
-.contendor-pelo img {
+.contendor-pelo img{
   width: 115%;
   height: auto;
+}
+
+.contendor-pelo .pelo-m {
+  
   margin-left: 18px;
 }
 
+.contendor-pelo .pelo-f{
+  margin-top: 80px;
+  z-index: 200;
+  
+}
 .contendor-ojos, .contenedor-cejas {
     display: flex;
     justify-content: space-between;
@@ -105,6 +115,17 @@
     position: relative;
     bottom: 50%;
     z-index: 9;
+    /*border: 3px solid rebeccapurple;*/
+}
+
+.cejas-ojos-nariz-boca-f {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 78%;
+    z-index: 0;
     /*border: 3px solid rebeccapurple;*/
 }
 
@@ -259,7 +280,11 @@
 
     margin-bottom: 50px;
 }
-.color-ojo, .color-piel, .color-pelo {
+.color-ojo, 
+.color-piel, 
+.color-pelo, 
+.cambio-pelo, 
+.cambio-ropa {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -282,7 +307,7 @@
 }
 
 .iris-marron {
-    background: brown;
+    background: #4E2D05;
 }
 
 .iris-negro {

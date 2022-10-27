@@ -28,7 +28,7 @@
 .mesaIA {
   height: 420px;
   width: 420px;
-  background-color: rgb(11, 95, 11);
+  background-image: linear-gradient(0deg, rgb(27, 32, 28), rgb(27, 87, 37));
   border-radius: 100%;
   align-self: center;
   border: 5px solid black;
@@ -45,20 +45,22 @@
  
 }
 
-/*Seccion derecha superior, cartas de la maquina*/
-.cartasDelaMaquina {
-  background-color: #233237;
-  box-shadow: rgba(0, 0, 0, 0.3) 5px 0px 10px 10px;
-  height: 150px;
-  width: 30%;
-  opacity: 0.9;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  margin-right: 10px;
+.cuadroDeDialogo{
+  color: rgba(253, 253, 253, 0.753);
+  font-size: 30px;
+  font-weight: bold;
+  background-color: #777;
+  background-image: linear-gradient(0deg, rgb(17, 104, 36), rgb(83, 148, 94));
+  width: 100%;
+  height: 90px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  align-self: center;
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+
+
 }
 
 /*Define la seccion de la mano del jugador y los botones de accion*/
@@ -73,13 +75,17 @@
 /*Estilos de botones de accion*/
 .botonesDeAccion{
   border: none;
-  height: 40px;
-  width: 25%;
+  height: 45px;
+  width: 30%;
   border-radius: 10px;
-  background-color: #233237;
+  background-color: #133a47;
   color:aliceblue
 }
 
+.botonesDeAccion:hover{
+    background-color: #082630;
+    
+}
 
 /*contenedor de botones quiero, no quiero*/
 .quieroIA{
@@ -128,10 +134,24 @@
   justify-content: center;
   align-items:flex-end;
 }
+.cartasDelaMaquina {
+  background-color: #233237;
+  box-shadow: rgba(0, 0, 0, 0.3) 5px 0px 10px 10px;
+  height: 150px;
+  width: 100%;
+  align-self: flex-end;
+  opacity: 0.9;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:flex-end;
+}
 .mano{
   display: flex; 
   flex-direction: column; 
 }
+
 .botonTirar{
   border: none;
   margin: 3px;
@@ -140,3 +160,39 @@
 }
 
 
+/* Dialogo jugador IA*/
+
+.vinetaJugadorIA{
+  position:relative;
+}
+
+.globoJugadorIA{
+  position: absolute;
+  width: 130px;
+  height: 50px; 
+  top: 250px;
+  left: 180px;
+  padding: 5px;
+  border-radius: 2em;
+  font-family: sans-serif;
+  z-index: 10; 
+  background-color: rgb(58, 126, 48);
+  filter: drop-shadow(0px 0px 1px black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  font-size: 15px;
+}
+
+.globoJugadorIA::before{
+  content: '';
+  position: absolute; 
+  z-index: -1;
+  width: 10px;
+  height: 10px;
+  right: 125px;
+  top: 20px;
+  background-color: rgb(58, 126, 48);
+  transform: skewX(45deg);
+}

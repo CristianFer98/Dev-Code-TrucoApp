@@ -1,4 +1,5 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 
@@ -17,9 +18,24 @@ export const Registro = () => {
     handleRegisterInputChange(e);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(rName, rEmail, rPassword, rPasswordConfirm);
+
+    const resp = await fetch("https://localhost:44342/api/Usuarios/Registrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Email: rEmail,
+        Password: rPassword,
+        NombreCompleto: rName
+      }),
+    });
+
+    if (resp.ok) {
+      Swal.fire("Usuario registrado", "", "success");
+    }
   };
 
   return (
