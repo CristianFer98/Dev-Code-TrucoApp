@@ -68,5 +68,20 @@ export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=
   document.querySelector('#ropaActual').src=imagenes[`${ropaNueva}`];
 }
 
+export const setPeinado = (peinadoNuevo) =>{
+  let peinadoActual= document.querySelector('#pelo-actual');
+  peinadoActual.src=imagenes[`${peinadoNuevo}`];
+  modificarClaseImgPelo(peinadoNuevo);
 
- 
+
+  let posicionCaracterV = peinadoNuevo.indexOf("v");
+  let version =peinadoNuevo.substring(posicionCaracterV, posicionCaracterV+2);
+  let versionPelo = version.split("v").join(''); 
+
+  let divCara = document.querySelector('#cejas-ojos-nariz-boca-f');
+  let claseActual = divCara.classList[0];
+  divCara.classList.remove(claseActual);
+  divCara.classList.add(`cejas-ojos-nariz-boca-f-${versionPelo}`);
+}
+
+  
