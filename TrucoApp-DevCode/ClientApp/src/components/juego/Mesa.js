@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { SocketContext } from "../../context/SocketContext";
+import { getUserPlayer } from "../../helpers/truco/getUserTurno";
 import { Flop } from "./Flop";
 import { Jugador } from "./Jugador";
 import { Rival } from "./Rival";
@@ -11,8 +12,14 @@ import { Rival } from "./Rival";
 export const Mesa = () => {
   const { uid } = useSelector((state) => state.auth);
   const { partida, usuariosConectados } = useSelector((state) => state.juego);
-  const { ganadorMano, repartidor, puntosJugadorUno, puntosJugadorDos } =
-    partida;
+  const {
+    ganadorMano,
+    repartidor,
+    puntosJugadorUno,
+    puntosJugadorDos,
+    jugadorUno,
+    jugadorDos,
+  } = partida;
   const { chantBox } = useSelector((state) => state.ui);
   const { connection } = useContext(SocketContext);
 
@@ -20,7 +27,7 @@ export const Mesa = () => {
     if (!usuariosConectados) {
       if (puntosJugadorUno < 30 && puntosJugadorDos < 30) {
         !!ganadorMano &&
-          repartidor === uid &&
+          repartidor === getUserPlayer(uid, jugadorUno, jugadorDos) &&
           setTimeout(async () => {
             await connection.invoke("InicializarMano", partida);
           }, 2000);
