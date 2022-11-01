@@ -29,13 +29,13 @@ const MenuPrincipal = () => {
           <h4>Dos VS Dos</h4>
         </span>
       </button>
-
+      {/* 
       <button className="boton" id="tresvstres">
         <span className="text">
           <h4>Tres VS Tres</h4>
         </span>
       </button>
-
+      */}
       <button className="boton" onClick={jugarContraLaMaquina} id="unovsmaquina">
         <span className="text">
           <h4>Uno vs Maquina</h4>

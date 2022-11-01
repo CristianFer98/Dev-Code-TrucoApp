@@ -4,11 +4,9 @@ import _ from "lodash";
 import "./juegoIA.css";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import  {CDBSidebarMenuItem} from 'cdbreact';
-
+import { CDBSidebarMenuItem } from "cdbreact";
 
 const JuegoIA = () => {
-
   const cartas = barajar();
   //Jugador
   const [manoJugador, setManoJugador] = useState(cartas[0]);
@@ -21,7 +19,7 @@ const JuegoIA = () => {
   const [mesaMaquina, setMesaMaquina] = useState([]);
   const [puntajeMaquina, setPuntajeMaquina] = useState(0);
   const [mensajeMaquina, setMensajeMaquina] = useState("");
-
+  const randomUsuarioMaquina = Math.round(Math.random() * 1000);
   //Envido y Truco.
   const [envidoCantado, setEnvidoCantado] = useState(false);
   const [nivelDeTruco, setNivelDeTruco] = useState(0);
@@ -35,8 +33,6 @@ const JuegoIA = () => {
   const [cartaMayor, setCartaMayor] = useState(false);
   const [elQueComienza, setElQueComienza] = useState();
   /* 0 = MAQUINA ES MANO */
-
-
 
   /*DEFINE EL JUGADOR QUE COMIENZA, SOLO SE EJECUTA UNA VEZ*/
   useEffect(() => {
@@ -62,96 +58,230 @@ const JuegoIA = () => {
   const evaluarManoGanadora = () => {
     if (
       manoJugador.length == 0 &&
-      manoJugador.length == 0 &&
+      manoMaquina.length == 0 &&
       mesaJugador.length == 3 &&
       mesaMaquina.length == 3
     ) {
-      let contadorJugador = 0;
-      let contadorMaquina = 0;
+      //J M E
+      let bazaUno = bazaGanador(0);
+      let bazaDos = bazaGanador(1);
+      let bazaTres = bazaGanador(2);
 
-      for (let index = 0; index < 3; index++) {
-        if (
-          mesaJugador[index].cardValueRank < mesaMaquina[index].cardValueRank
-        ) {
-          contadorJugador++;
-        } else {
-          contadorMaquina++;
-        }
+      let ganador = ganadorConParda(bazaUno, bazaDos, bazaTres);
+      if (ganador === "Jugador") {
+        ganaJugador();
+      } else if (ganador === "Maquina") {
+        ganaMaquina();
+      } else {
+        ganaMano();
       }
-
-      evaluarJugador(contadorJugador, contadorMaquina);
-      evaluarMaquina(contadorJugador, contadorMaquina);
-      evaluarEmpate(contadorJugador, contadorMaquina);
       setTurnoTerminado(true);
       setNivelDeTruco(0);
     }
-  };
 
-  const evaluarJugador = (contadorJugador, contadorMaquina) => {
-    if (contadorJugador > contadorMaquina) {
-      if (nivelDeTruco == 0) {
-        //NO TRUCO
-        setPuntajeJugador(puntajeJugador + 1);
-        setManoJugador([]);
-        setManoMaquina([]);
+    if (
+      manoJugador.length === 1 &&
+      manoMaquina.length === 1 &&
+      mesaJugador.length === 2 &&
+      mesaMaquina.length === 2
+    ) {
+
+      let bazaUno = bazaGanador(0);
+      let bazaDos = bazaGanador(1);
+
+      if(bazaUno === 'J' && bazaDos === 'J'){
+        ganaJugador();
       }
-      if (nivelDeTruco == 1) {
-        // TRUCO
-        setPuntajeJugador(puntajeJugador + 2);
-        setManoJugador([]);
-        setManoMaquina([]);
-      }
-      if (nivelDeTruco == 2) {
-        // RE TRUCO
-        setPuntajeJugador(puntajeJugador + 3);
-        setManoJugador([]);
-        setManoMaquina([]);
-      }
-      if (nivelDeTruco == 3) {
-        // VALE CUATRO
-        setPuntajeJugador(puntajeJugador + 4);
-        setManoJugador([]);
-        setManoMaquina([]);
+
+      if(bazaUno === 'M' && bazaDos === 'M' ){
+        ganaMaquina();
       }
     }
   };
 
-  const evaluarMaquina = (contadorJugador, contadorMaquina) => {
-    if (contadorJugador < contadorMaquina) {
-      if (nivelDeTruco == 0) {
-        //NO TRUCO
-        setPuntajeMaquina(puntajeMaquina + 1);
-        setManoJugador([]);
-        setManoMaquina([]);
-      }
-      if (nivelDeTruco == 1) {
-        // TRUCO
-        setPuntajeMaquina(puntajeMaquina + 2);
-        setManoJugador([]);
-        setManoMaquina([]);
-      }
-      if (nivelDeTruco == 2) {
-        // RE TRUCO
-        setPuntajeMaquina(puntajeMaquina + 3);
-        setManoJugador([]);
-        setManoMaquina([]);
-      }
-      if (nivelDeTruco == 3) {
-        // VALE CUATRO
-        setPuntajeMaquina(puntajeMaquina + 4);
-        setManoJugador([]);
-        setManoMaquina([]);
-      }
+  const bazaGanador = (index) => {
+    let bazaUno = "";
+    if (mesaJugador[index].cardValueRank < mesaMaquina[index].cardValueRank) {
+      bazaUno = "J"; //Jugador
+    } else if (
+      mesaJugador[index].cardValueRank > mesaMaquina[index].cardValueRank
+    ) {
+      bazaUno = "M"; //Maquina
+    } else {
+      bazaUno = "E"; //Empate
+    }
+    return bazaUno;
+  };
+
+  const ganadorConParda = (bazaUno, bazaDos, bazaTres) => {
+    //EVALUA LA MEJOR MANO DEL JUGADOR
+    if (bazaUno === "J" && bazaDos === "J" && bazaTres === "J") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "M" && bazaDos === "J" && bazaTres === "J") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "J" && bazaDos === "M" && bazaTres === "J") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "J" && bazaDos === "J" && bazaTres === "M") {
+      return "Jugador";
+    }
+
+    //EVALUA LA MEJOR MANO DE LA MAQUINA
+    if (bazaUno === "M" && bazaDos === "M" && bazaTres === "M") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "M" && bazaDos === "J" && bazaTres === "M") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "M" && bazaDos === "M" && bazaTres === "J") {
+      return "Maquina";
+    }
+
+    //EVALUA LAS PARDAS
+    if (bazaUno === "E" && bazaDos === "E" && bazaTres === "E") {
+      return "Mano";
+    }
+
+    if (bazaUno === "E" && bazaDos === "E" && bazaTres === "M") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "E" && bazaDos === "M" && bazaTres === "E") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "M" && bazaDos === "E" && bazaTres === "E") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "E" && bazaDos === "E" && bazaTres === "J") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "E" && bazaDos === "J" && bazaTres === "E") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "J" && bazaDos === "E" && bazaTres === "E") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "E" && bazaDos === "J" && bazaTres === "J") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "J" && bazaDos === "E" && bazaTres === "J") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "J" && bazaDos === "J" && bazaTres === "E") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "E" && bazaDos === "M" && bazaTres === "M") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "M" && bazaDos === "E" && bazaTres === "M") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "M" && bazaDos === "M" && bazaTres === "E") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "E" && bazaDos === "M" && bazaTres === "J") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "E" && bazaDos === "J" && bazaTres === "M") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "M" && bazaDos === "E" && bazaTres === "J") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "J" && bazaDos === "E" && bazaTres === "M") {
+      return "Jugador";
+    }
+
+    if (bazaUno === "M" && bazaDos === "J" && bazaTres === "E") {
+      return "Maquina";
+    }
+
+    if (bazaUno === "J" && bazaDos === "M" && bazaTres === "E") {
+      return "Jugador";
     }
   };
 
-  const evaluarEmpate = (contadorJugador, contadorMaquina) => {
-    if (contadorJugador == contadorMaquina) {
-      if (elQueComienza == 0) {
-        setPuntajeMaquina(puntajeMaquina++);
-      } else {
-        setPuntajeJugador(puntajeJugador++);
-      }
+  const ganaJugador = () => {
+    if (nivelDeTruco == 0) {
+      //NO TRUCO
+      setPuntajeJugador(puntajeJugador + 1);
+      setTurnoTerminado(true);
+      
+
+    }
+    if (nivelDeTruco == 1) {
+      // TRUCO
+      setPuntajeJugador(puntajeJugador + 2);
+      setTurnoTerminado(true);
+
+    }
+    if (nivelDeTruco == 2) {
+      // RE TRUCO
+      setPuntajeJugador(puntajeJugador + 3);
+      setTurnoTerminado(true);
+
+    }
+    if (nivelDeTruco == 3) {
+      // VALE CUATRO
+      setPuntajeJugador(puntajeJugador + 4);
+      setTurnoTerminado(true);
+
+    }
+  };
+
+  const ganaMaquina = () => {
+    if (nivelDeTruco == 0) {
+      //NO TRUCO
+      setPuntajeMaquina(puntajeMaquina + 1);
+      setTurnoTerminado(true);
+
+    }
+    if (nivelDeTruco == 1) {
+      // TRUCO
+      setPuntajeMaquina(puntajeMaquina + 2);
+      setTurnoTerminado(true);
+
+    }
+    if (nivelDeTruco == 2) {
+      // RE TRUCO
+      setPuntajeMaquina(puntajeMaquina + 3);
+      setTurnoTerminado(true);
+
+    }
+    if (nivelDeTruco == 3) {
+      // VALE CUATRO
+      setPuntajeMaquina(puntajeMaquina + 4);
+      setTurnoTerminado(true);
+      
+    }
+  };
+
+  const ganaMano = () => {
+    if (elQueComienza === 0) {
+      ganaMaquina();
+    } else {
+      ganaJugador();
     }
   };
 
@@ -172,10 +302,6 @@ const JuegoIA = () => {
     }
     setTurnoMaquina(false);
     setJugoMaquina(true);
-    let randomCantaTruco = Math.round(Math.random() * 1);
-    if (randomCantaTruco == 1) {
-      maquinaCantaTruco();
-    }
   };
 
   //Maquina canta envido
@@ -184,7 +310,7 @@ const JuegoIA = () => {
       let puntosDeEnvidoMaquina = calcularEnvido("maquina");
       let puntosDeEnvidoJugador = calcularEnvido("jugador");
 
-      if (puntosDeEnvidoMaquina >= 31) {
+      if (puntosDeEnvidoMaquina > 31) {
         maquinaCantaFaltaEnvido(puntosDeEnvidoJugador, puntosDeEnvidoMaquina);
         return true;
       }
@@ -240,14 +366,32 @@ const JuegoIA = () => {
         );
         maquinaTiraCarta(cartaMayor);
         setEnvidoCantado(true);
+        maquinaCantaTruco();
       }
     }
   };
 
   const maquinaCantaTruco = (valorDeLaCartaTirada) => {
     let valorDeCartasEnMano = sumarPuntosDeLaManoMaquina();
+    let cartasEnManoMaquina = manoMaquina.length;
 
-    if (valorDeCartasEnMano < 20 && nivelDeTruco == 0) {
+    if (
+      cartasEnManoMaquina === 2 &&
+      nivelDeTruco == 0 &&
+      valorDeCartasEnMano < 20
+    ) {
+      setMensajeMaquina("CANTO TRUCO");
+      setConfirmarAccion(true);
+      setEnvidoCantado(true);
+      localStorage.setItem("cartaJugador", valorDeLaCartaTirada);
+      return true;
+    }
+
+    if (
+      cartasEnManoMaquina === 1 &&
+      nivelDeTruco == 0 &&
+      valorDeCartasEnMano < 12
+    ) {
       setMensajeMaquina("CANTO TRUCO");
       setConfirmarAccion(true);
       setEnvidoCantado(true);
@@ -298,7 +442,7 @@ const JuegoIA = () => {
     setMensajeMaquina("NO QUIERO");
     setTimeout(() => {
       setMensajeMaquina("");
-    }, 1000);
+    }, 1500);
     setPuntajeJugador(puntajeJugador + puntos);
     setEnvidoCantado(true);
     setConfirmarAccion(false);
@@ -358,11 +502,11 @@ const JuegoIA = () => {
       setMensajeJugador("ENVIDO");
       setTimeout(() => {
         setMensajeJugador("");
-      }, 1000);
+      }, 1500);
 
       let puntosDeEnvidoJugador = calcularEnvido("jugador");
       let puntosDeEnvidoMaquina = calcularEnvido("maquina");
-      console.log(puntosDeEnvidoJugador);
+
       if (puntosDeEnvidoMaquina <= 23) {
         maquinaNoQuiereEnvido(1);
         return true;
@@ -394,7 +538,7 @@ const JuegoIA = () => {
       setMensajeJugador("REAL ENVIDO");
       setTimeout(() => {
         setMensajeJugador("");
-      }, 1000);
+      }, 1500);
 
       let puntosDeEnvidoJugador = calcularEnvido("jugador");
       let puntosDeEnvidoMaquina = calcularEnvido("maquina");
@@ -420,7 +564,7 @@ const JuegoIA = () => {
       setMensajeJugador("FALTA ENVIDO");
       setTimeout(() => {
         setMensajeJugador("");
-      }, 1000);
+      }, 1500);
 
       let puntosDeEnvidoJugador = calcularEnvido("jugador");
       let puntosDeEnvidoMaquina = calcularEnvido("maquina");
@@ -504,17 +648,17 @@ const JuegoIA = () => {
   ) => {
     if (puntosJugador > puntosMaquina) {
       setPuntajeJugador(puntajeJugador + puntosParaElGanador);
-      setMensajeMaquina("¡SON BUENAS!");
+      setMensajeMaquina("SON BUENAS");
       setTimeout(() => {
         setMensajeMaquina("");
-      }, 500);
+      }, 1500);
       setConfirmarAccion(false);
     } else {
       setPuntajeMaquina(puntajeMaquina + puntosParaElGanador);
-      setMensajeMaquina(puntosMaquina + " ¡Gano yo!");
+      setMensajeMaquina(puntosMaquina + " GANÉ");
       setTimeout(() => {
-        setMesaMaquina("");
-      }, 500);
+        setMensajeMaquina("");
+      }, 1500);
       setConfirmarAccion(false);
     }
   };
@@ -535,10 +679,10 @@ const JuegoIA = () => {
       let puntajeDeCartasMaquina = sumarPuntosDeLaManoMaquina();
 
       if (cartasEnManoMaquina == 3) {
-        if (puntajeDeCartasMaquina > 32) {
+        if (puntajeDeCartasMaquina > 30) {
           maquinaNoQuiereTruco(1);
         } else {
-          if (puntajeDeCartasMaquina <= 15) {
+          if (puntajeDeCartasMaquina <= 18) {
             maquinaQuiereReTruco();
           } else {
             maquinaAceptaTruco(1);
@@ -547,10 +691,10 @@ const JuegoIA = () => {
       }
 
       if (cartasEnManoMaquina == 2) {
-        if (puntajeDeCartasMaquina > 16) {
+        if (puntajeDeCartasMaquina > 22) {
           maquinaNoQuiereTruco(1);
         } else {
-          if (puntajeDeCartasMaquina <= 11) {
+          if (puntajeDeCartasMaquina < 11) {
             maquinaQuiereReTruco();
           } else {
             maquinaAceptaTruco(1);
@@ -559,10 +703,10 @@ const JuegoIA = () => {
       }
 
       if (cartasEnManoMaquina == 1) {
-        if (puntajeDeCartasMaquina > 8) {
+        if (puntajeDeCartasMaquina > 10) {
           maquinaNoQuiereTruco(1);
         } else {
-          if (puntajeDeCartasMaquina <= 6) {
+          if (puntajeDeCartasMaquina < 5) {
             maquinaQuiereReTruco();
           } else {
             maquinaAceptaTruco(1);
@@ -572,10 +716,10 @@ const JuegoIA = () => {
 
       if (cartasEnManoMaquina == 0) {
         let cartaUtilma = mesaMaquina[mesaMaquina.length - 1];
-        if (cartaUtilma.cardValueRank > 8) {
+        if (cartaUtilma.cardValueRank > 6) {
           maquinaNoQuiereTruco(1);
         } else {
-          if (puntajeDeCartasMaquina <= 6) {
+          if (puntajeDeCartasMaquina < 5) {
             maquinaQuiereReTruco();
           } else {
             maquinaAceptaTruco(1);
@@ -596,8 +740,8 @@ const JuegoIA = () => {
         let puntajeDeCartasMaquina = sumarPuntosDeLaManoMaquina();
 
         if (cartasEnManoMaquina == 3) {
-          if (puntajeDeCartasMaquina > 25) {
-            maquinaNoQuiereTruco(1);
+          if (puntajeDeCartasMaquina > 20) {
+            maquinaNoQuiereTruco(2);
           } else {
             if (puntajeDeCartasMaquina <= 12) {
               maquinaQuiereValeCuatro();
@@ -609,7 +753,7 @@ const JuegoIA = () => {
 
         if (cartasEnManoMaquina == 2) {
           if (puntajeDeCartasMaquina > 12) {
-            maquinaNoQuiereTruco(1);
+            maquinaNoQuiereTruco(2);
           } else {
             if (puntajeDeCartasMaquina <= 7) {
               maquinaQuiereValeCuatro();
@@ -621,7 +765,7 @@ const JuegoIA = () => {
 
         if (cartasEnManoMaquina == 1) {
           if (puntajeDeCartasMaquina > 6) {
-            maquinaNoQuiereTruco(1);
+            maquinaNoQuiereTruco(2);
           } else {
             if (puntajeDeCartasMaquina < 4) {
               maquinaQuiereValeCuatro();
@@ -634,7 +778,7 @@ const JuegoIA = () => {
         if (cartasEnManoMaquina == 0) {
           let cartaUtilma = mesaMaquina[mesaMaquina.length - 1];
           if (cartaUtilma.cardValueRank > 6) {
-            maquinaNoQuiereTruco(1);
+            maquinaNoQuiereTruco(2);
           } else {
             if (puntajeDeCartasMaquina < 4) {
               maquinaQuiereValeCuatro();
@@ -659,7 +803,7 @@ const JuegoIA = () => {
 
         if (cartasEnManoMaquina == 3) {
           if (puntajeDeCartasMaquina > 14) {
-            maquinaNoQuiereTruco(1);
+            maquinaNoQuiereTruco(3);
           }
           if (puntajeDeCartasMaquina <= 14) {
             maquinaAceptaTruco(3);
@@ -668,7 +812,7 @@ const JuegoIA = () => {
 
         if (cartasEnManoMaquina == 2) {
           if (puntajeDeCartasMaquina > 6) {
-            maquinaNoQuiereTruco(1);
+            maquinaNoQuiereTruco(3);
           }
           if (puntajeDeCartasMaquina <= 6) {
             maquinaAceptaTruco(3);
@@ -677,7 +821,7 @@ const JuegoIA = () => {
 
         if (cartasEnManoMaquina == 1) {
           if (puntajeDeCartasMaquina >= 3) {
-            maquinaNoQuiereTruco(1);
+            maquinaNoQuiereTruco(3);
           }
           if (puntajeDeCartasMaquina < 3) {
             maquinaAceptaTruco(3);
@@ -687,7 +831,7 @@ const JuegoIA = () => {
         if (cartasEnManoMaquina == 0) {
           let cartaUtilma = mesaMaquina[mesaMaquina.length - 1];
           if (cartaUtilma.cardValueRank >= 3) {
-            maquinaNoQuiereTruco(1);
+            maquinaNoQuiereTruco(3);
           }
           if (cartaUtilma.cardValueRank < 3) {
             maquinaAceptaTruco(3);
@@ -835,14 +979,17 @@ const JuegoIA = () => {
     setMensajeJugador("QUIERO, " + envidoJugador);
     setTimeout(() => {
       setMensajeJugador("");
-    }, 500);
+    }, 1500);
     if (envidoJugador > envidoMaquina) {
       setPuntajeJugador(puntajeJugador + valor);
-      setMensajeMaquina("Son buenas");
+      setMensajeMaquina("SON BUENAS");
     } else {
       setPuntajeMaquina(puntajeMaquina + valor);
-      setMensajeMaquina(envidoMaquina + " He ganado");
+      setMensajeMaquina(envidoMaquina + " GANÉ");
     }
+    setTimeout(() => {
+      setMensajeMaquina("");
+    }, 1500);
   };
 
   const rechazarEnvido = () => {
@@ -853,7 +1000,7 @@ const JuegoIA = () => {
     setMensajeMaquina("");
     setTimeout(() => {
       setMensajeJugador("");
-    }, 500);
+    }, 1500);
     if (mesaJugador.length == 1) {
       maquinaTiraCarta();
     }
@@ -872,9 +1019,14 @@ const JuegoIA = () => {
     setManoMaquina([]);
     setTurnoTerminado(true);
     repartir();
+    let puntosPorEnvidoNoJugado = 0;
+
+    if (envidoCantado === false) {
+      puntosPorEnvidoNoJugado = 1;
+    }
 
     if (nivelDeTruco == 0) {
-      setPuntajeMaquina(puntajeMaquina + 1);
+      setPuntajeMaquina(puntajeMaquina + 1 + puntosPorEnvidoNoJugado);
     }
     if (nivelDeTruco == 1) {
       setPuntajeMaquina(puntajeMaquina + 2);
@@ -987,94 +1139,107 @@ const JuegoIA = () => {
   //____________________________________________________________________________________
   return (
     <div className="unovsmaquina">
-   
+      <div className="juegoIA">
+        <div className="mesaIA">
+          <div className="usersIA">
+            <div className="vinetaMaquinaIA">
+              <p
+                className="dialogoMaquinaIA animate__animated animate__zoomIn"
+                style={{ fontSize: "12px", fontWeight: "bold" }}
+              >
+                {mensajeMaquina}
+              </p>
+            </div>
+            <img
+              className="userIA"
+              src={"https://robohash.org/user/300.png"}
+            ></img>
 
-    <div className="juegoIA">
-      <div className="mesaIA">
-        <div className="usersIA">
-          <div className="vinetaMaquinaIA">
-            <p className="dialogoMaquinaIA animate__animated animate__zoomIn">
-              {mensajeMaquina}
-            </p>
+            <img
+              src={
+                "https://asart.com.ar/wp-content/uploads/2020/02/asart-naipes-dorso-minimalart.png"
+              }
+              width={70}
+            ></img>
+
+            <div className="vinetaJugadorIA">
+              <p
+                className="dialogoJugadorIA animate__animated animate__zoomIn"
+                style={{ fontSize: "12px", fontWeight: "bold" }}
+              >
+                {mensajeJugador}
+              </p>
+            </div>
+            <img
+              className="userIA"
+              src={"https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+            ></img>
           </div>
-          <img className="userIA" src={"https://robohash.org/user22.png"}></img>
 
-          <img
-            src={
-              "https://asart.com.ar/wp-content/uploads/2020/02/asart-naipes-dorso-minimalart.png"
-            }
-            width={70}
-          ></img>
+          <div className="partidaIA">
+            <div className="maquinaIA">
+              <div className="manoMaquinaIA">{manoMaquinaLista}</div>
 
-          <div className="vinetaJugadorIA">
-            <p className="dialogoJugadorIA animate__animated animate__zoomIn">
-              {mensajeJugador}
-            </p>
+              <div className="mesaMaquinaIA">{mesaMaquinaLista}</div>
+            </div>
+
+            <div className="jugadorIA">
+              <div className="mesaJugadorIA">{mesaJugadorLista}</div>
+              <div className="manoJugadorIA">{manoJugadorLista}</div>
+            </div>
           </div>
-          <img
-            className="userIA"
-            src={"https://cdn-icons-png.flaticon.com/512/149/149071.png"}
-          ></img>
         </div>
 
-        <div className="partidaIA">
-          <div className="maquinaIA">
-            <div className="manoMaquinaIA">{manoMaquinaLista}</div>
-
-            <div className="mesaMaquinaIA">{mesaMaquinaLista}</div>
+        <div className="accionesIA">
+          <div>
+            <button className="buttonIA" onClick={() => quiero()}>
+              Quiero
+            </button>
+            <button className="buttonIA" onClick={() => meVoyAlMaso()}>
+              Al Mazo
+            </button>
+            <button className="buttonIA" onClick={() => noQuiero()}>
+              No Quiero
+            </button>
           </div>
 
-          <div className="jugadorIA">
-            <div className="mesaJugadorIA">{mesaJugadorLista}</div>
-            <div className="manoJugadorIA">{manoJugadorLista}</div>
+          <div>
+            <button className="buttonIA" onClick={() => cantarEnvido()}>
+              Envido
+            </button>
+            <button className="buttonIA" onClick={() => cantarRealEnvido()}>
+              Real Envido
+            </button>
+            <button className="buttonIA" onClick={() => cantarFaltaEnvido()}>
+              Falta Envido
+            </button>
+            --
+            <button className="buttonIA" onClick={() => cantarTruco()}>
+              Truco
+            </button>
+            <button className="buttonIA" onClick={() => cantarReTruco()}>
+              Re Truco
+            </button>
+            <button className="buttonIA" onClick={() => cantarValeCuatro()}>
+              Vale Cuatro
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="accionesIA">
-        <div>
-          <button className="buttonIA" onClick={() => quiero()}>
-            Quiero
-          </button>
-          <button className="buttonIA" onClick={() => meVoyAlMaso()}>
-            Al Mazo
-          </button>
-          <button className="buttonIA" onClick={() => noQuiero()}>
-            No Quiero
-          </button>
-        </div>
-
-        <div>
-          <button className="buttonIA" onClick={() => cantarEnvido()}>
-            Envido
-          </button>
-          <button className="buttonIA" onClick={() => cantarRealEnvido()}>
-            Real Envido
-          </button>
-          <button className="buttonIA" onClick={() => cantarFaltaEnvido()}>
-            Falta Envido
-          </button>
-          --
-          <button className="buttonIA" onClick={() => cantarTruco()}>
-            Truco
-          </button>
-          <button className="buttonIA" onClick={() => cantarReTruco()}>
-            Re Truco
-          </button>
-          <button className="buttonIA" onClick={() => cantarValeCuatro()}>
-            Vale Cuatro
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div className="puntajeIA">
+      <div className="puntajeIA">
         <p>Maquina: {puntajeMaquina}</p>
         <p>Vos: {puntajeJugador}</p>
         <Link to="/inicio/">
-        <CDBSidebarMenuItem icon="home" className="iconoIA" style={{color: '#B43326', fontSize: '25px'}}> </CDBSidebarMenuItem>
+          <CDBSidebarMenuItem
+            icon="home"
+            className="iconoIA"
+            style={{ color: "#B43326", fontSize: "25px" }}
+          >
+            {" "}
+          </CDBSidebarMenuItem>
         </Link>
-     </div>
+      </div>
     </div>
   );
 };
