@@ -299,6 +299,7 @@ const JuegoIA = () => {
       setMesaMaquina(mesaMaquina.concat(carta));
       setManoMaquina(manoMaquina.filter((c) => c.id != carta.id));
       setTurnoMaquina(false);
+      maquinaCantaTruco();
     }
     setTurnoMaquina(false);
     setJugoMaquina(true);
@@ -378,7 +379,7 @@ const JuegoIA = () => {
     if (
       cartasEnManoMaquina === 2 &&
       nivelDeTruco == 0 &&
-      valorDeCartasEnMano < 20
+      valorDeCartasEnMano < 25
     ) {
       setMensajeMaquina("CANTO TRUCO");
       setConfirmarAccion(true);
@@ -414,6 +415,7 @@ const JuegoIA = () => {
       let cartaElegida = cartasOrdenadas[cartasOrdenadas.length - 1];
       setMesaMaquina(mesaMaquina.concat(cartaElegida));
       setManoMaquina(manoMaquina.filter((c) => c.id != cartaElegida.id));
+      maquinaCantaTruco();
     }
   };
 
