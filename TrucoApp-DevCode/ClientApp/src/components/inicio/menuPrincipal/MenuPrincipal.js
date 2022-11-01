@@ -14,7 +14,7 @@ const MenuPrincipal = () => {
 
   const jugarContraLaMaquina = (e) => {
     e.preventDefault();
-    history.push("/inicio/juegoia");
+    history.push("/juegoia");
   };
   return (
     <div className="menuPrincipal">

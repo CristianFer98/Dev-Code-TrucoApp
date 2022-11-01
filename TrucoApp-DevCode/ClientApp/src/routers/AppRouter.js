@@ -47,7 +47,6 @@ export const AppRouter = () => {
                 <Route exact path="/inicio/nosotros" component={Nosotros} />
                 <Route exact path="/inicio/torneos" component={Torneo} />
                 <Route exact path="/inicio/tabla" component={TablaDeTorneo} />
-                <Route exact path="/inicio/juegoia" component={JuegoIA} />
                 <Route
                   exact
                   path="/inicio/mesas"
@@ -63,6 +62,10 @@ export const AppRouter = () => {
           <Route path="/juego">
             <Truco1vs1 />
           </Route>
+
+          <Route exact path="/juegoia" component={JuegoIA} />
+
+
           <Redirect to="/inicio" />
         </PrivateRoute>
       </Switch>
