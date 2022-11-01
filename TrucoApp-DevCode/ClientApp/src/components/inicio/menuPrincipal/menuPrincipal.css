@@ -1,102 +1,91 @@
-
-.menuPrincipal{
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 50px;
-    justify-content: center;
-    margin-top: 20px;
+.menuPrincipal {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.text{
-    display: none;
-}
-
-@media only screen and (max-width: 915px) {
-    .menuPrincipal {
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-
-     
-        }
-
-    .text{
-        display: block;
-    }
-  }
-
-
-.boton{
-    border:none;
-    background-color: whitesmoke;
-    margin: 10px;
-    height: 180px;
-    width: 165px;
-    border-radius: 10px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    
-}
-
-#unovsuno{
-    background: url('../../../assets/1vs1.png') center center no-repeat;
-    background-repeat: no-repeat;
-    background-size: 80%;
-    background-position: 15px;
-    background-color: aliceblue;
-
-
-}
-
-#dosvsdos{
-    background: url('../../../assets/2vs2.png') center center no-repeat;
-    background-repeat: no-repeat;
-    background-size: 90%;
-    background-position: 8px;
-    background-color: aliceblue;
-
-}
-
-#tresvstres{
-    background: url('../../../assets/3vs3.png') center center no-repeat;
-    background-repeat: no-repeat;
-    background-size: 70%;
-    background-position: 25px;
-    background-color: aliceblue;
-
-}
-
-#unovsmaquina{
-    background: url('../../../assets/1vsmaquina.png') center center no-repeat;
-    background-repeat: no-repeat;
-    background-size: 80%;
-    background-position: 20px;
-    background-color: aliceblue;
-    
-}
-
-#torneo{
-    background: url('../../../assets/copa.jpg') center center no-repeat;
-    background-repeat: no-repeat;
-    background-size: 80%;
-    background-position-y: 10px;
-    background-color: aliceblue;
-
+.text {
+  display: none;
 }
 
 @media only screen and (max-width: 915px) {
-    .boton{
-        height: 50px;
-        width: 80%;
-        margin: 15px;
-    }
-
-
-    #unovsuno, #dosvsdos, #tresvstres, #torneo, #unovsmaquina {
-        background-image: none;
-        }
+  .menuPrincipal {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
   }
 
+  .text {
+    display: block;
+  }
+}
 
+.boton {
+  border: none;
+  background-color: whitesmoke;
+  margin: 10px;
+  height: 180px;
+  width: 165px;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
 
+#unovsuno {
+  background: url("../../../assets/1vs1.png") center center no-repeat;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: 15px;
+  background-color: rgba(255, 255, 255, 0.808);
+}
+
+#dosvsdos {
+  background: url("../../../assets/2vs2.png") center center no-repeat;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-position: 8px;
+  background-color: rgba(255, 255, 255, 0.808);
+}
+
+#tresvstres {
+  background: url("../../../assets/3vs3.png") center center no-repeat;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: 25px;
+  background-color: rgba(255, 255, 255, 0.808);
+}
+
+#unovsmaquina {
+  background: url("../../../assets/1vsmaquina.png") center center no-repeat;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: 20px;
+  background-color: rgba(255, 255, 255, 0.808);
+}
+
+#torneo {
+  background: url("../../../assets/copa.png") center center no-repeat;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position-y: 10px;
+  background-color: rgba(255, 255, 255, 0.808);
+}
+
+@media only screen and (max-width: 915px) {
+  .boton {
+    height: 50px;
+    width: 80%;
+    margin: 15px;
+  }
+
+  #unovsuno,
+  #dosvsdos,
+  #tresvstres,
+  #torneo,
+  #unovsmaquina {
+    background-image: none;
+  }
+}
