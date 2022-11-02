@@ -11,7 +11,7 @@ export const BotonCrearMesa = () => {
   const handleCrearMesa = async (e) => {
     e.preventDefault();
 
-    const resp = await fetch("https://localhost:44342/api/Mesas/Guardar", {
+      const resp = await fetch("https://virtserver.swaggerhub.com/LucasBenitez/DevCode/1.0.0/Guardar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,9 +24,8 @@ export const BotonCrearMesa = () => {
         FechaCreacion: new Date(),
       }),
     });
-
     if (resp.ok) {
-      await connection.invoke("CrearMesa");
+        await connection.invoke("CrearMesa")
       Swal.fire("Se creó la mesa", "", "success");
     }
   };

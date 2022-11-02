@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { HubConnectionBuilder, LogLevel, HttpTransportType } from "@microsoft/signalr";
 import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
@@ -30,10 +30,12 @@ export const SocketProvider = ({ children }) => {
   }, [uid, dispatch]);
 
   const conectarSockets = useCallback(async () => {
-    const connection = new HubConnectionBuilder()
-      .withUrl("https://localhost:44342/mesashub")
-      .configureLogging(LogLevel.Information)
-      .build();
+      var connection = new HubConnectionBuilder().withUrl("/mesashub", {
+          skipNegotiation: true,
+          transport: HttpTransportType.WebSockets
+      })
+          .configureLogging(LogLevel.Information)
+          .build();
 
     await connection.start();
     setConnection(connection);

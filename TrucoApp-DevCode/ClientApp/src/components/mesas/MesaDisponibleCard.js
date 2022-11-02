@@ -13,9 +13,9 @@ export const MesaDisponibleCard = ({ mesa }) => {
   const handleJugar = async (e) => {
     e.preventDefault();
 
-    const idJugador = uid;
-    const resp = await fetch(
-      `https://localhost:44342/api/Mesas/EntrarAJugar/${idMesa}`,
+      const idJugador = uid;
+      const resp = await fetch(
+          `https://virtserver.swaggerhub.com/LucasBenitez/DevCode/1.0.0/EntarAJugar/${idMesa}`,
       {
         method: "PUT",
         headers: {

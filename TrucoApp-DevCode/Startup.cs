@@ -31,7 +31,7 @@ namespace Router
 
             services.AddControllersWithViews();
 
-            services.AddSignalR();
+            services.AddSignalR().AddAzureSignalR(Configuration.GetConnectionString("Azure:SignalR:ConnectionString"));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -67,6 +67,7 @@ namespace Router
                         builder
                         .AllowAnyMethod()
                         .AllowAnyHeader()
+                        .AllowCredentials()
                         .WithOrigins("https://localhost:3000");
                     });
             });
