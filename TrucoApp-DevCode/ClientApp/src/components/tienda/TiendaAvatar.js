@@ -1,105 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './tienda.css';
 import { Link } from 'react-router-dom';
-import peloV1F from './../../assets/avatar/pelo-v1-f.png';
-import peloV2F from './../../assets/avatar/pelo-v2-f.png';
-import peloV2M from './../../assets/avatar/pelo-v2-m.png';
-import peloV3M from './../../assets/avatar/pelo-v3-m.png';
-import ropaV2 from './../../assets/avatar/ropa-v2.png';
-import ropaV3 from './../../assets/avatar/ropa-v3.png';
-import ropaV4 from './../../assets/avatar/ropa-v4.png';
-import ropaV5 from './../../assets/avatar/ropa-v5.png';
-export function TiendaAvatar() {
-  return (
-    <div className="componente-store">
-      <h1 id="lookea-tu-avatar" className="titulo my-5">Lookea tu Avatar con el mejor estilo </h1>
+import Card from './TiendaAvatarCard';
 
-      <div className="card p-3" style={{ width: '60%', zIndex: '8' }}>
-        <div className="card-header">
+export function TiendaAvatar() {
+  const url = 'https://localhost:44342/api/Accesorio/ObtenerAccesorios';
+
+  const [accesorios, setAccesorios] = useState([]);
+
+  const getAccesorios = () => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setAccesorios(data));
+    console.table(accesorios);
+  };
+  getAccesorios();
+
+  const getListadoRopa = () => {
+    const listadoRopa = [];
+    accesorios.map((accesorio) => {
+      if (accesorio.descripcion == 'ropa') {
+        listadoRopa.push(accesorio);
+      }
+    });
+    return listadoRopa;
+  };
+
+  const getListadoPelo = () => {
+    const listadoPelo = [];
+    accesorios.map((accesorio) => {
+      if (accesorio.descripcion == 'pelo') {
+        listadoPelo.push(accesorio);
+      }
+    });
+    return listadoPelo;
+  };
+  return (
+    <div className="componente-store" style={{ zIndex: '999', height: '100%' }}>
+      <h1 className="titulo mb-5 mt-3">
+        Lookea tu Avatar con el mejor estilo{' '}
+      </h1>
+
+      <div className="card p-3" style={{ width: '80%', zIndex: '8' }}>
+        <div className="card-header mb-3">
           <h3 className="card-title text-dark">Pelo</h3>
         </div>
         <div className="card- d-flex flex-row">
-          <div className="card">
-            <img
-              className="card-img-top mx-auto"
-              src={peloV1F}
-              style={{ width: '80%' }}
-              alt="pelo-version1f"
+          {getListadoPelo().map((pelo, i) => (
+            <Card
+              key={i}
+              id={pelo.idAccesorio}
+              imagen={pelo.imagen}
+              precio={pelo.precio}
+              comprado={pelo.comprado}
             />
-            <div className="card-body">
-              <p className="card-text d-flex flex-column text-center">
-                <strong> $300</strong>
-                <span
-                  className="badge bg-danger p-3"
-                  style={{ cursor: 'pointer' }}
-                >
-                  COMPRAR
-                </span>
-              </p>
-            </div>
-          </div>
-
-          <div className="card">
-            <img
-              className="card-img-top mx-auto"
-              src={peloV2F}
-              alt="pelo-version2f"
-              style={{ width: '70%' }}
-            />
-            <div className="card-body">
-              <p className="card-text d-flex flex-column text-center">
-                <strong> $300</strong>
-                <span
-                  className="badge bg-danger p-3"
-                  style={{ cursor: 'pointer' }}
-                >
-                  COMPRAR
-                </span>
-              </p>
-            </div>
-          </div>
-
-          <div className="card">
-            <img
-              className="card-img-top mx-auto "
-              src={peloV2M}
-              style={{ width: '80%' }}
-              alt="pelo-version2m"
-            />
-            <div className="card-body">
-              <p className="card-text d-flex flex-column text-center">
-                <strong> $300</strong>
-                <span
-                  className="badge bg-danger p-3"
-                  style={{ cursor: 'pointer' }}
-                >
-                  COMPRAR
-                </span>
-              </p>
-            </div>
-          </div>
-
-          <div className="card">
-            <img
-              className="card-img-top mx-auto"
-              src={peloV3M}
-              style={{ width: '80%' }}
-              alt="pelo-version3m"
-            />
-            <div className="card-body">
-              <p className="card-text d-flex flex-column text-center">
-                <strong> $300</strong>
-                <span
-                  className="badge bg-danger p-3"
-                  style={{ cursor: 'pointer' }}
-                >
-                  COMPRAR
-                </span>
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
-        <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3">
+        <a
+          href="/inicio/tienda-avatar"
+          className="btn btn-danger mt-3 text-light"
+          style={{ fontWeight: 'bold', color: 'white' }}
+        >
+          COMPRAR TODO
+        </a>
+      </div>
+
+      <div className="card p-3 mt-3" style={{ width: '80%' }}>
+        <div className="card-header mb-3">
+          <h3 className="card-title text-dark">Ropa</h3>
+        </div>
+        <div className="card- d-flex flex-row">
+          {getListadoRopa().map((ropa, i) => (
+            <Card
+              key={i}
+              id={ropa.idAccesorio}
+              imagen={ropa.imagen}
+              precio={ropa.precio}
+              comprado={ropa.comprado}
+            />
+          ))}
+        </div>
+        <a
+          href="/inicio/tienda-avatar"
+          className="btn btn-danger mt-3 text-light"
+          style={{ fontWeight: 'bold', color: 'white' }}
+        >
           COMPRAR TODO
         </a>
       </div>
@@ -110,7 +95,7 @@ export function TiendaAvatar() {
         </div>
         <div className="card- d-flex flex-row">
           <div className="card">
-            <img className="card-img-top" src={ropaV2} alt="remera-version2" />
+            <img className="card-img-top" src="" alt="remera-version2" />
             <div className="card-body">
               <p className="card-text d-flex flex-column text-center">
                 <strong> $350</strong>
@@ -125,7 +110,7 @@ export function TiendaAvatar() {
           </div>
 
           <div className="card">
-            <img className="card-img-top" src={ropaV3} alt="remera-version3" />
+            <img className="card-img-top" src="" alt="remera-version3" />
             <div className="card-body">
               <p className="card-text d-flex flex-column text-center">
                 <strong> $350</strong>
@@ -140,7 +125,7 @@ export function TiendaAvatar() {
           </div>
 
           <div className="card">
-            <img className="card-img-top" src={ropaV4} alt="remera-version4" />
+            <img className="card-img-top" src="" alt="remera-version4" />
             <div className="card-body">
               <p className="card-text d-flex flex-column text-center">
                 <strong> $350</strong>
@@ -155,7 +140,7 @@ export function TiendaAvatar() {
           </div>
 
           <div className="card">
-            <img className="card-img-top" src={ropaV5} alt="remera-version5" />
+            <img className="card-img-top" src="" alt="remera-version5" />
             <div className="card-body">
               <p className="card-text d-flex flex-column text-center">
                 <strong> $350</strong>

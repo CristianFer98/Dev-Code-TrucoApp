@@ -267,7 +267,7 @@ const cards = [
     cardValueRank: 12,
     envidoCardValue: 6,
     image:
-      "https://asart.com.ar/wp-content/uploads/2020/02/asart-naipes-espadas-6-minimalart.png",
+      "https://asart.com.ar/wp-content/uploads/2020/02/asart-naipes-oros-6-minimalart.png",
   },
   {
     id: 31,

@@ -12,6 +12,7 @@ using Repositorios.Interfaces;
 using Router.Hubs;
 using Servicios;
 using Servicios.Interfaces;
+using System.Collections.Generic;
 
 namespace Router
 {
@@ -38,11 +39,25 @@ namespace Router
                 configuration.RootPath = "ClientApp/build";
             });
 
+            services.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());
+
             services.AddDbContext<DevCodeDBContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DevCodeDBContext")));
 
             services.AddTransient<DevCodeDBContext>();
             services.AddScoped<IMesaRepositorio, MesaRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IAvatarRepositorio, AvatarRepositorio>();
+            services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
+            services.AddScoped<IColorRepositorio,ColorRepositorio>();
+            services.AddScoped<ITalleRepositorio, TalleRepositorio>();
+            services.AddScoped<IAccesorioRepositorio, AccesorioRepositorio>();
             services.AddScoped<IMesaServicio, MesaServicio>();
+            services.AddScoped<IUsuarioServicio, UsuarioServicio>();
+            services.AddScoped<IAvatarServicio, AvatarServicio>();
+            services.AddScoped<IProductoServicio, ProductoServicio>();
+            services.AddScoped<IColorServicio, ColorServicio>();
+            services.AddScoped<ITalleServicio, TalleServicio>();
+            services.AddScoped<IAccesorioServicio, AccesorioServicio>();
 
             services.AddCors(options =>
             {

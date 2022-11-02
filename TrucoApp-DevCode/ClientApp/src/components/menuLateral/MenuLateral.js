@@ -96,23 +96,7 @@ const MenuLateral = () => {
             </span>
             <div className="reglasLeyenda">Reglas</div>
 
-            <span className="nosotros">
-              <NavLink
-                exact
-                to="/inicio/nosotros"
-                style={{
-                  color: '#EAC67A',
-                  fontWeight: 'bold',
-                  fontSize: '25px',
-                }}
-              >
-                <CDBSidebarMenuItem
-                  icon="info"
-                  style={{ marginBottom: '20px' }}
-                ></CDBSidebarMenuItem>
-              </NavLink>
-            </span>
-            <div className="nosotrosLeyenda">Info</div>
+           
 
             <span className="chatIcon">
               <NavLink

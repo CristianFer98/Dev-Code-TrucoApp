@@ -17,6 +17,12 @@
       "nombre": "Cristiano Ronaldo",
       "email": "cristiano@hotmail.com",
       "password": "1234"
+    },
+    {
+      "uid": 4,
+      "nombre": "Juan Sebastian Verón",
+      "email": "veron@hotmail.com",
+      "password": "1234"
     }
   ]
 }

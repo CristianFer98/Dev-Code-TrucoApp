@@ -20,7 +20,7 @@ export function ChatGeneral() {
   useEffect(() => {
     const q = query(
       collection(db, 'ChatGeneral'),
-      limit('10'),
+      limit('12'),
       orderBy('fecha', 'desc')
     );
 

@@ -48,3 +48,22 @@
 #lookea-tu-avatar{
   margin-top: 100px!important;
 }
+
+.black, .white, .grey{
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+}
+
+.black{
+  background: #000;
+}
+
+.white{
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.grey{
+  background: #8f8f8f;
+}

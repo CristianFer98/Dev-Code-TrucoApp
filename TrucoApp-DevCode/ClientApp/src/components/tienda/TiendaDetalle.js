@@ -1,59 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './tienda.css';
 import AccesorioDetalle from './AccesorioDetalle';
-import mochila from './../../assets/accesorios/mochila.png';
-import mazo from './../../assets/accesorios/mazo.png';
-import remeraBlack from './../../assets/accesorios/remera-black.png';
-import remeraWhite from './../../assets/accesorios/remera-white.png';
 import { useParams } from 'react-router';
 
 export function TiendaDetalle() {
     const { id } = useParams();
+  
+    const url = `https://localhost:44342/api/Producto/ObtenerProductoPorId/${id}`;
+
+    const [accesorio, setAccesorio] = useState([]);
+    const [colores, setColores] = useState([]);
+    const [talles, setTalles] = useState([]);
+
+
+    console.log(id)
+    const getProducto = ()=>{
+          fetch(url)
+          .then(res=> res.json())
+          .then(data=>setAccesorio(data));
+          //console.log(accesorio);
+    }
+
+    const getColores = ()=>{
+      fetch(`https://localhost:44342/api/Color/ObtenerColoresPorIdProducto/${id}`)
+          .then(res=> res.json())
+          .then(data=>setColores(data));
+          //console.log("Colores: ",colores);
+    }
+
+    const getTalles = ()=>{
+      fetch(`https://localhost:44342/api/Talle/ObtenerTallesPorIdProducto/${id}`)
+          .then(res=> res.json())
+          .then(data=>setTalles(data));
+          //console.log("Talles: ",talles);
+    }
     
-    const accesorios = [
-        { idA:1,
-          imagen: mochila, 
-          descripcion: "Mochila 'Vale Cuatro'",
-          detalle1:"Colores: Negro, Gris, Azul",
-          detalle2:"Medidas: Alto 47cm, Ancho 37cm",
-          detalle3:"Cantidad: 100", 
-          precio: 8000.0 },
-        { idA:2, imagen: mazo, 
-          descripcion: "Mazo 'Vale Cuatro'", 
-          precio: 7000.0,
-          detalle1:"Marca: Athand",
-          detalle2:"Tipo de baraja: Españolas",
-          detalle3:"Cantidad: 100",
-        },
-        {
-          idA:3,
-          imagen: remeraBlack,
-          descripcion: "Remera Black 'Vale Cuatro'",
-          detalle1:"Colores: Negro",
-          detalle2:"Talles: S, M, L, XL, XXL",
-          detalle3:"Cantidad: 100",
-          precio: 2800.0,
-        },
-        {
-          idA:4,
-          imagen: remeraWhite,
-          descripcion: "Remera White 'Vale Cuatro'",
-          detalle1:"Colores: Blanco",
-          detalle2:"Talles: S, M, L, XL, XXL",
-          detalle3:"Cantidad: 100",
-          precio: 2800.0,
-        },
-      ];
-      
+    getProducto();
+    getColores();
+    getTalles();
+
     return (
         <div className="componente-store" style={{height:'100%'}}>
             <AccesorioDetalle
-                imagen={accesorios[id-1].imagen}
-                descripcion={accesorios[id-1].descripcion}
-                detalle1={accesorios[id-1].detalle1}
-                detalle2={accesorios[id-1].detalle2}
-                detalle3={accesorios[id-1].detalle3}
-                precio={accesorios[id-1].precio}
+                imagen={accesorio.imagen}
+                descripcion={accesorio.descripcion}
+                cantidadAComprar={accesorio.cantidadAcomprar}
+                medidas={accesorio.medidas}
+                marca={accesorio.marca}
+                tipoBaraja={accesorio.tipoBaraja}
+                precio={accesorio.precio}
+                colores = {colores}
+                talles= {talles}
             />
         </div>
         

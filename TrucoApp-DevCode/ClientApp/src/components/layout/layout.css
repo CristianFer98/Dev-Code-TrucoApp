@@ -1,9 +1,10 @@
 ﻿.main {
   width: 100%;
-  height: 100vh;
-  background-image: url("../../assets/trucoHome.webp");
-  background-size: cover;
+  height: 100vh!important;
+  background-image: url("../../assets/fondoInicio.jpeg");
+  background-size: 40%;
   background-position-y: center;
+  height: auto;
 }
 
 .MuiDrawer-paper {

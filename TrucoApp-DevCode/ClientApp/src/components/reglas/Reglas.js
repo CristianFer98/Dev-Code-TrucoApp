@@ -1,6 +1,8 @@
 ﻿import './rules.css';
 import Cartas from './Cartas';
-
+import EnvidoTutorialUno from './tutorial/EnvidoTutorialUno';
+import EnvidoTutorialDos from './tutorial/EnvidoTutorialDos';
+import TrucoTutorialUno from './tutorial/TrucoTutorialUno';
 export function Reglas() {
   return (
     <div className="rules-container container-fluid text-center">
@@ -126,6 +128,7 @@ export function Reglas() {
                     Falta Envido
                   </button>
                 </h2>
+
                 <div
                   id="flush-collapseThreeEnvido"
                   className="accordion-collapse collapse"
@@ -153,6 +156,19 @@ export function Reglas() {
               </div>
             </div>
           </div>
+
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              width: '100%',
+              justifyContent: 'space-around',
+            }}
+          >
+            <EnvidoTutorialUno />
+            <EnvidoTutorialDos />
+          </div>
+
           <h2>El Truco</h2>
           <p>
             El truco consiste en ganar dos de las tres manos que se juegan en el
@@ -264,6 +280,17 @@ export function Reglas() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          width: '100%',
+          justifyContent: 'space-around',
+        }}
+      >
+        <TrucoTutorialUno />
       </div>
     </div>
   );
