@@ -7,7 +7,6 @@ import { TiendaDetalle } from "../components/tienda/TiendaDetalle";
 import { TiendaAvatar } from "../components/tienda/TiendaAvatar";
 import { Reglas } from "../components/reglas/Reglas";
 import { Torneo } from "../components/torneo/Torneo";
-import { Nosotros } from "../components/nosotros/Nosotros";
 import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
 import { useSelector } from "react-redux";
@@ -47,10 +46,8 @@ export const AppRouter = () => {
                   component={TiendaAvatar}
                 />
                 <Route exact path="/inicio/reglas" component={Reglas} />
-                <Route exact path="/inicio/nosotros" component={Nosotros} />
                 <Route exact path="/inicio/torneos" component={Torneo} />
                 <Route exact path="/inicio/tabla" component={TablaDeTorneo} />
-                <Route exact path="/inicio/juegoia" component={JuegoIA} />
                 <Route
                   exact
                   path="/inicio/mesas"
@@ -66,6 +63,10 @@ export const AppRouter = () => {
           <Route path="/juego">
             <Truco1vs1 />
           </Route>
+
+          <Route exact path="/juegoia" component={JuegoIA} />
+
+
           <Redirect to="/inicio" />
         </PrivateRoute>
       </Switch>
