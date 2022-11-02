@@ -3,20 +3,23 @@ import { useState } from 'react';
 import './avatar.css';
 import imagenes from './AvatarImagenes';
 import { Link } from 'react-router-dom';
+import sinPelo from  './../../assets/avatar/sin-pelo.png';
 import { 
   mostrarAvatarSeleccionadoMasConfiguracion,
   setPelo,
   setPiel,
   setOjos,
   setRopa,
-  setPeinado
+  setPeinado,
+  captura
 } from './Funciones';
 
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
+  //const [avatarPerfil, setAvatarPerfil] = useState('-');
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('-');
-  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(2);
+  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(1);
   const [Pelo, setEstadoPelo] = useState('pelo');
   const [Ceja, setEstadoCeja] = useState('ceja-negra');
   const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');
@@ -24,7 +27,7 @@ export function Avatar() {
   const [Ropa, setEstadoRopa] = useState('ropa');
 
   const [avatarAccesorios, setAvatarAccesorios] = useState([]);
-  
+
     const getAvatarAccesorios = ()=>{
         fetch("https://localhost:44342/api/Accesorio/ObtenerAccesorios")
         .then(res=> res.json())
@@ -53,7 +56,8 @@ export function Avatar() {
   }
 
    const handleSubmit= async (e) =>{
-      e.preventDefault(); 
+         e.preventDefault(); 
+         //crearFotoDePerfil();
          const resp = await fetch(url, {
             method: "POST",
             headers: {
@@ -65,7 +69,7 @@ export function Avatar() {
               Ceja:Ceja,
               ColorDePiel:ColorDePiel,
               ColorDeOjos:ColorDeOjos, 
-              Ropa:Ropa 
+              Ropa:Ropa, 
             })
           });
           if (resp.ok) {
@@ -73,6 +77,15 @@ export function Avatar() {
             document.querySelector('.mensaje').classList.remove('alert-primary');
             document.querySelector('.mensaje').classList.add('alert-success');
             document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Guardado con éxito";
+            captura();
+            //if(document.getElementById('getPerfil')){
+            
+              //let perfil = document.getElementById('getPerfil');
+              //setAvatarPerfil(perfil.value);
+              //localStorage.setItem('avatarPerfil',perfil.value);
+              //console.log(avatarPerfil);
+            //}
+            
           } else{
               console.log("error, no se pudo guardar");
               document.querySelector('.mensaje').classList.remove('alert-primary');
@@ -89,14 +102,14 @@ export function Avatar() {
       Selecciona un avatar, modifícalo y guárdalo.
     </div>
       <div className="componente-avatar-modificacion">
-        <div className="componente-principal version-m" >
+        <div className="componente-principal version-m" id="version-m">
           <div className="avatar">
             <div className="oreja-izq piel-default"></div>
             <div className="cabeza piel-default">
               <div className="contendor-pelo">
                 <img alt="" id="pelo-actual" src={imagenes['pelo-v1-m-negro']} className="pelo-m pelo-v1-m-negro"/>
               </div>
-              <div className="cejas-ojos-nariz-boca">
+              <div className="cejas-ojos-nariz-boca" id="cejas-ojos-nariz-boca-m">
                 <div className="contenedor-cejas">
                   <div className="ceja-izq ceja-negra"></div>
                   <div className="ceja-der ceja-negra"></div>
@@ -198,7 +211,7 @@ export function Avatar() {
           </div>
           
         </div>
-
+        <div className="d-block" id="perfil"></div>
         <div className="componente-cambio-aspecto ocultar" style={{display:'none'}}>
           <div id="carouselExampleControls" className="carousel slide d-flex flex-row" data-bs-ride="carousel">
              <button className="carousel-control-prev m-0 p-0" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style={{width:'5%'}}>
@@ -295,6 +308,7 @@ export function Avatar() {
                           title="pelo negro"
                           onClick={() => {
                             setPelo('negro', 'ceja-negra');
+                            setEstadoPelo('pelo-negro');
                             setEstadoCeja('ceja-negra');
                           }}
                         ></div>
@@ -303,6 +317,7 @@ export function Avatar() {
                           title="pelo castaño"
                           onClick={() => {
                             setPelo('castano','ceja-castana');
+                            setEstadoPelo('pelo-castano');
                             setEstadoCeja('ceja-castana');
                           }}
                         ></div>
@@ -311,6 +326,7 @@ export function Avatar() {
                           title="pelo rubio"
                           onClick={() =>{
                             setPelo('rubio','ceja-rubia');
+                            setEstadoPelo('pelo-rubio');
                             setEstadoCeja('ceja-rubia');
                           }}
                         ></div>
@@ -319,6 +335,7 @@ export function Avatar() {
                           title="pelo colorado"
                           onClick={() =>{
                             setPelo('colorado','ceja-colorada');
+                            setEstadoPelo('pelo-colorado');
                             setEstadoCeja('ceja-colorada');
                           }}
                         ></div>
@@ -327,6 +344,7 @@ export function Avatar() {
                           title="pelo canoso"
                           onClick={() => {
                             setPelo('canoso','ceja-canosa');
+                            setEstadoPelo('pelo-canoso');
                             setEstadoCeja('ceja-canosa');
                           }}
                         ></div>
@@ -336,20 +354,33 @@ export function Avatar() {
                 <div className="carousel-item">
                   <strong style={{ fontSize: '18px'}} className="mb-3">Pelo</strong>
                   <div className="modificar cambio-pelo d-flex justify-content-center">
+                  <div className="sin-pelo">
+                      <img 
+                        src={sinPelo} 
+                        title="sin pelo" 
+                        style={{cursor:'pointer'}}
+                        onClick={()=>{
+                          setPeinado('sin-pelo');
+                          setEstadoPelo('sin-pelo');
+                        }}/>
+                  </div>
                     {getListadoPelo().map((pelo) => (
-                      <button 
-                        className={`${pelo.imagen} btn border-0 ${pelo.comprado==true?'':'disabled'}`}
-                        style={{width:'200%', height:'auto'}}
-                        onClick={()=>setPeinado(pelo.imagen)}>
-                          <img 
-                            src={imagenes[pelo.imagen]} 
-                            style={ avatarSeleccionado=='opcion1' && (pelo.imagen).includes('-m-')  ? { display:'block'} : {display : 'none'} } 
-                            className="accesoriosAvatar"/>
-                          <img 
-                            src={imagenes[pelo.imagen]} 
-                            style={ avatarSeleccionado=='opcion2' && (pelo.imagen).includes('-f-')  ? { display:'block'} : {display : 'none'} }
-                            className="accesoriosAvatar"/>
+                      <><button
+                        className={`${pelo.imagen} btn border-0 ${pelo.comprado == true ? '' : 'disabled'} ${avatarSeleccionado == 'opcion1' && (pelo.imagen).includes('-m-') ? 'd-block' : 'd-none'}`}
+                        style={{ width: '100px', height: 'auto' }}
+                        onClick={() => setPeinado(pelo.imagen)}>
+                        <img
+                          src={imagenes[pelo.imagen]}
+                          className="accesoriosAvatar" />
                       </button>
+                      <button
+                        className={`${pelo.imagen} btn border-0 ${pelo.comprado == true ? '' : 'disabled'} ${avatarSeleccionado == 'opcion2' && (pelo.imagen).includes('-f-') ? 'd-block' : 'd-none'}`}
+                        style={{ width: '100px', height: 'auto' }}
+                        onClick={() => setPeinado(pelo.imagen)}>
+                          <img
+                            src={imagenes[pelo.imagen]}
+                            className="accesoriosAvatar" />
+                        </button></>
                   ))}
                  
                   </div>
@@ -357,7 +388,7 @@ export function Avatar() {
                   <strong style={{ fontSize: '18px'}} className="mb-3">Ropa</strong>    
                   <div className="modificar cambio-ropa">
                     {getListadoRopa().map((ropa) => (
-                      <button 
+                      <button
                         className={`${ropa.imagen} btn border-0 ${ropa.comprado==true ?'':'disabled'}`}
                         style={{width:'200%', height:'auto'}}
                         onClick={()=>{
