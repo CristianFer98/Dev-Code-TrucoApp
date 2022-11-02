@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 import imagotipo from './../../assets/imagotipo-c.png';
+import noFoto from './../../assets/no-foto.jpg';
 
 function CollapsibleExample() {
   return (
@@ -36,7 +37,7 @@ function CollapsibleExample() {
           <Nav>
             <Nav.Link href="#deets">Bienvenido Cristian Fernandez</Nav.Link>
             <img
-              src={localStorage.getItem('avatarPerfil')}
+              src={localStorage.getItem('avatarPerfil')!=null?localStorage.getItem('avatarPerfil'):noFoto}
               alt="user"
               width="38px"
               height="38px"
