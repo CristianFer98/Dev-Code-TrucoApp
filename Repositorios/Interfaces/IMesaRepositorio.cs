@@ -10,6 +10,7 @@ namespace Repositorios.Interfaces
     public interface IMesaRepositorio
     {
         public List<Mesa> ObtenerMesasDisponibles();
+        public Mesa ObtenerMesaPorId(int id);
         public void GuardarMesa(Mesa mesa);
         public void EntrarAJugarAMesa(int idMesa, int idJugador);
     }

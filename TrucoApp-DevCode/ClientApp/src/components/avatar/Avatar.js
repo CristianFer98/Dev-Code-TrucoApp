@@ -8,13 +8,15 @@ import {
   setPelo,
   setPiel,
   setOjos,
-  setRopa
+  setRopa,
+  setPeinado
 } from './Funciones';
 
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
-  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(1);
+  const [avatarSeleccionado, setAvatarSeleccionado] = useState('-');
+  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(2);
   const [Pelo, setEstadoPelo] = useState('pelo');
   const [Ceja, setEstadoCeja] = useState('ceja-negra');
   const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');
@@ -129,7 +131,13 @@ export function Avatar() {
               <button 
               type="button"
               className="btn btn-primary mt-2 opcion me-3"
-              onClick={() => mostrarAvatarSeleccionadoMasConfiguracion('.version-f')}
+              onClick={() =>{
+
+                mostrarAvatarSeleccionadoMasConfiguracion('.version-f');
+                setAvatarSeleccionado('opcion1');
+
+              }}
+
               >
                 Opción 1
               </button> 
@@ -144,7 +152,7 @@ export function Avatar() {
               <div className="contendor-pelo">
                 <img alt="" id="pelo-actual" src={imagenes['pelo-v2-f-negro']} className="pelo-f pelo-v2-f-negro"/>
               </div>
-              <div className="cejas-ojos-nariz-boca-f">
+              <div className="cejas-ojos-nariz-boca-f-2" id="cejas-ojos-nariz-boca-f">
                 <div className="contenedor-cejas">
                   <div className="ceja-izq ceja-negra"></div>
                   <div className="ceja-der ceja-negra"></div>
@@ -179,7 +187,10 @@ export function Avatar() {
               <button 
                 type="button" 
                 className="btn btn-primary mt-2 opcion me-3"
-                onClick={() => mostrarAvatarSeleccionadoMasConfiguracion('.version-m')}
+                onClick={() => {
+                  mostrarAvatarSeleccionadoMasConfiguracion('.version-m');
+                  setAvatarSeleccionado('opcion2');
+                }}
               >
                   Opción 2
               </button>
@@ -324,13 +335,20 @@ export function Avatar() {
                 </div>
                 <div className="carousel-item">
                   <strong style={{ fontSize: '18px'}} className="mb-3">Pelo</strong>
-                  <div className="modificar cambio-pelo">
+                  <div className="modificar cambio-pelo d-flex justify-content-center">
                     {getListadoPelo().map((pelo) => (
                       <button 
                         className={`${pelo.imagen} btn border-0 ${pelo.comprado==true?'':'disabled'}`}
                         style={{width:'200%', height:'auto'}}
-                        onClick={()=>setPelo(pelo.imagen)}>
-                          <img src={imagenes[pelo.imagen]} style={{width:'90%', height:'auto', cursor:'pointer'}}/>
+                        onClick={()=>setPeinado(pelo.imagen)}>
+                          <img 
+                            src={imagenes[pelo.imagen]} 
+                            style={ avatarSeleccionado=='opcion1' && (pelo.imagen).includes('-m-')  ? { display:'block'} : {display : 'none'} } 
+                            className="accesoriosAvatar"/>
+                          <img 
+                            src={imagenes[pelo.imagen]} 
+                            style={ avatarSeleccionado=='opcion2' && (pelo.imagen).includes('-f-')  ? { display:'block'} : {display : 'none'} }
+                            className="accesoriosAvatar"/>
                       </button>
                   ))}
                  
@@ -342,7 +360,10 @@ export function Avatar() {
                       <button 
                         className={`${ropa.imagen} btn border-0 ${ropa.comprado==true ?'':'disabled'}`}
                         style={{width:'200%', height:'auto'}}
-                        onClick={()=>setRopa(ropa.imagen)}>
+                        onClick={()=>{
+                          setRopa(ropa.imagen);
+                          setEstadoRopa(ropa.imagen);
+                        }}>
                           <img src={imagenes[ropa.imagen]} style={{width:'90%', height:'auto', cursor:'pointer'}}/>
                       </button>
                   ))}

@@ -23,6 +23,11 @@ namespace Repositorios
             return _dbContext.Mesas.Where(m => m.Estado == "Disponible").ToList();
         }
 
+        public Mesa ObtenerMesaPorId(int id)
+        {
+            return _dbContext.Mesas.Where(m => m.IdMesa == id).Single();
+        }
+
         public void GuardarMesa(Mesa mesa)
         {
             _dbContext.Mesas.Add(mesa);

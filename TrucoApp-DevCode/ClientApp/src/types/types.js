@@ -3,6 +3,7 @@ export const types = {
   authLogout: "[auth] Logout",
   authJugar: "[auth] Jugar",
   authDejarDeJugar: "[auth] Dejar de jugar",
+  authEntrarComoInvitado: "[auth] Entrar como invitado",
   mesasObtenerMesas: "[mesas] Obtener mesas",
   juegoRepartirCartas: "[juego] Repartir cartas",
   juegoTirarCarta: "[juego] Tirar carta",

@@ -19,7 +19,6 @@ export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
   const { uid } = useSelector((state) => state.auth);
-  const { partida } = useSelector((state) => state.juego);
   const [connection, setConnection] = useState();
   const dispatch = useDispatch();
 
@@ -66,7 +65,6 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     connection?.on("MesaOcupada", async (partida) => {
       const { jugadorUno, jugadorDos, room } = partida;
-
       if (jugadorUno === uid) {
         await connection.invoke("JoinRoom", uid, room);
       } else if (jugadorDos === uid) {

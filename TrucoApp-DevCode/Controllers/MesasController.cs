@@ -41,6 +41,22 @@ namespace Router.Controllers
 
         }
 
+        [HttpGet]
+        [Route("ObtenerMesaPorId/{mesaId:int}")]
+        public ActionResult Get(int mesaId)
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _mesaServicio.ObtenerMesaPorId(mesaId));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpPost]
         [Route("Guardar")]
         public ActionResult Post([FromBody] Mesa mesa)

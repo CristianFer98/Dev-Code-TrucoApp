@@ -10,6 +10,7 @@ namespace Servicios.Interfaces
     public interface IMesaServicio
     {
         public List<Mesa> ObtenerMesasDisponibles();
+        public Mesa ObtenerMesaPorId(int id);
         public void GuardarMesa(Mesa mesa);
         public void EntrarAJugarAMesa(int idMesa, int idJugador);
     }

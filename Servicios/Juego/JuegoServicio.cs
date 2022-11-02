@@ -378,8 +378,12 @@ namespace Servicios.Juego
                 }
                 else
                 {
-                    trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
-                    trucosCantadosReconvertidos.Add("1");
+                    if (trucosCantadosConvertidos[^1] == "no quiero")
+                    {
+
+                        trucosCantadosReconvertidos.RemoveAt(trucosCantadosReconvertidos.Count - 1);
+                        trucosCantadosReconvertidos.Add("1");
+                    }
                 }
 
                 return Int32.Parse(trucosCantadosReconvertidos[^1]);
