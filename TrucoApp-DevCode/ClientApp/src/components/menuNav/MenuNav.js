@@ -36,7 +36,7 @@ function CollapsibleExample() {
             src={imagotipo}
             alt="Isotipo de Vale cuatro"
             width="200"
-            className="m-0"
+            className="mt-2"
           />
         </NavLink>
 
