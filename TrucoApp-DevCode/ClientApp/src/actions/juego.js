@@ -14,7 +14,7 @@ export const salirDeMesa = () => {
   return (dispatch) => {
     dispatch({
       type: types.authDejarDeJugar,
-      payload: { jugando: false },
+      payload: { jugando: false, invitado: false },
     });
 
     setTimeout(() => {
