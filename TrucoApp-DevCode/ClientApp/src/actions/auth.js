@@ -34,6 +34,7 @@ const login = (uid, email, password, nombre) => ({
     password,
     nombre,
     jugando: false,
+    invitado: false,
   },
 });
 
@@ -41,5 +42,13 @@ export const jugar = () => ({
   type: types.authJugar,
   payload: {
     jugando: true,
+  },
+});
+
+export const entrarComoInvitado = (idMesa) => ({
+  type: types.authEntrarComoInvitado,
+  payload: {
+    invitado: true,
+    mesaInvitado: idMesa,
   },
 });

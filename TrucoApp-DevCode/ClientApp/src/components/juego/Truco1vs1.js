@@ -13,11 +13,13 @@ export const Truco1vs1 = () => {
   const history = useHistory();
   const { connection } = useContext(SocketContext);
   const { partida } = useSelector((state) => state.juego);
+  const { ganadorPartida } = partida;
   const { room } = partida;
 
   const dejarMesa = async (e) => {
     e.preventDefault();
-    await connection.invoke("DejarMesa", room);
+    if (!ganadorPartida) await connection.invoke("DejarMesa", room);
+
     dispatch(salirDeMesa());
     history.push("/inicio");
   };
