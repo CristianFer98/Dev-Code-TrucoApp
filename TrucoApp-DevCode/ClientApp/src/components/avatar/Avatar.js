@@ -4,22 +4,21 @@ import './avatar.css';
 import imagenes from './AvatarImagenes';
 import { Link } from 'react-router-dom';
 import sinPelo from  './../../assets/avatar/sin-pelo.png';
+import html2canvas from 'html2canvas';
 import { 
   mostrarAvatarSeleccionadoMasConfiguracion,
   setPelo,
   setPiel,
   setOjos,
   setRopa,
-  setPeinado,
-  captura
+  setPeinado
 } from './Funciones';
 
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
-  //const [avatarPerfil, setAvatarPerfil] = useState('-');
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('-');
-  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(1);
+  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(84);
   const [Pelo, setEstadoPelo] = useState('pelo');
   const [Ceja, setEstadoCeja] = useState('ceja-negra');
   const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');
@@ -28,7 +27,7 @@ export function Avatar() {
 
   const [avatarAccesorios, setAvatarAccesorios] = useState([]);
 
-    const getAvatarAccesorios = ()=>{
+   const getAvatarAccesorios = ()=>{
         fetch("https://localhost:44342/api/Accesorio/ObtenerAccesorios")
         .then(res=> res.json())
         .then(data=>setAvatarAccesorios(data));
@@ -57,7 +56,7 @@ export function Avatar() {
 
    const handleSubmit= async (e) =>{
          e.preventDefault(); 
-         //crearFotoDePerfil();
+         
          const resp = await fetch(url, {
             method: "POST",
             headers: {
@@ -77,15 +76,19 @@ export function Avatar() {
             document.querySelector('.mensaje').classList.remove('alert-primary');
             document.querySelector('.mensaje').classList.add('alert-success');
             document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Guardado con éxito";
-            captura();
-            //if(document.getElementById('getPerfil')){
-            
-              //let perfil = document.getElementById('getPerfil');
-              //setAvatarPerfil(perfil.value);
-              //localStorage.setItem('avatarPerfil',perfil.value);
-              //console.log(avatarPerfil);
-            //}
-            
+            let avatarActual = `${avatarSeleccionado=='opcion1'?'#version-m':'#version-f'}`;
+            console.log(avatarActual);
+            if(document.querySelector(`${avatarActual}`)){
+              let avatar = document.querySelector(`${avatarActual}`);
+              html2canvas(avatar).then( canvas => {
+                console.log(canvas.toDataURL('image/png'));
+              let img = canvas.toDataURL('image/png');
+               localStorage.setItem('avatarPerfil',img);
+              console.log(img)
+              console.log(localStorage.getItem('avatarPerfil'))
+              })
+            }
+
           } else{
               console.log("error, no se pudo guardar");
               document.querySelector('.mensaje').classList.remove('alert-primary');
@@ -158,7 +161,7 @@ export function Avatar() {
           
         </div>
 
-        <div className="componente-principal version-f">
+        <div className="componente-principal version-f" id="version-f">
           <div className="avatar">
             <div className="oreja-izq piel-default" style={{display:'none'}}></div>
             <div className="cabeza piel-default">

@@ -1,53 +1,5 @@
 import imagenes from './AvatarImagenes';
-import html2canvas from 'html2canvas';
 
-export const crearFotoDePerfil=()=>{
-  let avatar = document.getElementById('version-m');
-  
-    html2canvas(avatar).then(
-      function (canvas) {
-          
-          var hidden = document.createElement('input'); 
-          hidden.setAttribute("type", "hidden");
-          hidden.setAttribute("id", "getPerfil");
-          hidden.setAttribute("value",canvas.toDataURL('image/png'));
-          document
-          .getElementById('perfil')
-          .appendChild(hidden);
-          console.log(canvas.toDataURL('image/png'));
-          
-        })
-
-       //return document.querySelector('#getPerfil').value;
-}
-
-export const captura = () =>{
-
-  let avatar = document.getElementById('version-m');
-  
-  html2canvas(avatar).then(
-    function (canvas) {
-
-        let ctx=canvas.getContext('2d');
-        //let image = canvas.toDataURL('image/png');
-        var image = new Image();
-        image.src = canvas.toDataURL('image/png');
-        ctx.drawImage(image, 0, 60, 300, 300);
-        document
-        .getElementById('perfil')
-        .appendChild(canvas);
-
-        //console.log(canvas.toDataURL('image/png'));
-        
-      })
-  
-
-}
-export const getAvatarClone = () =>{
-  crearFotoDePerfil();
-  let hidden = document.querySelector('#getPerfil').value;
-  console.log(hidden);
-}
 export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=>{
   
     let ocultarAvatarNoSeleccionado= document.querySelector(`${avatarNoSeleccionado}`);

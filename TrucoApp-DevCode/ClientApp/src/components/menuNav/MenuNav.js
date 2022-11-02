@@ -36,11 +36,11 @@ function CollapsibleExample() {
           <Nav>
             <Nav.Link href="#deets">Bienvenido Cristian Fernandez</Nav.Link>
             <img
-              src={'https://robohash.org/user2.png'}
+              src={localStorage.getItem('avatarPerfil')}
               alt="user"
               width="38px"
               height="38px"
-              style={{ borderRadius: '25px' }}
+              style={{ borderRadius: '25px', objectFit:'cover' }}
             ></img>
           </Nav>
         </Navbar.Collapse>
