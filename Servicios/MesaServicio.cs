@@ -19,11 +19,16 @@ namespace Servicios
             _mesaRepositorio = mesaRepositorio;
         }
 
-
         public List<Mesa> ObtenerMesasDisponibles()
         {
             return _mesaRepositorio.ObtenerMesasDisponibles();
         }
+
+        public Mesa ObtenerMesaPorId(int id)
+        {
+            return _mesaRepositorio.ObtenerMesaPorId(id);
+        }
+
         public void GuardarMesa(Mesa mesa)
         {
             _mesaRepositorio.GuardarMesa(mesa);

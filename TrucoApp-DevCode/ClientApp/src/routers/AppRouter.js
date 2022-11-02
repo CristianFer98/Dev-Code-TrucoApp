@@ -17,6 +17,7 @@ import JuegoIA from "../components/juegoIA/JuegoIA";
 import { Avatar } from "../components/avatar/Avatar";
 import { MesasDisponibles } from "../components/mesas/MesasDisponibles";
 import TablaDeTorneo from "../components/torneo/TablaDeTorneo";
+import { CargarPartida } from "../components/partidaLink/CargarPartida";
 
 export const AppRouter = () => {
   const { uid, jugando } = useSelector((state) => state.auth);
@@ -24,6 +25,8 @@ export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
+        <Route path="/juego/:mesaId" component={CargarPartida} />
+
         <PublicRoute logueado={!!uid} path="/auth" component={LoginRegistro} />
 
         <PrivateRoute logueado={!!uid} path="/">
