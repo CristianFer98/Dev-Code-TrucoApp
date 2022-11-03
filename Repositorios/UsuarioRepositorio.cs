@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using Repositorios.Interfaces;
+using System.Linq;
 
 namespace Repositorios
 {
@@ -10,6 +11,11 @@ namespace Repositorios
         public UsuarioRepositorio(DevCodeDBContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public Usuario BuscarUsuarioPorMail(string email)
+        {
+            return _dbContext.Usuarios.Where(x => x.Email == email).FirstOrDefault(); 
         }
 
         public Usuario GuardarUsuario(Usuario usuario)
