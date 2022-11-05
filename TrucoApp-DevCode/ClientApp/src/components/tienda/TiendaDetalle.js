@@ -44,7 +44,6 @@ export function TiendaDetalle() {
             <AccesorioDetalle
                 imagen={accesorio.imagen}
                 descripcion={accesorio.descripcion}
-                cantidadAComprar={accesorio.cantidadAcomprar}
                 medidas={accesorio.medidas}
                 marca={accesorio.marca}
                 tipoBaraja={accesorio.tipoBaraja}

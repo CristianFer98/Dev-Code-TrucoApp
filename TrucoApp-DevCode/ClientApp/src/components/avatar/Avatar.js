@@ -13,7 +13,6 @@ import {
   setRopa,
   setPeinado
 } from './Funciones';
-import { getTTFB } from 'web-vitals';
 
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
