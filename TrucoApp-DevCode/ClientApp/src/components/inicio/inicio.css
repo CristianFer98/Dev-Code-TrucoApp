@@ -1,13 +1,14 @@
 .contenedorPrimario {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .contenedorSecundario {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
 }
 
 @media only screen and (max-width: 1130px) {

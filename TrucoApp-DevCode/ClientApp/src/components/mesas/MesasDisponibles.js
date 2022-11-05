@@ -36,11 +36,7 @@ export const MesasDisponibles = () => {
             >
               Regresar al Inicio
             </Button>{" "}
-            <div style={{ marginRight: "50px" }}>
-              <Button variant="dark">1</Button>{" "}
-              <Button variant="dark">2</Button>{" "}
-              <Button variant="dark">3</Button>{" "}
-            </div>
+           
           </div>
           <div
             className="d-flex flex-wrap mt-4"
@@ -59,7 +55,7 @@ export const MesasDisponibles = () => {
         </div>
       </div>
 
-      <div>
+      <div className="chat">
         <ChatGeneral />
       </div>
     </div>
