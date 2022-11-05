@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { startLogin } from '../../actions/auth';
+import { startLogin, onLoginSuccess } from '../../actions/auth';
 import { useForm } from '../../hooks/useForm';
 
 export const Login = () => {
@@ -19,10 +19,24 @@ export const Login = () => {
     handleLoginInputChange(e);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await fetch("https://localhost:44342/api/Usuarios/Login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Email: lEmail,
+        Password: lPassword
+      }),
+    });
 
-    dispatch(startLogin(lEmail, lPassword));
+    var jsonResponse = await response.json();
+    localStorage.setItem("token", jsonResponse.jwtToken)
+
+    dispatch(onLoginSuccess(jsonResponse.id, jsonResponse.email, jsonResponse.nombreCompleto));
+    //dispatch(startLogin(lEmail, lPassword));
   };
 
   return (

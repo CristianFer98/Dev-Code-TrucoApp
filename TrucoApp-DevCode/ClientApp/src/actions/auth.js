@@ -16,6 +16,14 @@ export const startLogin = (email, password) => {
   };
 };
 
+export const onLoginSuccess = (uid, email, nombre) => {
+  return (dispatch) => {
+    dispatch(
+      login(uid, email, '', nombre)
+    )
+  }
+}
+
 export const startLogout = () => {
   return (dispatch) => {
     dispatch(logout());
