@@ -2,7 +2,7 @@ import React from 'react';
 import './accesorios.css';
 import imagenes from './TiendaImagenes';
 import { Link } from 'react-router-dom';
-const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marca,tipoBaraja, precio, colores, talles }) => {
+const AccesorioDetalle = ({ imagen, descripcion, medidas, marca,tipoBaraja, precio, colores, talles }) => {
   
   const cambiarProducto = (producto, color) =>{
     const imgProducto = document.querySelector('#foto-producto');
@@ -89,9 +89,6 @@ const AccesorioDetalle = ({ imagen, descripcion, cantidadAComprar, medidas, marc
                     </li>
                     <li className="list-group-item mb-2"  style={ tipoBaraja==null ? { display:'none'} : {display : 'block'} }>
                       <strong>Tipo de Baraja: </strong> {tipoBaraja}
-                    </li>
-                    <li className="list-group-item mb-2">
-                      <strong>Cantidad a Comprar: </strong> {cantidadAComprar}
                     </li>
                     <li className="list-group-item mb-4">
                         Precio: <strong>${precio}</strong>
