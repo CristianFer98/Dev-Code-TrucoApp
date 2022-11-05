@@ -5,8 +5,11 @@ import { NavLink } from 'react-router-dom';
 import React from 'react';
 import imagotipo from './../../assets/vale-cuatro-fondo-transparente.png';
 import noFoto from './../../assets/no-foto.jpg';
+import { useSelector } from 'react-redux'
 
 function CollapsibleExample() {
+  const { nombre } = useSelector((state) => state.auth);
+
   return (
     <Navbar
       collapseOnSelect
@@ -36,7 +39,7 @@ function CollapsibleExample() {
           <Nav className="me-auto"></Nav>
 
           <Nav>
-            <Nav.Link href="#deets">Bienvenido Cristian Fernandez</Nav.Link>
+            <Nav.Link href="#deets">{nombre}</Nav.Link>
             <img
               src={localStorage.getItem('avatarPerfil')!=null?localStorage.getItem('avatarPerfil'):noFoto}
               alt="user"

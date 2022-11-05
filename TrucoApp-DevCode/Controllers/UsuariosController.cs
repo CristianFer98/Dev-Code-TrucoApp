@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Router.Hubs;
 using DTOs;
+using Servicios.Excepciones;
 
 namespace Router.Controllers
 {
@@ -34,8 +35,8 @@ namespace Router.Controllers
                     return BadRequest("¡El usuario no puede ser nulo!");
 
                 _usuarioServicio.Registrar(
-                    usuario.Email, 
-                    usuario.Password, 
+                    usuario.Email,
+                    usuario.Password,
                     usuario.NombreCompleto);
 
                 return StatusCode(StatusCodes.Status200OK);
@@ -46,8 +47,6 @@ namespace Router.Controllers
             }
         }
 
-
-
         [HttpPost]
         [Route("Login")]
         public ActionResult Login([FromBody] LoginDto login)
@@ -57,15 +56,24 @@ namespace Router.Controllers
                 if (login is null)
                     return BadRequest("¡El usuario no puede ser nulo!");
 
-                //Llamar a UsuarioService pasandole (string email, string password)
-                //InvalidCredentialsException
-                //En el servicio llamas a tu repo buscando un usuario por email
-                //Si no encuentra usuario con ese email tiras una exception
-                //Si encontras usuario con ese email te fijas que la password.Equals(password)
-                //Si todo está bien retornas ok
-                //Si no retornas StatusCodes.Status401Unauthorized
+                var usuarioExistente = _usuarioServicio.Login(login.Email, login.Password);
+                var jwtToken = _usuarioServicio.FirmarToken(usuarioExistente);
 
-                return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK, new LoginResponse
+                {
+                    Id = usuarioExistente.IdUsuario,
+                    Email = usuarioExistente.Email,
+                    NombreCompleto = usuarioExistente.NombreCompleto,
+                    JwtToken = jwtToken,
+                });
+            }
+            catch (UsuarioNoEncontradoExcepcion)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+            catch (ContraseñaIncorrectaExcepcion)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized);
             }
             catch (Exception ex)
             {
