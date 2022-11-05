@@ -13,6 +13,7 @@ import {
   setRopa,
   setPeinado
 } from './Funciones';
+import { getTTFB } from 'web-vitals';
 
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
@@ -24,9 +25,18 @@ export function Avatar() {
   const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');
   const [ColorDeOjos, setEstadoColorDeOjos] = useState('iris-marron');
   const [Ropa, setEstadoRopa] = useState('ropa');
+  const [avatarActual, setAvatarActual] = useState([]);
 
   const [avatarAccesorios, setAvatarAccesorios] = useState([]);
 
+  const getAvatarPorId = () =>{
+    fetch(`https://localhost:44342/api/Avatar/ObtenerAvatarPorId/${IdUsuarioAvatar}`)
+          .then(res=> res.json())
+          .then(data=>setAvatarActual(data));
+  }
+
+  getAvatarPorId();
+  
    const getAvatarAccesorios = ()=>{
         fetch("https://localhost:44342/api/Accesorio/ObtenerAccesorios")
         .then(res=> res.json())
@@ -54,47 +64,88 @@ export function Avatar() {
       return listadoRopa;
   }
 
-   const handleSubmit= async (e) =>{
-         e.preventDefault(); 
-         
-         const resp = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              IdUsuarioAvatar:IdUsuarioAvatar,
-              Pelo:Pelo, 
-              Ceja:Ceja,
-              ColorDePiel:ColorDePiel,
-              ColorDeOjos:ColorDeOjos, 
-              Ropa:Ropa, 
-            })
-          });
-          if (resp.ok) {
-            console.log("guardado con exito");
-            document.querySelector('.mensaje').classList.remove('alert-primary');
-            document.querySelector('.mensaje').classList.add('alert-success');
-            document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Guardado con éxito";
-            let avatarActual = `${avatarSeleccionado=='opcion1'?'#version-m':'#version-f'}`;
-            console.log(avatarActual);
-            if(document.querySelector(`${avatarActual}`)){
-              let avatar = document.querySelector(`${avatarActual}`);
-              html2canvas(avatar).then( canvas => {
-                console.log(canvas.toDataURL('image/png'));
-              let img = canvas.toDataURL('image/png');
-               localStorage.setItem('avatarPerfil',img);
-              console.log(img)
-              console.log(localStorage.getItem('avatarPerfil'))
-              })
-            }
+  const captura = () =>{
+    let avatarActual = `${avatarSeleccionado=='opcion1'?'#version-m':'#version-f'}`;
+    console.log(avatarActual);
+    if(document.querySelector(`${avatarActual}`)){
+      let avatar = document.querySelector(`${avatarActual}`);
+      html2canvas(avatar).then( canvas => {
+        console.log(canvas.toDataURL('image/png'));
+      let img = canvas.toDataURL('image/png');
+       localStorage.setItem('avatarPerfil',img);
+      console.log(img)
+      console.log(localStorage.getItem('avatarPerfil'))
+      })
+    }
+  }
 
-          } else{
-              console.log("error, no se pudo guardar");
+   const handleSubmit= async (e) =>{
+         e.preventDefault();
+         //1ero hago captura del avatar
+          //captura();
+         
+         //pregunto si el avatar ya existe en la bd, de ser asi se modifica
+         if(avatarActual.idUsuarioAvatar==IdUsuarioAvatar){
+              const resp = await fetch(
+                `https://localhost:44342/api/Avatar/ModificarAvatar/${IdUsuarioAvatar}`,
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    IdUsuarioAvatar:IdUsuarioAvatar,
+                    Pelo:Pelo, 
+                    Ceja:Ceja,
+                    ColorDePiel:ColorDePiel,
+                    ColorDeOjos:ColorDeOjos, 
+                    Ropa:Ropa, 
+                  })
+                }
+              );
+
+              if (resp.ok) {
+                document.querySelector('.mensaje').classList.remove('alert-primary');
+                document.querySelector('.mensaje').classList.add('alert-success');
+                document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Modificado con éxito";
+                captura();
+              }else{
+                document.querySelector('.mensaje').classList.remove('alert-primary');
+                document.querySelector('.mensaje').classList.add('alert-danger');
+                document.querySelector('.mensaje').innerHTML="<i class='fa-solid fa-xmark'></i> Hubo un error intente más tarde";
+              }
+         }else{//sino se guarda
+
+            const resp = await fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                IdUsuarioAvatar:IdUsuarioAvatar,
+                Pelo:Pelo, 
+                Ceja:Ceja,
+                ColorDePiel:ColorDePiel,
+                ColorDeOjos:ColorDeOjos, 
+                Ropa:Ropa, 
+              })
+            });
+            if (resp.ok) {
+              console.log("guardado con exito");
               document.querySelector('.mensaje').classList.remove('alert-primary');
-              document.querySelector('.mensaje').classList.add('alert-danger');
-              document.querySelector('.mensaje').innerHTML="<i class='fa-solid fa-xmark'></i> Hubo un error intente más tarde";
-          }     
+              document.querySelector('.mensaje').classList.add('alert-success');
+              document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Guardado con éxito";
+              captura();
+            
+            } else{
+                console.log("error, no se pudo guardar");
+                document.querySelector('.mensaje').classList.remove('alert-primary');
+                document.querySelector('.mensaje').classList.add('alert-danger');
+                document.querySelector('.mensaje').innerHTML="<i class='fa-solid fa-xmark'></i> Hubo un error intente más tarde";
+            }
+         }
+         
+              
      
   }
 
