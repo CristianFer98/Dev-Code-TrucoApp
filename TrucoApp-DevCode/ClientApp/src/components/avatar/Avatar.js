@@ -18,7 +18,7 @@ const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('-');
-  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(1);
+  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(2);
   const [Pelo, setEstadoPelo] = useState('pelo');
   const [Ceja, setEstadoCeja] = useState('ceja-negra');
   const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');

@@ -31,26 +31,35 @@ const EnvidoTutorialDos = () => {
       hideClass: {
         popup: "animate__animated animate__fadeOutUp",
       },
+      position:"center-right"
     }).then((value) => {
       Swal.fire({
         html: "Nuevamente sos el jugador de abajo. Observa tus cartas y busca las que tengan el palo repetido <b>(basto, espada, oro, copa)</b>",
         confirmButtonText: "¡Entiendo!",
+        position:"center-right"
+
       }).then((value) => {
         Swal.fire({
           html:
             " ¿Que ocurre aca? Te tocaron tres cartas del mismo palo. " +
             "A muchas personas les gusta jugar con <b>Flor</b>. Es decir, sumando los puntos de las tres cartas. Por el momento solo tomaremos a eleccion las dos mas altas",
           confirmButtonText: "¡Entiendo!",
+          position:"center-right"
+
         }).then((value) => {
           Swal.fire({
             html:
               "Si tomamos las dos cartas mas altas <b>(4 y 6)</b> tenemos <b>30 puntos</b> de envido. El jugador que tenga el envido mas alto se lleva los puntos. <br>" +
               "<ul> <li> <u> Envido : 2 puntos </u> <li> <u> Real Envido : 3 puntos </u> </li> <li> <u> Falta Envido : Gana la partida </u> </ul>",
             confirmButtonText: "¡Ok!",
+            position:"center-right"
+
           }).then((value) => {
             Swal.fire({
               html: "A continuacion Acepta o Rechaza el envido segun lo creas mejor",
               confirmButtonText: "¡Intentalo!",
+              position:"center-right"
+
             });
             setMensajeMaquina("REAL ENVIDO");
 
@@ -65,12 +74,16 @@ const EnvidoTutorialDos = () => {
    if(comenzo){
     setMensajeJugador('QUIERO')
     Swal.fire({
-        html:'<h1>Aceptaste el envido</h1> A continuacion el contrincante debe decirte cuantos puntos tiene'
+        html:'<h1>Aceptaste el envido</h1> A continuacion el contrincante debe decirte cuantos puntos tiene',
+        position:"center-right"
+
     }).then((value)=>{
         setMensajeMaquina('¡33!')
         setMensajeJugador('SON BUENAS')
         Swal.fire({
-          html:'Uff... perdiste el <b>Envido</b>. <br> No es necesario que digas tus puntos. Simplemente deci: "Son buenas"'
+          html:'Uff... perdiste el <b>Envido</b>. <br> No es necesario que digas tus puntos. Simplemente deci: "Son buenas"',
+          position:"center-right"
+
         }).then((value =>{
             setMensajeJugador('');
             setMensajeMaquina('');
@@ -85,13 +98,17 @@ const EnvidoTutorialDos = () => {
         setMensajeJugador('NO QUIERO')
         Swal.fire({
             html: '<h1>No quisiste el envido</h1> Esto da por finalizada la jugada de <b>Envido<b/>. <br>' + 
-            "Esto le dara a tu contrincante 1 punto a su favor."
+            "Esto le dara a tu contrincante 1 punto a su favor.",
+            position:"center-right"
+
         }).then((value)=>{
             setMensajeJugador('')
             setMensajeMaquina('')
             setComenzo(false)
             Swal.fire({
-                html: 'Recorda que en caso que lo desees puedes aceptar el <b>Envido</b> o tambien redoblar la apuesta cantando <b>Real Envido</b> o <b>Falta Envido</b>'
+                html: 'Recorda que en caso que lo desees puedes aceptar el <b>Envido</b> o tambien redoblar la apuesta cantando <b>Real Envido</b> o <b>Falta Envido</b>',
+                position:"center-right"
+
             })
 
         })
@@ -106,13 +123,15 @@ const EnvidoTutorialDos = () => {
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
+        position:"center-right"
+
       });
     
   };
 
   const ejemploUnoJugador = ejemploUno.map((carta) => (
     <div className="mano" key={carta.id}>
-      <img src={carta.image} width={75}></img>
+      <img src={carta.image} className="cartaTutorialIA"></img>
     </div>
   ));
 
@@ -120,7 +139,7 @@ const EnvidoTutorialDos = () => {
     <div style={{ opacity: "0.6" }} key={carta.id}>
       <img
         src='https://asart.com.ar/wp-content/uploads/2020/02/asart-naipes-dorso-minimalart.png'
-        width={75}
+        className="cartaTutorialIA"
       ></img>
     </div>
   ));

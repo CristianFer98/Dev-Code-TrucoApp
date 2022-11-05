@@ -162,6 +162,7 @@ export function Reglas() {
             style={{
               display: "flex",
               flexWrap: "wrap",
+              flexDirection: "column",
               width: "100%",
               justifyContent: "space-around",
             }}
@@ -283,16 +284,18 @@ export function Reglas() {
         </div>
       </div>
 
-      <div style={{
-              display: "flex",
-              flexWrap: "wrap",
-              width: "100%",
-              justifyContent: "space-around",
-            }}
-          >
-            <TrucoTutorialUno />
-
-          </div>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "column",
+          width: "100%",
+          justifyContent: "space-around",
+        }}
+      >
+        <TrucoTutorialUno />
+        
+      </div>
     </div>
   );
 }
