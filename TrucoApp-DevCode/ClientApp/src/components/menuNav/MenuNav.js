@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
-import imagotipo from './../../assets/imagotipo-c.png';
+import imagotipo from './../../assets/vale-cuatro-fondo-transparente.png';
 import noFoto from './../../assets/no-foto.jpg';
 
 function CollapsibleExample() {
@@ -25,7 +25,8 @@ function CollapsibleExample() {
           <img
             src={imagotipo}
             alt="Isotipo de Vale cuatro"
-            width="200"
+            width="100"
+            height="50"
             className="m-1"
           />
         </NavLink>

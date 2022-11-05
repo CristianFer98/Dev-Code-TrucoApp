@@ -217,7 +217,7 @@ const TrucoTutorialUno = () => {
       style={{ marginLeft: "10px", marginRight: "10px" }}
       key={carta.id}
     >
-      <img src={carta.image} width={75}></img>
+      <img src={carta.image} className="cartaTutorialIA"></img>
     </div>
   ));
 
@@ -226,25 +226,25 @@ const TrucoTutorialUno = () => {
       style={{ opacity: "0.6", marginLeft: "10px", marginRight: "10px" }}
       key={carta.id}
     >
-      <img src={carta.image} width={75}></img>
+      <img src={carta.image} className="cartaTutorialIA"></img>
     </div>
   ));
 
   const mesaJugadorLista = mesaJugador.map((carta) => (
     <img
+      className="cartaTutorialIA"
       src={carta.image}
       key={carta.id}
-      width={75}
-      style={{ marginLeft: "20px" }}
+     
     ></img>
   ));
 
   const mesaMaquinaLista = mesaMaquina.map((carta) => (
     <img
+      className="cartaTutorialIA"
       src={carta.image}
       key={carta.id}
-      width={75}
-      style={{ marginLeft: "20px" }}
+     
     ></img>
   ));
 

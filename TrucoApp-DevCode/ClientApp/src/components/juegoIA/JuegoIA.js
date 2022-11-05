@@ -19,7 +19,7 @@ const JuegoIA = () => {
   const [mesaMaquina, setMesaMaquina] = useState([]);
   const [puntajeMaquina, setPuntajeMaquina] = useState(0);
   const [mensajeMaquina, setMensajeMaquina] = useState("");
-  const randomUsuarioMaquina = Math.round(Math.random() * 1000);
+
   //Envido y Truco.
   const [envidoCantado, setEnvidoCantado] = useState(false);
   const [nivelDeTruco, setNivelDeTruco] = useState(0);
@@ -44,7 +44,6 @@ const JuegoIA = () => {
   }, []);
 
   /* CUENTA PUNTOS Y EVALUA EL POSIBLE GANADOR */
-
   useEffect(() => {
     if (turnoTerminado == false) {
       evaluarManoGanadora();
@@ -55,6 +54,7 @@ const JuegoIA = () => {
     evaluarPosibleGanador();
   });
 
+  //EVALUA LA MANO GANADORA EN CADA MOVIMIENTO. TAMBIEN CONSIDERA LAS PARDAS
   const evaluarManoGanadora = () => {
     if (
       manoJugador.length == 0 &&
@@ -85,15 +85,23 @@ const JuegoIA = () => {
       mesaJugador.length === 2 &&
       mesaMaquina.length === 2
     ) {
-
       let bazaUno = bazaGanador(0);
       let bazaDos = bazaGanador(1);
 
-      if(bazaUno === 'J' && bazaDos === 'J'){
+      if (bazaUno === "J" && bazaDos === "J") {
         ganaJugador();
       }
 
-      if(bazaUno === 'M' && bazaDos === 'M' ){
+      if (bazaUno === "M" && bazaDos === "M") {
+        ganaMaquina();
+      }
+
+      console.log(elQueComienza + bazaDos)
+      if(bazaUno === 'E' && bazaDos === 'J' && elQueComienza !== 0){
+        ganaJugador();
+      }
+
+      if(bazaUno === 'E' && bazaDos === 'M' && elQueComienza === 0){
         ganaMaquina();
       }
     }
@@ -227,26 +235,21 @@ const JuegoIA = () => {
       //NO TRUCO
       setPuntajeJugador(puntajeJugador + 1);
       setTurnoTerminado(true);
-      
-
     }
     if (nivelDeTruco == 1) {
       // TRUCO
       setPuntajeJugador(puntajeJugador + 2);
       setTurnoTerminado(true);
-
     }
     if (nivelDeTruco == 2) {
       // RE TRUCO
       setPuntajeJugador(puntajeJugador + 3);
       setTurnoTerminado(true);
-
     }
     if (nivelDeTruco == 3) {
       // VALE CUATRO
       setPuntajeJugador(puntajeJugador + 4);
       setTurnoTerminado(true);
-
     }
   };
 
@@ -255,25 +258,21 @@ const JuegoIA = () => {
       //NO TRUCO
       setPuntajeMaquina(puntajeMaquina + 1);
       setTurnoTerminado(true);
-
     }
     if (nivelDeTruco == 1) {
       // TRUCO
       setPuntajeMaquina(puntajeMaquina + 2);
       setTurnoTerminado(true);
-
     }
     if (nivelDeTruco == 2) {
       // RE TRUCO
       setPuntajeMaquina(puntajeMaquina + 3);
       setTurnoTerminado(true);
-
     }
     if (nivelDeTruco == 3) {
       // VALE CUATRO
       setPuntajeMaquina(puntajeMaquina + 4);
       setTurnoTerminado(true);
-      
     }
   };
 
@@ -286,7 +285,6 @@ const JuegoIA = () => {
   };
 
   /* ACCIONAR DE LA MAQUINA (CUANDO ES MANO Y CUANDO MATA)*/
-
   useEffect(() => {
     if (turnoMaquina == true) {
       movimientoDeLaMaquina();
@@ -379,7 +377,7 @@ const JuegoIA = () => {
     if (
       cartasEnManoMaquina === 2 &&
       nivelDeTruco == 0 &&
-      valorDeCartasEnMano < 25
+      valorDeCartasEnMano < 20
     ) {
       setMensajeMaquina("CANTO TRUCO");
       setConfirmarAccion(true);
@@ -391,7 +389,7 @@ const JuegoIA = () => {
     if (
       cartasEnManoMaquina === 1 &&
       nivelDeTruco == 0 &&
-      valorDeCartasEnMano < 12
+      valorDeCartasEnMano < 10
     ) {
       setMensajeMaquina("CANTO TRUCO");
       setConfirmarAccion(true);
@@ -1101,40 +1099,34 @@ const JuegoIA = () => {
   //INFORMACION QUE VA A LA VISTA, RECORRO LOS ARRAY ACA EN LUGAR DE EN EL RETURN.
   const manoJugadorLista = manoJugador.map((carta) => (
     <img
-      className="animate__animated animate__fadeInTopLeft"
+      className="animate__animated animate__fadeInTopLeft cartaIA"
       src={carta.image}
       key={carta.id}
-      width={75}
       onClick={() => jugadorTiraUnaCarta(carta)}
     ></img>
   ));
 
   const manoMaquinaLista = manoMaquina.map((carta) => (
     <img
-      className="animate__animated animate__fadeInBottomLeft"
+      className="animate__animated animate__fadeInBottomLeft cartaIA"
       key={carta.id}
       src="https://asart.com.ar/wp-content/uploads/2020/02/asart-naipes-dorso-minimalart.png"
-      width={75}
     ></img>
   ));
 
   const mesaJugadorLista = mesaJugador.map((carta) => (
     <img
-      className="animate__animated animate__slideInUp"
+      className="animate__animated animate__slideInUp cartaIA"
       src={carta.image}
       key={carta.id}
-      width={80}
-      style={{ marginRight: "10px" }}
     ></img>
   ));
 
   const mesaMaquinaLista = mesaMaquina.map((carta) => (
     <img
-      className="animate__animated animate__slideInDown"
+      className="animate__animated animate__slideInDown cartaIA"
       src={carta.image}
       key={carta.id}
-      width={80}
-      style={{ marginRight: "10px" }}
     ></img>
   ));
 
@@ -1145,10 +1137,7 @@ const JuegoIA = () => {
         <div className="mesaIA">
           <div className="usersIA">
             <div className="vinetaMaquinaIA">
-              <p
-                className="dialogoMaquinaIA animate__animated animate__zoomIn"
-                style={{ fontSize: "12px", fontWeight: "bold" }}
-              >
+              <p className="dialogoMaquinaIA animate__animated animate__zoomIn">
                 {mensajeMaquina}
               </p>
             </div>
@@ -1158,17 +1147,14 @@ const JuegoIA = () => {
             ></img>
 
             <img
+              className="cartaIA"
               src={
                 "https://asart.com.ar/wp-content/uploads/2020/02/asart-naipes-dorso-minimalart.png"
               }
-              width={70}
             ></img>
 
             <div className="vinetaJugadorIA">
-              <p
-                className="dialogoJugadorIA animate__animated animate__zoomIn"
-                style={{ fontSize: "12px", fontWeight: "bold" }}
-              >
+              <p className="dialogoJugadorIA animate__animated animate__zoomIn">
                 {mensajeJugador}
               </p>
             </div>
@@ -1193,54 +1179,49 @@ const JuegoIA = () => {
         </div>
 
         <div className="accionesIA">
-          <div>
-            <button className="buttonIA" onClick={() => quiero()}>
-              Quiero
-            </button>
-            <button className="buttonIA" onClick={() => meVoyAlMaso()}>
-              Al Mazo
-            </button>
-            <button className="buttonIA" onClick={() => noQuiero()}>
-              No Quiero
-            </button>
-          </div>
+          <button className="buttonIA" onClick={() => quiero()}>
+            Quiero
+          </button>
+          <button className="buttonIA" onClick={() => meVoyAlMaso()}>
+            Al Mazo
+          </button>
+          <button className="buttonIA" onClick={() => noQuiero()}>
+            No Quiero
+          </button>
 
-          <div>
-            <button className="buttonIA" onClick={() => cantarEnvido()}>
-              Envido
-            </button>
-            <button className="buttonIA" onClick={() => cantarRealEnvido()}>
-              Real Envido
-            </button>
-            <button className="buttonIA" onClick={() => cantarFaltaEnvido()}>
-              Falta Envido
-            </button>
-            --
-            <button className="buttonIA" onClick={() => cantarTruco()}>
-              Truco
-            </button>
-            <button className="buttonIA" onClick={() => cantarReTruco()}>
-              Re Truco
-            </button>
-            <button className="buttonIA" onClick={() => cantarValeCuatro()}>
-              Vale Cuatro
-            </button>
-          </div>
+          <button className="buttonIA" onClick={() => cantarEnvido()}>
+            Envido
+          </button>
+          <button className="buttonIA" onClick={() => cantarRealEnvido()}>
+            Real Envido
+          </button>
+          <button className="buttonIA" onClick={() => cantarFaltaEnvido()}>
+            Falta Envido
+          </button>
+
+          <button className="buttonIA" onClick={() => cantarTruco()}>
+            Truco
+          </button>
+          <button className="buttonIA" onClick={() => cantarReTruco()}>
+            Re Truco
+          </button>
+          <button className="buttonIA" onClick={() => cantarValeCuatro()}>
+            Vale Cuatro
+          </button>
+        </div>
+
+        <div className="puntajeIAResponsive">
+          <p>Maquina: {puntajeMaquina}</p>
+          <p>Vos: {puntajeJugador}</p>
+          <br></br>
+          <Link to="/inicio">Home</Link>
         </div>
       </div>
 
       <div className="puntajeIA">
         <p>Maquina: {puntajeMaquina}</p>
         <p>Vos: {puntajeJugador}</p>
-        <Link to="/inicio/">
-          <CDBSidebarMenuItem
-            icon="home"
-            className="iconoIA"
-            style={{ color: "#B43326", fontSize: "25px" }}
-          >
-            {" "}
-          </CDBSidebarMenuItem>
-        </Link>
+        <Link to="/inicio">Home</Link>
       </div>
     </div>
   );
