@@ -96,7 +96,6 @@ const JuegoIA = () => {
         ganaMaquina();
       }
 
-      console.log(elQueComienza + bazaDos)
       if(bazaUno === 'E' && bazaDos === 'J' && elQueComienza !== 0){
         ganaJugador();
       }
@@ -297,7 +296,11 @@ const JuegoIA = () => {
       setMesaMaquina(mesaMaquina.concat(carta));
       setManoMaquina(manoMaquina.filter((c) => c.id != carta.id));
       setTurnoMaquina(false);
-      maquinaCantaTruco();
+
+      let randomTruco = Math.round(Math.random() * 1);
+      if(randomTruco === 1){
+        maquinaCantaTruco();
+      }
     }
     setTurnoMaquina(false);
     setJugoMaquina(true);
@@ -365,7 +368,6 @@ const JuegoIA = () => {
         );
         maquinaTiraCarta(cartaMayor);
         setEnvidoCantado(true);
-        maquinaCantaTruco();
       }
     }
   };
@@ -406,6 +408,7 @@ const JuegoIA = () => {
       setMesaMaquina(mesaMaquina.concat(cartaMayor));
       setManoMaquina(manoMaquina.filter((c) => c.id != cartaMayor.id));
       setCartaMayor(true);
+
     } else {
       let cartasOrdenadas = manoMaquina.sort(
         (c, c2) => c.cardValueRank - c2.cardValueRank
@@ -413,7 +416,8 @@ const JuegoIA = () => {
       let cartaElegida = cartasOrdenadas[cartasOrdenadas.length - 1];
       setMesaMaquina(mesaMaquina.concat(cartaElegida));
       setManoMaquina(manoMaquina.filter((c) => c.id != cartaElegida.id));
-      maquinaCantaTruco();
+      setTurnoMaquina(false);
+
     }
   };
 
@@ -1072,27 +1076,30 @@ const JuegoIA = () => {
   const evaluarPosibleGanador = () => {
     if (puntajeJugador >= 15) {
       Swal.fire(
-        "Muy bien, has ganado",
+        "Ganaste",
         "Maquina: " + puntajeMaquina + " - Vos: " + puntajeJugador
-      );
-      setPuntajeJugador(0);
-      setPuntajeMaquina(0);
-      setTurnoTerminado(true);
-      setConfirmarAccion(false);
-      setJugoMaquina(false);
-      setNivelDeTruco(0);
-    }
+      ).then((value) =>{
+        setPuntajeJugador(0);
+        setPuntajeMaquina(0);
+        setTurnoTerminado(true);
+        setConfirmarAccion(false);
+        setJugoMaquina(false);
+        setNivelDeTruco(0);
+      })
+      }
+
     if (puntajeMaquina >= 15) {
       Swal.fire(
-        "Has perdido",
+        "Perdiste",
         "Maquina: " + puntajeMaquina + " - Vos: " + puntajeJugador
-      );
-      setPuntajeJugador(0);
-      setPuntajeMaquina(0);
-      setTurnoTerminado(true);
-      setConfirmarAccion(false);
-      setJugoMaquina(false);
-      setNivelDeTruco(0);
+      ).then((value)=>{
+        setPuntajeJugador(0);
+        setPuntajeMaquina(0);
+        setTurnoTerminado(true);
+        setConfirmarAccion(false);
+        setJugoMaquina(false);
+        setNivelDeTruco(0);
+      })
     }
   };
 
