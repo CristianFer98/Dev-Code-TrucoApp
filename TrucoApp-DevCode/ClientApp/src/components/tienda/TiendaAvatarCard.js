@@ -23,9 +23,9 @@ export function TiendaAvatarCard({ id, imagen, precio, comprado }){
 
     }
 
-   return(<div className="card py-3 ms-3 border-0 pelo" style={{width:'50%'}}>
-              <div className="pelo-componente">
-                <div className="pelo-imagen">
+   return(<div className="card py-3 ms-3 border-0 acc" style={{width:'50%'}}>
+              <div className="acc-componente">
+                <div className="acc-imagen">
                   <img className="card-img-top" src={imagenes[`${imagen}`]} />
                 </div>
                 <div className="card-body text-center d-flex flex-column" style={{height:'auto'}}>

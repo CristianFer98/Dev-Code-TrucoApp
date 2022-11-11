@@ -115,7 +115,8 @@
 
   .accesorio-detalle{
     width: 25rem;
-    height: 418px;
+    height: 400px;
+    overflow-y: scroll;
   }
 
   .accesorio-imagen-d {

@@ -96,5 +96,9 @@ html, body{
        justify-content: center;
        align-items: center;
     }
+
+    .acc{
+        width: 30%;
+    }
     
 }

@@ -1,7 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './accesorios.css';
-const Accesorios = ({ id, imagen, descripcion, precio }) => {
+const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
+
+  const comprarProducto = async()=>{
+    let stockActual = stock - 1;
+    const resp = await fetch(
+         `https://localhost:44342/api/Producto/ActualizarStock/${id}`,
+         {
+           method: "PUT",
+           headers: {
+             "Content-Type": "application/json",
+           },
+           body: stockActual, 
+           
+         }
+       );
+ 
+       if (resp.ok) {
+          console.log("se actualizo stock");
+          alert("se actualizo stock");
+       }else{
+         console.log("no se pudo actualizar stock");
+         alert("no se actualizo stock");
+       }
+ }
+
   return (
     <div className="card py-3 border-0 accesorio">
     <div className="accesorio-componente">
@@ -22,8 +46,20 @@ const Accesorios = ({ id, imagen, descripcion, precio }) => {
           </Link>
         </span>
         <span className="badge bg-danger btn-comprar text-center" id="comprar" >
-          <span className="texto-comprar">COMPRAR</span> 
-          <i className="fa-solid fa-cart-shopping d-lg-none d-sm-block i-font" title="comprar"></i>
+          <span 
+            className="texto-comprar"
+            onClick={()=>{
+              comprarProducto();
+            }}>
+             COMPRAR
+          </span> 
+          <i 
+           className="fa-solid fa-cart-shopping d-lg-none d-sm-block i-font" 
+           title="comprar"
+           onClick={()=>{
+            comprarProducto();
+          }}>
+           </i>
         </span>
       </div>
     </div>
