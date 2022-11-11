@@ -37,9 +37,9 @@ export function TiendaAvatar() {
     }
   return (
     <div className="componente-store" style={{ zIndex:'999', height:'100%'}}>
-      <h1 className="titulo mb-5 mt-3">Lookea tu Avatar con el mejor estilo </h1>
+      <h1 className="titulo titulo-tienda-avatar mb-5 mt-3">Lookea tu Avatar con el mejor estilo </h1>
       
-      <div className="card p-3" style={{width:'80%'}}>
+      <div className="card p-3" style={{width:'80%'}} id="div-pelo">
             <div className="card-header mb-3">
                 <h3 className="card-title text-dark">Pelo</h3>
             </div>
@@ -58,7 +58,7 @@ export function TiendaAvatar() {
             <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3 text-light" style={{fontWeight: 'bold', color:'white'}}>COMPRAR TODO</a>
       </div>
 
-      <div className="card p-3 mt-3" style={{width:'80%'}}>
+      <div className="card p-3 mt-3" style={{width:'80%'}} id="div-ropa">
             <div className="card-header mb-3">
                 <h3 className="card-title text-dark">Ropa</h3>
             </div>

@@ -67,7 +67,9 @@ html, body{
         margin-top: 0%;
         margin-bottom: 8px;
     }
-
+    .titulo-tienda-avatar{
+        font-size: 30px;
+    }
     .alert-tienda-avatar{
         width: 85%;
     }
@@ -86,12 +88,13 @@ html, body{
         height: 112px;
     }
 
-    .contenedor-pelo, 
-    .componente-ropa{
-        flex-direction: column;
+    #div-pelo, #div-ropa{
+        height: 500px;
+        overflow-y: scroll;
     }
-
-    .contenedor-pelo >.pelo{
-        width: 30%;
+    .contenedor-pelo, .contenedor-ropa{
+       justify-content: center;
+       align-items: center;
     }
+    
 }
