@@ -59,6 +59,7 @@ html, body{
     /*height: 43vh;*/
     /*border:2px solid black;*/
 }
+
 /*801 a 1039*/
 @media only screen and (max-width: 1039px) {
 
@@ -84,5 +85,13 @@ html, body{
         width: 192px;
         height: 112px;
     }
-     
+
+    .contenedor-pelo, 
+    .componente-ropa{
+        flex-direction: column;
+    }
+
+    .contenedor-pelo >.pelo{
+        width: 30%;
+    }
 }

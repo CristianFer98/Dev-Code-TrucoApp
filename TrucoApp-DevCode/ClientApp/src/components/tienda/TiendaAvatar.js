@@ -39,42 +39,44 @@ export function TiendaAvatar() {
     <div className="componente-store" style={{ zIndex:'999', height:'100%'}}>
       <h1 className="titulo mb-5 mt-3">Lookea tu Avatar con el mejor estilo </h1>
       
-      <div className="card p-3" style={{width:'80%', zIndex:'8'}}>
+      <div className="card p-3" style={{width:'80%'}}>
             <div className="card-header mb-3">
-              <h3 className="card-title text-dark">Pelo</h3>
+                <h3 className="card-title text-dark">Pelo</h3>
             </div>
-            <div className="card- d-flex flex-row">
+            <div className="contenedor-pelo d-flex flex-lg-row flex-sm-column justify-content-center card border-0" style={{width:'100%', zIndex:'8'}}>
+            
                 {getListadoPelo().map((pelo,i) => (
-                    <Card
-                    key={i}
-                    id={pelo.idAccesorio}
-                    imagen={pelo.imagen}
-                    precio={pelo.precio}
-                    comprado={pelo.comprado}
-                    />
-                ))}
+                                <Card
+                                key={i}
+                                id={pelo.idAccesorio}
+                                imagen={pelo.imagen}
+                                precio={pelo.precio}
+                                comprado={pelo.comprado}
+                                />
+                            ))}
             </div> 
             <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3 text-light" style={{fontWeight: 'bold', color:'white'}}>COMPRAR TODO</a>
-      </div> 
+      </div>
 
       <div className="card p-3 mt-3" style={{width:'80%'}}>
             <div className="card-header mb-3">
-              <h3 className="card-title text-dark">Ropa</h3>
+                <h3 className="card-title text-dark">Ropa</h3>
             </div>
-            <div className="card- d-flex flex-row">
+            <div className="contenedor-ropa d-flex flex-lg-row flex-sm-column justify-content-center card border-0" style={{width:'100%', zIndex:'8'}}>
+            
                 {getListadoRopa().map((ropa, i) => (
-                    <Card
-                    key={i}
-                    id={ropa.idAccesorio}
-                    imagen={ropa.imagen}
-                    precio={ropa.precio}
-                    comprado={ropa.comprado}
-                    />
-                ))}
-            </div>
+                        <Card
+                        key={i}
+                        id={ropa.idAccesorio}
+                        imagen={ropa.imagen}
+                        precio={ropa.precio}
+                        comprado={ropa.comprado}
+                        />
+                    ))}
+            </div> 
             <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3 text-light" style={{fontWeight: 'bold', color:'white'}}>COMPRAR TODO</a>
-      </div> 
-
+      </div>
+   
       <Link to="/inicio/tienda" className="btn btn-success mt-3 mb-3" style={{textDecoration:'none', color:'white'}}>
                 VOLVER
       </Link>
