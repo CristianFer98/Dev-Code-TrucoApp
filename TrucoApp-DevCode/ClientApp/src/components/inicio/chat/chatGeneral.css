@@ -1,35 +1,35 @@
-.estiloChat{
-    display: flex;
-    flex-direction: column;
-    background-image: url(../../../assets/reverso.jpg);
-    overflow: auto;
-    height: 90.5vh;
-    justify-content: space-between;
-    width: 260px;
-    opacity: 1;
+.estiloChat {
+  display: flex;
+  flex-direction: column;
+
+  background-image: linear-gradient(
+    0deg,
+    rgb(42, 42, 56),
+    rgb(32, 32, 39)
+  );
+  overflow: auto;
+  height: 88vh;
+  justify-content: space-between;
+  width: 260px;
+  opacity: 1;
 }
 
-.mensajes{
-    word-wrap: break-word;
-    color: rgb(255, 255, 255);
-    font-size: 15px;
-    padding-left: 5px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 900;
+.mensajes {
+  word-wrap: break-word;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  padding-left: 5px;
 }
 
-
-.headerChat{
-    background-color: #2C3E50;
-    background-size: 100%;
-    height: 50px;
-    opacity: 0.9;
+.headerChat {
+  background-color: #2c3e50;
+  background-size: 100%;
+  height: 50px;
+  opacity: 0.9;
 }
 
-h3{
-    padding-top: 8px;
-    text-align: center;
-    color: rgb(221, 202, 202);
-    
+h3 {
+  padding-top: 8px;
+  text-align: center;
+  color: rgb(221, 202, 202);
 }
-

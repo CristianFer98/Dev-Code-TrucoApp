@@ -1,7 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { salirDeMesa } from "../../actions/juego";
+import { SocketContext } from "../../context/SocketContext";
 import { ContadorPuntos } from "./ContadorPuntos";
 import { Mesa } from "./Mesa";
 import "./truco.css";
@@ -9,9 +11,15 @@ import "./truco.css";
 export const Truco1vs1 = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { connection } = useContext(SocketContext);
+  const { partida } = useSelector((state) => state.juego);
+  const { ganadorPartida } = partida;
+  const { room } = partida;
 
-  const dejarMesa = (e) => {
+  const dejarMesa = async (e) => {
     e.preventDefault();
+    if (!ganadorPartida) await connection.invoke("DejarMesa", room);
+
     dispatch(salirDeMesa());
     history.push("/inicio");
   };

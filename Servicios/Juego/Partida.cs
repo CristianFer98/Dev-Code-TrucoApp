@@ -16,6 +16,16 @@ namespace Servicios.Juego
         public List<Carta> CartasJugadasJugadorUno { get; set; }
         public List<Carta> CartasJugadasJugadorDos { get; set; }
         public int Turno { get; set; }
-
+        public int Repartidor { get; set; }
+        public int Mano { get; set; }
+        public int? GanadorMano { get; set; }
+        public int PuntosJugadorUno { get; set; }
+        public int PuntosJugadorDos { get; set; }
+        public Envido Envido { get; set; }
+        public Truco Truco { get; set; }
+        public int? GanadorPartida { get; set; }
+        public int JugadasRealizadas { get; set; }
+        public int JugadasAutomaticasJugadorUno { get; set; }
+        public int JugadasAutomaticasJugadorDos { get; set; }
     }
 }

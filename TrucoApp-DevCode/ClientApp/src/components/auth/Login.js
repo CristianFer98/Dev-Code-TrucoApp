@@ -1,15 +1,15 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { startLogin } from "../../actions/auth";
-import { useForm } from "../../hooks/useForm";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { startLogin, onLoginSuccess } from '../../actions/auth';
+import { useForm } from '../../hooks/useForm';
 
 export const Login = () => {
   const dispatch = useDispatch();
 
   const [formLoginValues, handleLoginInputChange] = useForm({
-    lEmail: "",
-    lPassword: "",
+    lEmail: '',
+    lPassword: '',
   });
 
   const { lEmail, lPassword } = formLoginValues;
@@ -19,10 +19,24 @@ export const Login = () => {
     handleLoginInputChange(e);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await fetch("https://localhost:44342/api/Usuarios/Login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Email: lEmail,
+        Password: lPassword
+      }),
+    });
 
-    dispatch(startLogin(lEmail, lPassword));
+    var jsonResponse = await response.json();
+    localStorage.setItem("token", jsonResponse.jwtToken)
+
+    dispatch(onLoginSuccess(jsonResponse.id, jsonResponse.email, jsonResponse.nombreCompleto));
+    //dispatch(startLogin(lEmail, lPassword));
   };
 
   return (
@@ -68,7 +82,7 @@ export const Login = () => {
 
               <button
                 type="submit"
-                className="buttonLogin d-flex justify-content-center align-items-center align-self-center mt-2 btn"
+                className="buttonLogin d-flex justify-content-center align-items-center align-self-center mt-2 btn btn-primary"
               >
                 Ingresar
               </button>

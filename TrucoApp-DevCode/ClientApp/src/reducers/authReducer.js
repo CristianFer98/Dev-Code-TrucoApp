@@ -25,6 +25,12 @@ export const authReducer = (state = initialState, action) => {
     case types.authLogout:
       return {};
 
+    case types.authEntrarComoInvitado:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
     default:
       return state;
   }

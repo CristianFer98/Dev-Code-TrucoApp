@@ -1,29 +1,37 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import { NavLink } from "react-router-dom";
-import React from "react";
-import { GiCardPlay } from "react-icons/gi";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { NavLink } from 'react-router-dom';
+import React from 'react';
+import imagotipo from './../../assets/vale-cuatro-fondo-transparente.png';
+import noFoto from './../../assets/no-foto.jpg';
+import { useSelector } from 'react-redux'
 
 function CollapsibleExample() {
+  const { nombre } = useSelector((state) => state.auth);
+
   return (
     <Navbar
       collapseOnSelect
       expand="lg"
       bg="dark"
       variant="dark"
-      style={{backgroundColor:"#1A2930"}}
-      
+      style={{ backgroundColor: '#1A2930' }}
     >
-      <Container style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
+      <Container style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
         <NavLink
-          exact  
+          exact
           to="/"
           activeClassName="activeClicked"
-          style={{ textDecoration: "none", color: "white" }}
+          style={{ textDecoration: 'none', color: 'white' }}
         >
-          <GiCardPlay size={25} />{" "}
-          <span style={{ fontSize: "20px" }}>vale cuatro</span>
+          <img
+            src={imagotipo}
+            alt="Isotipo de Vale cuatro"
+            width="100"
+            height="50"
+            className="m-1"
+          />
         </NavLink>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -31,13 +39,13 @@ function CollapsibleExample() {
           <Nav className="me-auto"></Nav>
 
           <Nav>
-            <Nav.Link href="#deets">Bienvenido Cristian Fernandez</Nav.Link>
+            <Nav.Link href="#deets">{nombre}</Nav.Link>
             <img
-              src={"https://robohash.org/user2.png"}
+              src={localStorage.getItem('avatarPerfil')!=null?localStorage.getItem('avatarPerfil'):noFoto}
               alt="user"
               width="38px"
               height="38px"
-              style={{ borderRadius: "25px" }}
+              style={{ borderRadius: '25px', objectFit:'cover' }}
             ></img>
           </Nav>
         </Navbar.Collapse>
