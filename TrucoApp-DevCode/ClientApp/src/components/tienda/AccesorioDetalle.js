@@ -58,16 +58,16 @@ const AccesorioDetalle = ({ imagen, descripcion, medidas, marca,tipoBaraja, prec
   
   return (
     <><h1 className="text-center mt-5 mb-4">{descripcion}</h1>
-    <div className="card p-4 border-0" style={{ width: '50rem' }}>
+    <div className="card p-4 border-0 accesorio-detalle">
        <div className="d-flex flex-row justify-content-center">
             <div className="accesorio-componente">
-                <div className="accesorio-imagen p-5" style={{ background: '#d9d9d9'}}>
-                    <img className="card-img-top" id="foto-producto" src={imagenes[imagen]} alt={descripcion} style={{ width:'400px', height:'400px' }}/>
+                <div className="accesorio-imagen-d p-5" style={{ background: '#d9d9d9'}}>
+                    <img className="card-img-top" id="foto-producto" src={imagenes[imagen]} alt={descripcion}/>
                 </div>
             </div>
             <div className="detalles d-flex flex-row ms-5">
 
-                <ul className="list-group list-group-flush">
+                <ul className="list-group list-group-flush" id="lista-detalles">
                     <li className="list-group-item mb-2"  style={ getColores()==null ? { display:'none'} : {display : 'block'} }>
                       <strong>Colores: </strong>
                       <div className="d-flex justify-content-start">
@@ -94,11 +94,12 @@ const AccesorioDetalle = ({ imagen, descripcion, medidas, marca,tipoBaraja, prec
                         Precio: <strong>${precio}</strong>
                     </li>
                     <div className="d-flex flex-column">
-                    <span className="badge bg-danger p-3" style={{ cursor: 'pointer', fontSize:'20px' }}>COMPRAR</span>
+                    <span className="badge bg-danger d-lg-block d-sm-none bt-comprar1" style={{ cursor: 'pointer', fontSize:'20px' }}>COMPRAR</span>
                 </div>
                 </ul>
             </div>
        </div>
+       <span className="btn btn-danger d-sm-block d-lg-none bt-comprar text-light" style={{ fontSize:'16px', width:'100%', height:'38px'}}>COMPRAR</span>
        <Link to="/inicio/tienda" className="btn btn-success mt-3" style={{textDecoration:'none', color:'white'}}>
                 VOLVER
       </Link>

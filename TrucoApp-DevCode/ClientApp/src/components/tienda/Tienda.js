@@ -18,10 +18,10 @@ export function Tienda() {
   }
   getProductos();
   return (
-    <div className="componente-store" style={{height:'100%'}}>
+    <div className="componente-store">
       <h1 className="titulo mt-5"> Tienda de Accesorios</h1>
       <br />
-      <div className="alert alert-primary d-flex flex-column" role="alert" style={{width:'50%'}}>
+      <div className="alert alert-primary d-flex flex-column alert-tienda-avatar" role="alert" >
           <h5 className="text-center mb-3">
             Mira los accesorios para tu avatar
           </h5>
