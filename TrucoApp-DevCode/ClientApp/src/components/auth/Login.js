@@ -34,8 +34,7 @@ export const Login = () => {
 
     var jsonResponse = await response.json();
     localStorage.setItem("token", jsonResponse.jwtToken)
-
-    dispatch(onLoginSuccess(jsonResponse.id, jsonResponse.email, jsonResponse.nombreCompleto));
+    dispatch(onLoginSuccess(jsonResponse.id, jsonResponse.email, jsonResponse.nombreCompleto, jsonResponse.fotoPerfil));
     //dispatch(startLogin(lEmail, lPassword));
   };
 

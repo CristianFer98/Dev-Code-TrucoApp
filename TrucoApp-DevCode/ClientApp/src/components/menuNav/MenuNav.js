@@ -8,8 +8,7 @@ import noFoto from './../../assets/no-foto.jpg';
 import { useSelector } from 'react-redux'
 
 function CollapsibleExample() {
-  const { nombre } = useSelector((state) => state.auth);
-
+  const { nombre, foto } = useSelector((state) => state.auth);
   return (
     <Navbar
       collapseOnSelect
@@ -41,7 +40,7 @@ function CollapsibleExample() {
           <Nav>
             <Nav.Link href="#deets">{nombre}</Nav.Link>
             <img
-              src={localStorage.getItem('avatarPerfil')!=null?localStorage.getItem('avatarPerfil'):noFoto}
+              src={foto!=null?foto:noFoto}
               alt="user"
               width="38px"
               height="38px"

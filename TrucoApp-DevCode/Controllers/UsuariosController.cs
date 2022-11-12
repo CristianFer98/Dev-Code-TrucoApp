@@ -64,6 +64,7 @@ namespace Router.Controllers
                     Id = usuarioExistente.IdUsuario,
                     Email = usuarioExistente.Email,
                     NombreCompleto = usuarioExistente.NombreCompleto,
+                    FotoPerfil = usuarioExistente.FotoPerfil,
                     JwtToken = jwtToken,
                 });
             }

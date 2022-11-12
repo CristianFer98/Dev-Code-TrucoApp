@@ -5,6 +5,7 @@ import imagenes from './AvatarImagenes';
 import { Link } from 'react-router-dom';
 import sinPelo from  './../../assets/avatar/sin-pelo.png';
 import html2canvas from 'html2canvas';
+import { useSelector } from 'react-redux';
 import { 
   mostrarAvatarSeleccionadoMasConfiguracion,
   setPelo,
@@ -17,8 +18,9 @@ import {
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
+  const { uid } = useSelector((state) => state.auth);
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('-');
-  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(4);
+  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(uid);
   const [Pelo, setEstadoPelo] = useState('pelo');
   const [Ceja, setEstadoCeja] = useState('ceja-negra');
   const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');
@@ -90,22 +92,15 @@ export function Avatar() {
     if(document.querySelector(`${avatarActual}`)){
       let avatar = document.querySelector(`${avatarActual}`);
       html2canvas(avatar).then( async canvas => {
-        console.log(canvas.toDataURL('image/png'));
       let img = canvas.toDataURL('image/png');
-      localStorage.setItem('avatarPerfil',img);
-      //console.log(img)
-      //console.log(localStorage.getItem('avatarPerfil'))
-        guardarFotoPerfil(img);
+      guardarFotoPerfil(img);
       
       })
     }
   }
 
    const handleSubmit= async (e) =>{
-         e.preventDefault();
-         //1ero hago captura del avatar
-          //captura();
-         
+         e.preventDefault(); 
          //pregunto si el avatar ya existe en la bd, de ser asi se modifica
          if(avatarActual.idUsuarioAvatar==IdUsuarioAvatar){
               const resp = await fetch(
@@ -158,7 +153,6 @@ export function Avatar() {
               document.querySelector('.mensaje').classList.add('alert-success');
               document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Guardado con éxito";
               captura();
-            
             } else{
                 console.log("error, no se pudo guardar");
                 document.querySelector('.mensaje').classList.remove('alert-primary');
