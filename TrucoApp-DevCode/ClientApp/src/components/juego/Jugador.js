@@ -1,4 +1,5 @@
 import React from "react";
+import { Suspense } from "react";
 import { useSelector } from "react-redux";
 import noFoto from "../../assets/no-foto.jpg";
 import { isMyTurn } from "../../helpers/truco/getUserTurno";
@@ -21,15 +22,17 @@ export const Jugador = () => {
           </div>
         </div>
 
-        <div className="d-flex divCardsPlayer">
-          {uid === jugadorUno
-            ? partida.cartasJugadorUno.map((carta) => (
-                <CartaJugador key={carta.id} carta={carta} />
-              ))
-            : partida.cartasJugadorDos.map((carta) => (
-                <CartaJugador key={carta.id} carta={carta} />
-              ))}
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <div className="d-flex divCardsPlayer">
+            {uid === jugadorUno
+              ? partida.cartasJugadorUno.map((carta) => (
+                  <CartaJugador key={carta.id} carta={carta} />
+                ))
+              : partida.cartasJugadorDos.map((carta) => (
+                  <CartaJugador key={carta.id} carta={carta} />
+                ))}
+          </div>
+        </Suspense>
       </div>
 
       {isMyTurn(uid, jugadorUno, jugadorDos, turno) && <Botones />}

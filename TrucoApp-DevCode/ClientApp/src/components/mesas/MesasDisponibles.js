@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 
 export const MesasDisponibles = () => {
   const history = useHistory();
+  const { uid } = useSelector((state) => state.auth);
   const { mesas1vs1 } = useSelector((state) => state.mesas);
 
   const handleVolverInicio = async (e) => {
@@ -36,7 +37,6 @@ export const MesasDisponibles = () => {
             >
               Regresar al Inicio
             </Button>{" "}
-           
           </div>
           <div
             className="d-flex flex-wrap mt-4"
@@ -46,8 +46,9 @@ export const MesasDisponibles = () => {
               marginTop: "0px",
             }}
           >
-            <BotonCrearMesa />
-
+            {!mesas1vs1.find((mesa) => mesa.jugadorUno === uid) && (
+              <BotonCrearMesa />
+            )}
             {mesas1vs1.map((mesa) => (
               <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
             ))}

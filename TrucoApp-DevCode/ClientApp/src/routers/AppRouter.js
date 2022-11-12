@@ -22,10 +22,6 @@ import { CargarPartida } from "../components/partidaLink/CargarPartida";
 export const AppRouter = () => {
   const { uid, jugando } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    console.log(uid, jugando)
-  }, [uid, jugando])
-
   return (
     <BrowserRouter>
       <Switch>
@@ -70,7 +66,6 @@ export const AppRouter = () => {
           </Route>
 
           <Route exact path="/juegoia" component={JuegoIA} />
-
 
           <Redirect to="/inicio" />
         </PrivateRoute>
