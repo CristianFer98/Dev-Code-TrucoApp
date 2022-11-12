@@ -91,5 +91,10 @@ namespace Servicios
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             return jwtToken;
         }
+
+        public void AgregarFotoPerfil(int idUsuario, string imagen)
+        {
+            _usuarioRepositorio.AgregarFotoPerfil(idUsuario, imagen);
+        }
     }
 }

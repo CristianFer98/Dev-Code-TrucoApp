@@ -15,7 +15,7 @@ namespace Repositorios
 
         public Usuario BuscarUsuarioPorMail(string email)
         {
-            return _dbContext.Usuarios.Where(x => x.Email == email).FirstOrDefault(); 
+            return _dbContext.Usuarios.Where(x => x.Email == email).FirstOrDefault();
         }
 
         public Usuario GuardarUsuario(Usuario usuario)
@@ -23,6 +23,13 @@ namespace Repositorios
             _dbContext.Usuarios.Add(usuario);
             _dbContext.SaveChanges();
             return usuario;
+        }
+
+        public void AgregarFotoPerfil(int idUsuario, string imagen)
+        {
+            Usuario usuario = _dbContext.Usuarios.Find(idUsuario);
+            usuario.FotoPerfil = imagen;
+            _dbContext.SaveChanges();
         }
     }
 }
