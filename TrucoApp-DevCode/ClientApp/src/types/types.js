@@ -14,4 +14,6 @@ export const types = {
   juegoDejarMesa: "[juego] Dejar mesa",
   uiSetChantBox: "[ui] Set chant box",
   uiRemoveChantBox: "[ui] Remove chant box",
+  uiSetCargandoTrue: "[ui] Set cargando true",
+  uiSetCargandoFalse: "[ui] Set cargando false",
 };

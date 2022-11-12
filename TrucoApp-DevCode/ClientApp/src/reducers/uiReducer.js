@@ -2,6 +2,7 @@ import { types } from "../types/types";
 
 const initialState = {
   chantBox: false,
+  cargando: false,
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -16,6 +17,18 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         chantBox: false,
+      };
+
+    case types.uiSetCargandoTrue:
+      return {
+        ...state,
+        cargando: true,
+      };
+
+    case types.uiSetCargandoFalse:
+      return {
+        ...state,
+        cargando: false,
       };
 
     default:

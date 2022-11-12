@@ -16,7 +16,6 @@ export const CargarPartida = () => {
   const { connection } = useContext(SocketContext);
   const history = useHistory();
   const [loading, setLoading] = useState(true);
-  //  entrarAMesa(uid, mesaId, connection, mesa.jugadorUno)
 
   useEffect(() => {
     dispatch(obtenerMesa(mesaId, history));

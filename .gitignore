@@ -351,3 +351,5 @@ MigrationBackup/
 
 # Coneccion a BD
 appsettings.json
+Entidades/DevCodeDBContext.cs
+TrucoApp-DevCode/appsettings.json
