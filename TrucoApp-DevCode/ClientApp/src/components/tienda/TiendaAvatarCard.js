@@ -1,5 +1,6 @@
 import React from 'react';
 import imagenes from '../avatar/AvatarImagenes';
+import Swal from 'sweetalert2';
 
 export function TiendaAvatarCard({ id, imagen, precio, comprado }){
 
@@ -16,9 +17,10 @@ export function TiendaAvatarCard({ id, imagen, precio, comprado }){
           );
 
           if (resp.ok) {
-             alert("comprado con exito");
+             //alert("comprado con exito");
+             Swal.fire("Compra realizada con éxito", "", "success");
           }else{
-            alert("no se pudo realizar la operacion");
+            console.log("no se pudo realizar la operacion");
           }
 
     }

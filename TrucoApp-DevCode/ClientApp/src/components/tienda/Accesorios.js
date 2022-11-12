@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './accesorios.css';
+import Swal from 'sweetalert2';
+
 const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
 
   const comprarProducto = async()=>{
@@ -19,10 +21,11 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
  
        if (resp.ok) {
           console.log("se actualizo stock");
-          alert("se actualizo stock");
+          //alert("se actualizo stock");
+          Swal.fire("Compra realizada con éxito", "", "success");
+          
        }else{
          console.log("no se pudo actualizar stock");
-         alert("no se actualizo stock");
        }
  }
 

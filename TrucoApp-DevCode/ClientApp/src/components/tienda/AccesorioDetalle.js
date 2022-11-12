@@ -3,7 +3,7 @@ import './accesorios.css';
 import imagenes from './TiendaImagenes';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { getTablePaginationUnstyledUtilityClass } from '@mui/base';
+import Swal from 'sweetalert2';
 
 const AccesorioDetalle = ({ id, imagen, descripcion, cantidadAComprar, stock, medidas, marca,tipoBaraja, precio, colores, talles }) => {
   
@@ -78,10 +78,11 @@ const comprarProducto = async()=>{
 
       if (resp.ok) {
          console.log("se actualizo stock");
-         alert("se actualizo stock");
+         //alert("se actualizo stock");
+         Swal.fire("Compra realizada con éxito", "", "success");
       }else{
         console.log("no se pudo actualizar stock");
-        alert("no se pudo actualizar stock");
+        //alert("no se pudo actualizar stock");
 
       }
 }
