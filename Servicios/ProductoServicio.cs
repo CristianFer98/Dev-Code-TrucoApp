@@ -32,5 +32,10 @@ namespace Servicios
         {
             return _productoRepositorio.GetProductos();
         }
+
+        public void ActualizarStock(int idProducto, int stockActual)
+        {
+            _productoRepositorio.ActualizarStock(idProducto, stockActual);
+        }
     }
 }

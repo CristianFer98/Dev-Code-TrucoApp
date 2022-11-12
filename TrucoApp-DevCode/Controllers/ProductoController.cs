@@ -49,6 +49,26 @@ namespace Router.Controllers
             }
 
         }
- 
+
+        //
+        [HttpPut]
+        [Route("ActualizarStock/{idProducto:int}")]
+        public ActionResult ActualizarStock(int idProducto, [FromBody] int stockActual)
+        {
+
+            try
+            {
+                _productoServicio.ActualizarStock(idProducto, stockActual);
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
     }
 }

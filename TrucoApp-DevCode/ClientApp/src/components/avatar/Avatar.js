@@ -18,7 +18,7 @@ const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('-');
-  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(2);
+  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(4);
   const [Pelo, setEstadoPelo] = useState('pelo');
   const [Ceja, setEstadoCeja] = useState('ceja-negra');
   const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');
@@ -63,17 +63,40 @@ export function Avatar() {
       return listadoRopa;
   }
 
+  const guardarFotoPerfil= async (img)=>{
+
+    const resp = await fetch(
+      `https://localhost:44342/api/Usuarios/AgregarFotoPerfil/${IdUsuarioAvatar}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(img), 
+      }
+    );
+      console.log("foto: ",img);
+    if (resp.ok) {
+      
+      console.log("se guardo con exito la foto-perfil");
+    }else{
+      console.log("no se pudo guardar la foto-perfil");
+    }
+
+  }
   const captura = () =>{
     let avatarActual = `${avatarSeleccionado=='opcion1'?'#version-m':'#version-f'}`;
     console.log(avatarActual);
     if(document.querySelector(`${avatarActual}`)){
       let avatar = document.querySelector(`${avatarActual}`);
-      html2canvas(avatar).then( canvas => {
+      html2canvas(avatar).then( async canvas => {
         console.log(canvas.toDataURL('image/png'));
       let img = canvas.toDataURL('image/png');
-       localStorage.setItem('avatarPerfil',img);
-      console.log(img)
-      console.log(localStorage.getItem('avatarPerfil'))
+      localStorage.setItem('avatarPerfil',img);
+      //console.log(img)
+      //console.log(localStorage.getItem('avatarPerfil'))
+        guardarFotoPerfil(img);
+      
       })
     }
   }

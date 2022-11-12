@@ -80,5 +80,24 @@ namespace Router.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut]
+        [Route("AgregarFotoPerfil/{idUsuario:int}")]
+        public ActionResult AgregarFotoPerfil(int idUsuario, [FromBody] string imagen)
+        {
+
+            try
+            {
+                _usuarioServicio.AgregarFotoPerfil(idUsuario, imagen);
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
     }
 }
