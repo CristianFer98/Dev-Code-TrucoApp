@@ -22,6 +22,8 @@ namespace Repositorios
             
                  _dbContext.Avatars.Add(avatar);
                  _dbContext.SaveChanges();
+             
+            //throw new NotImplementedException();
         }
 
         public Avatar MostrarAvatarPorUsuario(int idUsuario)
@@ -29,21 +31,10 @@ namespace Repositorios
             throw new NotImplementedException();
         }
 
-        public void ModificarAvatar(int idUsuario,Avatar avatar)
+        public void ModificarAvatar(int idUsuario)
         {
-            Avatar avatarActual = GetAvatarPorId(idUsuario);
-            avatarActual.Pelo = avatar.Pelo;
-            avatarActual.Ceja = avatar.Ceja;
-            avatarActual.ColorDePiel = avatar.ColorDePiel;
-            avatarActual.ColorDeOjos = avatar.ColorDeOjos;
-            avatarActual.Ropa = avatar.Ropa;
-            _dbContext.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public Avatar GetAvatarPorId(int idUsuario)
-        {
-            return _dbContext.Avatars.Find(idUsuario);
-        }
-    
     }
 }

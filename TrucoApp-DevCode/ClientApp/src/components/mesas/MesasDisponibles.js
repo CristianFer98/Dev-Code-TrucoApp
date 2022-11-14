@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 
 export const MesasDisponibles = () => {
   const history = useHistory();
-  const { uid } = useSelector((state) => state.auth);
   const { mesas1vs1 } = useSelector((state) => state.mesas);
 
   const handleVolverInicio = async (e) => {
@@ -37,6 +36,11 @@ export const MesasDisponibles = () => {
             >
               Regresar al Inicio
             </Button>{" "}
+            <div style={{ marginRight: "50px" }}>
+              <Button variant="dark">1</Button>{" "}
+              <Button variant="dark">2</Button>{" "}
+              <Button variant="dark">3</Button>{" "}
+            </div>
           </div>
           <div
             className="d-flex flex-wrap mt-4"
@@ -46,9 +50,8 @@ export const MesasDisponibles = () => {
               marginTop: "0px",
             }}
           >
-            {!mesas1vs1.find((mesa) => mesa.jugadorUno === uid) && (
-              <BotonCrearMesa />
-            )}
+            <BotonCrearMesa />
+
             {mesas1vs1.map((mesa) => (
               <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
             ))}
@@ -56,7 +59,7 @@ export const MesasDisponibles = () => {
         </div>
       </div>
 
-      <div className="chat">
+      <div>
         <ChatGeneral />
       </div>
     </div>

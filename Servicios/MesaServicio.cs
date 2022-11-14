@@ -29,9 +29,9 @@ namespace Servicios
             return _mesaRepositorio.ObtenerMesaPorId(id);
         }
 
-        public Mesa GuardarMesa(Mesa mesa)
+        public void GuardarMesa(Mesa mesa)
         {
-            return _mesaRepositorio.GuardarMesa(mesa);
+            _mesaRepositorio.GuardarMesa(mesa);
         }
 
         public void EntrarAJugarAMesa(int idMesa, int idJugador)

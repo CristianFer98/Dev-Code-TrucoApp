@@ -1,6 +1,5 @@
 ﻿using Entidades;
 using Repositorios.Interfaces;
-using System.Linq;
 
 namespace Repositorios
 {
@@ -13,23 +12,11 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
-        public Usuario BuscarUsuarioPorMail(string email)
-        {
-            return _dbContext.Usuarios.Where(x => x.Email == email).FirstOrDefault();
-        }
-
         public Usuario GuardarUsuario(Usuario usuario)
         {
             _dbContext.Usuarios.Add(usuario);
             _dbContext.SaveChanges();
             return usuario;
-        }
-
-        public void AgregarFotoPerfil(int idUsuario, string imagen)
-        {
-            Usuario usuario = _dbContext.Usuarios.Find(idUsuario);
-            usuario.FotoPerfil = imagen;
-            _dbContext.SaveChanges();
         }
     }
 }

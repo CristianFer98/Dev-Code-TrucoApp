@@ -16,32 +16,15 @@
   /*border:1px solid red;*/
 }
 
-.accesorio{
-  width: 15rem;
-}
-.accesorio-imagen img{
+.accesorio-imagen img {
   width: 200px;
   height: 200px;
 }
-.accesorio-imagen-d {
-  width: 400px;
-  height: 400px;
-}
 
-.botones{
-  display:flex;
-  flex-direction: column;
-}
-
-#detalles,
-#comprar{
-  padding: 15px;
-  cursor: pointer;
-}
-
-.bt-comprar{
-  cursor: pointer;
-  font-size:20px;
+.btn-detalles,
+.btn-comprar {
+  padding: 10px;
+  margin-bottom: 4px;
 }
 
 .componente-btn {
@@ -49,14 +32,17 @@
   font-weight: bold;
   font-size: 14px;
 }
-.i-font{
-  display: none;
+
+.btn-detalles {
+  color: #eac67a;
+  margin-top: 4px;
+  background: #233237;
 }
 
-.accesorio-detalle{
-  width: 50rem;
+.btn-comprar {
+  color: #eac67a;
+  background: #984b43;
 }
-
 .black, .white, .grey{
   border-radius: 100px;
   width: 30px;
@@ -74,79 +60,4 @@
 
 .grey{
   background: #8f8f8f;
-}
-
-/*801 a 1039*/
-@media only screen and (max-width: 1039px) {
-  .card {
-    width: 12rem;
-  }
-  .accesorio-imagen,
-  .accesorio-imagen > img{
-      width: 150px;
-      height: 150px;
-  }
-  
-  .botones{
-    flex-direction: row;
-  }
-  #detalles, #comprar{
-    padding: 10px;
-  }
-  .texto-detalles, .texto-comprar{
-    display: none;
-  }
-
-  .i-font{
-    display: block;
-    margin: auto;
-    text-align: center;
-  }
-
-  #detalles, #comprar{
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2px;
-  }
-
-  .accesorio-detalle{
-    width: 25rem;
-    height: 400px;
-    overflow-y: scroll;
-  }
-
-  .accesorio-imagen-d {
-    width:200px;
-    height:200px; 
-  }
-
-  .accesorio-imagen-d >img{
-    width:100px;
-    height:100px; 
-  }
-
-  /*.bt-comprar{
-    font-size: 15px;
-    width: 100%;
-    padding: 3px;
-  }*/
-
-  .bt-comprar1{
-    display: none;
-  }
-
-  #lista-detalles > li{
-
-    width: 115px;
-  }
-
-  #lista-detalles li > select{
-
-    width: 112px;
-  }
-
 }

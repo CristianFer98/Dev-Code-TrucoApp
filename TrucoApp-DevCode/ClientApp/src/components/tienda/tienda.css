@@ -1,15 +1,9 @@
 ﻿* {
     scroll-behavior: smooth;
   }
-html, body{
-    padding: 0;
-    margin: 0;
-    border: 0;
-    background-color: #d9d9d9; 
-}  
 .componente-store {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: #d9d9d9;
     display:flex;
     flex-direction:column;
@@ -35,10 +29,6 @@ html, body{
     margin-bottom:8px;
 }
 
-.alert-tienda-avatar{
-    width: 50%;
-}
-
 .componente-store,
 .accesorios {
     display: flex;
@@ -52,53 +42,8 @@ html, body{
 
 .accesorios{
     width:100%;
-    height: auto;
     flex-direction:row;
     justify-content:space-around;
-    flex-wrap: wrap;
-    /*height: 43vh;*/
+    height: 43vh;
     /*border:2px solid black;*/
-}
-
-/*801 a 1039*/
-@media only screen and (max-width: 1039px) {
-
-    .titulo{
-        margin-top: 0%;
-        margin-bottom: 8px;
-    }
-    .titulo-tienda-avatar{
-        font-size: 30px;
-    }
-    .alert-tienda-avatar{
-        width: 85%;
-    }
-    
-    .accesorios{
-        height: 320px;
-        overflow-y: scroll;
-    }
-    .accesorio{
-        margin-bottom: 8px;
-        padding: 0;
-    }
-
-    .card-body{
-        width: 192px;
-        height: 112px;
-    }
-
-    #div-pelo, #div-ropa{
-        height: 500px;
-        overflow-y: scroll;
-    }
-    .contenedor-pelo, .contenedor-ropa{
-       justify-content: center;
-       align-items: center;
-    }
-
-    .acc{
-        width: 30%;
-    }
-    
 }

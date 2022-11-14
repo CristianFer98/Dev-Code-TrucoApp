@@ -34,26 +34,14 @@ namespace Servicios
 
         public Avatar MostrarAvatarPorUsuario(int idUsuario)
         {
-            return _avatarRepositorio.MostrarAvatarPorUsuario(idUsuario);
+            throw new NotImplementedException();
         }
 
-        public void ModificarAvatar(int idUsuario, string pelo, string ceja, string colorDeOjos, string colorDePiel, string ropa)
+        public void ModificarAvatar(int idUsuario)
         {
-            var avatar = new Avatar
-            {
-                IdUsuarioAvatar = idUsuario,
-                Pelo = pelo,
-                Ceja = ceja,
-                ColorDeOjos = colorDeOjos,
-                ColorDePiel = colorDePiel
-            };
-
-            _avatarRepositorio.ModificarAvatar(idUsuario, avatar);
+            throw new NotImplementedException();
         }
 
-        public Avatar GetAvatarPorId(int idUsuario)
-        {
-            return _avatarRepositorio.GetAvatarPorId(idUsuario);
-        }
+       
     }
 }

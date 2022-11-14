@@ -1,24 +1,43 @@
-/*Contenedor mas grande, define el ancho y largo de la pagina*/
-.unovsmaquina {
+.unovsmaquina{
   display: flex;
   width: 100%;
-  height: 99.9vh;
+  height: 99.5vh;
   background-color: #082630;
 }
 
+.puntajeIA{
+  color: beige;
+  align-self: flex-start;
+  width: 10%;
+  border: 1px solid rgb(167, 7, 7);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  height: 130px;
+
+}
+
+.iconoIA{
+  position: absolute;
+  top: 75px;
+  right: 65px;
+}
+
+/*Contenedor mas grande, define el ancho y largo de la pagina*/
 .juegoIA {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 90%;
   margin-left: 70px;
 }
 
 /*Elemento del centro, circulo donde se van colocando las cartas*/
 .mesaIA {
   height: 470px;
-  width: 500px;
+  width: 45%;
   background-image: linear-gradient(
     0deg,
     rgb(27, 44, 31),
@@ -31,24 +50,6 @@
   flex-direction: flex;
 }
 
-/*Define la seccion del puntaje */
-.puntajeIA {
-  color: beige;
-  align-self: flex-start;
-  width: 15%;
-  border: 1px solid rgb(167, 7, 7);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  height: auto;
-}
-
-.puntajeIAResponsive {
-  display: none;
-}
-
-/*Sector de la foto de los usuarios*/
 .usersIA {
   display: flex;
   flex-direction: column;
@@ -67,18 +68,12 @@
   margin-bottom: 20px;
 }
 
-/* Sector de la partida mano y mesa de jugadores*/
 .partidaIA {
   width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-content: center;
-  margin-left:5px;
-}
-
-.cartaIA {
-  width: 70px;
 }
 
 /*Sector de la Maquina*/
@@ -93,7 +88,7 @@
 }
 
 .mesaMaquinaIA {
-  width: 60%;
+  width: 70%;
   margin: auto;
 }
 
@@ -109,11 +104,10 @@
 }
 
 .mesaJugadorIA {
-  width: 60%;
+  width: 70%;
   margin: auto;
 }
 
-/*Botones de accion del jugador*/
 .accionesIA {
   display: flex;
   flex-wrap: wrap;
@@ -133,147 +127,77 @@
   color: aliceblue;
 }
 
-/*VIÑETAS DE DIALOGO JUGADOR Y MAQUINA*/
-/*JUGADOR*/
-.vinetaJugadorIA {
-  position: relative;
+
+/*VIñETAS DE DIALOGO*/
+.vinetaJugadorIA{
+  position:relative;
 }
 
-.dialogoJugadorIA {
-  position: absolute;
-  width: 150px;
-  height: 50px;
-  top: 30px;
-  left: -150px;
-  padding: 1.5em;
-  border-radius: 2em;
-  font-family: sans-serif;
-  z-index: 10;
-  background-color: rgb(82, 78, 75);
-  filter: drop-shadow(0px 0px 1px black);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: aliceblue;
-  font-size: 15px;
-}
-
-.dialogoJugadorIA::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  width: 10px;
-  height: 10px;
-  left: 145px;
-  top: 20px;
-  background-color: rgb(82, 78, 75);
-  transform: skewX(45deg);
-}
-
-/*MAQUINA*/
-.vinetaMaquinaIA {
-  position: relative;
-}
-
-.dialogoMaquinaIA {
-  position: absolute;
-  width: 150px;
-  height: 50px;
-  top: 40px;
-  left: -150px;
-  border-radius: 2em;
-  font-family: sans-serif;
-  z-index: 10;
-  background-color: rgb(82, 78, 75);
-  filter: drop-shadow(0px 0px 1px black);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: aliceblue;
-  font-size: 15px;
-}
-
-.dialogoMaquinaIA::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  width: 10px;
-  height: 10px;
-  left: 145px;
-  top: 20px;
-  background-color: rgb(82, 78, 75);
-  transform: skewX(45deg);
-}
-
-/*Responsive*/
-@media only screen and (max-width: 800px) {
-  .mesaIA {
-    width: 340px;
-    height: 350px;
-  }
-
-  .cartaIA {
-    width: 50px;
-  }
-
-  .dialogoJugadorIA {
-    width: 80px;
-    font-size: 8px;
-    left: -90px;
-  }
-
-  .dialogoJugadorIA::before {
-    left: 75px;
-  }
-
-  .dialogoMaquinaIA {
-    width: 80px;
-    font-size: 8px;
-    left: -90px;
+.dialogoJugadorIA{
+    position: absolute;
+    width: 150px;
+    height: 50px; 
     top: 30px;
-  }
-
-  .dialogoMaquinaIA::before {
-    left: 75px;
-  }
-
-  .userIA {
-    width: 50px;
-    height: 50px;
-  }
-
-  .accionesIA {
-    margin: 0px;
-  }
-
-  .mesaIA {
-    margin: 0px;
-  }
-  .buttonIA {
-    font-size: 8px;
-    width: 65px;
-    height: 30px;
-    padding: 5px;
-  }
-
-  .puntajeIA {
-    display: none;
-  }
-
-  .puntajeIAResponsive {
+    left: -150px;
+    padding: 1.5em;
+    border-radius: 2em;
+    font-family: sans-serif;
+    z-index: 10; 
+    background-color: rgb(82, 78, 75);
+    filter: drop-shadow(0px 0px 1px black) ;
     display: flex;
+    justify-content: center;
+    align-items: center;
     color: aliceblue;
-    width: 50%;
-    justify-content: space-around;
-    border-radius: 5px;
-    border: 1px solid red;
-    align-self: center;
-    margin-top: 10px;
-    font-size: 12px;
-  }
-
-  .partidaIA{
-    margin-left: 5px;
-
-  }
+    font-size: 15px;
 }
+
+  .dialogoJugadorIA::before{
+    content: '';
+    position: absolute; 
+    z-index: -1;
+    width: 10px;
+    height: 10px;
+    left: 145px;
+    top: 20px;
+    background-color: rgb(82, 78, 75);
+    transform: skewX(45deg);
+  }
+
+
+
+/* Dialogo Maquina EJEMPLO 1 */
+.vinetaMaquinaIA{
+    position:relative;
+  }
+  
+  .dialogoMaquinaIA{
+    position: absolute;
+    width: 150px;
+    height: 50px; 
+    top: 40px;
+    left: -150px;
+    padding: 1.5em;
+    border-radius: 2em;
+    font-family: sans-serif;
+    z-index: 10; 
+    background-color: rgb(82, 78, 75);
+    filter: drop-shadow(0px 0px 1px black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    font-size: 15px;
+  }
+  
+  .dialogoMaquinaIA::before{
+    content: '';
+    position: absolute; 
+    z-index: -1;
+    width: 10px;
+    height: 10px;
+    left: 145px;
+    top: 20px;
+    background-color: rgb(82, 78, 75);
+    transform: skewX(45deg);
+  }

@@ -6,8 +6,21 @@
   margin-top: 20px;
 }
 
+.text {
+  display: none;
+}
 
+@media only screen and (max-width: 915px) {
+  .menuPrincipal {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
 
+  .text {
+    display: block;
+  }
+}
 
 .boton {
   border: none;
@@ -63,10 +76,16 @@
 
 @media only screen and (max-width: 915px) {
   .boton {
-    height: 120px;
-    width: 110px;
-    
+    height: 50px;
+    width: 80%;
+    margin: 15px;
   }
 
-
+  #unovsuno,
+  #dosvsdos,
+  #tresvstres,
+  #torneo,
+  #unovsmaquina {
+    background-image: none;
+  }
 }

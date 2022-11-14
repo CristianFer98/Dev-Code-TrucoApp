@@ -9,7 +9,6 @@ import { Reglas } from "../components/reglas/Reglas";
 import { Torneo } from "../components/torneo/Torneo";
 import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { PrivateRoute } from "./PrivateRoute";
 import { Truco1vs1 } from "../components/juego/Truco1vs1";
@@ -66,6 +65,7 @@ export const AppRouter = () => {
           </Route>
 
           <Route exact path="/juegoia" component={JuegoIA} />
+
 
           <Redirect to="/inicio" />
         </PrivateRoute>

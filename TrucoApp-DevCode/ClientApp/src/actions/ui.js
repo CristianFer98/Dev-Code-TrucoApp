@@ -41,11 +41,3 @@ const setChantBox = (chant) => ({
 export const removeChantBox = () => ({
   type: types.uiRemoveChantBox,
 });
-
-export const setCargandoTrue = () => ({
-  type: types.uiSetCargandoTrue,
-});
-
-export const setCargandoFalse = () => ({
-  type: types.uiSetCargandoFalse,
-});

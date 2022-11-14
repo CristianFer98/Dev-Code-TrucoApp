@@ -28,11 +28,10 @@ namespace Repositorios
             return _dbContext.Mesas.Where(m => m.IdMesa == id).Single();
         }
 
-        public Mesa GuardarMesa(Mesa mesa)
+        public void GuardarMesa(Mesa mesa)
         {
             _dbContext.Mesas.Add(mesa);
             _dbContext.SaveChanges();
-            return mesa;
         }
 
         public void EntrarAJugarAMesa(int idMesa, int idJugador)

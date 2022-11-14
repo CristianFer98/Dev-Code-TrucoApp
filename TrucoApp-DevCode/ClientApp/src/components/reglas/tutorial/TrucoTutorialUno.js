@@ -33,10 +33,9 @@ const TrucoTutorialUno = () => {
       html:
         "¡Bienvenido! Soy <u>Vale Cuatro</u>, ahora vamos a aprender sobre el <b>Truco</b>. <br>" +
         "El truco es una apuesta que se puede realizar en cualquier momento y los puntos se otorgarán al ganador de la misma en función del valor de las cartas en la mesa. <br>" +
-        "Se le llama <b>baza</b> a cada 'enfrentamiento de cartas', quien gana la mayoria se queda con los puntos del <b>Truco</b>.",
+        "Se le llama <b>baza</b> a cada 'enfrentamiento de cartas', quien gana la mayoria se queda con los puntos del <b>Truco</b>",
       confirmButtonText: "¡Vamos!",
       position: "center-right",
-      width: "700",
       showClass: {
         popup: "animate__animated animate__fadeInDown",
       },
@@ -45,20 +44,16 @@ const TrucoTutorialUno = () => {
       },
     }).then((value) => {
       Swal.fire({
-        title: "<h1>Tutorial de Truco</h1>",
         html:
-          "Vamos a simular una partida. <br>" +
-          "Las cartas que te tocaron son el uno, el tres y el diez. Espero que hayas aprendido cual vale más. <br>" +
-          "<b>¡Es muy importante el orden en el que tires tus cartas para ganar el truco!</b>",
+          "Simulemos una partida, veamos si podes ganarle. <br>" +
+          "Como podes ver tenes un (1 - 3 - 10) <br>" +
+          "<b>¡Es muy importante el orden en que tires tus cartas para usarlas de una manera correcta!</b>",
         confirmButtonText: "¡Entiendo!",
         position: "center-right",
-        width: "700",
       }).then((value) => {
         Swal.fire({
-          title: "<h1>Tutorial de Truco</h1>",
-          html: "Podes comenzar con cualquier carta. Tiremos la que tiene el valor medio, en este caso el <b>diez</b>.",
+          html: "Podes comenzar con cualquier carta. Tiremos la que tiene el valor medio, en este caso el <b>10</b>.",
           confirmButtonText: "¡Ok!",
-          width: "700",
           position: "center-right",
         }).then((value) => {
           tirarCarta(10);
@@ -82,10 +77,9 @@ const TrucoTutorialUno = () => {
         html:
           "<h1>Perdiste la primera baza</h1> " +
           "Como podes ver, esta jugada la perdiste ya que su 12 es mayor que tu 10. <br>" +
-          "Tranqui, todavía podés ganar. Te dimos buenas cartas. <br> " +
-          "<b>A continuación cantá <b>Truco</b> para jugar por dos puntos </b>",
+          "No desesperes, todavia podes ganar... Tienes buenas cartas. <br> " +
+          "<b>A continuación canta <b>Truco</b> para jugar por 2 puntos </b>",
         confirmButtonText: "¡Dale!",
-        width: "700",
         position: "center-right",
       });
     }, 1500);
@@ -101,13 +95,11 @@ const TrucoTutorialUno = () => {
           Swal.fire({
             html:
               "<h1>Truco Querido</h2>" +
-              "El otro jugador aceptó el truco. <br>" +
-              "Te explico, existen tres tipos de truco: <br> " +
+              "Tu contrincante ha aceptado el truco. <br>" +
+              "Existen <b>tres tipos</b> de Truco: <br> " +
               "<ul> <li>Truco = 2 puntos</li> <li>Re Truco = 3 puntos</li> <li>Vale Cuatro = 4 puntos</li> </ul>" +
-              "<b> <u>Si vos cantas truco, el re truco le corresponde al otro jugador. Si canta re truco el vale cuatro te corresponde a vos.</u>",
-            confirmButtonText: "¡Ok!",
-            width: "700",
-
+              "<b>Ojo, si vos cantas Truco el Re Truco le corresponde a tu contrincante. Si canta Re Truco, tenes posibilidad de cantar Vale Cuatro",
+            confirmButtonText: "¡Entendido!",
             showClass: {
               popup: "animate__animated animate__fadeInDown",
             },
@@ -124,13 +116,10 @@ const TrucoTutorialUno = () => {
 
             Swal.fire({
               html:
-                "<h1>Dato importante</h1>" +
-                "El jugador que gana la <b>baza</b> esta obligado a tirar la siguiente carta. " +
-                "Como en este ejemplo la primera baza la ganó tu contrincante él tira la siguiente carta. <br>" +
-                "<b>Ahora, tirá la carta que tengas suficiente para 'matar' el dos de basto. " +
-                "<b>En este caso te conviene arrojar el tres. </b>",
-              confirmButtonText: "¡Ok!",
-              width: "700",
+                "<h1>IMPORTANTE</h1>" +
+                "El jugador que <u>'mata'</u> esta obligado a tirar la siguiente carta. Como en este ejemplo la primera baza la gano tu contrincante él debe tirar la siguiente carta <br>" +
+                "<b>Ahora, tirá la carta que tengas suficiente para 'matar' el 2 de basto. En este caso te conviene arrojar el 3.",
+              confirmButtonText: "¡OK!",
               position: "center-right",
             }).then((value) => {
               let cartaObtenida = manoJugador.find(
@@ -145,8 +134,6 @@ const TrucoTutorialUno = () => {
                     "<h1>¡Vas bien!</h1>" +
                     "Ganaste la segunda baza 'matando' el dos. Ahora, como dijimos antes, te corresponde tirar la siguiente carta.",
                   position: "center-right",
-                  confirmButtonText: "¡Ok!",
-                  width: "700",
                 }).then((value) => {
                   setMensajeMaquina("QUIERO RE TRUCO");
                   setTimeout(() => {
@@ -154,12 +141,11 @@ const TrucoTutorialUno = () => {
                     setPuedeTruco(false);
                     Swal.fire({
                       html:
-                        "<h1>¡Wow! Te cantaron Re Truco</h1>" +
-                        "Tu contrincante te cantó re truco. Es posible que tenga una buena carta, pero no puede ser mejor que el ancho de espadas que tenes. <br>" +
-                        "Es una buena oportunidad para que redobles la apuesta con <b>vale cuatro</b>.",
+                        "<h1>Wow! Te cantaron Re Truco</h1>" +
+                        "Tu contrincante se ha adelantado y te ha cantado <b>Re Truco</b>, parece que tiene una buena carta pero no puede ser mejor que el 1 de espada. <br>" +
+                        "Creo que es una buena oportunidad que lo aceptes redoblando la apuesta con <b>Vale Cuatro</b>, quiza lo acepte",
                       confirmButtonText: "¡Entendido!",
                       position: "center-right",
-                      width: "700",
                     });
                   }, 1000);
                 });
@@ -184,15 +170,13 @@ const TrucoTutorialUno = () => {
       if (puedeValeCuatro === true) {
         setMensajeJugador("QUIERO VALE CUATRO");
         setTimeout(() => {
-          setMensajeMaquina("QUIERO");
+          setMensajeMaquina("Si, Quiero");
           Swal.fire({
             html:
-              "<h1>Vale Cuatro Querido</h1>" +
-              "Tu contrincante acepto la apuesta. " +
-              "El que gane esta baza se va a llevar <b>cuatro puntos</b>" +
-              "<br> Como la baza anterior la habias ganado vos, te corresponde tirar el ancho.",
+              "<h1>QUIERO VALE CUATRO QUERIDO</h1>" +
+              "Muy buen, te han aceptado la apuesta. Quien gane esta baza se llevara <b>4 Puntos</b>" +
+              "<br> Como habias ganado la anterior baza, te corresponde tirar. Arroja el 1 de espada",
             confirmButtonText: "¡Ok!",
-            width: "700",
             position: "center-right",
           }).then((value) => {
             let cartaObtenida = manoJugador.find((carta) => carta.number === 1);
@@ -207,11 +191,9 @@ const TrucoTutorialUno = () => {
               Swal.fire({
                 html:
                   "<h1>¡Felicidades!</h1>" +
-                  "Ganaste el truco en esta mano. Como la apuesta fue vale cuatro obtenes cuatro puntos en el puntaje general. <br>" +
-                  "<b>Recordá que si en algun momento el truco no es aceptado, se dara por finalizada la mano",
-                confirmButtonText: "¡Ok!",
-                width: "700",
-
+                  "Haz ganado el truco en esta mano. Como el nivel del truco era el mas alto (vale cuatro) obtenes 4 puntos en la general. <br>" +
+                  "<b>Recorda que si en algun momento el truco no es aceptado, se dara por finalizada la mano",
+                confirmButtonText: "¡Entendido!",
                 position: "center-right",
               }).then((value) => {
                 setManoJugador(cartasJugador[0]);
@@ -235,7 +217,7 @@ const TrucoTutorialUno = () => {
       style={{ marginLeft: "10px", marginRight: "10px" }}
       key={carta.id}
     >
-      <img src={carta.image} className="cartaTutorialIA"></img>
+      <img src={carta.image} width={75}></img>
     </div>
   ));
 
@@ -244,16 +226,26 @@ const TrucoTutorialUno = () => {
       style={{ opacity: "0.6", marginLeft: "10px", marginRight: "10px" }}
       key={carta.id}
     >
-      <img src={carta.image} className="cartaTutorialIA"></img>
+      <img src={carta.image} width={75}></img>
     </div>
   ));
 
   const mesaJugadorLista = mesaJugador.map((carta) => (
-    <img className="animate__animated animate__slideInUp cartaTutorialIA" src={carta.image} key={carta.id}></img>
+    <img
+      src={carta.image}
+      key={carta.id}
+      width={75}
+      style={{ marginLeft: "20px" }}
+    ></img>
   ));
 
   const mesaMaquinaLista = mesaMaquina.map((carta) => (
-    <img className="animate__animated animate__slideInDown cartaTutorialIA" src={carta.image} key={carta.id}></img>
+    <img
+      src={carta.image}
+      key={carta.id}
+      width={75}
+      style={{ marginLeft: "20px" }}
+    ></img>
   ));
 
   return (
@@ -264,8 +256,8 @@ const TrucoTutorialUno = () => {
         </button>
 
         <div className="trucoManoMaquina">{manoMaquinaLista}</div>
-        <div className="vinetaMaquinaDos">
-          <p className="dialogoMaquinaDos">{mensajeMaquina}</p>
+        <div className="vinetaMaquinaUno">
+          <p className="dialogoMaquinaUno">{mensajeMaquina}</p>
         </div>
 
         <div className="trucoMesa">
@@ -274,8 +266,8 @@ const TrucoTutorialUno = () => {
           <div className="trucoMesaJugador">{mesaJugadorLista}</div>
         </div>
 
-        <div className="vinetaJugadorDos">
-          <p className="dialogoJugadorDos">{mensajeJugador}</p>
+        <div className="vinetaJugadorUno">
+          <p className="dialogoJugadorUno">{mensajeJugador}</p>
         </div>
         <div className="trucoManoJugador">{manoJugadorLista}</div>
 

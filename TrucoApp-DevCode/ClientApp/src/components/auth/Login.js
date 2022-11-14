@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { startLogin, onLoginSuccess } from '../../actions/auth';
+import { startLogin } from '../../actions/auth';
 import { useForm } from '../../hooks/useForm';
 
 export const Login = () => {
@@ -18,24 +18,13 @@ export const Login = () => {
         e.preventDefault();
         handleLoginInputChange(e);
     };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetch("https://localhost:44342/api/Usuarios/Login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        Email: lEmail,
-        Password: lPassword
-      }),
-    });
 
-    var jsonResponse = await response.json();
-    localStorage.setItem("token", jsonResponse.jwtToken)
-    dispatch(onLoginSuccess(jsonResponse.id, jsonResponse.email, jsonResponse.nombreCompleto, jsonResponse.fotoPerfil));
-    //dispatch(startLogin(lEmail, lPassword));
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        dispatch(startLogin(lEmail, lPassword));
+    };
+
     return (
         <div className="col-12 animate__animated animate__fadeIn col-md-6 d-flex justify-content-center bg-white">
             <div className="d-flex flex-column align-self-center col-8 col-sm-6 col-md-8 col-xl-5">

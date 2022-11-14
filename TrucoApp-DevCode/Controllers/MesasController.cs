@@ -64,8 +64,10 @@ namespace Router.Controllers
 
             try
             {
-                Mesa mesaCreada = _mesaServicio.GuardarMesa(mesa);
-                return StatusCode(StatusCodes.Status200OK, mesaCreada);
+
+                _mesaServicio.GuardarMesa(mesa);
+                return StatusCode(StatusCodes.Status200OK);
+
             }
             catch (Exception ex)
             {
