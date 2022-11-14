@@ -17,10 +17,6 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
-        public void ComprarProducto(int idProducto)
-        {
-            throw new NotImplementedException();
-        }
         public Producto GetProductoPorId(int idProducto)
         {
             return _dbContext.Productos.Find(idProducto);

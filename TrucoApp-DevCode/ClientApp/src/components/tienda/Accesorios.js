@@ -1,12 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './accesorios.css';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+import './mp';
 
 const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
+  const [idPreferencia, setIdPreferencia] = useState();
+
+  useEffect(() => {
+    if(!idPreferencia){
+       getIdPreferencia();
+    }
+    }, []);
+      const mp = new MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
+        locale: 'es-AR'
+      });
+    
+      mp.checkout({
+        preference: {
+          id: `${localStorage.getItem("idPreferencia")}`
+        },
+        render: {
+          container: '.cho-container',
+          label: 'Pagar',
+        }
+      });
+  
+  const getIdPreferencia = async()=>{
+
+    fetch(`https://localhost:44342/api/Producto/ComprarProducto/${id}`)
+       .then(res=> res.json())
+       .then(data=>{
+           let preference =data.result.id;
+           if(preference){
+            setIdPreferencia(preference);
+            localStorage.setItem("idPreferencia", preference);
+           }else{
+            setIdPreferencia(null);
+           }
+        });
+    }
 
   const comprarProducto = async()=>{
     let stockActual = stock - 1;
+    console.log("id: ", idPreferencia);
+    console.log("preferencia ",localStorage.getItem("idPreferencia"))
     const resp = await fetch(
          `https://localhost:44342/api/Producto/ActualizarStock/${id}`,
          {
@@ -21,12 +59,16 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
  
        if (resp.ok) {
           console.log("se actualizo stock");
+          //localStorage.setItem("IdPreferencia", idPreferencia);
+          //console.log("mi idpreferencia es... ", idPreferencia) 
+          //handleClick();          
           //alert("se actualizo stock");
-          Swal.fire("Compra realizada con éxito", "", "success");
+          //Swal.fire("Compra realizada con éxito", "", "success");
+          // <div class="cho-container"></div>
           
        }else{
          console.log("no se pudo actualizar stock");
-       }
+       } 
  }
 
   return (
@@ -50,7 +92,7 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
         </span>
         <span className="badge bg-danger btn-comprar text-center" id="comprar" >
           <span 
-            className="texto-comprar"
+            className="texto-comprar cho-container"
             onClick={()=>{
               comprarProducto();
             }}>

@@ -11,7 +11,6 @@ namespace Repositorios.Interfaces
     {
         public List<Producto> GetProductos();
         public Producto GetProductoPorId(int idProducto);
-        public void ComprarProducto(int idProducto);
         public void ActualizarStock(int idProducto, int stockActual);
     }
 }

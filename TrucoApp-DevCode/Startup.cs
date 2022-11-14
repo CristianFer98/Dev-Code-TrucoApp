@@ -30,6 +30,10 @@ namespace Router
         {
 
             services.AddControllersWithViews();
+            services.AddControllersWithViews()
+               .AddNewtonsoftJson(options =>
+                                  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
 
             services.AddSignalR();
 
@@ -60,6 +64,7 @@ namespace Router
             services.AddScoped<ITalleServicio, TalleServicio>();
             services.AddScoped<IAccesorioServicio, AccesorioServicio>();
             services.AddScoped<ITorneoServicio, TorneoServicio>();
+            services.AddScoped<MercadoPagoServicio>();
 
             services.AddCors(options =>
             {
