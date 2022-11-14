@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -123,6 +124,7 @@ namespace Entidades
                 entity.Property(e => e.Tipo)
                     .IsRequired()
                     .HasMaxLength(50);
+                
             });
 
             modelBuilder.Entity<Producto>(entity =>
