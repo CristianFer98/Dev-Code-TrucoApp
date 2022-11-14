@@ -9,7 +9,7 @@ export const mesasReducer = (state = initialState, action) => {
     case types.mesasObtenerMesas:
       return {
         ...state,
-        mesas1vs1: action.payload,
+        ...action.payload,
       };
 
     default:

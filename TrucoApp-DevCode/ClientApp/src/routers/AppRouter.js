@@ -18,6 +18,7 @@ import { Avatar } from "../components/avatar/Avatar";
 import { MesasDisponibles } from "../components/mesas/MesasDisponibles";
 import TablaDeTorneo from "../components/torneo/TablaDeTorneo";
 import { CargarPartida } from "../components/partidaLink/CargarPartida";
+import { MesasDisponibles2vs2 } from "../components/mesas/MesasDisponibles2vs2";
 
 export const AppRouter = () => {
   const { uid, jugando } = useSelector((state) => state.auth);
@@ -53,6 +54,11 @@ export const AppRouter = () => {
                   exact
                   path="/inicio/mesas"
                   component={MesasDisponibles}
+                />
+                <Route
+                  exact
+                  path="/inicio/mesas2vs2"
+                  component={MesasDisponibles2vs2}
                 />
                 <Redirect to="/inicio" />
               </Layout>

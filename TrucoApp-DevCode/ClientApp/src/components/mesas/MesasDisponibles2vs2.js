@@ -8,10 +8,10 @@ import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
 import { useSelector } from "react-redux";
 
-export const MesasDisponibles = () => {
+export const MesasDisponibles2vs2 = () => {
   const history = useHistory();
   const { uid } = useSelector((state) => state.auth);
-  const { mesas1vs1 } = useSelector((state) => state.mesas);
+  const { mesas2vs2 } = useSelector((state) => state.mesas);
 
   const handleVolverInicio = async (e) => {
     e.preventDefault();
@@ -46,10 +46,10 @@ export const MesasDisponibles = () => {
               marginTop: "0px",
             }}
           >
-            {!mesas1vs1.find((mesa) => mesa.jugadorUno === uid) && (
-              <BotonCrearMesa cantidadJugadoresMesa={2} />
+            {!mesas2vs2.find((mesa) => mesa.jugadorUno === uid) && (
+              <BotonCrearMesa cantidadJugadoresMesa={4} />
             )}
-            {mesas1vs1.map((mesa) => (
+            {mesas2vs2.map((mesa) => (
               <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
             ))}
           </div>
