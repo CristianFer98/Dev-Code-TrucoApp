@@ -348,5 +348,11 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-TrucoApp-DevCode/appsettings.json
+
+# Coneccion a BD
+appsettings.json
 Entidades/DevCodeDBContext.cs
+TrucoApp-DevCode/appsettings.json
+
+# Carpeta de archivos de configuracion de vscode
+.vscode/

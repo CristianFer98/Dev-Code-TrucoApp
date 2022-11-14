@@ -10,11 +10,19 @@ export const startLogin = (email, password) => {
 
     if (usuario) {
       dispatch(
-        login(usuario.uid, usuario.email, usuario.password, usuario.nombre)
+        login(usuario.uid, usuario.email, usuario.password, usuario.nombre, usuario.foto)
       );
     }
   };
 };
+
+export const onLoginSuccess = (uid, email, nombre, foto) => {
+  return (dispatch) => {
+    dispatch(
+      login(uid, email, '', nombre, foto)
+    )
+  }
+}
 
 export const startLogout = () => {
   return (dispatch) => {
@@ -26,13 +34,14 @@ const logout = () => ({
   type: types.authLogout,
 });
 
-const login = (uid, email, password, nombre) => ({
+const login = (uid, email, password, nombre, foto) => ({
   type: types.authLogin,
   payload: {
     uid,
     email,
     password,
     nombre,
+    foto,
     jugando: false,
     invitado: false,
   },

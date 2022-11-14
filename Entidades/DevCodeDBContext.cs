@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -26,18 +27,37 @@ namespace Entidades
         public virtual DbSet<ProductoTalle> ProductoTalles { get; set; }
         public virtual DbSet<Talle> Talles { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Torneo> Torneos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer("Server=tcp:devcode.database.windows.net,1433;Initial Catalog=DevCodeDB;Persist Security Info=False;User ID=devcode;Password=Programacion2022;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            List<Torneo> torneosInit = new List<Torneo>();
+            torneosInit.Add(new Torneo() { IdTorneo = Guid.Parse("fe2de405-c38e-4c90-ac52-da0540dfb4ef"), Nombre = "Primer Torneo" });
+
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
+
+            modelBuilder.Entity<Torneo>(torneo =>
+            {
+                torneo.ToTable("Torneo");
+                torneo.HasKey(t => t.IdTorneo);
+
+                torneo.Property(t => t.Nombre).IsRequired().HasMaxLength(50);
+
+                torneo.Property(t => t.EtapaTorneo).HasDefaultValue(1);
+
+                torneo.Property(t => t.HabilitadoJugar).HasDefaultValue(false);
+
+                torneo.Property(t => t.Terminado).HasDefaultValue(false);
+
+                torneo.HasData(torneosInit);
+            });
 
             modelBuilder.Entity<Accesorio>(entity =>
             {
@@ -178,6 +198,8 @@ namespace Entidades
                 entity.ToTable("Usuario");
 
                 entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.FotoPerfil).IsUnicode(false);
 
                 entity.Property(e => e.NombreCompleto).HasMaxLength(256);
 

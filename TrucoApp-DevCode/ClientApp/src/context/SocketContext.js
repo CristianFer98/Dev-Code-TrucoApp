@@ -13,7 +13,11 @@ import {
   tirarCarta,
   usuariosConectados,
 } from "../actions/juego";
-import { checkChantSet } from "../actions/ui";
+import {
+  checkChantSet,
+  setCargandoFalse,
+  setCargandoTrue,
+} from "../actions/ui";
 import { getUserPlayer } from "../helpers/truco/getUserTurno";
 export const SocketContext = createContext();
 
@@ -63,16 +67,14 @@ export const SocketProvider = ({ children }) => {
   }, [connection, dispatch]);
 
   useEffect(() => {
-    connection?.on("MesaOcupada", async (partida) => {
-      const { jugadorUno, jugadorDos, room } = partida;
-      if (jugadorUno === uid) {
-        await connection.invoke("JoinRoom", uid, room);
-      } else if (jugadorDos === uid) {
-        await connection.invoke("JoinRoom", uid, room);
-        await connection.invoke("InicializarMano", partida);
-      }
+    connection?.on("MesaOcupada", async () => {
+      dispatch(setCargandoTrue());
+      setTimeout(() => {
+        dispatch(jugar());
+        dispatch(setCargandoFalse());
+      }, 800);
     });
-  }, [connection, uid]);
+  }, [connection, dispatch]);
 
   useEffect(() => {
     connection?.on("UsersInRoom", (usuarios) => {
@@ -89,10 +91,6 @@ export const SocketProvider = ({ children }) => {
         truco,
         ...partida
       } = juego;
-
-      partida.puntosJugadorUno === 0 &&
-        partida.puntosJugadorDos === 0 &&
-        dispatch(jugar());
 
       dispatch(
         repartirCartas({

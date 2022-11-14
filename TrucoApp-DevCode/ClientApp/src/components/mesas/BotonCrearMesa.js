@@ -25,7 +25,10 @@ export const BotonCrearMesa = () => {
       }),
     });
     if (resp.ok) {
-        await connection.invoke("CrearMesa")
+      var jsonResponse = await resp.json();
+      const room = jsonResponse.idMesa;
+      const user = jsonResponse.jugadorUno;
+      await connection.invoke("CrearMesa", user, room);
       Swal.fire("Se creó la mesa", "", "success");
     }
   };

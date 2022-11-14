@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { SocketContext } from "../../context/SocketContext";
 import { ocultarBotonesYAcciones } from "../../helpers/truco/ocultarBotonesYAcciones";
 import { tiposBotones } from "../../types/tiposBotones";
-const imagenCarta = require.context("../../assets/cartas", true);
+// const imagenCarta = require.context("../../assets/cartas", true);
 
 export const CartaJugador = ({ carta }) => {
   const { uid } = useSelector((state) => state.auth);
@@ -46,7 +46,7 @@ export const CartaJugador = ({ carta }) => {
     >
       <img
         className="animate__animated animate__fadeInTopLeft cardPlayer"
-        src={imagenCarta(carta.imagen)}
+        src={carta.imagen}
         alt="cartaJugador"
       />
     </div>

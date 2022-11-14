@@ -31,6 +31,13 @@ namespace Repositorios
             return _dbContext.Productos.Take(4).ToList();
         }
 
+        public void ActualizarStock(int idProducto, int stockActual)
+        {
+            Producto producto = _dbContext.Productos.Find(idProducto);
+            producto.Stock = stockActual;
+            _dbContext.SaveChanges();
+        }
+
 
     }
 }

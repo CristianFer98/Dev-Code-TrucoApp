@@ -11,7 +11,8 @@ namespace Servicios.Interfaces
     {
         public void GuardarAvatar(int idUsuario, string pelo, string ceja, string colorDeOjos, string colorDePiel, string ropa);
         public Avatar MostrarAvatarPorUsuario(int idUsuario);
-        public void ModificarAvatar(int idUsuario);
+        public void ModificarAvatar(int idUsuario, string pelo, string ceja, string colorDeOjos, string colorDePiel, string ropa);
+        public Avatar GetAvatarPorId(int idUsuario);
 
     }
 }
