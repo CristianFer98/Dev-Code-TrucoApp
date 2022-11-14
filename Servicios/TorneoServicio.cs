@@ -20,9 +20,9 @@ namespace Servicios
             _mesaRepositorio = mesaRepositorio;
         }
 
-        public void CrearTorneo(Torneo torneo)
+        public Torneo CrearTorneo(Torneo torneo)
         {
-            _torneoRepositorio.CrearTorneo(torneo);
+            return _torneoRepositorio.CrearTorneo(torneo);
         }
 
         public IEnumerable<Torneo> ObtenerTorneosDisponibles()

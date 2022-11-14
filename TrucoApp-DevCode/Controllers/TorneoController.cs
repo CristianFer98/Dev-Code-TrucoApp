@@ -34,7 +34,7 @@ namespace Router.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Torneo torneo)
         {
-            _torneoServicio.CrearTorneo(torneo);
+            Torneo torneoCreado = _torneoServicio.CrearTorneo(torneo);
             return Ok();
         }
     }

@@ -19,10 +19,11 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
-        public void CrearTorneo(Torneo torneo)
+        public Torneo CrearTorneo(Torneo torneo)
         {
             _dbContext.Add(torneo);
             _dbContext.SaveChanges();
+            return torneo;
         }
 
         public IEnumerable<Torneo> ObtenerTorneosDisponibles()
