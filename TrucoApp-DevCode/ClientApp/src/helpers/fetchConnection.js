@@ -1,7 +1,7 @@
 export const entrarAMesa = async (uid, idMesa, connection, jugadorUno) => {
   const idJugador = uid;
   const resp = await fetch(
-    `https://localhost:44342/api/Mesas/EntrarAJugar/${idMesa}`,
+    `https://virtserver.swaggerhub.com/LucasBenitez/DevCode/1.0.0/EntarAJugar/${idMesa}`,
     {
       method: "PUT",
       headers: {

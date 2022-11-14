@@ -7,55 +7,36 @@ import { entrarAMesa } from "../../helpers/fetchConnection";
 import { ModalLink } from "./ModalLink";
 
 export const MesaDisponibleCard = ({ mesa }) => {
-  const { uid, invitado, mesaInvitado } = useSelector((state) => state.auth);
+  const { uid, nombre } = useSelector((state) => state.auth);
   const { Usuarios } = require("../../usuarios.json");
-  const { idMesa, jugadorUno, tipo } = mesa;
+  const { jugadorUno, tipo } = mesa;
+  var idMesa = 1
   const usuario = Usuarios.find((usuario) => usuario.uid === jugadorUno);
   const { connection } = useContext(SocketContext);
 
-  useEffect(() => {
-    invitado &&
-      !!mesaInvitado &&
-      mesaInvitado === idMesa &&
-      entrarAMesa(uid, idMesa, connection, jugadorUno);
-  }, [invitado, mesaInvitado]);
-
   const handleJugar = async (e) => {
     e.preventDefault();
-    entrarAMesa(uid, idMesa, connection, jugadorUno);
+      const idJugador = uid;
+      const resp = await fetch(
+          `https://virtserver.swaggerhub.com/LucasBenitez/DevCode/1.0.0/EntarAJugar/${idMesa}`,
+          {
+              method: "PUT",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: idJugador,
+          }
+      );
+      console.log(idMesa);
+      if (resp.ok) {
+          const room = idMesa;
+          const jugadorDos = uid;
+          await connection.invoke("OcuparMesa", { room, jugadorUno, jugadorDos });
+      }
   };
 
   return (
-    <div className="mesaCarta animate__animated animate__fadeIn m-2 p-3 py-2 d-flex flex-column">
-      <div className="d-flex w-100 justify-content-end">
-        {jugadorUno === uid ? (
-          <div className="dropdown">
-            <i
-              className="bi bi-three-dots text-light align-self-center"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            ></i>
-
-            <ul
-              className="dropdown-menu dropdown-menu-dark"
-              aria-labelledby="dropdownMenuButton1"
-            >
-              <li>
-                <button className="dropdown-item">Eliminar</button>
-              </li>
-              <li>
-                {/* Modal link */}
-                <ModalLink idMesa={idMesa} />
-                {/* Modal link */}
-              </li>
-            </ul>
-          </div>
-        ) : (
-          <div className="mt-1"></div>
-        )}
-      </div>
+    <div className="mesaCarta animate__animated animate__fadeIn m-2 p-3 py-2 d-flex flex-column">   
 
       <div className="d-flex flex-column justify-content-center align-items-center">
         <img
@@ -69,7 +50,7 @@ export const MesaDisponibleCard = ({ mesa }) => {
           className="text-center mt-1"
           style={{ color: "#ffffff", fontSize: "0.68em" }}
         >
-          {!!usuario.nombre && usuario.nombre}
+          {nombre}
         </div>
       </div>
 
