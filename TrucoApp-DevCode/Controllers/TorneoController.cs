@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Router.Hubs;
 using Servicios;
+using Entidades;
 
 namespace Router.Controllers
 {
@@ -28,6 +29,13 @@ namespace Router.Controllers
         public IActionResult Get()
         {
             return Ok(_torneoServicio.ObtenerTorneosDisponibles());
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Torneo torneo)
+        {
+            _torneoServicio.CrearTorneo(torneo);
+            return Ok();
         }
     }
 }

@@ -10,5 +10,6 @@ namespace Repositorios.Interfaces
     public interface ITorneoRepositorio
     {
         IEnumerable<Torneo> ObtenerTorneosDisponibles();
+        void CrearTorneo(Torneo torneo);
     }
 }

@@ -10,5 +10,6 @@ namespace Servicios.Interfaces
     public interface ITorneoServicio
     {
         IEnumerable<Torneo> ObtenerTorneosDisponibles();
+        void CrearTorneo(Torneo torneo);
     }
 }

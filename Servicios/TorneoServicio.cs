@@ -19,6 +19,11 @@ namespace Servicios
             _torneoRepositorio = torneoRepositorio;
         }
 
+        public void CrearTorneo(Torneo torneo)
+        {
+            _torneoRepositorio.CrearTorneo(torneo);
+        }
+
         public IEnumerable<Torneo> ObtenerTorneosDisponibles()
         {
             return _torneoRepositorio.ObtenerTorneosDisponibles();
