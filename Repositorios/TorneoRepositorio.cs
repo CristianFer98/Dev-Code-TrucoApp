@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using Microsoft.EntityFrameworkCore;
 using Repositorios.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,17 @@ namespace Repositorios
     public class TorneoRepositorio : ITorneoRepositorio
     {
         DevCodeDBContext _dbContext;
-        
+
         public TorneoRepositorio(DevCodeDBContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public Torneo CrearTorneo(Torneo torneo)
+        {
+            _dbContext.Add(torneo);
+            _dbContext.SaveChanges();
+            return torneo;
         }
 
         public IEnumerable<Torneo> ObtenerTorneosDisponibles()
