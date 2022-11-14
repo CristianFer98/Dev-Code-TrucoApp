@@ -17,8 +17,7 @@ namespace Entidades
         public DateTime FechaCreacion { get; set; }
         public int? Ganador { get; set; }
 
-        public Guid TorneoId { get; set; }
-        [ForeignKey("TorneoId")]
-        public virtual Torneo Torneo { get; set; }
+        [ForeignKey("IdTorneo")]
+        public Guid IdTorneo{ get; set; }
     }
 }

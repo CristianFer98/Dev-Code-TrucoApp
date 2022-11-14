@@ -14,7 +14,5 @@ namespace Entidades
         public int EtapaTorneo { get; set; }
         public bool HabilitadoJugar { get; set; }
         public bool Terminado { get; set; }
-
-        public virtual ICollection<Mesa> Mesas { get; set; }
     }
 }
