@@ -13,10 +13,16 @@ namespace Servicios
     public class TorneoServicio : ITorneoServicio
     {
         ITorneoRepositorio _torneoRepositorio;
-
-        public TorneoServicio(ITorneoRepositorio torneoRepositorio)
+        IMesaRepositorio _mesaRepositorio;
+        public TorneoServicio(ITorneoRepositorio torneoRepositorio, IMesaRepositorio mesaRepositorio)
         {
             _torneoRepositorio = torneoRepositorio;
+            _mesaRepositorio = mesaRepositorio;
+        }
+
+        public Torneo CrearTorneo(Torneo torneo)
+        {
+            return _torneoRepositorio.CrearTorneo(torneo);
         }
 
         public IEnumerable<Torneo> ObtenerTorneosDisponibles()
