@@ -13,6 +13,7 @@ namespace Entidades
         public string Nombre { get; set; }
         public int EtapaTorneo { get; set; }
         public bool HabilitadoJugar { get; set; }
+        public bool Terminado { get; set; }
         [JsonIgnore]
         public virtual ICollection<Mesa> Mesas { get; set; }
     }

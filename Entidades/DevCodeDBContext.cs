@@ -55,6 +55,8 @@ namespace Entidades
 
                 torneo.Property(t => t.HabilitadoJugar).HasDefaultValue(false);
 
+                torneo.Property(t => t.Terminado).HasDefaultValue(false);
+
                 torneo.HasData(torneosInit);
             });
 
