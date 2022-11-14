@@ -13,6 +13,7 @@ using Router.Hubs;
 using Servicios;
 using Servicios.Interfaces;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Router
 {
@@ -30,6 +31,9 @@ namespace Router
         {
 
             services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                                   options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddSignalR();
 
@@ -58,6 +62,7 @@ namespace Router
             services.AddScoped<IColorServicio, ColorServicio>();
             services.AddScoped<ITalleServicio, TalleServicio>();
             services.AddScoped<IAccesorioServicio, AccesorioServicio>();
+            services.AddScoped<MercadoPagoServicio>();
 
             services.AddCors(options =>
             {
@@ -113,6 +118,7 @@ namespace Router
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
         }
     }
 }

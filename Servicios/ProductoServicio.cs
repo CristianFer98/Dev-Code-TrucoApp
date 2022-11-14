@@ -6,21 +6,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MercadoPago.Resource.Preference;
+
 
 namespace Servicios
 {
     public class ProductoServicio:IProductoServicio
     {
         private readonly IProductoRepositorio _productoRepositorio;
+        private readonly MercadoPagoServicio _mpServicio;
 
-        public ProductoServicio(IProductoRepositorio productoRepositorio)
+        public ProductoServicio(IProductoRepositorio productoRepositorio, MercadoPagoServicio mpServicio)
         {
             _productoRepositorio = productoRepositorio;
-        }
-
-        public void ComprarProducto(int idProducto)
-        {
-            throw new NotImplementedException();
+            _mpServicio = mpServicio;
+            
         }
 
         public Producto GetProductoPorId(int idProducto)
@@ -37,5 +37,16 @@ namespace Servicios
         {
             _productoRepositorio.ActualizarStock(idProducto, stockActual);
         }
+
+        public Task<Preference> ComprarProducto(int idProducto)
+        {
+            Producto prod = _productoRepositorio.GetProductoPorId(idProducto);
+            return _mpServicio.MercadoPagoAsync((int)prod.Precio, prod.Descripcion);
+        }
     }
+
+ 
+
+
+
 }
