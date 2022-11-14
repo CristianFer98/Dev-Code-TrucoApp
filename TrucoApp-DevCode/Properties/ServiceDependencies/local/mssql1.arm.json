@@ -51,7 +51,7 @@
             {
               "kind": "v12.0",
               "location": "[parameters('resourceLocation')]",
-              "name": "dev-code-trucoappdbserver",
+              "name": "devcode",
               "type": "Microsoft.Sql/servers",
               "apiVersion": "2017-10-01-preview"
             },
@@ -63,11 +63,11 @@
               },
               "kind": "v12.0,user",
               "location": "[parameters('resourceLocation')]",
-              "name": "dev-code-trucoappdbserver/DevCodeDB",
+              "name": "devcode/DevCodeDB",
               "type": "Microsoft.Sql/servers/databases",
               "apiVersion": "2017-10-01-preview",
               "dependsOn": [
-                "dev-code-trucoappdbserver"
+                "devcode"
               ]
             }
           ]

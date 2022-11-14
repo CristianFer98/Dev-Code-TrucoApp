@@ -31,7 +31,7 @@ namespace Entidades
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=tcp:dev-code-trucoappdbserver.database.windows.net,1433;Initial Catalog=DevCodeDB;Persist Security Info=False;User ID=devcode;Password=;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=tcp:devcode.database.windows.net,1433;Initial Catalog=DevCodeDB;Persist Security Info=False;User ID=devcode;Password=Programacion2022;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 

@@ -12,7 +12,7 @@
     },
     "mssql1": {
       "secretStore": "LocalSecretsFile",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/dev-code-trucoappdbserver/databases/DevCodeDB",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/devcode/databases/DevCodeDB",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:DevCodeDBContext",
       "dynamicId": null
