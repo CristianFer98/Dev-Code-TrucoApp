@@ -3,7 +3,15 @@ import Cartas from "./Cartas";
 import EnvidoTutorialUno from "./tutorial/EnvidoTutorialUno";
 import EnvidoTutorialDos from "./tutorial/EnvidoTutorialDos";
 import TrucoTutorialUno from "./tutorial/TrucoTutorialUno";
+import { useHistory } from "react-router";
+
 export function Reglas() {
+  const history = useHistory();
+
+  const unovsmaquina = (e) => {
+    history.push("/juegoia");
+  };
+
   return (
     <div className="rules-container container-fluid text-center p-5">
       <div className="container">
@@ -162,6 +170,7 @@ export function Reglas() {
             style={{
               display: "flex",
               flexWrap: "wrap",
+              flexDirection: "column",
               width: "100%",
               justifyContent: "space-around",
             }}
@@ -283,16 +292,28 @@ export function Reglas() {
         </div>
       </div>
 
-      <div style={{
-              display: "flex",
-              flexWrap: "wrap",
-              width: "100%",
-              justifyContent: "space-around",
-            }}
-          >
-            <TrucoTutorialUno />
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "column",
+          width: "100%",
+          justifyContent: "space-around",
+        }}
+      >
+        <TrucoTutorialUno />
+      </div>
 
-          </div>
+      <button
+        type="button"
+        class="btn btn-primary"
+        style={{ marginTop: "25px" }}
+        onClick={() => {
+          unovsmaquina();
+        }}
+      >
+        ¡Estas listo para jugar contra la maquina!
+      </button>
     </div>
   );
 }

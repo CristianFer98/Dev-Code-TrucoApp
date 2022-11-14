@@ -11,6 +11,7 @@ namespace Repositorios.Interfaces
     {
         public void GuardarAvatar(Avatar avatar);
         public Avatar MostrarAvatarPorUsuario(int idUsuario);
-        public void ModificarAvatar(int idUsuario);
+        public void ModificarAvatar(int idUsuario, Avatar avatar);
+        public Avatar GetAvatarPorId(int idUsuario);
     }
 }

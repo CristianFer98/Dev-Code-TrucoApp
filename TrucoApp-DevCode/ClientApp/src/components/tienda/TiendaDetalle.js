@@ -42,9 +42,11 @@ export function TiendaDetalle() {
     return (
         <div className="componente-store" style={{height:'100%'}}>
             <AccesorioDetalle
+                id={accesorio.idProducto}
                 imagen={accesorio.imagen}
                 descripcion={accesorio.descripcion}
                 cantidadAComprar={accesorio.cantidadAcomprar}
+                stock={accesorio.stock}
                 medidas={accesorio.medidas}
                 marca={accesorio.marca}
                 tipoBaraja={accesorio.tipoBaraja}

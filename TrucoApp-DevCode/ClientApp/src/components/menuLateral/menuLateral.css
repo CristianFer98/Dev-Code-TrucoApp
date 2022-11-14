@@ -1,155 +1,142 @@
 .homeLeyenda {
-    background-color: rgb(235, 235, 220); 
-    display: none;
-  }
-    
-  .home:hover + .homeLeyenda {
-    display: block;
-    position: absolute;
-    top:65px;
-    right: 5px;
-    height: 25px;
-    width: 55px;
-    color:black;
-    border-radius: 5px;
-    animation-name: efecto;
-    animation-duration: 0.3s;
-    text-align: center;
+  background-color: rgb(235, 235, 220);
+  display: none;
+}
+
+.home:hover + .homeLeyenda {
+  display: block;
+  position: absolute;
+  top: 65px;
+  right: 5px;
+  height: 25px;
+  width: 55px;
+  color: black;
+  border-radius: 5px;
+  animation-name: efecto;
+  animation-duration: 0.3s;
+  text-align: center;
 }
 
 .cuentaLeyenda {
-    background-color: rgb(235, 235, 220); 
-    display: none;
-  }
-    
-  .cuenta:hover + .cuentaLeyenda {
-    display: block;
-    position: absolute;
-    top:130px;
-    right: 5px;
-    height: 25px;
-    width: 55px;
-    color:black;
-    border-radius: 5px;
-    animation-name: efecto;
-    animation-duration: 0.3s;
-    text-align: center;
+  background-color: rgb(235, 235, 220);
+  display: none;
+}
+
+.cuenta:hover + .cuentaLeyenda {
+  display: block;
+  position: absolute;
+  top: 130px;
+  right: 5px;
+  height: 25px;
+  width: 55px;
+  color: black;
+  border-radius: 5px;
+  animation-name: efecto;
+  animation-duration: 0.3s;
+  text-align: center;
 }
 
 .tiendaLeyenda {
-    background-color: rgb(235, 235, 220); 
-    display: none;
-  }
-    
-  .tienda:hover + .tiendaLeyenda {
-    display: block;
-    position: absolute;
-    top:195px;
-    right: 5px;
-    height: 25px;
-    width: 55px;
-    color:black;
-    border-radius: 5px;
-    animation-name: efecto;
-    animation-duration: 0.3s;
-    text-align: center;
+  background-color: rgb(235, 235, 220);
+  display: none;
+}
+
+.tienda:hover + .tiendaLeyenda {
+  display: block;
+  position: absolute;
+  top: 195px;
+  right: 5px;
+  height: 25px;
+  width: 55px;
+  color: black;
+  border-radius: 5px;
+  animation-name: efecto;
+  animation-duration: 0.3s;
+  text-align: center;
 }
 
 .reglasLeyenda {
-    background-color: rgb(235, 235, 220); 
-    display: none;
-  }
-    
-  .reglas:hover + .reglasLeyenda {
-    display: block;
-    position: absolute;
-    top:260px;
-    right: 5px;
-    height: 25px;
-    width: 55px;
-    color:black;
-    border-radius: 5px;
-    animation-name: efecto;
-    animation-duration: 0.3s;
-    text-align: center;
+  background-color: rgb(235, 235, 220);
+  display: none;
 }
 
-.nosotrosLeyenda {
-    background-color: rgb(235, 235, 220); 
-    display: none;
-  }
-    
-  .nosotros:hover + .nosotrosLeyenda {
-    display: block;
-    position: absolute;
-    top:325px;
-    right: 10px;
-    height: 25px;
-    width: 50px;
-    color:black;
-    border-radius: 5px;
-    animation-name: efecto;
-    animation-duration: 0.3s;
-    text-align: center;
+.reglas:hover + .reglasLeyenda {
+  display: block;
+  position: absolute;
+  top: 260px;
+  right: 5px;
+  height: 25px;
+  width: 55px;
+  color: black;
+  border-radius: 5px;
+  animation-name: efecto;
+  animation-duration: 0.3s;
+  text-align: center;
 }
+
 
 .logoutLeyenda {
-    background-color: rgb(235, 235, 220); 
-    display: none;
-  }
-    
-  .logout:hover + .logoutLeyenda {
-    display: block;
-    position: absolute;
-    bottom:40px;
-    right: 5px;
-    height: 25px;
-    width: 65px;
-    color:black;
-    border-radius: 5px;
-    animation-name: efecto;
-    animation-duration: 0.3s;
-    text-align: center;
+  background-color: rgb(235, 235, 220);
+  display: none;
 }
 
-
-
+.logout:hover + .logoutLeyenda {
+  display: block;
+  position: absolute;
+  bottom: 40px;
+  right: 5px;
+  height: 25px;
+  width: 65px;
+  color: black;
+  border-radius: 5px;
+  animation-name: efecto;
+  animation-duration: 0.3s;
+  text-align: center;
+}
 
 @keyframes efecto {
-    0%{
-        opacity: 0.1;
-    }
-    
-    100%{
+  0% {
+    opacity: 0.1;
+  }
 
-    }
+  100% {
+  }
 }
 
-.chatIcon{
+.chatIcon {
   display: none;
 }
 
 @media only screen and (max-width: 915px) {
   .chatIcon {
-      display: block;
-      }
+    display: block;
+  }
+
+  .main {
+    height: 87.5vh;
+  }
 }
 
 .chatLeyenda {
-  background-color: rgb(235, 235, 220); 
+  background-color: rgb(235, 235, 220);
   display: none;
 }
-  
+
 .chatIcon:hover + .chatLeyenda {
   display: block;
   position: absolute;
-  top:390px;
+  top: 390px;
   right: 10px;
   height: 25px;
   width: 50px;
-  color:black;
+  color: black;
   border-radius: 5px;
   animation-name: efecto;
   animation-duration: 0.3s;
   text-align: center;
+}
+
+@media only screen and (max-width: 580px) {
+  
+ 
 }

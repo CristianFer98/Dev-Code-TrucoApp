@@ -36,6 +36,49 @@ namespace Router.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("ObtenerAvatarPorId/{idUsuarioAvatar:int}")]
+        public ActionResult ObtenerAvatarPorId(int idUsuarioAvatar)
+        {
+            try
+            {
+
+                return StatusCode(StatusCodes.Status200OK,_avatarServicio.GetAvatarPorId(idUsuarioAvatar));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpPut]
+        [Route("ModificarAvatar/{idUsuarioAvatar:int}")]
+        public ActionResult ModificarAvatar(int idUsuarioAvatar, [FromBody] AvatartDto avatar)
+        {
+
+            try
+            {
+                _avatarServicio.ModificarAvatar(
+                    idUsuarioAvatar, 
+                    avatar.Pelo,
+                    avatar.Ceja,
+                    avatar.ColorDeOjos,
+                    avatar.ColorDePiel,
+                    avatar.Ropa
+                    );
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
         // GET: AvatarController
         /*public ActionResult MostrarAvatarPorUsuario(int idUsuario)
         {

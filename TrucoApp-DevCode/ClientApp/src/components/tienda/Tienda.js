@@ -14,20 +14,20 @@ export function Tienda() {
       fetch(url)
       .then(res=> res.json())
       .then(data=>setAccesorios(data));
-      console.table(accesorios);
+      //console.table(accesorios);
   }
   getProductos();
   return (
-    <div className="componente-store" style={{height:'100%'}}>
+    <><div className="componente-store">
       <h1 className="titulo mt-5"> Tienda de Accesorios</h1>
       <br />
-      <div className="alert alert-primary d-flex flex-column" role="alert" style={{width:'50%'}}>
-          <h5 className="text-center mb-3">
-            Mira los accesorios para tu avatar
-          </h5>
-          <Link to="/inicio/tienda-avatar" className="btn btn-primary" style={{textDecoration:'none', color:'white'}}>
-            Acceder
-          </Link>
+      <div className="alert alert-primary d-flex flex-column alert-tienda-avatar" role="alert">
+        <h5 className="text-center mb-3">
+          Mira los accesorios para tu avatar
+        </h5>
+        <Link to="/inicio/tienda-avatar" className="btn btn-primary" style={{ textDecoration: 'none', color: 'white' }}>
+          Acceder
+        </Link>
       </div>
       <br />
       <div className="accesorios">
@@ -38,9 +38,9 @@ export function Tienda() {
             imagen={imagenes[`${accesorio.imagen}`]}
             descripcion={accesorio.descripcion}
             precio={accesorio.precio}
-          />
+            stock={accesorio.stock} />
         ))}
       </div>
-    </div>
+    </div></>
   );
 }

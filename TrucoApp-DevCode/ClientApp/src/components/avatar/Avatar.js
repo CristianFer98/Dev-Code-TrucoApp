@@ -3,6 +3,9 @@ import { useState } from 'react';
 import './avatar.css';
 import imagenes from './AvatarImagenes';
 import { Link } from 'react-router-dom';
+import sinPelo from  './../../assets/avatar/sin-pelo.png';
+import html2canvas from 'html2canvas';
+import { useSelector } from 'react-redux';
 import { 
   mostrarAvatarSeleccionadoMasConfiguracion,
   setPelo,
@@ -15,17 +18,27 @@ import {
 const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
+  const { uid } = useSelector((state) => state.auth);
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('-');
-  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(2);
+  const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(uid);
   const [Pelo, setEstadoPelo] = useState('pelo');
   const [Ceja, setEstadoCeja] = useState('ceja-negra');
   const [ColorDePiel, setEstadoColorDePiel] = useState('piel-default');
   const [ColorDeOjos, setEstadoColorDeOjos] = useState('iris-marron');
   const [Ropa, setEstadoRopa] = useState('ropa');
+  const [avatarActual, setAvatarActual] = useState([]);
 
   const [avatarAccesorios, setAvatarAccesorios] = useState([]);
+
+  const getAvatarPorId = () =>{
+    fetch(`https://localhost:44342/api/Avatar/ObtenerAvatarPorId/${IdUsuarioAvatar}`)
+          .then(res=> res.json())
+          .then(data=>setAvatarActual(data));
+  }
+
+  getAvatarPorId();
   
-    const getAvatarAccesorios = ()=>{
+   const getAvatarAccesorios = ()=>{
         fetch("https://localhost:44342/api/Accesorio/ObtenerAccesorios")
         .then(res=> res.json())
         .then(data=>setAvatarAccesorios(data));
@@ -52,33 +65,103 @@ export function Avatar() {
       return listadoRopa;
   }
 
+  const guardarFotoPerfil= async (img)=>{
+
+    const resp = await fetch(
+      `https://localhost:44342/api/Usuarios/AgregarFotoPerfil/${IdUsuarioAvatar}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(img), 
+      }
+    );
+      console.log("foto: ",img);
+    if (resp.ok) {
+      
+      console.log("se guardo con exito la foto-perfil");
+    }else{
+      console.log("no se pudo guardar la foto-perfil");
+    }
+
+  }
+  const captura = () =>{
+    let avatarActual = `${avatarSeleccionado=='opcion1'?'#version-m':'#version-f'}`;
+    console.log(avatarActual);
+    if(document.querySelector(`${avatarActual}`)){
+      let avatar = document.querySelector(`${avatarActual}`);
+      html2canvas(avatar).then( async canvas => {
+      let img = canvas.toDataURL('image/png');
+      guardarFotoPerfil(img);
+      
+      })
+    }
+  }
+
    const handleSubmit= async (e) =>{
-      e.preventDefault(); 
-         const resp = await fetch(url, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              IdUsuarioAvatar:IdUsuarioAvatar,
-              Pelo:Pelo, 
-              Ceja:Ceja,
-              ColorDePiel:ColorDePiel,
-              ColorDeOjos:ColorDeOjos, 
-              Ropa:Ropa 
-            })
-          });
-          if (resp.ok) {
-            console.log("guardado con exito");
-            document.querySelector('.mensaje').classList.remove('alert-primary');
-            document.querySelector('.mensaje').classList.add('alert-success');
-            document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Guardado con éxito";
-          } else{
-              console.log("error, no se pudo guardar");
+         e.preventDefault(); 
+         //pregunto si el avatar ya existe en la bd, de ser asi se modifica
+         if(avatarActual.idUsuarioAvatar==IdUsuarioAvatar){
+              const resp = await fetch(
+                `https://localhost:44342/api/Avatar/ModificarAvatar/${IdUsuarioAvatar}`,
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    IdUsuarioAvatar:IdUsuarioAvatar,
+                    Pelo:Pelo, 
+                    Ceja:Ceja,
+                    ColorDePiel:ColorDePiel,
+                    ColorDeOjos:ColorDeOjos, 
+                    Ropa:Ropa, 
+                  })
+                }
+              );
+
+              if (resp.ok) {
+                document.querySelector('.mensaje').classList.remove('alert-primary');
+                document.querySelector('.mensaje').classList.add('alert-success');
+                document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Modificado con éxito";
+                captura();
+              }else{
+                document.querySelector('.mensaje').classList.remove('alert-primary');
+                document.querySelector('.mensaje').classList.add('alert-danger');
+                document.querySelector('.mensaje').innerHTML="<i class='fa-solid fa-xmark'></i> Hubo un error intente más tarde";
+              }
+         }else{//sino se guarda
+
+            const resp = await fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                IdUsuarioAvatar:IdUsuarioAvatar,
+                Pelo:Pelo, 
+                Ceja:Ceja,
+                ColorDePiel:ColorDePiel,
+                ColorDeOjos:ColorDeOjos, 
+                Ropa:Ropa, 
+              })
+            });
+            if (resp.ok) {
+              console.log("guardado con exito");
               document.querySelector('.mensaje').classList.remove('alert-primary');
-              document.querySelector('.mensaje').classList.add('alert-danger');
-              document.querySelector('.mensaje').innerHTML="<i class='fa-solid fa-xmark'></i> Hubo un error intente más tarde";
-          }     
+              document.querySelector('.mensaje').classList.add('alert-success');
+              document.querySelector('.mensaje').innerHTML="<i className='fa-solid fa-check'></i> Guardado con éxito";
+              captura();
+            } else{
+                console.log("error, no se pudo guardar");
+                document.querySelector('.mensaje').classList.remove('alert-primary');
+                document.querySelector('.mensaje').classList.add('alert-danger');
+                document.querySelector('.mensaje').innerHTML="<i class='fa-solid fa-xmark'></i> Hubo un error intente más tarde";
+            }
+         }
+         
+              
      
   }
 
@@ -89,14 +172,14 @@ export function Avatar() {
       Selecciona un avatar, modifícalo y guárdalo.
     </div>
       <div className="componente-avatar-modificacion">
-        <div className="componente-principal version-m" >
+        <div className="componente-principal version-m" id="version-m">
           <div className="avatar">
             <div className="oreja-izq piel-default"></div>
             <div className="cabeza piel-default">
               <div className="contendor-pelo">
                 <img alt="" id="pelo-actual" src={imagenes['pelo-v1-m-negro']} className="pelo-m pelo-v1-m-negro"/>
               </div>
-              <div className="cejas-ojos-nariz-boca">
+              <div className="cejas-ojos-nariz-boca" id="cejas-ojos-nariz-boca-m">
                 <div className="contenedor-cejas">
                   <div className="ceja-izq ceja-negra"></div>
                   <div className="ceja-der ceja-negra"></div>
@@ -145,7 +228,7 @@ export function Avatar() {
           
         </div>
 
-        <div className="componente-principal version-f">
+        <div className="componente-principal version-f" id="version-f">
           <div className="avatar">
             <div className="oreja-izq piel-default" style={{display:'none'}}></div>
             <div className="cabeza piel-default">
@@ -198,7 +281,7 @@ export function Avatar() {
           </div>
           
         </div>
-
+        <div className="d-block" id="perfil"></div>
         <div className="componente-cambio-aspecto ocultar" style={{display:'none'}}>
           <div id="carouselExampleControls" className="carousel slide d-flex flex-row" data-bs-ride="carousel">
              <button className="carousel-control-prev m-0 p-0" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style={{width:'5%'}}>
@@ -295,6 +378,7 @@ export function Avatar() {
                           title="pelo negro"
                           onClick={() => {
                             setPelo('negro', 'ceja-negra');
+                            setEstadoPelo('pelo-negro');
                             setEstadoCeja('ceja-negra');
                           }}
                         ></div>
@@ -303,6 +387,7 @@ export function Avatar() {
                           title="pelo castaño"
                           onClick={() => {
                             setPelo('castano','ceja-castana');
+                            setEstadoPelo('pelo-castano');
                             setEstadoCeja('ceja-castana');
                           }}
                         ></div>
@@ -311,6 +396,7 @@ export function Avatar() {
                           title="pelo rubio"
                           onClick={() =>{
                             setPelo('rubio','ceja-rubia');
+                            setEstadoPelo('pelo-rubio');
                             setEstadoCeja('ceja-rubia');
                           }}
                         ></div>
@@ -319,6 +405,7 @@ export function Avatar() {
                           title="pelo colorado"
                           onClick={() =>{
                             setPelo('colorado','ceja-colorada');
+                            setEstadoPelo('pelo-colorado');
                             setEstadoCeja('ceja-colorada');
                           }}
                         ></div>
@@ -327,6 +414,7 @@ export function Avatar() {
                           title="pelo canoso"
                           onClick={() => {
                             setPelo('canoso','ceja-canosa');
+                            setEstadoPelo('pelo-canoso');
                             setEstadoCeja('ceja-canosa');
                           }}
                         ></div>
@@ -336,20 +424,33 @@ export function Avatar() {
                 <div className="carousel-item">
                   <strong style={{ fontSize: '18px'}} className="mb-3">Pelo</strong>
                   <div className="modificar cambio-pelo d-flex justify-content-center">
+                  <div className="sin-pelo">
+                      <img 
+                        src={sinPelo} 
+                        title="sin pelo" 
+                        style={{cursor:'pointer'}}
+                        onClick={()=>{
+                          setPeinado('sin-pelo');
+                          setEstadoPelo('sin-pelo');
+                        }}/>
+                  </div>
                     {getListadoPelo().map((pelo) => (
-                      <button 
-                        className={`${pelo.imagen} btn border-0 ${pelo.comprado==true?'':'disabled'}`}
-                        style={{width:'200%', height:'auto'}}
-                        onClick={()=>setPeinado(pelo.imagen)}>
-                          <img 
-                            src={imagenes[pelo.imagen]} 
-                            style={ avatarSeleccionado=='opcion1' && (pelo.imagen).includes('-m-')  ? { display:'block'} : {display : 'none'} } 
-                            className="accesoriosAvatar"/>
-                          <img 
-                            src={imagenes[pelo.imagen]} 
-                            style={ avatarSeleccionado=='opcion2' && (pelo.imagen).includes('-f-')  ? { display:'block'} : {display : 'none'} }
-                            className="accesoriosAvatar"/>
+                      <><button
+                        className={`${pelo.imagen} btn border-0 ${pelo.comprado == true ? '' : 'disabled'} ${avatarSeleccionado == 'opcion1' && (pelo.imagen).includes('-m-') ? 'd-block' : 'd-none'}`}
+                        style={{ width: '100px', height: 'auto' }}
+                        onClick={() => setPeinado(pelo.imagen)}>
+                        <img
+                          src={imagenes[pelo.imagen]}
+                          className="accesoriosAvatar" />
                       </button>
+                      <button
+                        className={`${pelo.imagen} btn border-0 ${pelo.comprado == true ? '' : 'disabled'} ${avatarSeleccionado == 'opcion2' && (pelo.imagen).includes('-f-') ? 'd-block' : 'd-none'}`}
+                        style={{ width: '100px', height: 'auto' }}
+                        onClick={() => setPeinado(pelo.imagen)}>
+                          <img
+                            src={imagenes[pelo.imagen]}
+                            className="accesoriosAvatar" />
+                        </button></>
                   ))}
                  
                   </div>
@@ -357,7 +458,7 @@ export function Avatar() {
                   <strong style={{ fontSize: '18px'}} className="mb-3">Ropa</strong>    
                   <div className="modificar cambio-ropa">
                     {getListadoRopa().map((ropa) => (
-                      <button 
+                      <button
                         className={`${ropa.imagen} btn border-0 ${ropa.comprado==true ?'':'disabled'}`}
                         style={{width:'200%', height:'auto'}}
                         onClick={()=>{

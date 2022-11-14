@@ -45,3 +45,9 @@
   color: white;
   transition: ease 0.4s;
 }
+
+@media only screen and (max-width: 915px) {
+  .chat {
+    display: none;
+  }
+}

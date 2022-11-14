@@ -25,16 +25,41 @@ export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=
  }
  
  export const setPelo = (peloColorNuevo, cejaColorNuevo) => {
-   let peloActual = document.querySelector('#pelo-actual');
-   let cejaColorActual = document.querySelector('.ceja-izq').classList[1];
-   document.querySelector('.ceja-izq').classList.remove(cejaColorActual);
-   document.querySelector('.ceja-der').classList.remove(cejaColorActual);
-   document.querySelector('.ceja-izq').classList.add(cejaColorNuevo);
-   document.querySelector('.ceja-der').classList.add(cejaColorNuevo);
-    let nombreImg=getPeloActualAvatar();
-    let nuevoValor=nombreImg+peloColorNuevo;
-    modificarClaseImgPelo(nuevoValor);
-    peloActual.src=imagenes[`${nuevoValor}`];
+
+  let divCaraF = document.querySelector('#cejas-ojos-nariz-boca-f');
+  let divCaraM = document.querySelector('#cejas-ojos-nariz-boca-m');
+
+  let peloActual = document.querySelector('#pelo-actual');
+  let cejaColorActual = document.querySelector('.ceja-izq').classList[1];
+  document.querySelector('.ceja-izq').classList.remove(cejaColorActual);
+  document.querySelector('.ceja-der').classList.remove(cejaColorActual);
+  document.querySelector('.ceja-izq').classList.add(cejaColorNuevo);
+  document.querySelector('.ceja-der').classList.add(cejaColorNuevo);
+   let nombreImg=getPeloActualAvatar();
+   let nuevoValor=nombreImg+peloColorNuevo;
+   modificarClaseImgPelo(nuevoValor);
+   peloActual.src=imagenes[`${nuevoValor}`];
+
+    if(divCaraF){
+          let claseActual = divCaraF.classList[0];
+          divCaraF.classList.remove(claseActual);
+          let posicionCaracterV = nuevoValor.indexOf("v");
+          let version =nuevoValor.substring(posicionCaracterV, posicionCaracterV+2);
+          let versionPelo = version.split("v").join(''); 
+  
+          divCaraF.classList.add(`cejas-ojos-nariz-boca-f-${versionPelo}`);
+          document.querySelector('.oreja-der').style.display="none";
+          document.querySelector('.oreja-izq').style.display="none";
+    }
+
+    if(divCaraM){
+
+          let claseActual = divCaraM.classList[0];
+          divCaraM.classList.remove(claseActual);
+          divCaraM.classList.add('cejas-ojos-nariz-boca');
+
+    }
+
  };
  
  export const setPiel = (colorNuevo) => {
@@ -69,19 +94,53 @@ export const mostrarAvatarSeleccionadoMasConfiguracion = (avatarNoSeleccionado)=
 }
 
 export const setPeinado = (peinadoNuevo) =>{
-  let peinadoActual= document.querySelector('#pelo-actual');
-  peinadoActual.src=imagenes[`${peinadoNuevo}`];
-  modificarClaseImgPelo(peinadoNuevo);
 
+  let divCaraF = document.querySelector('#cejas-ojos-nariz-boca-f');
+  let divCaraM = document.querySelector('#cejas-ojos-nariz-boca-m');
 
-  let posicionCaracterV = peinadoNuevo.indexOf("v");
-  let version =peinadoNuevo.substring(posicionCaracterV, posicionCaracterV+2);
-  let versionPelo = version.split("v").join(''); 
+  if(peinadoNuevo=='sin-pelo'){
 
-  let divCara = document.querySelector('#cejas-ojos-nariz-boca-f');
-  let claseActual = divCara.classList[0];
-  divCara.classList.remove(claseActual);
-  divCara.classList.add(`cejas-ojos-nariz-boca-f-${versionPelo}`);
+        let peinadoActual= document.querySelector('#pelo-actual');
+        peinadoActual.src="";
+
+        if(divCaraF){
+          let claseActual = divCaraF.classList[0];
+          divCaraF.classList.remove(claseActual);
+          divCaraF.classList.add(`cejas-ojos-nariz-boca-${peinadoNuevo}-f`);
+        }
+
+        if(divCaraM){
+          let claseActual = divCaraM.classList[0];
+          divCaraM.classList.remove(claseActual);
+          divCaraM.classList.add(`cejas-ojos-nariz-boca-${peinadoNuevo}-m`);
+        }
+        document.querySelector('.oreja-der').style.display="block";
+        document.querySelector('.oreja-izq').style.display="block";
+  }else{
+        let peinadoActual= document.querySelector('#pelo-actual');
+        peinadoActual.src=imagenes[`${peinadoNuevo}`];
+        modificarClaseImgPelo(peinadoNuevo);
+        let posicionCaracterV = peinadoNuevo.indexOf("v");
+        let version =peinadoNuevo.substring(posicionCaracterV, posicionCaracterV+2);
+        let versionPelo = version.split("v").join(''); 
+
+        if(divCaraF){
+          let claseActual = divCaraF.classList[0];
+          divCaraF.classList.remove(claseActual);
+          divCaraF.classList.add(`cejas-ojos-nariz-boca-f-${versionPelo}`);
+          document.querySelector('.oreja-der').style.display="none";
+          document.querySelector('.oreja-izq').style.display="none";
+        }
+
+        if(divCaraM){
+          let claseActual = divCaraM.classList[0];
+          divCaraM.classList.remove(claseActual);
+          divCaraM.classList.add('cejas-ojos-nariz-boca');
+          document.querySelector('.oreja-der').style.display="block";
+          document.querySelector('.oreja-izq').style.display="block";
+        }
+  }
+  
 }
 
   

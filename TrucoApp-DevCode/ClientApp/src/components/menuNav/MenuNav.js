@@ -3,9 +3,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
-import imagotipo from './../../assets/imagotipo-c.png';
+import imagotipo from './../../assets/vale-cuatro-fondo-transparente.png';
+import noFoto from './../../assets/no-foto.jpg';
+import { useSelector } from 'react-redux'
 
 function CollapsibleExample() {
+  const { nombre, foto } = useSelector((state) => state.auth);
   return (
     <Navbar
       collapseOnSelect
@@ -24,7 +27,8 @@ function CollapsibleExample() {
           <img
             src={imagotipo}
             alt="Isotipo de Vale cuatro"
-            width="200"
+            width="100"
+            height="50"
             className="m-1"
           />
         </NavLink>
@@ -34,13 +38,13 @@ function CollapsibleExample() {
           <Nav className="me-auto"></Nav>
 
           <Nav>
-            <Nav.Link href="#deets">Bienvenido Cristian Fernandez</Nav.Link>
+            <Nav.Link href="#deets">{nombre}</Nav.Link>
             <img
-              src={'https://robohash.org/user2.png'}
+              src={foto!=null?foto:noFoto}
               alt="user"
               width="38px"
               height="38px"
-              style={{ borderRadius: '25px' }}
+              style={{ borderRadius: '25px', objectFit:'cover' }}
             ></img>
           </Nav>
         </Navbar.Collapse>

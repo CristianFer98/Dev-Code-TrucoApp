@@ -5,9 +5,11 @@ import "./layout.css";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { useEffect } from "react";
+import { PantallaCarga } from "../partidaLink/PantallaCarga";
 
 export const Layout = ({ children }) => {
   const { invitado } = useSelector((state) => state.auth);
+  const { cargando } = useSelector((state) => state.ui);
   const history = useHistory();
 
   useEffect(() => {
@@ -16,7 +18,7 @@ export const Layout = ({ children }) => {
     }
   }, [invitado, history]);
 
-  return (
+  return !cargando ? (
     <div>
       <MenuNav />
       <div style={{ display: "flex" }}>
@@ -24,5 +26,7 @@ export const Layout = ({ children }) => {
         <div className="main">{children}</div>
       </div>
     </div>
+  ) : (
+    <PantallaCarga />
   );
 };

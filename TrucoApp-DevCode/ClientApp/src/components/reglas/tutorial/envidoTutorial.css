@@ -4,12 +4,13 @@
 
 .envidoTutorial{
     background-image: linear-gradient(0deg, rgb(27, 32, 28), rgb(27, 87, 37));
-    height: 500px;
-    width: 100%;
+    height: auto;
+    width: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;   
     border-radius: 5px;
+    margin-top: 50px;
 }
 
 .envidoManoMaquina{
