@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -26,19 +27,36 @@ namespace Entidades
         public virtual DbSet<ProductoTalle> ProductoTalles { get; set; }
         public virtual DbSet<Talle> Talles { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Torneo> Torneos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=DevCodeDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=W10DH;Database=DevCodeDB;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            List<Torneo> torneosInit = new List<Torneo>();
+            torneosInit.Add(new Torneo() { IdTorneo = Guid.Parse("fe2de405-c38e-4c90-ac52-da0540dfb4ef"), Nombre = "Primer Torneo" });
+
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
+
+            modelBuilder.Entity<Torneo>(torneo =>
+            {
+                torneo.ToTable("Torneo");
+                torneo.HasKey(t => t.IdTorneo);
+
+                torneo.Property(t => t.Nombre).IsRequired().HasMaxLength(50);
+
+                torneo.Property(t => t.EtapaTorneo).HasDefaultValue(1);
+
+                torneo.Property(t => t.HabilitadoJugar).HasDefaultValue(false);
+
+                torneo.HasData(torneosInit);
+            });
 
             modelBuilder.Entity<Accesorio>(entity =>
             {
