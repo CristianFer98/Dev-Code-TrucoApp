@@ -1,30 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './accesorios.css';
-//import Swal from 'sweetalert2';
 import './mp';
 
 const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
   const [idPreferencia, setIdPreferencia] = useState();
 
   useEffect(() => {
-    if(!idPreferencia){
        getIdPreferencia();
-    }
     }, []);
-      const mp = new MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
-        locale: 'es-AR'
-      });
     
-      mp.checkout({
-        preference: {
-          id: `${localStorage.getItem("idPreferencia")}`
-        },
-        render: {
-          container: '.cho-container',
-          label: 'Pagar',
-        }
-      });
   
   const getIdPreferencia = async()=>{
 
@@ -38,11 +23,13 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
            }else{
             setIdPreferencia(null);
            }
+          //822844930-436e32b0-c6d7-4206-b714-5ed4ecb26de5
         });
     }
 
   const comprarProducto = async()=>{
     let stockActual = stock - 1;
+    getIdPreferencia();
     console.log("id: ", idPreferencia);
     console.log("preferencia ",localStorage.getItem("idPreferencia"))
     const resp = await fetch(
@@ -59,16 +46,26 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
  
        if (resp.ok) {
           console.log("se actualizo stock");
-          //localStorage.setItem("IdPreferencia", idPreferencia);
-          //console.log("mi idpreferencia es... ", idPreferencia) 
-          //handleClick();          
-          //alert("se actualizo stock");
-          //Swal.fire("Compra realizada con éxito", "", "success");
           // <div class="cho-container"></div>
           
        }else{
          console.log("no se pudo actualizar stock");
-       } 
+       }
+       
+       const mp = new MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
+        locale: 'es-AR'
+      });
+    
+      mp.checkout({
+        preference: {
+          id: `${localStorage.getItem("idPreferencia")}`
+        },
+        autoOpen: true,
+        render: {
+          container: '.cho-container',
+          label: 'Pagar',
+        }
+      });
  }
 
   return (
@@ -93,10 +90,11 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
         <span className="badge bg-danger btn-comprar text-center" id="comprar" >
           <span 
             className="texto-comprar cho-container"
+            id="checkout-open"
             onClick={()=>{
               comprarProducto();
             }}>
-             COMPRAR
+              COMPRAR
           </span> 
           <i 
            className="fa-solid fa-cart-shopping d-lg-none d-sm-block i-font" 
