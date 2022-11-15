@@ -19,6 +19,7 @@ import { MesasDisponibles } from "../components/mesas/MesasDisponibles";
 import TablaDeTorneo from "../components/torneo/TablaDeTorneo";
 import { CargarPartida } from "../components/partidaLink/CargarPartida";
 import { MesasDisponibles2vs2 } from "../components/mesas/MesasDisponibles2vs2";
+import { Truco2vs2 } from "../components/juego2vs2/Truco2vs2";
 
 export const AppRouter = () => {
   const { uid, jugando } = useSelector((state) => state.auth);
@@ -28,7 +29,7 @@ export const AppRouter = () => {
       <Switch>
         <Route path="/juego/:mesaId" component={CargarPartida} />
 
-        <PublicRoute logueado={!!uid} path="/auth" component={LoginRegistro} />
+        <PublicRoute logueado={!!uid} path="/auth" component={Truco2vs2} />
 
         <PrivateRoute logueado={!!uid} path="/">
           <Route path="/inicio">

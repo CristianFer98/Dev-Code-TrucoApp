@@ -1,5 +1,19 @@
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 0px) {
+  .playerDerecha {
+    position: relative;
+    bottom: 200px;
+    left: 180px;
+    height: 80px;
+  }
+
+  .playerIzquierda {
+    position: relative;
+    bottom: 125px;
+    right: 180px;
+    height: 80px;
+  }
+
   .board {
     height: 80%;
     width: 100%;
@@ -115,7 +129,37 @@
   }
 }
 
+@media (min-width: 600px) {
+  .playerDerecha {
+    position: relative;
+    bottom: 200px;
+    left: 220px;
+    height: 80px;
+  }
+
+  .playerIzquierda {
+    position: relative;
+    bottom: 125px;
+    right: 220px;
+    height: 80px;
+  }
+}
+
 @media (min-width: 670px) {
+  .playerDerecha {
+    position: relative;
+    bottom: 200px;
+    left: 250px;
+    height: 80px;
+  }
+
+  .playerIzquierda {
+    position: relative;
+    bottom: 125px;
+    right: 250px;
+    height: 80px;
+  }
+
   .player2 {
     position: absolute;
     bottom: 70px;
@@ -172,6 +216,37 @@
   .divChant {
     top: 130px;
   }
+
+  .playerDerecha {
+    position: relative;
+    bottom: 200px;
+    left: 320px;
+    height: 80px;
+  }
+
+  .playerIzquierda {
+    position: relative;
+    bottom: 125px;
+    right: 320px;
+    height: 80px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 850px) {
+  .playerDerecha {
+    position: relative;
+    bottom: 200px;
+    left: 360px;
+    height: 80px;
+  }
+
+  .playerIzquierda {
+    position: relative;
+    bottom: 125px;
+    right: 360px;
+    height: 80px;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -181,6 +256,12 @@
 /* X-Large devices (large desktops, 1200px and up) */
 
 /* @media (min-width: 1400px) {
+  } */
+
+/* .playerIzquierda{
+  position: relative;
+  bottom: 65px;
+  height: 80px;  
   } */
 
 .player1 {
@@ -377,6 +458,23 @@
   padding: 0%;
   width: 40px;
   height: 62px;
+}
+
+.divCardOponentDerecha {
+  padding: 0%;
+  width: 40px;
+  height: 62px;
+  margin-top: -20px;
+  transform: rotate(-0.25turn);
+}
+
+.divCardOponentIzquierda {
+  padding: 0%;
+  width: 40px;
+  height: 62px;
+  margin-left: -8px;
+  margin-top: -20px;
+  transform: rotate(-0.25turn);
 }
 
 .cardOponent {
