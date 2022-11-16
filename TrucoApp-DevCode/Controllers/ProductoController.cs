@@ -70,5 +70,25 @@ namespace Router.Controllers
 
         }
 
+        [HttpGet]
+        [Route("ComprarProducto/{idProducto:int}")]
+        public ActionResult ComprarProducto(int idProducto)
+        {
+
+            try
+            {
+
+                return StatusCode(StatusCodes.Status200OK, _productoServicio.ComprarProducto(idProducto));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+
     }
 }
