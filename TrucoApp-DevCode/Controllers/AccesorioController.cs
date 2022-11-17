@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Servicios.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Router.Controllers
 {
@@ -40,6 +41,25 @@ namespace Router.Controllers
             try
             {
                 _accesorioServicio.Comprar(idAccesorio);
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+        [HttpPost]
+        [Route("ComprarTodo")]
+        public ActionResult ComprarAccesorio([FromBody] List <int> idsAccesorios)
+        {
+
+            try
+            {
+                _accesorioServicio.ComprarTodo(idsAccesorios);
                 return StatusCode(StatusCodes.Status200OK);
 
             }

@@ -7,12 +7,33 @@ export function TiendaAvatar() {
     const url = "https://localhost:44342/api/Accesorio/ObtenerAccesorios";
 
     const [accesorios, setAccesorios] = useState([]);
+
+    const idsAccesoriosPelo = [1,2,3,4,5,6];
+    const idsAccesoriosRopa = [7,8,9,10,11];
+    
+    const comprarTodo= async(arrayAccesorios)=>{
+        const url = 'https://localhost:44342/api/Accesorio/ComprarTodo';
+        const resp = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(arrayAccesorios)
+        });
+
+        if(resp.ok){
+             console.log("se envio ids")
+        }else{
+            console.log("no funciono")
+        }
+     
+    }
   
     const getAccesorios = ()=>{
         fetch(url)
         .then(res=> res.json())
         .then(data=>setAccesorios(data));
-        console.table(accesorios);
+        //console.table(accesorios);
     }
     getAccesorios();
 
@@ -55,7 +76,13 @@ export function TiendaAvatar() {
                                 />
                             ))}
             </div> 
-            <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3 text-light" style={{fontWeight: 'bold', color:'white'}}>COMPRAR TODO</a>
+            <button 
+                className="btn btn-danger mt-3 text-light" 
+                style={{fontWeight: 'bold', color:'white'}}
+                onClick={()=> comprarTodo(idsAccesoriosPelo)}
+            >
+                COMPRAR TODO
+            </button>
       </div>
 
       <div className="card p-3 mt-3" style={{width:'80%'}} id="div-ropa">
@@ -74,7 +101,12 @@ export function TiendaAvatar() {
                         />
                     ))}
             </div> 
-            <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3 text-light" style={{fontWeight: 'bold', color:'white'}}>COMPRAR TODO</a>
+            <button 
+                className="btn btn-danger mt-3 text-light" 
+                style={{fontWeight: 'bold', color:'white'}}
+                onClick={()=> comprarTodo(idsAccesoriosRopa)}>
+                    COMPRAR TODO
+            </button>
       </div>
    
       <Link to="/inicio/tienda" className="btn btn-success mt-3 mb-3" style={{textDecoration:'none', color:'white'}}>
