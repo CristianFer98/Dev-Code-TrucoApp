@@ -3,10 +3,28 @@ import './accesorios.css';
 import imagenes from './TiendaImagenes';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import Swal from 'sweetalert2';
+import './mp';
 
 const AccesorioDetalle = ({ id, imagen, descripcion, cantidadAComprar, stock, medidas, marca,tipoBaraja, precio, colores, talles }) => {
   
+  const [idPreferencia, setIdPreferencia] = useState();
+
+ const getIdPreferencia = async()=>{
+
+  fetch(`https://localhost:44342/api/Producto/ComprarProducto/${id}`)
+     .then(res=> res.json())
+     .then(data=>{
+         let preference =data.result.id;
+         if(preference){
+          setIdPreferencia(preference);
+          localStorage.setItem("idPreferencia", preference);
+         }else{
+          setIdPreferencia(null);
+         }
+        //822844930-436e32b0-c6d7-4206-b714-5ed4ecb26de5
+      });
+  }
+
   const cambiarProducto = (producto, color) =>{
     const imgProducto = document.querySelector('#foto-producto');
     let posicionUltimoGuion = producto.lastIndexOf("-");   
@@ -71,20 +89,36 @@ const comprarProducto = async()=>{
           headers: {
             "Content-Type": "application/json",
           },
-          body: stockActual, 
+          body:JSON.stringify({
+            stock:stockActual,
+            cantidadAComprar: cantidadAComprarProducto, 
+          })  
           
         }
       );
 
       if (resp.ok) {
          console.log("se actualizo stock");
-         //alert("se actualizo stock");
-         Swal.fire("Compra realizada con éxito", "", "success");
       }else{
         console.log("no se pudo actualizar stock");
-        //alert("no se pudo actualizar stock");
-
       }
+
+      getIdPreferencia();
+
+      const mp = new MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
+        locale: 'es-AR'
+      });
+    
+      mp.checkout({
+        preference: {
+          id: "822844930-ac081c4b-5c62-4416-ae93-416e7f7f58a8"//`${localStorage.getItem("idPreferencia")}`
+        },
+        autoOpen: true,
+        render: {
+          container: '.cho-container',
+          label: 'Pagar',
+        }
+      });
 }
   
   return (
@@ -146,7 +180,8 @@ const comprarProducto = async()=>{
                     </li>
                     <div className="d-flex flex-column">
                     <span 
-                      className="badge bg-danger d-lg-block d-sm-none bt-comprar1" 
+                      className="badge bg-danger d-lg-block d-sm-none bt-comprar1 cho-container" 
+                      id="checkout-open"
                       style={{ cursor: 'pointer', fontSize:'20px' }}
                       onClick={()=>{
                         comprarProducto();
@@ -158,7 +193,8 @@ const comprarProducto = async()=>{
             </div>
        </div>
        <span 
-        className="btn btn-danger d-sm-block d-lg-none bt-comprar text-light" 
+        className="btn btn-danger d-sm-block d-lg-none bt-comprar text-light cho-container" 
+        id="checkout-open"
         style={{ fontSize:'16px', width:'100%', height:'38px'}}
         onClick={()=>{
           comprarProducto();
