@@ -12,8 +12,7 @@ namespace Servicios.Interfaces
     {
         public List<Producto> GetProductos();
         public Producto GetProductoPorId(int idProducto);
-        public Task<Preference> ComprarProducto(int idProducto);
-        public void ActualizarStock(int idProducto, int stockActual);
-
+        public Task<string> ComprarProducto(int idProducto);
+        public void ActualizarStock(int idProducto, int stockActual, int cantidadAComprar);
     }
 }

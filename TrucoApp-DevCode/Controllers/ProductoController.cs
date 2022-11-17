@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Servicios.Interfaces;
 using System;
@@ -53,12 +54,12 @@ namespace Router.Controllers
         //
         [HttpPut]
         [Route("ActualizarStock/{idProducto:int}")]
-        public ActionResult ActualizarStock(int idProducto, [FromBody] int stockActual)
+        public ActionResult ActualizarStock(int idProducto, [FromBody] ProductoDto producto)
         {
 
             try
             {
-                _productoServicio.ActualizarStock(idProducto, stockActual);
+                _productoServicio.ActualizarStock(idProducto, (int)producto.Stock, (int)producto.CantidadAcomprar);
                 return StatusCode(StatusCodes.Status200OK);
 
             }
@@ -88,6 +89,8 @@ namespace Router.Controllers
 
 
         }
+
+
 
 
     }

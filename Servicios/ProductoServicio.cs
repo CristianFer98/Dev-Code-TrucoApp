@@ -19,6 +19,7 @@ namespace Servicios
         {
             _productoRepositorio = productoRepositorio;
             _mpServicio = mpServicio;
+            
 
         }
 
@@ -32,15 +33,17 @@ namespace Servicios
             return _productoRepositorio.GetProductos();
         }
 
-        public void ActualizarStock(int idProducto, int stockActual)
+        public void ActualizarStock(int idProducto, int stockActual, int cantidadAComprar)
         {
-            _productoRepositorio.ActualizarStock(idProducto, stockActual);
+            _productoRepositorio.ActualizarStock(idProducto, stockActual, cantidadAComprar);
         }
 
-        public Task<Preference> ComprarProducto(int idProducto)
+        public Task<string> ComprarProducto(int idProducto)
         {
-            Producto prod = _productoRepositorio.GetProductoPorId(idProducto);
-            return _mpServicio.MercadoPagoAsync((int)prod.Precio, prod.Descripcion);
+            Producto prod = _productoRepositorio.GetProductoPorId(idProducto); 
+            return _mpServicio.MercadoPagoAsync((int)prod.Precio, prod.Descripcion, (int)prod.CantidadAcomprar);
         }
+
+
     }
 }
