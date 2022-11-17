@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './accesorios.css';
 import './mp';
@@ -6,17 +6,13 @@ import './mp';
 const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
   const [idPreferencia, setIdPreferencia] = useState();
 
-  useEffect(() => {
-       getIdPreferencia();
-    }, []);
-    
-  
   const getIdPreferencia = async()=>{
 
     fetch(`https://localhost:44342/api/Producto/ComprarProducto/${id}`)
        .then(res=> res.json())
        .then(data=>{
-           let preference =data.result.id;
+        console.log(data.result)
+           let preference =data.result;
            if(preference){
             setIdPreferencia(preference);
             localStorage.setItem("idPreferencia", preference);
@@ -29,7 +25,6 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
 
   const comprarProducto = async()=>{
     let stockActual = stock - 1;
-    getIdPreferencia();
     console.log("id: ", idPreferencia);
     console.log("preferencia ",localStorage.getItem("idPreferencia"))
     const resp = await fetch(
@@ -39,7 +34,10 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
            headers: {
              "Content-Type": "application/json",
            },
-           body: stockActual, 
+           body:JSON.stringify({
+                  stock:stockActual,
+                  cantidadAComprar: 1, 
+                }) 
            
          }
        );
@@ -52,13 +50,15 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
          console.log("no se pudo actualizar stock");
        }
        
+       getIdPreferencia();
+
        const mp = new MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
         locale: 'es-AR'
       });
     
       mp.checkout({
         preference: {
-          id: `${localStorage.getItem("idPreferencia")}`
+          id: "822844930-403a18a7-eefe-4f02-8ee0-6990b70cc3b8"// `${localStorage.getItem("idPreferencia")}`
         },
         autoOpen: true,
         render: {

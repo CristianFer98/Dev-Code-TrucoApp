@@ -27,5 +27,11 @@ namespace Servicios
         {
             return _accesorioRepositorio.GetAccesorios();
         }
+
+        public void ComprarTodo(List<int> idsAccesorios)
+        {
+            _accesorioRepositorio.ComprarTodo(idsAccesorios);
+        }
+
     }
 }

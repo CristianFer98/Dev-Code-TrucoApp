@@ -16,7 +16,7 @@ namespace Servicios
     public class MercadoPagoServicio
     {
        // public string IdPreferencia { get; set; }
-        public async Task<Preference> MercadoPagoAsync(int precioProducto, string descripcionProducto)
+        public async Task<string> MercadoPagoAsync(int precioProducto, string descripcionProducto, int cantidadProducto)
         {
 
             MercadoPagoConfig.AccessToken = "TEST-41867053796882-111310-baff4998148b6b468919b60c499f6416-822844930";
@@ -29,27 +29,18 @@ namespace Servicios
                     new PreferenceItemRequest
                     {
                         Title = descripcionProducto,
-                        Quantity = 1,
+                        Quantity = cantidadProducto,
                         CurrencyId = "ARS",
                         UnitPrice = precioProducto,
                     },
                 },
 
-                /*BackUrls = new PreferenceBackUrlsRequest
-                {
-                    Success = "https://https://localhost:44342/inicio/tienda",
-                    Failure = "https://https://localhost:44342/inicio/tienda",
-                    Pending = "https://https://localhost:44342/inicio/tienda",
-                },
-                AutoReturn = "approved",*/
-
             };
             // Crea la preferencia
             var client = new PreferenceClient();
             Preference preference = await client.CreateAsync(request);
-            //string json = JsonSerializer.Serialize(preference.Id);
-
-            return preference;
+            string json = JsonSerializer.Serialize(preference.Id);
+            return json;
             
 
         }

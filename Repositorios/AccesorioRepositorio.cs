@@ -28,5 +28,15 @@ namespace Repositorios
         {
             return _dbContext.Accesorios.ToList();
         }
+
+        public void ComprarTodo(List<int> idsAccesorios)
+        {
+            foreach (int i in idsAccesorios)
+            {
+                Accesorio accesorio = _dbContext.Accesorios.Find(i);
+                accesorio.Comprado = true;
+                _dbContext.SaveChanges();
+            }
+        }
     }
 }
