@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using Router.Hubs;
 using Servicios;
 using Entidades;
+using TrucoApp.DTOs;
 
 namespace Router.Controllers
 {
@@ -32,9 +33,24 @@ namespace Router.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Torneo torneo)
+        [Route("CrearTorneo")]
+        public IActionResult CrearTorneo([FromBody] CrearTorneoDto crearTorneo)
         {
-            Torneo torneoCreado = _torneoServicio.CrearTorneo(torneo);
+            var nuevoTorneo = new Torneo()
+            {
+                Nombre = crearTorneo.Nombre,
+                CantidadParticipantes = crearTorneo.CantidadParticipantes
+            };
+
+            _torneoServicio.CrearTorneo(nuevoTorneo);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("AgregarParticipante")]
+        public IActionResult AgregarParticipante([FromBody] AgregarParticipanteDto agregarParticipante)
+        {
+            _torneoServicio.AgregarParticipante(agregarParticipante.IdTorneo, agregarParticipante.IdUsuario);
             return Ok();
         }
     }

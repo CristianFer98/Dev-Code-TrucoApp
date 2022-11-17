@@ -16,8 +16,5 @@ namespace Entidades
         public string Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
         public int? Ganador { get; set; }
-
-        [ForeignKey("IdTorneo")]
-        public Guid IdTorneo{ get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace Servicios.Interfaces
     {
         IEnumerable<Torneo> ObtenerTorneosDisponibles();
         Torneo CrearTorneo(Torneo torneo);
+        void AgregarParticipante(int idTorneo, int idUsuario);
     }
 }
