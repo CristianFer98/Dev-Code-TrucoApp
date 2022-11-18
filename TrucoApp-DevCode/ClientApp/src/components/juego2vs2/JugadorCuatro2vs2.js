@@ -15,25 +15,25 @@ export const JugadorCuatro2vs2 = () => {
   };
 
   return (
-    <div className="playerDerecha d-flex align-items-center justify-content-center">
-      <div className="d-flex flex-column">
+    <div className="playerDerecha d-flex align-items-center justify-content-end">
+      <div className="d-flex flex-column divCardsOponentDerecha">
         <div key={1} className="divCardOponentDerecha">
           <img
-            className="animate__animated animate__fadeInBottomLeft cardOponent"
+            className="animate__animated animate__fadeInBottomRight cardOponent"
             src={mazo}
             alt="card"
           />
         </div>
         <div key={2} className="divCardOponentDerecha">
           <img
-            className="animate__animated animate__fadeInBottomLeft cardOponent"
+            className="animate__animated animate__fadeInBottomRight cardOponent"
             src={mazo}
             alt="card"
           />
         </div>
         <div key={3} className="divCardOponentDerecha">
           <img
-            className="animate__animated animate__fadeInBottomLeft cardOponent"
+            className="animate__animated animate__fadeInBottomRight cardOponent"
             src={mazo}
             alt="card"
           />
