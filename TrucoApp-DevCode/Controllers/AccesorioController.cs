@@ -34,13 +34,32 @@ namespace Router.Controllers
         }
 
         [HttpPut]
+        [Route("ActualizarEstadoComprado/{idAccesorio:int}")]
+        public ActionResult ActualizarEstadoComprado(int idAccesorio)
+        {
+
+            try
+            {
+                _accesorioServicio.ActualizarEstadoComprado(idAccesorio);
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+        [HttpGet]
         [Route("ComprarAccesorio/{idAccesorio:int}")]
         public ActionResult ComprarAccesorio(int idAccesorio)
         {
 
             try
             {
-                _accesorioServicio.Comprar(idAccesorio);
+                _accesorioServicio.ComprarAccesorio(idAccesorio);
                 return StatusCode(StatusCodes.Status200OK);
 
             }
@@ -70,5 +89,6 @@ namespace Router.Controllers
 
 
         }
+
     }
 }

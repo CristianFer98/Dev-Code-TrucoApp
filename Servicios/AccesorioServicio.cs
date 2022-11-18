@@ -12,15 +12,23 @@ namespace Servicios
     public class AccesorioServicio : IAccesorioServicio
     {
         private readonly IAccesorioRepositorio _accesorioRepositorio;
+        private readonly MercadoPagoServicio _mpServicio;
 
-        public AccesorioServicio(IAccesorioRepositorio accesorioRepositorio)
+        public AccesorioServicio(IAccesorioRepositorio accesorioRepositorio, MercadoPagoServicio mpServicio)
         {
             _accesorioRepositorio = accesorioRepositorio;
+            _mpServicio = mpServicio;
         }
 
-        public void Comprar(int idAccesorio)
+        public void ActualizarEstadoComprado(int idAccesorio)
         {
-            _accesorioRepositorio.Comprar(idAccesorio);
+            _accesorioRepositorio.ActualizarEstadoComprado(idAccesorio);
+        }
+
+        public Task<string> ComprarAccesorio(int idAccesorio)
+        {
+            Accesorio acc = _accesorioRepositorio.GetAccesorioPorId(idAccesorio);
+            return _mpServicio.MercadoPagoAsync((int)acc.Precio, acc.Descripcion,1);
         }
 
         public List<Accesorio> GetAccesorios()

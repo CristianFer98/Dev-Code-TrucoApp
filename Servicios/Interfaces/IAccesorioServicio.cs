@@ -10,7 +10,8 @@ namespace Servicios.Interfaces
     public interface IAccesorioServicio
     {
         public List<Accesorio> GetAccesorios();
-        public void Comprar(int idAccesorio);
+        public void ActualizarEstadoComprado(int idAccesorio);
+        public Task<string> ComprarAccesorio(int idAccesorio);
         public void ComprarTodo(List<int> idsAccesorios);
     }
 }
