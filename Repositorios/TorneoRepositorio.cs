@@ -19,9 +19,18 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
+        public Torneo ObtenerPorId(int idTorneo)
+        {
+            return _dbContext.Torneos
+                .Include(t => t.Participantes)
+                .Include(t => t.Partidas)
+                .Where(t => t.IdTorneo == idTorneo)
+                .FirstOrDefault();
+        }
+
         public Torneo CrearTorneo(Torneo torneo)
         {
-            _dbContext.Add(torneo);
+            _dbContext.Torneos.Add(torneo);
             _dbContext.SaveChanges();
             return torneo;
         }
