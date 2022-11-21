@@ -10,11 +10,42 @@ export function TiendaAvatar() {
 
     const idsAccesoriosPelo = [1,2,3,4,5,6];
     const idsAccesoriosRopa = [7,8,9,10,11];
+
+    const getIdPreferencia = async(opcion)=>{
+        
+        fetch(`https://localhost:44342/api/Accesorio/ComprarTodo/${opcion}`)
+        .then((res)=> res.json())
+        .then((data)=>{
+            console.log(data.result);
+            //let preference =data.result;
+            
+            localStorage.setItem("preferenceId", data.result);
+           
+            //822844930-436e32b0-c6d7-4206-b714-5ed4ecb26de5
+            });
+        }
     
-    const comprarTodo= async(arrayAccesorios)=>{
-        const url = 'https://localhost:44342/api/Accesorio/ComprarTodo';
+    const comprarTodo= async(arrayAccesorios, opcion)=>{
+        getIdPreferencia(opcion);
+        console.log(localStorage.getItem("preferenceId"))
+        const mp = new MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
+            locale: 'es-AR'
+            });
+          
+            mp.checkout({
+              preference: {
+                id:`${localStorage.getItem("preferenceId")}`
+              },
+              autoOpen: true,
+              render: {
+                container: '.cho-container',
+                label: 'Pagar',
+              }
+            });
+        
+        const url = 'https://localhost:44342/api/Accesorio/ActualizarEstadosComprado';
         const resp = await fetch(url, {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
@@ -77,9 +108,12 @@ export function TiendaAvatar() {
                             ))}
             </div> 
             <button 
-                className="btn btn-danger mt-3 text-light" 
+                className="btn btn-danger mt-3 text-light comprar-todo-pelo" 
                 style={{fontWeight: 'bold', color:'white'}}
-                onClick={()=> comprarTodo(idsAccesoriosPelo)}
+                onClick={()=> {
+                    comprarTodo(idsAccesoriosPelo, 1);
+                    document.querySelector('.comprar-todo-ropa').classList.toggle('cho-container');
+                }}
             >
                 COMPRAR TODO
             </button>
@@ -102,9 +136,12 @@ export function TiendaAvatar() {
                     ))}
             </div> 
             <button 
-                className="btn btn-danger mt-3 text-light" 
+                className="btn btn-danger mt-3 text-light comprar-todo-ropa" 
                 style={{fontWeight: 'bold', color:'white'}}
-                onClick={()=> comprarTodo(idsAccesoriosRopa)}>
+                onClick={()=> {
+                    comprarTodo(idsAccesoriosRopa, 2);
+                    document.querySelector('.comprar-todo-ropa').classList.toggle('cho-container');
+                }}>
                     COMPRAR TODO
             </button>
       </div>

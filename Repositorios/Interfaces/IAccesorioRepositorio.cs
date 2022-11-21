@@ -12,6 +12,6 @@ namespace Repositorios.Interfaces
         public List<Accesorio> GetAccesorios();
         public Accesorio GetAccesorioPorId(int idAccesorio);
         public void ActualizarEstadoComprado(int idAccesorio);
-        public void ComprarTodo(List<int> idsAccesorios);
+        public void ActualizarEstadosComprado(List<int> idsAccesorios);
     }
 }

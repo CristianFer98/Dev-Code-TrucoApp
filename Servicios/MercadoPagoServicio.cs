@@ -34,13 +34,12 @@ namespace Servicios
                         UnitPrice = precioProducto,
                     },
                 },
-
             };
             // Crea la preferencia
             var client = new PreferenceClient();
             Preference preference = await client.CreateAsync(request);
-            string json = JsonSerializer.Serialize(preference.Id);
-            return json;
+            //string json = JsonSerializer.Serialize(preference.Id);
+            return preference.Id;
             
 
         }

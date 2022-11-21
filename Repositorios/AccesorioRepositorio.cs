@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MercadoPago.Resource.Preference;
 
 namespace Repositorios
 {
@@ -34,7 +35,7 @@ namespace Repositorios
             _dbContext.SaveChanges();
         }
 
-        public void ComprarTodo(List<int> idsAccesorios)
+        public void ActualizarEstadosComprado(List<int> idsAccesorios)
         {
             foreach (int i in idsAccesorios)
             {

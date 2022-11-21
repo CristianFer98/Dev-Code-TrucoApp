@@ -12,6 +12,8 @@ namespace Servicios.Interfaces
         public List<Accesorio> GetAccesorios();
         public void ActualizarEstadoComprado(int idAccesorio);
         public Task<string> ComprarAccesorio(int idAccesorio);
-        public void ComprarTodo(List<int> idsAccesorios);
+        public void ActualizarEstadosComprado(List<int> idsAccesorios);
+        public Task<string> ComprarTodo(int opcionIdsAccesorios);
+
     }
 }

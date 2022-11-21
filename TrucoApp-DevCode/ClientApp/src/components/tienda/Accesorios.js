@@ -1,32 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './accesorios.css';
 import './mp';
+import { getIdPreferencia } from './Funciones';
 
 const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
-  const [idPreferencia, setIdPreferencia] = useState();
-
-  const getIdPreferencia = async()=>{
-
-    fetch(`https://localhost:44342/api/Producto/ComprarProducto/${id}`)
-       .then(res=> res.json())
-       .then(data=>{
-        console.log(data.result)
-           let preference =data.result;
-           if(preference){
-            setIdPreferencia(preference);
-            localStorage.setItem("idPreferencia", preference);
-           }else{
-            setIdPreferencia(null);
-           }
-          //822844930-436e32b0-c6d7-4206-b714-5ed4ecb26de5
-        });
-    }
-
   const comprarProducto = async()=>{
     let stockActual = stock - 1;
-    console.log("id: ", idPreferencia);
-    console.log("preferencia ",localStorage.getItem("idPreferencia"))
+    console.log("id: ",  localStorage.getItem("preferenceId"));
     const resp = await fetch(
          `https://localhost:44342/api/Producto/ActualizarStock/${id}`,
          {
@@ -50,7 +31,8 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
          console.log("no se pudo actualizar stock");
        }
        
-       getIdPreferencia();
+       const url = "https://localhost:44342/api/Producto/ComprarProducto/";
+       getIdPreferencia(url, id);
 
        const mp = new MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
         locale: 'es-AR'
@@ -58,7 +40,7 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
     
       mp.checkout({
         preference: {
-          id: "822844930-403a18a7-eefe-4f02-8ee0-6990b70cc3b8"// `${localStorage.getItem("idPreferencia")}`
+          id:`${localStorage.getItem("preferenceId")}`
         },
         autoOpen: true,
         render: {

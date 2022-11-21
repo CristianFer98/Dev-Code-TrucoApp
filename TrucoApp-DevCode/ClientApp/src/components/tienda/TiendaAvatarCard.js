@@ -1,39 +1,19 @@
-import React , { useState } from 'react';
+import React  from 'react';
 import imagenes from '../avatar/AvatarImagenes';
 import './mp';
+import { getIdPreferencia } from './Funciones';
 
 export function TiendaAvatarCard({ id, imagen, precio, comprado }){
-
-  const [idPreferencia, setIdPreferencia] = useState();
-
-  const getIdPreferencia = async()=>{
-
-    fetch(`https://localhost:44342/api/Accesorio/ComprarAccesorio/${id}`)
-       .then(res=> res.json())
-       .then(data=>{
-        console.log(data.result)
-           let preference =data.result;
-           if(preference){
-            setIdPreferencia(preference);
-            localStorage.setItem("idPreferencia", preference);
-           }else{
-            setIdPreferencia(null);
-           }
-          //822844930-436e32b0-c6d7-4206-b714-5ed4ecb26de5
-        });
-    }
-
     const comprar = async (id) =>{
-
-      getIdPreferencia();
-
+      const url="https://localhost:44342/api/Accesorio/ComprarAccesorio/";
+      getIdPreferencia(url, id);
       const mp = new MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
        locale: 'es-AR'
        });
-     
+       console.log(localStorage.getItem("preferenceId"))
        mp.checkout({
          preference: {
-           id: "822844930-dbcd52a6-1d4a-4031-b40e-fef727ce787a"// `${localStorage.getItem("idPreferencia")}`
+           id: `${localStorage.getItem("preferenceId")}`
          },
          autoOpen: true,
          render: {

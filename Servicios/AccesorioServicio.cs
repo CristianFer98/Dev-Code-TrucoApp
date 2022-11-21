@@ -28,7 +28,7 @@ namespace Servicios
         public Task<string> ComprarAccesorio(int idAccesorio)
         {
             Accesorio acc = _accesorioRepositorio.GetAccesorioPorId(idAccesorio);
-            return _mpServicio.MercadoPagoAsync((int)acc.Precio, acc.Descripcion,1);
+            return _mpServicio.MercadoPagoAsync((int)acc.Precio,"Avatar Accesorio",1);
         }
 
         public List<Accesorio> GetAccesorios()
@@ -36,10 +36,44 @@ namespace Servicios
             return _accesorioRepositorio.GetAccesorios();
         }
 
-        public void ComprarTodo(List<int> idsAccesorios)
+        public void ActualizarEstadosComprado(List<int> idsAccesorios)
         {
-            _accesorioRepositorio.ComprarTodo(idsAccesorios);
-        }
+            _accesorioRepositorio.ActualizarEstadosComprado(idsAccesorios);
 
+        }
+        public Task<string> ComprarTodo(int opcionIdsAccesoriosComprados)
+        {
+            int[] idsAccesoriosPelo = { 1, 2, 3, 4, 5, 6 };
+            int [] idsAccesoriosRopa = { 7, 8, 9, 10, 11 };
+            string descripcion = "Avatar Accesorios";
+            int cantidad = 0;
+            int precio = 0;
+
+            switch (opcionIdsAccesoriosComprados)
+            {
+                case 1:
+                    cantidad = idsAccesoriosPelo.Length;
+                    foreach (int i in idsAccesoriosPelo)
+                    {
+                        Accesorio accesorio = _accesorioRepositorio.GetAccesorioPorId(i);
+                        precio = (int)accesorio.Precio;
+                    }
+                    break;
+                case 2:
+                     cantidad = idsAccesoriosRopa.Length;
+                    foreach (int i in idsAccesoriosRopa)
+                    {
+                        Accesorio accesorio = _accesorioRepositorio.GetAccesorioPorId(i);
+                        precio = (int)accesorio.Precio;
+                    }
+                    break;
+            }
+
+
+            return _mpServicio.MercadoPagoAsync(precio, descripcion, cantidad);
+
+
+
+        }
     }
 }

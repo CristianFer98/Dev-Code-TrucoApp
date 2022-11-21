@@ -52,6 +52,25 @@ namespace Router.Controllers
 
         }
 
+        [HttpPut]
+        [Route("ActualizarEstadosComprado")]
+        public ActionResult ActualizarEstadosComprado([FromBody] List<int> idsAccesorios)
+        {
+
+            try
+            {
+                _accesorioServicio.ActualizarEstadosComprado(idsAccesorios);
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
         [HttpGet]
         [Route("ComprarAccesorio/{idAccesorio:int}")]
         public ActionResult ComprarAccesorio(int idAccesorio)
@@ -59,8 +78,8 @@ namespace Router.Controllers
 
             try
             {
-                _accesorioServicio.ComprarAccesorio(idAccesorio);
-                return StatusCode(StatusCodes.Status200OK);
+               
+                return StatusCode(StatusCodes.Status200OK, _accesorioServicio.ComprarAccesorio(idAccesorio));
 
             }
             catch (Exception ex)
@@ -71,15 +90,15 @@ namespace Router.Controllers
 
         }
 
-        [HttpPost]
-        [Route("ComprarTodo")]
-        public ActionResult ComprarAccesorio([FromBody] List <int> idsAccesorios)
+        [HttpGet]
+        [Route("ComprarTodo/{opcionIdsAccesoriosComprados:int}")]
+        public ActionResult ComprarTodo(int opcionIdsAccesoriosComprados)
         {
 
             try
             {
-                _accesorioServicio.ComprarTodo(idsAccesorios);
-                return StatusCode(StatusCodes.Status200OK);
+             
+                return StatusCode(StatusCodes.Status200OK, _accesorioServicio.ComprarTodo(opcionIdsAccesoriosComprados));
 
             }
             catch (Exception ex)
@@ -89,6 +108,8 @@ namespace Router.Controllers
 
 
         }
+
+
 
     }
 }
