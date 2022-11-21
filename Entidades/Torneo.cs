@@ -1,18 +1,20 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Entidades
 {
     public class Torneo
     {
-        public Guid IdTorneo { get; set; }
+        public int IdTorneo { get; set; }
         public string Nombre { get; set; }
-        public int EtapaTorneo { get; set; }
-        public bool HabilitadoJugar { get; set; }
-        public bool Terminado { get; set; }
+        public int CantidadParticipantes { get; set; }
+        public bool Terminado { get; set; } = false;
+        public int nroRonda { get; set; } = 0;
+        public virtual ICollection<TorneoPartida> Partidas { get; set; }
+        public virtual ICollection<TorneoParticipante> Participantes { get; set; }
+
+        public bool EstaLleno()
+        {
+            return Participantes.Count >= CantidadParticipantes;
+        }
     }
 }
