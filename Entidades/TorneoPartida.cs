@@ -4,7 +4,8 @@
     {
         public int IdTorneoPartida { get; set; }
         public int IdTorneo { get; set; }
-        public int IdMesa { get; set; }     
+        public int IdMesa { get; set; }
+        public int nroRonda { get; set; }
         public virtual Torneo Torneo { get; set; }
         public virtual Mesa Mesa { get; set; }
     }

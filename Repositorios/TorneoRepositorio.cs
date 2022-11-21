@@ -39,5 +39,11 @@ namespace Repositorios
         {
             return _dbContext.Torneos.Where(t=> t.Terminado == false);
         }
+        public void SetearRondas(int idTorneo, int ronda)
+        {
+            var torneo = _dbContext.Torneos.Where(t => t.IdTorneo == idTorneo).FirstOrDefault();
+            torneo.nroRonda = ronda;
+            _dbContext.SaveChanges();
+        }
     }
 }

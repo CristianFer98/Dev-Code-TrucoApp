@@ -52,6 +52,7 @@ namespace Entidades
                 torneo.Property(t => t.Nombre).IsRequired().HasMaxLength(512);
 
                 torneo.Property(t => t.CantidadParticipantes).IsRequired();
+                torneo.Property(t => t.nroRonda).IsRequired();
                 
                 torneo.Property(t => t.Terminado).IsRequired();
 
@@ -67,6 +68,7 @@ namespace Entidades
 
                 torneoParticipante.Property(t => t.IdTorneo).IsRequired();
                 torneoParticipante.Property(t => t.IdTorneoParticipante).IsRequired();
+                torneoParticipante.Property(t => t.nroRonda);
 
                 torneoParticipante.HasOne(tp => tp.Torneo)
                     .WithMany(t => t.Participantes)
@@ -84,6 +86,7 @@ namespace Entidades
 
                 torneoPartida.Property(t => t.IdTorneo).IsRequired();
                 torneoPartida.Property(t => t.IdMesa).IsRequired();
+                torneoPartida.Property(t => t.nroRonda);
 
                 torneoPartida.HasOne(tp => tp.Torneo)
                     .WithMany(t => t.Partidas)

@@ -32,6 +32,12 @@ namespace Router.Controllers
             return Ok(_torneoServicio.ObtenerTorneosDisponibles());
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_torneoServicio.ObtenerTorneoPorId(id));
+        }
         [HttpPost]
         [Route("CrearTorneo")]
         public IActionResult CrearTorneo([FromBody] CrearTorneoDto crearTorneo)
@@ -52,6 +58,12 @@ namespace Router.Controllers
         {
             _torneoServicio.AgregarParticipante(agregarParticipante.IdTorneo, agregarParticipante.IdUsuario);
             return Ok();
+        }
+        [HttpGet]
+        [Route("ProximaRonda/{id}")]
+        public IActionResult ProximaRonda([FromRoute] int id)
+        {
+            return Ok(_torneoServicio.ProximaRonda(id));
         }
     }
 }

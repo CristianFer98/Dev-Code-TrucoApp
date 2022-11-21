@@ -8,5 +8,6 @@ namespace Repositorios.Interfaces
         Torneo ObtenerPorId(int idTorneo);
         IEnumerable<Torneo> ObtenerTorneosDisponibles();
         Torneo CrearTorneo(Torneo torneo);
+        void SetearRondas(int idTorneo, int ronda);
     }
 }
