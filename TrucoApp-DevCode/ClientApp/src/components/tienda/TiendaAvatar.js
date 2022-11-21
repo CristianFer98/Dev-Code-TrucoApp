@@ -2,6 +2,7 @@ import React , { useState } from 'react';
 import './tienda.css';
 import { Link } from 'react-router-dom';
 import Card from './TiendaAvatarCard';
+import  './mp';
 
 export function TiendaAvatar() {
     const url = "https://localhost:44342/api/Accesorio/ObtenerAccesorios";
@@ -17,31 +18,29 @@ export function TiendaAvatar() {
         .then((res)=> res.json())
         .then((data)=>{
             console.log(data.result);
-            //let preference =data.result;
-            
-            localStorage.setItem("preferenceId", data.result);
            
-            //822844930-436e32b0-c6d7-4206-b714-5ed4ecb26de5
+                const mp = new window.MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
+                  locale: 'es-AR'
+                });
+                
+                mp.checkout({
+                  preference: {
+                    id: `${data.result}`
+                  },
+                  autoOpen: true,
+                  render: {
+                    container: '.cho-container',
+                    label: 'Pagar',
+                  }
+                });
+              
+                
+
             });
         }
     
     const comprarTodo= async(arrayAccesorios, opcion)=>{
         getIdPreferencia(opcion);
-        console.log(localStorage.getItem("preferenceId"))
-        const mp = new MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
-            locale: 'es-AR'
-            });
-          
-            mp.checkout({
-              preference: {
-                id:`${localStorage.getItem("preferenceId")}`
-              },
-              autoOpen: true,
-              render: {
-                container: '.cho-container',
-                label: 'Pagar',
-              }
-            });
         
         const url = 'https://localhost:44342/api/Accesorio/ActualizarEstadosComprado';
         const resp = await fetch(url, {
