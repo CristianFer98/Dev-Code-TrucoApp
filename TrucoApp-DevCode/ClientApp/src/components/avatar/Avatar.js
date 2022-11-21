@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './avatar.css';
 import imagenes from './AvatarImagenes';
 import { Link } from 'react-router-dom';
@@ -19,6 +19,7 @@ const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
   const { uid } = useSelector((state) => state.auth);
+  console.log(uid);
   const [avatarSeleccionado, setAvatarSeleccionado] = useState('-');
   const [IdUsuarioAvatar, setIdUsuarioAvatar] = useState(uid);
   const [Pelo, setEstadoPelo] = useState('pelo');
@@ -36,7 +37,7 @@ export function Avatar() {
           .then(data=>setAvatarActual(data));
   }
 
-  getAvatarPorId();
+
   
    const getAvatarAccesorios = ()=>{
         fetch("https://localhost:44342/api/Accesorio/ObtenerAccesorios")
@@ -44,7 +45,16 @@ export function Avatar() {
         .then(data=>setAvatarAccesorios(data));
         
     }
+
+    
+  useEffect(() => {
+
+    getAvatarPorId();
     getAvatarAccesorios();  
+    console.clear();
+   
+  });
+   
     const getListadoPelo = () =>{
       const listadoPelo =[];
       avatarAccesorios.map((accesorio) =>{
