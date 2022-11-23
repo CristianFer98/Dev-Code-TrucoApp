@@ -56,8 +56,6 @@ namespace Router
             services.AddScoped<ITalleRepositorio, TalleRepositorio>();
             services.AddScoped<IAccesorioRepositorio, AccesorioRepositorio>();
             services.AddScoped<ITorneoRepositorio, TorneoRepositorio>();
-            services.AddScoped<ITorneoParticipanteRepositorio, TorneoParticipanteRepositorio>();
-            services.AddScoped<ITorneoPartidaRepositorio, TorneoPartidaRepositorio>();
             services.AddScoped<IMesaServicio, MesaServicio>();
             services.AddScoped<IUsuarioServicio, UsuarioServicio>();
             services.AddScoped<IAvatarServicio, AvatarServicio>();

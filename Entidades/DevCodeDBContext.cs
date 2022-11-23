@@ -29,8 +29,6 @@ namespace Entidades
         public virtual DbSet<Talle> Talles { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Torneo> Torneos { get; set; }
-        public virtual DbSet<TorneoParticipante> TorneoParticipantes { get; set; }
-        public virtual DbSet<TorneoPartida> TorneoPartidas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -42,59 +40,25 @@ namespace Entidades
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            List<Torneo> torneosInit = new List<Torneo>();
+            torneosInit.Add(new Torneo() { IdTorneo = Guid.Parse("fe2de405-c38e-4c90-ac52-da0540dfb4ef"), Nombre = "Primer Torneo" });
+
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
             modelBuilder.Entity<Torneo>(torneo =>
             {
-                torneo.ToTable("Torneos");
+                torneo.ToTable("Torneo");
                 torneo.HasKey(t => t.IdTorneo);
 
-                torneo.Property(t => t.Nombre).IsRequired().HasMaxLength(512);
+                torneo.Property(t => t.Nombre).IsRequired().HasMaxLength(50);
 
-                torneo.Property(t => t.CantidadParticipantes).IsRequired();
-                torneo.Property(t => t.nroRonda).IsRequired();
-                
-                torneo.Property(t => t.Terminado).IsRequired();
+                torneo.Property(t => t.EtapaTorneo).HasDefaultValue(1);
 
-                torneo.HasMany(t => t.Participantes)
-                    .WithOne(tp => tp.Torneo)
-                    .HasForeignKey(tp => tp.IdTorneo);
-            });
+                torneo.Property(t => t.HabilitadoJugar).HasDefaultValue(false);
 
-            modelBuilder.Entity<TorneoParticipante>(torneoParticipante =>
-            {
-                torneoParticipante.ToTable("TorneoParticipantes");
-                torneoParticipante.HasKey(t => t.IdTorneoParticipante);
+                torneo.Property(t => t.Terminado).HasDefaultValue(false);
 
-                torneoParticipante.Property(t => t.IdTorneo).IsRequired();
-                torneoParticipante.Property(t => t.IdTorneoParticipante).IsRequired();
-                torneoParticipante.Property(t => t.nroRonda);
-
-                torneoParticipante.HasOne(tp => tp.Torneo)
-                    .WithMany(t => t.Participantes)
-                    .HasForeignKey(tp => tp.IdTorneo);
-
-                torneoParticipante.HasOne(tp => tp.Usuario)
-                    .WithMany()
-                    .HasForeignKey(tp => tp.IdUsuario);
-            });
-
-            modelBuilder.Entity<TorneoPartida>(torneoPartida =>
-            {
-                torneoPartida.ToTable("TorneoPartidas");
-                torneoPartida.HasKey(t => t.IdTorneoPartida);
-
-                torneoPartida.Property(t => t.IdTorneo).IsRequired();
-                torneoPartida.Property(t => t.IdMesa).IsRequired();
-                torneoPartida.Property(t => t.nroRonda);
-
-                torneoPartida.HasOne(tp => tp.Torneo)
-                    .WithMany(t => t.Partidas)
-                    .HasForeignKey(tp => tp.IdTorneo);
-
-                torneoPartida.HasOne(tp => tp.Mesa)
-                    .WithMany()
-                    .HasForeignKey(tp => tp.IdMesa);
+                torneo.HasData(torneosInit);
             });
 
             modelBuilder.Entity<Accesorio>(entity =>
