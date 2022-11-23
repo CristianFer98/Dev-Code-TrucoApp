@@ -223,6 +223,7 @@ export function Avatar() {
           <div className="d-flex flex-row justify-content-center align-items-center">
               <button 
               type="button"
+              id="opcion1"
               className="btn btn-primary mt-2 opcion me-3"
               onClick={() =>{
 
@@ -279,6 +280,7 @@ export function Avatar() {
           <div className="d-flex flex-row justify-content-center align-items-center">
               <button 
                 type="button" 
+                id="opcion2"
                 className="btn btn-primary mt-2 opcion me-3"
                 onClick={() => {
                   mostrarAvatarSeleccionadoMasConfiguracion('.version-m');
