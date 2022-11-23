@@ -15,7 +15,7 @@ import {
   setPeinado
 } from './Funciones';
 
-const url = "https://localhost:44342/api/Avatar/GuardarAvatar";
+const url = "https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Avatar/GuardarAvatar";
 
 export function Avatar() {
   const { uid } = useSelector((state) => state.auth);
@@ -31,7 +31,7 @@ export function Avatar() {
   const [avatarAccesorios, setAvatarAccesorios] = useState([]);
 
   const getAvatarPorId = () =>{
-    fetch(`https://localhost:44342/api/Avatar/ObtenerAvatarPorId/${IdUsuarioAvatar}`)
+    fetch(`https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Avatar/ObtenerAvatarPorId/${IdUsuarioAvatar}`)
           .then(res=> res.json())
           .then(data=>setAvatarActual(data));
   }
@@ -39,7 +39,7 @@ export function Avatar() {
   getAvatarPorId();
   
    const getAvatarAccesorios = ()=>{
-        fetch("https://localhost:44342/api/Accesorio/ObtenerAccesorios")
+        fetch("https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Accesorio/ObtenerAccesorios")
         .then(res=> res.json())
         .then(data=>setAvatarAccesorios(data));
         
@@ -68,7 +68,7 @@ export function Avatar() {
   const guardarFotoPerfil= async (img)=>{
 
     const resp = await fetch(
-      `https://localhost:44342/api/Usuarios/AgregarFotoPerfil/${IdUsuarioAvatar}`,
+      `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Usuarios/AgregarFotoPerfil/${IdUsuarioAvatar}`,
       {
         method: "PUT",
         headers: {
@@ -104,7 +104,7 @@ export function Avatar() {
          //pregunto si el avatar ya existe en la bd, de ser asi se modifica
          if(avatarActual.idUsuarioAvatar==IdUsuarioAvatar){
               const resp = await fetch(
-                `https://localhost:44342/api/Avatar/ModificarAvatar/${IdUsuarioAvatar}`,
+                `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Avatar/ModificarAvatar/${IdUsuarioAvatar}`,
                 {
                   method: "PUT",
                   headers: {

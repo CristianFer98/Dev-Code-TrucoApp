@@ -34,7 +34,7 @@ export const SocketProvider = ({ children }) => {
 
   const conectarSockets = useCallback(async () => {
     const connection = new HubConnectionBuilder()
-      .withUrl("https://localhost:44342/mesashub")
+        .withUrl("https://dev-code-trucoapp20221119110900.azurewebsites.net/mesashub")
       .configureLogging(LogLevel.Information)
       .build();
 

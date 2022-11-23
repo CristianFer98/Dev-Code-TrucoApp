@@ -10,9 +10,9 @@ namespace Repositorios
 {
     public class ProductoRepositorio:IProductoRepositorio
     {
-        private readonly DevCodeDBContext _dbContext;
+        private readonly DevCodeTrucoApp_dbContext _dbContext;
 
-        public ProductoRepositorio(DevCodeDBContext dbContext)
+        public ProductoRepositorio(DevCodeTrucoApp_dbContext dbContext)
         {
             _dbContext = dbContext;
         }

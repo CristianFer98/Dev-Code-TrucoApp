@@ -11,9 +11,9 @@ namespace Repositorios
     public class MesaRepositorio : IMesaRepositorio
     {
 
-        private readonly DevCodeDBContext _dbContext;
+        private readonly DevCodeTrucoApp_dbContext _dbContext;
 
-        public MesaRepositorio(DevCodeDBContext dbContext)
+        public MesaRepositorio(DevCodeTrucoApp_dbContext dbContext)
         {
             _dbContext = dbContext;
         }

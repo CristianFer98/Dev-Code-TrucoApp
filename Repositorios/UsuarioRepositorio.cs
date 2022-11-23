@@ -6,9 +6,9 @@ namespace Repositorios
 {
     public class UsuarioRepositorio : IUsuarioRepositorio
     {
-        private readonly DevCodeDBContext _dbContext;
+        private readonly DevCodeTrucoApp_dbContext _dbContext;
 
-        public UsuarioRepositorio(DevCodeDBContext dbContext)
+        public UsuarioRepositorio(DevCodeTrucoApp_dbContext dbContext)
         {
             _dbContext = dbContext;
         }

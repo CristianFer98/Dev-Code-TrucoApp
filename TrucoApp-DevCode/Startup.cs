@@ -45,9 +45,12 @@ namespace Router
 
             services.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());
 
-            services.AddDbContext<DevCodeDBContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DevCodeDBContext")));
+           //services.AddDbContext<DevCodeDBContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DevCodeDBContext")));
+//         services.AddDbContext<DevCodeTrucoApp_dbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DevCodeTrucoApp_dbContext")));
 
-            services.AddTransient<DevCodeDBContext>();
+           // services.AddTransient<DevCodeDBContext>();
+            services.AddTransient<DevCodeTrucoApp_dbContext>();
+
             services.AddScoped<IMesaRepositorio, MesaRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IAvatarRepositorio, AvatarRepositorio>();

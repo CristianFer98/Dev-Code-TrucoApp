@@ -10,9 +10,9 @@ namespace Repositorios
 {
     public class AvatarRepositorio:IAvatarRepositorio
     {
-        private readonly DevCodeDBContext _dbContext;
+        private readonly DevCodeTrucoApp_dbContext _dbContext;
 
-        public AvatarRepositorio(DevCodeDBContext dbContext)
+        public AvatarRepositorio(DevCodeTrucoApp_dbContext dbContext)
         {
             _dbContext = dbContext;
         }

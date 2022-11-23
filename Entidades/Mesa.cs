@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -16,8 +15,5 @@ namespace Entidades
         public string Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
         public int? Ganador { get; set; }
-
-        [ForeignKey("IdTorneo")]
-        public Guid IdTorneo{ get; set; }
     }
 }

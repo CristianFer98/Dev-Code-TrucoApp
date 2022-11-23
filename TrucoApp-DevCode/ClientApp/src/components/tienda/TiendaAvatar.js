@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Card from './TiendaAvatarCard';
 
 export function TiendaAvatar() {
-    const url = "https://localhost:44342/api/Accesorio/ObtenerAccesorios";
+    const url = "https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Accesorio/ObtenerAccesorios";
 
     const [accesorios, setAccesorios] = useState([]);
 
@@ -12,7 +12,7 @@ export function TiendaAvatar() {
     const idsAccesoriosRopa = [7,8,9,10,11];
     
     const comprarTodo= async(arrayAccesorios)=>{
-        const url = 'https://localhost:44342/api/Accesorio/ComprarTodo';
+        const url = 'https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Accesorio/ComprarTodo';
         const resp = await fetch(url, {
             method: "POST",
             headers: {

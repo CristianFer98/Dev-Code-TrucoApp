@@ -10,8 +10,8 @@ namespace Repositorios
 {
     public class ColorRepositorio:IColorRepositorio
     {
-        private readonly DevCodeDBContext _dbContext;
-        public ColorRepositorio(DevCodeDBContext dbContext)
+        private readonly DevCodeTrucoApp_dbContext _dbContext;
+        public ColorRepositorio(DevCodeTrucoApp_dbContext dbContext)
         {
             _dbContext = dbContext;
         }

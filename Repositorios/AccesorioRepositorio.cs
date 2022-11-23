@@ -10,9 +10,9 @@ namespace Repositorios
 {
     public class AccesorioRepositorio:IAccesorioRepositorio
     {
-        private readonly DevCodeDBContext _dbContext;
+        private readonly DevCodeTrucoApp_dbContext _dbContext;
 
-        public AccesorioRepositorio(DevCodeDBContext dbContext)
+        public AccesorioRepositorio(DevCodeTrucoApp_dbContext dbContext)
         {
             _dbContext = dbContext;
         }

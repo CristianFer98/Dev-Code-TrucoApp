@@ -30,7 +30,6 @@ namespace Router.Controllers
         {
             try
             {
-
                 return StatusCode(StatusCodes.Status200OK, _mesaServicio.ObtenerMesasDisponibles());
             }
             catch (Exception ex)

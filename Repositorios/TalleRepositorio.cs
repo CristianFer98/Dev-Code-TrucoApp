@@ -10,9 +10,9 @@ namespace Repositorios
 {
     public class TalleRepositorio : ITalleRepositorio
     {
-        private readonly DevCodeDBContext _dbContext;
+        private readonly DevCodeTrucoApp_dbContext _dbContext;
 
-        public TalleRepositorio(DevCodeDBContext dbContext)
+        public TalleRepositorio(DevCodeTrucoApp_dbContext dbContext)
         {
             _dbContext = dbContext;
         }

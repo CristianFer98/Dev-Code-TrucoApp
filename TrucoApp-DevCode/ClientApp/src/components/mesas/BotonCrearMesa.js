@@ -11,7 +11,7 @@ export const BotonCrearMesa = () => {
   const handleCrearMesa = async (e) => {
     e.preventDefault();
 
-    const resp = await fetch("https://localhost:44342/api/Mesas/Guardar", {
+      const resp = await fetch("https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Mesas/Guardar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

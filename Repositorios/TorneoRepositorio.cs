@@ -12,9 +12,9 @@ namespace Repositorios
 {
     public class TorneoRepositorio : ITorneoRepositorio
     {
-        DevCodeDBContext _dbContext;
+        DevCodeTrucoApp_dbContext _dbContext;
 
-        public TorneoRepositorio(DevCodeDBContext dbContext)
+        public TorneoRepositorio(DevCodeTrucoApp_dbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -28,7 +28,7 @@ namespace Repositorios
 
         public IEnumerable<Torneo> ObtenerTorneosDisponibles()
         {
-            return _dbContext.Torneos.Where(t=> t.Terminado == false);
+            return null; //_dbContext.Torneos.Where(t=> t.Terminado == false);
         }
     }
 }

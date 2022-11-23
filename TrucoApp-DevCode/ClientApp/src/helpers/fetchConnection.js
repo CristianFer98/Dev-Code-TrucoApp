@@ -1,7 +1,7 @@
 export const entrarAMesa = async (uid, idMesa, connection, jugadorUno) => {
   const idJugador = uid;
   const resp = await fetch(
-    `https://localhost:44342/api/Mesas/EntrarAJugar/${idMesa}`,
+    `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Mesas/EntrarAJugar/${idMesa}`,
     {
       method: "PUT",
       headers: {

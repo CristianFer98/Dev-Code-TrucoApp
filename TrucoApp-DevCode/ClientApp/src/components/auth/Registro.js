@@ -21,7 +21,7 @@ export const Registro = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const resp = await fetch("https://localhost:44342/api/Usuarios/Registrar", {
+      const resp = await fetch("https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Usuarios/Registrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
