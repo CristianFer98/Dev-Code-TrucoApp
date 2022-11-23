@@ -26,11 +26,22 @@ namespace Router.Hubs
 
         public async Task OcuparMesa(Partida partida)
         {
-            await JoinRoom(partida.JugadorDos, partida.Room);
+            await JoinRoom(partida.IdJugador, partida.Room);
             string userRoom = Convert.ToString(partida.Room);
-            await Clients.All.SendAsync("MesasActualizadas");
-            await Clients.Group(userRoom).SendAsync("MesaOcupada");
-            await InicializarMano(partida);
+
+            if (partida.CantidadJugadores == 2)
+            {
+
+                await Clients.All.SendAsync("MesasActualizadas");
+                await Clients.Group(userRoom).SendAsync("MesaOcupada");
+                await InicializarMano(partida);
+            }
+            else
+            {
+                await Clients.Group(userRoom).SendAsync("MesaOcupada2vs2", partida);
+                //await Clients.All.SendAsync("MesasActualizadas");
+                //await InicializarMano2vs2(partida);
+            }
         }
 
         public async Task JoinRoom(int user, int room)
@@ -82,17 +93,17 @@ namespace Router.Hubs
         {
             string userRoom = Convert.ToString(partida.Room);
 
-            List<Carta> CartasRepartidas = JuegoServicio.RepartirCartas();
+            List<Carta> CartasRepartidas = JuegoServicio.RepartirCartas(2);
             List<Carta> cartasJugadorUno = new()
             {
                 CartasRepartidas[0],
+                CartasRepartidas[1],
                 CartasRepartidas[2],
-                CartasRepartidas[4],
             };
             List<Carta> cartasJugadorDos = new()
             {
-                CartasRepartidas[1],
                 CartasRepartidas[3],
+                CartasRepartidas[4],
                 CartasRepartidas[5],
             };
             partida.CartasJugadorUno = cartasJugadorUno;
@@ -122,6 +133,66 @@ namespace Router.Hubs
             }
 
             await Clients.Group(userRoom).SendAsync("EmpezarJuego", partida);
+        }
+        public async Task InicializarMano2vs2(Partida partida)
+        {
+            string userRoom = Convert.ToString(partida.Room);
+
+            List<Carta> CartasRepartidas = JuegoServicio.RepartirCartas(4);
+            List<Carta> cartasJugadorUno = new()
+            {
+                CartasRepartidas[0],
+                CartasRepartidas[1],
+                CartasRepartidas[2],
+            };
+            List<Carta> cartasJugadorDos = new()
+            {
+                CartasRepartidas[3],
+                CartasRepartidas[4],
+                CartasRepartidas[5],
+            };
+            List<Carta> cartasJugadorTres = new()
+            {
+                CartasRepartidas[6],
+                CartasRepartidas[7],
+                CartasRepartidas[8],
+            };
+            List<Carta> cartasJugadorCuatro = new()
+            {
+                CartasRepartidas[9],
+                CartasRepartidas[10],
+                CartasRepartidas[11],
+            };
+
+            partida.CartasJugadorUno = cartasJugadorUno;
+            partida.CartasJugadorDos = cartasJugadorDos;
+            partida.CartasJugadorTres = cartasJugadorTres;
+            partida.CartasJugadorCuatro = cartasJugadorCuatro;
+            partida.Mano = 1;
+            partida.JugadasRealizadas = 0;
+
+            Envido envido = new();
+            Truco truco = new();
+            envido.TantoJugadorUno = JuegoServicio.ContarTantoJugador(cartasJugadorUno);
+            envido.TantoJugadorDos = JuegoServicio.ContarTantoJugador(cartasJugadorDos);
+            envido.TantoJugadorTres = JuegoServicio.ContarTantoJugador(cartasJugadorTres);
+            envido.TantoJugadorCuatro = JuegoServicio.ContarTantoJugador(cartasJugadorCuatro);
+            partida.Envido = envido;
+            partida.Truco = truco;
+
+            if (partida.PuntosEquipoUno == 0 && partida.PuntosEquipoDos == 0)
+            {
+                partida.Repartidor = JuegoServicio.AsignarRepartidor2vs2(true, 0);
+                partida.Turno = JuegoServicio.AsignarTurno2vs2(partida.Repartidor);
+            }
+            else
+            {
+                partida.Repartidor = JuegoServicio.AsignarRepartidor2vs2(false, partida.Repartidor);
+                partida.Turno = JuegoServicio.AsignarTurno2vs2(partida.Repartidor);
+                partida.GanadorMano = null;
+            }
+
+            await Clients.Group(userRoom).SendAsync("EmpezarJuego2vs2", partida);
         }
 
         public async Task TirarCarta(Partida partida)

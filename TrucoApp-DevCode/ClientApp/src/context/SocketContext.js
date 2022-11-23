@@ -17,6 +17,7 @@ import {
   checkChantSet,
   setCargandoFalse,
   setCargandoTrue,
+  setCargandoTrue2vs2,
 } from "../actions/ui";
 import { getUserPlayer } from "../helpers/truco/getUserTurno";
 export const SocketContext = createContext();
@@ -87,11 +88,12 @@ export const SocketProvider = ({ children }) => {
         cartasJugadasJugadorDos,
         envido,
         truco,
+        cantidadJugadores,
         ...partida
       } = juego;
 
       dispatch(
-        repartirCartas({
+        repartirCartas(cantidadJugadores, {
           ...partida,
           horarioDeUltimoMovimiento: new Date(),
           cartasJugadasJugadorUno: [],
@@ -180,6 +182,50 @@ export const SocketProvider = ({ children }) => {
       );
     });
   }, [connection, dispatch]);
+
+  useEffect(() => {
+    connection?.on("MesaOcupada2vs2", async (partida) => {
+      const { jugadorDos, jugadorTres, jugadorCuatro } = partida;
+
+      console.log(partida);
+      const jugadoresConectados = jugadorTres !== 0 ? 3 : 2;
+      dispatch(setCargandoTrue2vs2(jugadoresConectados));
+      // setTimeout(() => {
+      //   dispatch(jugar());
+      //   // dispatch(setCargandoFalse());
+      // }, 800);
+    });
+  }, [connection, dispatch]);
+
+  useEffect(() => {
+    connection?.on("EmpezarJuego2vs2", (juego) => {
+      const {
+        cartasJugadasJugadorUno,
+        cartasJugadasJugadorDos,
+        envido,
+        truco,
+        cantidadJugadores,
+        ...partida
+      } = juego;
+
+      dispatch(
+        repartirCartas(cantidadJugadores, {
+          ...partida,
+          horarioDeUltimoMovimiento: new Date(),
+          cartasJugadasJugadorUno: [],
+          cartasJugadasJugadorDos: [],
+          envido: {
+            ...envido,
+            envidosCantados: [],
+          },
+          truco: {
+            ...truco,
+            trucosCantados: [],
+          },
+        })
+      );
+    });
+  }, [connection, dispatch, uid]);
 
   return (
     <SocketContext.Provider value={{ connection }}>

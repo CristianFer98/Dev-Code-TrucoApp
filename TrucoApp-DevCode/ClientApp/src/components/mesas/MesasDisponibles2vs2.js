@@ -22,6 +22,7 @@ export const MesasDisponibles2vs2 = () => {
     <div style={{ display: "flex", width: "100%" }}>
       <div style={{ display: "flex", width: "80%", flexDirection: "column" }}>
         <InfoDeUsuario />
+        <h2 className="text-light px-5 pt-5">Mesas disponibles 2 vs 2</h2>
         <div>
           <div
             style={{

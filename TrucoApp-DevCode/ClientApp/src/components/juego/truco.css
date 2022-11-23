@@ -76,7 +76,7 @@
     bottom: 0px;
     left: 0;
     right: 180px;
-    z-index: 2;
+    z-index: 1;
   }
 
   .cardTable {

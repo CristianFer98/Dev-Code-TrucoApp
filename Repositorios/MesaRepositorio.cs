@@ -35,13 +35,34 @@ namespace Repositorios
             return mesa;
         }
 
-        public void EntrarAJugarAMesa(int idMesa, int idJugador)
+        public Mesa EntrarAJugarAMesa(int idMesa, int idJugador)
         {
             Mesa mesa = _dbContext.Mesas.Where(m => m.IdMesa == idMesa).First();
-            mesa.JugadorDos = idJugador;
-            mesa.Estado = "Ocupada";
+            if (mesa.CantidadJugadores == 2)
+            {
+                mesa.JugadorDos = idJugador;
+                mesa.Estado = "Ocupada";
+            }
+            else
+            {
+                if (mesa.JugadorDos == null)
+                {
+                    mesa.JugadorDos = idJugador;
+                }
+                else if (mesa.JugadorTres == null)
+                {
+                    mesa.JugadorTres = idJugador;
+                }
+                else if (mesa.JugadorCuatro == null)
+                {
+                    mesa.JugadorCuatro = idJugador;
+                    mesa.Estado = "Ocupada";
+                }
+            }
 
             _dbContext.SaveChanges();
+
+            return mesa;
 
         }
     }

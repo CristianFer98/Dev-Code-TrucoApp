@@ -9,7 +9,6 @@ import { Reglas } from "../components/reglas/Reglas";
 import { Torneo } from "../components/torneo/Torneo";
 import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { PrivateRoute } from "./PrivateRoute";
 import { Truco1vs1 } from "../components/juego/Truco1vs1";
@@ -23,13 +22,14 @@ import { Truco2vs2 } from "../components/juego2vs2/Truco2vs2";
 
 export const AppRouter = () => {
   const { uid, jugando } = useSelector((state) => state.auth);
+  const { cantidadJugadores } = useSelector((state) => state.juego);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/juego/:mesaId" component={CargarPartida} />
 
-        <PublicRoute logueado={!!uid} path="/auth" component={Truco2vs2} />
+        <PublicRoute logueado={!!uid} path="/auth" component={LoginRegistro} />
 
         <PrivateRoute logueado={!!uid} path="/">
           <Route path="/inicio">
@@ -63,13 +63,19 @@ export const AppRouter = () => {
                 />
                 <Redirect to="/inicio" />
               </Layout>
-            ) : (
+            ) : cantidadJugadores === 2 ? (
               <Redirect to="/juego" />
+            ) : (
+              <Redirect to="/juego2vs2" />
             )}
           </Route>
 
           <Route path="/juego">
             <Truco1vs1 />
+          </Route>
+
+          <Route path="/juego2vs2">
+            <Truco2vs2 />
           </Route>
 
           <Route exact path="/juegoia" component={JuegoIA} />

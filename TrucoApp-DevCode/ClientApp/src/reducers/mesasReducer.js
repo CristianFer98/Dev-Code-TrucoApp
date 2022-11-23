@@ -1,8 +1,6 @@
 import { types } from "../types/types";
 
-const initialState = {
-  mesas1vs1: [],
-};
+const initialState = {};
 
 export const mesasReducer = (state = initialState, action) => {
   switch (action.type) {

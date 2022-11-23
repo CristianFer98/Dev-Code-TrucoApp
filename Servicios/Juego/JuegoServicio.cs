@@ -53,20 +53,37 @@ namespace Servicios.Juego
             new Carta(40, 4, "Basto", 14, 4, "https://res.cloudinary.com/dmvh1zlfc/image/upload/v1668288798/TrucoCartas/Basto/4Basto_r0myx7.png"),
         };
 
-        public static List<Carta> RepartirCartas()
+        public static List<Carta> RepartirCartas(int cantidadJugadores)
         {
             List<Carta> CartasRepartidas = new();
             List<int> Numeros = new();
 
-            for (int i = 0; Numeros.Count < 6; i++)
+            if (cantidadJugadores == 2)
             {
-                Random Objeto = new();
-                int RandomNumero = Objeto.Next(0, 40);
-
-                if (!Numeros.Contains(RandomNumero))
+                for (int i = 0; Numeros.Count < 6; i++)
                 {
-                    Numeros.Add(RandomNumero);
-                    CartasRepartidas.Add(Mazo[RandomNumero]);
+                    Random Objeto = new();
+                    int RandomNumero = Objeto.Next(0, 40);
+
+                    if (!Numeros.Contains(RandomNumero))
+                    {
+                        Numeros.Add(RandomNumero);
+                        CartasRepartidas.Add(Mazo[RandomNumero]);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; Numeros.Count < 12; i++)
+                {
+                    Random Objeto = new();
+                    int RandomNumero = Objeto.Next(0, 40);
+
+                    if (!Numeros.Contains(RandomNumero))
+                    {
+                        Numeros.Add(RandomNumero);
+                        CartasRepartidas.Add(Mazo[RandomNumero]);
+                    }
                 }
             }
             return CartasRepartidas;
@@ -244,6 +261,31 @@ namespace Servicios.Juego
             {
                 return 1;
             }
+        }
+
+        public static int AsignarTurno2vs2(int repartidor)
+        {
+            List<int> jugadores = new() { 1, 4, 2, 3 };
+            int indexRepartidor = jugadores.IndexOf(repartidor);
+            int turno = repartidor == 3 ? 1 : jugadores[indexRepartidor + 1];
+            return turno;
+        }
+
+        public static int AsignarRepartidor2vs2(bool primeraMano, int repartidorAnterior)
+        {
+            int Repartidor;
+            if (primeraMano)
+            {
+                Random Objeto = new();
+                Repartidor = Objeto.Next(1, 5);
+            }
+            else
+            {
+                List<int> jugadores = new() { 1, 4, 2, 3 };
+                int indexRepartidor = jugadores.IndexOf(repartidorAnterior);
+                Repartidor = repartidorAnterior == 3 ? 1 : jugadores[indexRepartidor + 1];
+            }
+            return Repartidor;
         }
 
         public static int CartaGanadora(Carta cartaJugadorUno, Carta cartaJugadorDos)
