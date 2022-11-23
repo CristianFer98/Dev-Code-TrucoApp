@@ -2,11 +2,56 @@ import React from 'react';
 import './accesorios.css';
 import imagenes from './TiendaImagenes';
 import { Link } from 'react-router-dom';
-import { useState} from 'react';
-import { checkout } from './Funciones';
+import { useState, useEffect} from 'react';
+//import { checkout } from './Funciones';
 
 const AccesorioDetalle = ({ id, imagen, descripcion, cantidadAComprar, stock, medidas, marca,tipoBaraja, precio, colores, talles }) => {
- 
+  
+const [lib, setLib] = useState({});
+const [url1,  setUrl] = useState({});
+
+useEffect(() => {
+    setUrl("https://sdk.mercadopago.com/js/v2");
+    const name="MercadoPago";
+    const script = document.createElement('script');
+    script.src = url1;
+    script.async = true;
+    script.onload = () => setLib({ [name]: window[name] });
+
+    document.body.appendChild(script)
+
+    return () => {
+        document.body.removeChild(script)
+    }
+}, [url1]);
+
+const checkout = async (url, id)=>{ 
+  const urlApi=url+id;
+  fetch(urlApi)
+     .then(res=> res.json())
+     .then(data=>{
+      console.log(data.result)
+
+        if(lib){
+          const mp = new  window.MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
+            locale: 'es-AR'});
+
+            mp.checkout({
+            preference: {
+              id: `${data.result}`
+            },
+            autoOpen: true,
+            render: {
+              container: '.cho-container',
+              label: 'Pagar',
+            }
+          });
+        }
+        
+      });
+
+    }
+
   const cambiarProducto = (producto, color) =>{
     const imgProducto = document.querySelector('#foto-producto');
     let posicionUltimoGuion = producto.lastIndexOf("-");   
@@ -85,7 +130,9 @@ const comprarProducto = async()=>{
         console.log("no se pudo actualizar stock");
       }
       const url = "https://localhost:44342/api/Producto/ComprarProducto/";
-      checkout(url,id); 
+      
+        checkout(url,id); 
+      
 }
   
   return (

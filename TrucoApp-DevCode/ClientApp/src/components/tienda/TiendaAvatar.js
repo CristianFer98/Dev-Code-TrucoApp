@@ -1,10 +1,27 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import './tienda.css';
 import { Link } from 'react-router-dom';
 import Card from './TiendaAvatarCard';
-import  './mp';
 
 export function TiendaAvatar() {
+
+    const [lib, setLib] = useState({});
+    const [url1,  setUrl] = useState({});
+    useEffect(() => {
+        setUrl("https://sdk.mercadopago.com/js/v2");
+        const name="MercadoPago";
+        const script = document.createElement('script');
+        script.src = url1;
+        script.async = true;
+        script.onload = () => setLib({ [name]: window[name] });
+  
+        document.body.appendChild(script)
+  
+        return () => {
+            document.body.removeChild(script)
+        }
+    }, [url1]);
+
     const url = "https://localhost:44342/api/Accesorio/ObtenerAccesorios";
 
     const [accesorios, setAccesorios] = useState([]);
@@ -18,21 +35,24 @@ export function TiendaAvatar() {
         .then((res)=> res.json())
         .then((data)=>{
             console.log(data.result);
-           
+            if(lib){
+
                 const mp = new window.MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
-                  locale: 'es-AR'
-                });
+                    locale: 'es-AR'
+                  });
+                  
+                  mp.checkout({
+                    preference: {
+                      id: `${data.result}`
+                    },
+                    autoOpen: true,
+                    render: {
+                      container: '.cho-container',
+                      label: 'Pagar',
+                    }
+                  });
+            }
                 
-                mp.checkout({
-                  preference: {
-                    id: `${data.result}`
-                  },
-                  autoOpen: true,
-                  render: {
-                    container: '.cho-container',
-                    label: 'Pagar',
-                  }
-                });
               
                 
 
