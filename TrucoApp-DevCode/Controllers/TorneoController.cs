@@ -10,7 +10,6 @@ using System.Text.Json.Serialization;
 using Router.Hubs;
 using Servicios;
 using Entidades;
-using TrucoApp.DTOs;
 
 namespace Router.Controllers
 {
@@ -32,38 +31,11 @@ namespace Router.Controllers
             return Ok(_torneoServicio.ObtenerTorneosDisponibles());
         }
 
-        [HttpGet]
-        [Route("{id}")]
-        public IActionResult Get(int id)
-        {
-            return Ok(_torneoServicio.ObtenerTorneoPorId(id));
-        }
         [HttpPost]
-        [Route("CrearTorneo")]
-        public IActionResult CrearTorneo([FromBody] CrearTorneoDto crearTorneo)
+        public IActionResult Post([FromBody] Torneo torneo)
         {
-            var nuevoTorneo = new Torneo()
-            {
-                Nombre = crearTorneo.Nombre,
-                CantidadParticipantes = crearTorneo.CantidadParticipantes
-            };
-
-            _torneoServicio.CrearTorneo(nuevoTorneo);
+            Torneo torneoCreado = _torneoServicio.CrearTorneo(torneo);
             return Ok();
-        }
-
-        [HttpPost]
-        [Route("AgregarParticipante")]
-        public IActionResult AgregarParticipante([FromBody] AgregarParticipanteDto agregarParticipante)
-        {
-            _torneoServicio.AgregarParticipante(agregarParticipante.IdTorneo, agregarParticipante.IdUsuario);
-            return Ok();
-        }
-        [HttpGet]
-        [Route("ProximaRonda/{id}")]
-        public IActionResult ProximaRonda([FromRoute] int id)
-        {
-            return Ok(_torneoServicio.ProximaRonda(id));
         }
     }
 }

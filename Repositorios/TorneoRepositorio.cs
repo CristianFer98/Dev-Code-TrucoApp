@@ -19,18 +19,9 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
-        public Torneo ObtenerPorId(int idTorneo)
-        {
-            return _dbContext.Torneos
-                .Include(t => t.Participantes)
-                .Include(t => t.Partidas)
-                .Where(t => t.IdTorneo == idTorneo)
-                .FirstOrDefault();
-        }
-
         public Torneo CrearTorneo(Torneo torneo)
         {
-            _dbContext.Torneos.Add(torneo);
+            _dbContext.Add(torneo);
             _dbContext.SaveChanges();
             return torneo;
         }
@@ -38,12 +29,6 @@ namespace Repositorios
         public IEnumerable<Torneo> ObtenerTorneosDisponibles()
         {
             return _dbContext.Torneos.Where(t=> t.Terminado == false);
-        }
-        public void SetearRondas(int idTorneo, int ronda)
-        {
-            var torneo = _dbContext.Torneos.Where(t => t.IdTorneo == idTorneo).FirstOrDefault();
-            torneo.nroRonda = ronda;
-            _dbContext.SaveChanges();
         }
     }
 }
