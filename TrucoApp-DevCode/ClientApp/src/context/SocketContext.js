@@ -84,10 +84,10 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("EmpezarJuego", (juego) => {
-      const { envido, truco, cantidadJugadores, ...partida } = juego;
+      const { envido, truco, ...partida } = juego;
 
       dispatch(
-        repartirCartas(cantidadJugadores, {
+        repartirCartas({
           ...partida,
           horarioDeUltimoMovimiento: new Date(),
           cartasJugadasJugadorUno: [],
@@ -107,8 +107,13 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("CartaTirada", (juego) => {
-      const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
-        juego;
+      const {
+        cartasJugadasJugadorUno,
+        cartasJugadasJugadorDos,
+        cartasJugadasJugadorTres,
+        cartasJugadasJugadorCuatro,
+        ...partida
+      } = juego;
       dispatch(
         tirarCarta({
           ...partida,
@@ -118,6 +123,12 @@ export const SocketProvider = ({ children }) => {
             : [],
           cartasJugadasJugadorDos: !!cartasJugadasJugadorDos
             ? cartasJugadasJugadorDos
+            : [],
+          cartasJugadasJugadorTres: !!cartasJugadasJugadorTres
+            ? cartasJugadasJugadorTres
+            : [],
+          cartasJugadasJugadorCuatro: !!cartasJugadasJugadorCuatro
+            ? cartasJugadasJugadorCuatro
             : [],
         })
       );
@@ -187,6 +198,10 @@ export const SocketProvider = ({ children }) => {
         jugadorTres !== 0 &&
         jugadorCuatro !== 0
       ) {
+        if (jugadorCuatro === uid) {
+          dispatch(setCargandoFalse2vs2());
+          dispatch(setCargandoTrue());
+        }
         setTimeout(() => {
           dispatch(jugar());
           dispatch(setCargandoFalse2vs2());
@@ -200,10 +215,10 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("EmpezarJuego2vs2", (juego) => {
-      const { envido, truco, cantidadJugadores, ...partida } = juego;
+      const { envido, truco, ...partida } = juego;
 
       dispatch(
-        repartirCartas(cantidadJugadores, {
+        repartirCartas({
           ...partida,
           horarioDeUltimoMovimiento: new Date(),
           cartasJugadasJugadorUno: [],

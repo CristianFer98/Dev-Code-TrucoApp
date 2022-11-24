@@ -142,6 +142,17 @@ namespace Router.Hubs
             string userRoom = Convert.ToString(partida.Room);
 
             List<Carta> CartasRepartidas = JuegoServicio.RepartirCartas(4);
+            partida.EquipoUno = new()
+            {
+                partida.JugadorUno,
+                partida.JugadorDos
+            };
+            partida.EquipoDos = new()
+            {
+                partida.JugadorTres,
+                partida.JugadorCuatro
+            };
+
             List<Carta> cartasJugadorUno = new()
             {
                 CartasRepartidas[0],
@@ -185,13 +196,13 @@ namespace Router.Hubs
 
             if (partida.PuntosEquipoUno == 0 && partida.PuntosEquipoDos == 0)
             {
-                partida.Repartidor = JuegoServicio.AsignarRepartidor2vs2(true, 0);
-                partida.Turno = JuegoServicio.AsignarTurno2vs2(partida.Repartidor);
+                partida.Repartidor = JuegoServicio2vs2.AsignarRepartidor2vs2(true, 0);
+                partida.Turno = JuegoServicio2vs2.AsignarTurno2vs2(partida.Repartidor);
             }
             else
             {
-                partida.Repartidor = JuegoServicio.AsignarRepartidor2vs2(false, partida.Repartidor);
-                partida.Turno = JuegoServicio.AsignarTurno2vs2(partida.Repartidor);
+                partida.Repartidor = JuegoServicio2vs2.AsignarRepartidor2vs2(false, partida.Repartidor);
+                partida.Turno = JuegoServicio2vs2.AsignarTurno2vs2(partida.Repartidor);
                 partida.GanadorMano = null;
             }
 
@@ -201,8 +212,17 @@ namespace Router.Hubs
         public async Task TirarCarta(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
+            Partida partidaActualizada = partida;
 
-            Partida partidaActualizada = JuegoServicio.ActualizarPartida(partida);
+            if (partida.CantidadJugadores == 2)
+            {
+                partidaActualizada = JuegoServicio.ActualizarPartida(partida);
+            }
+            else if (partida.CantidadJugadores == 4)
+            {
+                partidaActualizada = JuegoServicio2vs2.ActualizarPartida2vs2(partida);
+            }
+
             await Clients.Group(userRoom).SendAsync("CartaTirada", partidaActualizada);
         }
 

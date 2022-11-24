@@ -21,7 +21,7 @@ export const CartasJugadas2vs2 = () => {
   return (
     <>
       <>
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center" style={{ width: "33%" }}>
           {getCartasJugadas("izquierda", jugador, partida).map((carta, i) => {
             return (
               <div
@@ -38,24 +38,25 @@ export const CartasJugadas2vs2 = () => {
         </div>
       </>
       <>
-        <div className="d-flex flex-column justify-content-between">
+        <div
+          className="d-flex flex-column align-items-center justify-content-between"
+          style={{ width: "33%" }}
+        >
           <>
             <div className="d-flex flex-row-reverse">
-              {getCartasJugadas("izquierda", jugador, partida).map(
-                (carta, i) => {
-                  return (
-                    <div
-                      key={i}
-                      className="h-25 animate__animated animate__fadeInTop"
-                      style={{
-                        marginRight: `${i == 1 || i == 2 ? "-3.4rem" : "0px"}`,
-                      }}
-                    >
-                      <CartaMesa2vs2 key={carta.id} carta={carta} />
-                    </div>
-                  );
-                }
-              )}
+              {getCartasJugadas("arriba", jugador, partida).map((carta, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="h-25 animate__animated animate__fadeInDown"
+                    style={{
+                      marginRight: `${i == 1 || i == 2 ? "-3.4rem" : "0px"}`,
+                    }}
+                  >
+                    <CartaMesa2vs2 key={carta.id} carta={carta} />
+                  </div>
+                );
+              })}
             </div>
           </>
           <>
@@ -64,7 +65,7 @@ export const CartasJugadas2vs2 = () => {
                 return (
                   <div
                     key={i}
-                    className="h-25 animate__animated animate__fadeInTop"
+                    className="h-25 animate__animated animate__fadeInUp"
                     style={{
                       marginLeft: `${i == 1 || i == 2 ? "-3.4rem" : "0px"}`,
                       bottom: "20px",
@@ -79,12 +80,15 @@ export const CartasJugadas2vs2 = () => {
         </div>
       </>
       <>
-        <div className="d-flex flex-row-reverse align-items-center">
+        <div
+          className="d-flex flex-row-reverse align-items-center"
+          style={{ width: "33%" }}
+        >
           {getCartasJugadas("derecha", jugador, partida).map((carta, i) => {
             return (
               <div
                 key={i}
-                className="h-25 animate__animated animate__fadeInLeft"
+                className="h-25 animate__animated animate__fadeInRight"
                 style={{
                   marginRight: `${i == 1 || i == 2 ? "-3.4rem" : "0px"}`,
                 }}

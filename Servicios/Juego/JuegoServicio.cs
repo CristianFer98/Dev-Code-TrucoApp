@@ -263,31 +263,6 @@ namespace Servicios.Juego
             }
         }
 
-        public static int AsignarTurno2vs2(int repartidor)
-        {
-            List<int> jugadores = new() { 1, 4, 2, 3 };
-            int indexRepartidor = jugadores.IndexOf(repartidor);
-            int turno = repartidor == 3 ? 1 : jugadores[indexRepartidor + 1];
-            return turno;
-        }
-
-        public static int AsignarRepartidor2vs2(bool primeraMano, int repartidorAnterior)
-        {
-            int Repartidor;
-            if (primeraMano)
-            {
-                Random Objeto = new();
-                Repartidor = Objeto.Next(1, 5);
-            }
-            else
-            {
-                List<int> jugadores = new() { 1, 4, 2, 3 };
-                int indexRepartidor = jugadores.IndexOf(repartidorAnterior);
-                Repartidor = repartidorAnterior == 3 ? 1 : jugadores[indexRepartidor + 1];
-            }
-            return Repartidor;
-        }
-
         public static int CartaGanadora(Carta cartaJugadorUno, Carta cartaJugadorDos)
         {
             if (cartaJugadorUno.RankingValorTruco < cartaJugadorDos.RankingValorTruco)

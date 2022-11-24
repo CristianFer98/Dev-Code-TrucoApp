@@ -13,6 +13,8 @@ namespace Servicios.Juego
         public int JugadorDos { get; set; }
         public int JugadorTres { get; set; }
         public int JugadorCuatro { get; set; }
+        public List<int> EquipoUno { get; set; }
+        public List<int> EquipoDos { get; set; }
         public List<Carta> CartasJugadorUno { get; set; }
         public List<Carta> CartasJugadorDos { get; set; }
         public List<Carta> CartasJugadorTres { get; set; }

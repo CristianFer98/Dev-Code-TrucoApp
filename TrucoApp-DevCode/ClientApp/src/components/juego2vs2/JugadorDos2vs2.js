@@ -1,12 +1,12 @@
 import React from "react";
 import noFoto from "../../assets/no-foto.jpg";
-import mazo from "../../assets/cartas/Mazo.png";
 import { CountdownOtrosJugadores } from "./CountdownOtrosJugadores";
 import { useSelector } from "react-redux";
 import {
   getCartasJugadores,
   getUserPlayer2vs2,
 } from "../../helpers/truco/getUserTurno";
+// import mazo from "../../assets/cartas/Mazo.png";
 
 export const JugadorDos2vs2 = () => {
   const { uid } = useSelector((state) => state.auth);
@@ -19,6 +19,9 @@ export const JugadorDos2vs2 = () => {
     jugadorTres,
     jugadorCuatro
   );
+  const mazo =
+    "https://res.cloudinary.com/dmvh1zlfc/image/upload/v1668288798/TrucoCartas/Mazo_vhkrcs.png";
+
   return (
     <div className="w-100 player12vs2 d-flex align-items-center justify-content-center">
       <div className="player1Avatar d-flex flex-column align-items-center me-2">
@@ -30,7 +33,7 @@ export const JugadorDos2vs2 = () => {
         {getCartasJugadores("arriba", jugador, partida).map((carta) => (
           <div key={carta.id} className="d-flex divCardOponent me-1">
             <img
-              className="animate__animated animate__fadeInBottomLeft cardOponent"
+              className="animate__animated animate__fadeInUp cardOponent"
               src={mazo}
               alt="card"
             />

@@ -1,8 +1,8 @@
 import { types } from "../types/types";
 
-export const repartirCartas = (cantidadJugadores, partida) => ({
+export const repartirCartas = (partida) => ({
   type: types.juegoRepartirCartas,
-  payload: { cantidadJugadores, partida },
+  payload: { partida },
 });
 
 export const tirarCarta = (partida) => ({

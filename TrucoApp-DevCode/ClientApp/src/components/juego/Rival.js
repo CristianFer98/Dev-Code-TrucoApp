@@ -1,13 +1,15 @@
 import React from "react";
 import noFoto from "../../assets/no-foto.jpg";
-import mazo from "../../assets/cartas/Mazo.png";
 import { useSelector } from "react-redux";
 import { CountdownRival } from "./CountdownRival";
+// import mazo from "../../assets/cartas/Mazo.png";
 
 export const Rival = () => {
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
   const { jugadorUno } = partida;
+  const mazo =
+    "https://res.cloudinary.com/dmvh1zlfc/image/upload/v1668288798/TrucoCartas/Mazo_vhkrcs.png";
 
   return (
     <div className="w-100 player1 d-flex align-items-center justify-content-center">

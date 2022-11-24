@@ -22,7 +22,7 @@ import { Truco2vs2 } from "../components/juego2vs2/Truco2vs2";
 
 export const AppRouter = () => {
   const { uid, jugando } = useSelector((state) => state.auth);
-  const { cantidadJugadores } = useSelector((state) => state.juego);
+  const { partida } = useSelector((state) => state.juego);
 
   return (
     <BrowserRouter>
@@ -63,7 +63,7 @@ export const AppRouter = () => {
                 />
                 <Redirect to="/inicio" />
               </Layout>
-            ) : cantidadJugadores === 2 ? (
+            ) : partida.cantidadJugadores === 2 ? (
               <Redirect to="/juego" />
             ) : (
               <Redirect to="/juego2vs2" />
