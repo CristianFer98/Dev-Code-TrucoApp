@@ -28,7 +28,7 @@ namespace Repositorios
 
         public IEnumerable<Torneo> ObtenerTorneosDisponibles()
         {
-            return _dbContext.Torneos.Where(t=> t.Terminado == false);
+            return null; // _dbContext.Torneos.Where(t=> t.Terminado == false);
         }
     }
 }
