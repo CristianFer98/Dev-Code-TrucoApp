@@ -1,7 +1,7 @@
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 0px) {
   .divFlop2vs2 {
-    width: 10em;
+    width: 15em;
   }
 
   .playerDerecha {
@@ -137,7 +137,7 @@
 
 @media (min-width: 413px) {
   .divFlop2vs2 {
-    width: 15em;
+    width: 20em;
   }
 
   .player2 {

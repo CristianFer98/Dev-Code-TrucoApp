@@ -2,18 +2,23 @@ import React from "react";
 import noFoto from "../../assets/no-foto.jpg";
 import mazo from "../../assets/cartas/Mazo.png";
 import { CountdownOtrosJugadores } from "./CountdownOtrosJugadores";
+import { useSelector } from "react-redux";
+import {
+  getCartasJugadores,
+  getUserPlayer2vs2,
+} from "../../helpers/truco/getUserTurno";
 
 export const JugadorDos2vs2 = () => {
-  const carta = {
-    id: 1,
-    numero: 1,
-    palo: "Espada",
-    rankingValorTruco: 1,
-    rankingValorEnvido: 1,
-    imagen:
-      "https://res.cloudinary.com/dmvh1zlfc/image/upload/v1668288800/TrucoCartas/Espada/1Espada_xztjoy.png",
-  };
-
+  const { uid } = useSelector((state) => state.auth);
+  const { partida } = useSelector((state) => state.juego);
+  const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro } = partida;
+  const jugador = getUserPlayer2vs2(
+    uid,
+    jugadorUno,
+    jugadorDos,
+    jugadorTres,
+    jugadorCuatro
+  );
   return (
     <div className="w-100 player12vs2 d-flex align-items-center justify-content-center">
       <div className="player1Avatar d-flex flex-column align-items-center me-2">
@@ -22,27 +27,15 @@ export const JugadorDos2vs2 = () => {
       </div>
 
       <div className="d-flex divCardsOponent">
-        <div key={1} className="d-flex divCardOponent me-1">
-          <img
-            className="animate__animated animate__fadeInBottomLeft cardOponent"
-            src={mazo}
-            alt="card"
-          />
-        </div>
-        <div key={2} className="d-flex divCardOponent me-1">
-          <img
-            className="animate__animated animate__fadeInBottomLeft cardOponent"
-            src={mazo}
-            alt="card"
-          />
-        </div>
-        <div key={3} className="d-flex divCardOponent me-1">
-          <img
-            className="animate__animated animate__fadeInBottomLeft cardOponent"
-            src={mazo}
-            alt="card"
-          />
-        </div>
+        {getCartasJugadores("arriba", jugador, partida).map((carta) => (
+          <div key={carta.id} className="d-flex divCardOponent me-1">
+            <img
+              className="animate__animated animate__fadeInBottomLeft cardOponent"
+              src={mazo}
+              alt="card"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

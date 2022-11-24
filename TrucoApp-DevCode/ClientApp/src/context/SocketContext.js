@@ -16,6 +16,7 @@ import {
 import {
   checkChantSet,
   setCargandoFalse,
+  setCargandoFalse2vs2,
   setCargandoTrue,
   setCargandoTrue2vs2,
 } from "../actions/ui";
@@ -83,14 +84,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("EmpezarJuego", (juego) => {
-      const {
-        cartasJugadasJugadorUno,
-        cartasJugadasJugadorDos,
-        envido,
-        truco,
-        cantidadJugadores,
-        ...partida
-      } = juego;
+      const { envido, truco, cantidadJugadores, ...partida } = juego;
 
       dispatch(
         repartirCartas(cantidadJugadores, {
@@ -185,28 +179,28 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("MesaOcupada2vs2", async (partida) => {
-      const { jugadorDos, jugadorTres, jugadorCuatro } = partida;
+      const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro } = partida;
 
-      console.log(partida);
-      const jugadoresConectados = jugadorTres !== 0 ? 3 : 2;
-      dispatch(setCargandoTrue2vs2(jugadoresConectados));
-      // setTimeout(() => {
-      //   dispatch(jugar());
-      //   // dispatch(setCargandoFalse());
-      // }, 800);
+      if (
+        jugadorUno !== 0 &&
+        jugadorDos !== 0 &&
+        jugadorTres !== 0 &&
+        jugadorCuatro !== 0
+      ) {
+        setTimeout(() => {
+          dispatch(jugar());
+          dispatch(setCargandoFalse2vs2());
+        }, 800);
+      } else {
+        const jugadoresConectados = jugadorTres !== 0 ? 3 : 2;
+        dispatch(setCargandoTrue2vs2(jugadoresConectados));
+      }
     });
   }, [connection, dispatch]);
 
   useEffect(() => {
     connection?.on("EmpezarJuego2vs2", (juego) => {
-      const {
-        cartasJugadasJugadorUno,
-        cartasJugadasJugadorDos,
-        envido,
-        truco,
-        cantidadJugadores,
-        ...partida
-      } = juego;
+      const { envido, truco, cantidadJugadores, ...partida } = juego;
 
       dispatch(
         repartirCartas(cantidadJugadores, {
@@ -214,6 +208,8 @@ export const SocketProvider = ({ children }) => {
           horarioDeUltimoMovimiento: new Date(),
           cartasJugadasJugadorUno: [],
           cartasJugadasJugadorDos: [],
+          cartasJugadasJugadorTres: [],
+          cartasJugadasJugadorCuatro: [],
           envido: {
             ...envido,
             envidosCantados: [],
@@ -225,7 +221,7 @@ export const SocketProvider = ({ children }) => {
         })
       );
     });
-  }, [connection, dispatch, uid]);
+  }, [connection]);
 
   return (
     <SocketContext.Provider value={{ connection }}>

@@ -38,9 +38,12 @@ namespace Router.Hubs
             }
             else
             {
+                if (partida.JugadorUno != 0 && partida.JugadorDos != 0 && partida.JugadorTres != 0 && partida.JugadorCuatro != 0)
+                {
+                    await Clients.All.SendAsync("MesasActualizadas");
+                    await InicializarMano2vs2(partida);
+                }
                 await Clients.Group(userRoom).SendAsync("MesaOcupada2vs2", partida);
-                //await Clients.All.SendAsync("MesasActualizadas");
-                //await InicializarMano2vs2(partida);
             }
         }
 

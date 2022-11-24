@@ -1,18 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import noFoto from "../../assets/no-foto.jpg";
+import { getUserPlayer2vs2 } from "../../helpers/truco/getUserTurno";
 import { CartaJugador2vs2 } from "./CartaJugador2vs2";
 import { CountdownJugador2vs2 } from "./CountdownJugador2vs2";
 
 export const Jugador2vs2 = () => {
-  const carta = {
-    id: 1,
-    numero: 1,
-    palo: "Espada",
-    rankingValorTruco: 1,
-    rankingValorEnvido: 1,
-    imagen:
-      "https://res.cloudinary.com/dmvh1zlfc/image/upload/v1668288800/TrucoCartas/Espada/1Espada_xztjoy.png",
-  };
+  const { partida } = useSelector((state) => state.juego);
+  const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro, turno } = partida;
+  const { uid, nombre } = useSelector((state) => state.auth);
+  const numeroJugador = getUserPlayer2vs2(
+    uid,
+    jugadorUno,
+    jugadorDos,
+    jugadorTres,
+    jugadorCuatro
+  );
 
   return (
     <div className="divPlayer2 d-flex flex-column">
@@ -20,14 +23,26 @@ export const Jugador2vs2 = () => {
         <div className="player2Avatar d-flex flex-column align-items-center">
           <CountdownJugador2vs2 image={noFoto} />
           <div className="playerName fw-bolder text-white px-2 py-1">
-            Jugador uno
+            {nombre}
           </div>
         </div>
 
         <div className="d-flex divCardsPlayer">
-          <CartaJugador2vs2 key={1} carta={carta} />
-          <CartaJugador2vs2 key={2} carta={carta} />
-          <CartaJugador2vs2 key={3} carta={carta} />
+          {numeroJugador === 1
+            ? partida.cartasJugadorUno.map((carta) => (
+                <CartaJugador2vs2 key={carta.id} carta={carta} />
+              ))
+            : numeroJugador === 2
+            ? partida.cartasJugadorDos.map((carta) => (
+                <CartaJugador2vs2 key={carta.id} carta={carta} />
+              ))
+            : numeroJugador === 3
+            ? partida.cartasJugadorTres.map((carta) => (
+                <CartaJugador2vs2 key={carta.id} carta={carta} />
+              ))
+            : partida.cartasJugadorCuatro.map((carta) => (
+                <CartaJugador2vs2 key={carta.id} carta={carta} />
+              ))}
         </div>
       </div>
     </div>
