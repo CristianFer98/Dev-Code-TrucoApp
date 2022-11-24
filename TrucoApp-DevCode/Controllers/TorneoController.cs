@@ -34,16 +34,24 @@ namespace Router.Controllers
 
         [HttpPost]
         [Route("CrearTorneo")]
-        public IActionResult CrearTorneo([FromBody] CrearTorneoDto crearTorneo)
+        public ActionResult Post([FromBody] CrearTorneoDto crearTorneo)
         {
-            var nuevoTorneo = new Torneo()
+            try
             {
-                Nombre = crearTorneo.Nombre,
-                CantidadParticipantes = crearTorneo.CantidadParticipantes
-            };
+                var nuevoTorneo = new Torneo()
+                {
+                    Nombre = crearTorneo.Nombre,
+                    CantidadParticipantes = crearTorneo.CantidadParticipantes
+                };
 
-            _torneoServicio.CrearTorneo(nuevoTorneo);
-            return Ok();
+                _torneoServicio.CrearTorneo(nuevoTorneo);
+                return StatusCode(StatusCodes.Status200OK, nuevoTorneo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
         }
 
         [HttpPost]
