@@ -198,6 +198,8 @@ namespace Router.Hubs
             {
                 partida.Repartidor = JuegoServicio2vs2.AsignarRepartidor2vs2(true, 0);
                 partida.Turno = JuegoServicio2vs2.AsignarTurno2vs2(partida.Repartidor);
+                //Sacar esto cuando aplique lo de los puntos
+                partida.GanadorMano = null;
             }
             else
             {

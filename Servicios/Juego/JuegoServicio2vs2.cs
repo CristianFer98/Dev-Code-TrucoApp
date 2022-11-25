@@ -35,12 +35,17 @@ namespace Servicios.Juego
 
         public static int CartaGanadora2vs2(Carta cartaJugadorUno, Carta cartaJugadorDos, Carta cartaJugadorTres, Carta cartaJugadorCuatro)
         {
-            List<Carta> rankingCartas = new List<Carta>() { cartaJugadorUno, cartaJugadorDos, cartaJugadorTres, cartaJugadorCuatro };
+            List<Carta> rankingCartas = new() { cartaJugadorUno, cartaJugadorDos, cartaJugadorTres, cartaJugadorCuatro };
 
             Carta masAlta = rankingCartas.OrderBy(c => c.RankingValorTruco).ToList()[0];
-            Carta segundaMasAlta = rankingCartas.OrderBy(c => c.RankingValorTruco).ToList()[1];
 
-            if (masAlta.RankingValorTruco == segundaMasAlta.RankingValorTruco)
+            List<Carta> rankingCartasEquipoUno = new() { cartaJugadorUno, cartaJugadorDos };
+            List<Carta> rankingCartasEquipoDos = new() { cartaJugadorTres, cartaJugadorCuatro };
+
+            Carta masAltaEquipoUno = rankingCartasEquipoUno.OrderBy(c => c.RankingValorTruco).ToList()[0];
+            Carta masAltaEquipoDos = rankingCartasEquipoDos.OrderBy(c => c.RankingValorTruco).ToList()[0];
+
+            if (masAltaEquipoUno.RankingValorTruco == masAltaEquipoDos.RankingValorTruco)
             {
                 return 0;
             }
@@ -111,12 +116,13 @@ namespace Servicios.Juego
             {
                 if (EquipoGanadorManoDos != null)
                 {
-                    if (EquipoGanadorManoDos != 0)
+                    if (EquipoGanadorManoUno != 0)
                     {
                         if (EquipoGanadorManoUno == EquipoGanadorManoDos)
                         {
                             //Gana el que ganó primera y segunda mano
                             //partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoDos);
+                            partida.GanadorMano = (int)EquipoGanadorManoDos;
                             partida.Turno = 0;
                         }
                         else
@@ -131,6 +137,7 @@ namespace Servicios.Juego
                             {
                                 //Gana el que ganó la mano uno porque en la mano dos empardaron
                                 //partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoUno);
+                                partida.GanadorMano = (int)EquipoGanadorManoUno;
                                 partida.Turno = 0;
                             }
                         }
@@ -141,6 +148,7 @@ namespace Servicios.Juego
                         {
                             //Gana el que gano la segunda mando porque en la mano uno empardaron
                             //partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoDos);
+                            partida.GanadorMano = (int)EquipoGanadorManoDos;
                             partida.Turno = 0;
                         }
                         else
@@ -166,6 +174,7 @@ namespace Servicios.Juego
                         {
                             //Gana el que gano una de las dos primeras manos y la mano tres.
                             //partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoTres);
+                            partida.GanadorMano = (int)EquipoGanadorManoTres;
                             partida.Turno = 0;
                         }
                         else
@@ -174,12 +183,14 @@ namespace Servicios.Juego
                             {
                                 //Gana el que gano la mano uno porque empardaron en la tercera.
                                 //partida = AsignarPuntosAGanadorMano(partida, (int)GanadorManoUno);
+                                partida.GanadorMano = (int)EquipoGanadorManoUno;
                                 partida.Turno = 0;
                             }
                             else
                             {
                                 //Gana el que es mano porque empardaron las tres manos.
                                 //partida = AsignarPuntosAGanadorMano(partida, CambiarTurno(partida.Repartidor));
+                                partida.GanadorMano = AsignarTurno2vs2(partida.Repartidor);
                                 partida.Turno = 0;
                             }
                         }
