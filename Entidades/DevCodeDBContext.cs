@@ -36,7 +36,7 @@ namespace Entidades
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=W10DH;Database=DevCodeDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=LUCASBJ\\SQLEXPRESS;Database=DevCodeDB;Trusted_Connection=True;");
             }
         }
 

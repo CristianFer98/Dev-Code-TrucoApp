@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router";
 import img from "../../assets/no-foto.jpg";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { SocketContext } from "../../context/SocketContext";
+import { entrarATorneo } from "../../helpers/fetchConnection";
 
-export const TorneoDisponibleCard = () => {
-  const history = useHistory();
+export const TorneoDisponibleCard = ({ torneo }) => {
+    const { uid } = useSelector((state) => state.auth);
+    const history = useHistory();
+    const { idTorneo } = torneo;
+    const { connection } = useContext(SocketContext);
 
   const handleIngresar = () => {
-    history.push("/inicio/tabla");
+      //history.push("/inicio/tabla");
+      e.preventDefault();
+      entrarATorneo(uid, idTorneo, connection);
   };
 
   return (

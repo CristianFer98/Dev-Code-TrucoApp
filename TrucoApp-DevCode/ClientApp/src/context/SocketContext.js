@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
+import { obtenerTorneos } from "../actions/torneos";
 import {
   cantarEnvido,
   cantarTruco,
@@ -28,7 +29,8 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (!!uid) {
-      dispatch(obtenerMesas());
+        dispatch(obtenerMesas());
+        dispatch(obtenerTorneos());
     }
   }, [uid, dispatch]);
 
@@ -180,6 +182,12 @@ export const SocketProvider = ({ children }) => {
       );
     });
   }, [connection, dispatch]);
+
+    useEffect(() => {
+        connection?.on("TorneosActualizados", () => {
+            dispatch(obtenerTorneos());
+        });
+    }, [connection, dispatch]);
 
   return (
     <SocketContext.Provider value={{ connection }}>

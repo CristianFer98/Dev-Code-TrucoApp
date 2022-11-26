@@ -16,4 +16,5 @@ export const types = {
   uiRemoveChantBox: "[ui] Remove chant box",
   uiSetCargandoTrue: "[ui] Set cargando true",
   uiSetCargandoFalse: "[ui] Set cargando false",
+  torneosObtenerTorneos: "[torneos] Obtener torneos",
 };

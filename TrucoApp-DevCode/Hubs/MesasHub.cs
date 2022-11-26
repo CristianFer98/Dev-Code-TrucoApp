@@ -157,6 +157,24 @@ namespace Router.Hubs
         {
             await Clients.All.SendAsync("TorneosActualizados");
         }
+        public async Task AgregarParticipante(TorneoParticipante torneoParticipante)
+        {
+            await Clients.All.SendAsync("MesasActualizadas");
+            await Clients.All.SendAsync("MesaOcupada", torneoParticipante);
+        }
+        public async Task JoinRoomTorneo(int user, int room)
+        {
+            string userRoom = Convert.ToString(room);
+
+            UserConnection userConnection = new()
+            {
+                User = user,
+                Room = userRoom
+            };
+            _connections[Context.ConnectionId] = userConnection;
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, userRoom);
+        }
         #endregion
     }
 }
