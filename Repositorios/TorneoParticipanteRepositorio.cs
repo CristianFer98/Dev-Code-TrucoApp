@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using Microsoft.EntityFrameworkCore;
 using Repositorios.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Repositorios
@@ -27,6 +28,12 @@ namespace Repositorios
                 .Include(tp => tp.Torneo)
                 .Include(tp => tp.Usuario)
                 .FirstOrDefault(tp => tp.IdTorneo == idTorneo && tp.IdUsuario == idUsuario);
+        }
+        public List<TorneoParticipante> ObtenerGanadoresUltimaRonda(int idTorneo)
+        {
+            return _dbContext.TorneoParticipantes.Include(tp => tp.Usuario)
+                .Where(tp => tp.IdTorneo == idTorneo && tp.NroRonda == tp.Torneo.NroRonda)
+                .ToList();
         }
     }
 }

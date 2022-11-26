@@ -6,7 +6,8 @@ namespace Repositorios.Interfaces
     public interface ITorneoRepositorio
     {
         Torneo ObtenerPorId(int idTorneo);
-        IEnumerable<Torneo> ObtenerTorneosDisponibles();
+        List<Torneo> ObtenerTorneosDisponibles();
         Torneo CrearTorneo(Torneo torneo);
+        void SetearRondas(int idTorneo, int ronda);
     }
 }

@@ -159,8 +159,8 @@ namespace Router.Hubs
         }
         public async Task AgregarParticipante(TorneoParticipante torneoParticipante)
         {
-            await Clients.All.SendAsync("MesasActualizadas");
-            await Clients.All.SendAsync("MesaOcupada", torneoParticipante);
+            await Clients.All.SendAsync("TorneosActualizados");
+            //await Clients.All.SendAsync("MesaOcupada", torneoParticipante);
         }
         public async Task JoinRoomTorneo(int user, int room)
         {

@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using System.Collections.Generic;
 
 namespace Repositorios.Interfaces
 {
@@ -6,5 +7,6 @@ namespace Repositorios.Interfaces
     {
         TorneoParticipante CrearParticipante(TorneoParticipante torneoParticipante);
         TorneoParticipante ObtenerParticipante(int idTorneo, int idUsuario);
+        List<TorneoParticipante> ObtenerGanadoresUltimaRonda(int idTorneo);
     }
 }

@@ -33,8 +33,8 @@ export const entrarATorneo = async (uid, idTorneo, connection) => {
         }
     );
 
-    if (resp.ok) {
-        const room = idTorneo;
-        await connection.invoke("AgregarParticipante", { room, idJugador });
-    }
+    //if (resp.ok) {
+    //    const room = idTorneo;
+    //    await connection.invoke("AgregarParticipante", { room, idJugador });
+    //}
 };

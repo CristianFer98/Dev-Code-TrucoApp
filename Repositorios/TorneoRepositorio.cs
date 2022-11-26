@@ -35,9 +35,15 @@ namespace Repositorios
             return torneo;
         }
 
-        public IEnumerable<Torneo> ObtenerTorneosDisponibles()
+        public List<Torneo> ObtenerTorneosDisponibles()
         {
-            return _dbContext.Torneos.Where(t=> t.Terminado == false);
+            return _dbContext.Torneos.Where(t=> t.Terminado == false).ToList();
+        }
+        public void SetearRondas(int idTorneo, int ronda)
+        {
+            var torneo = _dbContext.Torneos.Where(t => t.IdTorneo == idTorneo).FirstOrDefault();
+            torneo.NroRonda = ronda;
+            _dbContext.SaveChanges();
         }
     }
 }

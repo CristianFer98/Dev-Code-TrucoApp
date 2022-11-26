@@ -24,12 +24,34 @@ namespace Router.Controllers
         {
             _torneoServicio = torneoServicio;
         }
+        [HttpGet]
+        [Route("ObtenerTorneoPorId/{torneoId:int}")]
+        public ActionResult Get(int torneoId)
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.ObtenerTorneoPorId(torneoId));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpGet]
         [Route("ObtenerTodosLosTorneos")]
-        public IActionResult Get()
+        public ActionResult Get()
         {
-            return Ok(_torneoServicio.ObtenerTorneosDisponibles());
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.ObtenerTorneosDisponibles());
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -55,10 +77,25 @@ namespace Router.Controllers
 
         [HttpPost]
         [Route("AgregarParticipante")]
-        public IActionResult AgregarParticipante([FromBody] AgregarParticipanteDto agregarParticipante)
+        public ActionResult Post([FromBody] AgregarParticipanteDto agregarParticipante)
         {
-            _torneoServicio.AgregarParticipante(agregarParticipante.IdTorneo, agregarParticipante.IdUsuario);
-            return Ok();
+            try
+            {
+                _torneoServicio.AgregarParticipante(agregarParticipante.IdTorneo, agregarParticipante.IdUsuario);
+                return StatusCode(StatusCodes.Status200OK, agregarParticipante);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+      
+        [HttpGet]
+        [Route("ProximaRonda/{torneoId:int}")]
+        public IActionResult ProximaRonda([FromRoute] int id)
+        {
+            return Ok(_torneoServicio.ProximaRonda(id));
         }
     }
 }

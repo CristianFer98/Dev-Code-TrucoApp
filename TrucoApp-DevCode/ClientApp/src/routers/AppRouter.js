@@ -6,7 +6,6 @@ import { Tienda } from "../components/tienda/Tienda";
 import { TiendaDetalle } from "../components/tienda/TiendaDetalle";
 import { TiendaAvatar } from "../components/tienda/TiendaAvatar";
 import { Reglas } from "../components/reglas/Reglas";
-import { Torneo } from "../components/torneo/Torneo";
 import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
 import { useEffect } from "react";
