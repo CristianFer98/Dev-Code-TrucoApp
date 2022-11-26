@@ -16,6 +16,7 @@ import { Truco1vs1 } from "../components/juego/Truco1vs1";
 import JuegoIA from "../components/juegoIA/JuegoIA";
 import { Avatar } from "../components/avatar/Avatar";
 import { MesasDisponibles } from "../components/mesas/MesasDisponibles";
+import { TorneosDisponibles } from "../components/torneo/TorneosDisponibles";
 import TablaDeTorneo from "../components/torneo/TablaDeTorneo";
 import { CargarPartida } from "../components/partidaLink/CargarPartida";
 
@@ -47,7 +48,7 @@ export const AppRouter = () => {
                   component={TiendaAvatar}
                 />
                 <Route exact path="/inicio/reglas" component={Reglas} />
-                <Route exact path="/inicio/torneos" component={Torneo} />
+                <Route exact path="/inicio/torneos" component={TorneosDisponibles}/>
                 <Route exact path="/inicio/tabla" component={TablaDeTorneo} />
                 <Route
                   exact

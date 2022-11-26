@@ -18,14 +18,21 @@ namespace Router.Hubs
             _connections = connections;
         }
 
-        public async Task CrearMesa()
+        public async Task CrearMesa(int user, int room)
         {
+            await JoinRoom(user, room);
             await Clients.All.SendAsync("MesasActualizadas");
         }
 
         public async Task OcuparMesa(Partida partida)
         {
+            await JoinRoom(partida.JugadorDos, partida.Room);
+            string userRoom = Convert.ToString(partida.Room);
+
             await Clients.All.SendAsync("MesasActualizadas");
+            await Clients.Group(userRoom).SendAsync("MesaOcupada");
+            await InicializarMano(partida);
+
             await Clients.All.SendAsync("MesaOcupada", partida);
         }
 
