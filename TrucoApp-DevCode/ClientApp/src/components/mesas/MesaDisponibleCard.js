@@ -10,7 +10,6 @@ export const MesaDisponibleCard = ({ mesa }) => {
   const { uid, invitado, mesaInvitado } = useSelector((state) => state.auth);
   const { Usuarios } = require("../../usuarios.json");
   const { idMesa, jugadorUno, tipo, cantidadJugadores } = mesa;
-  const usuario = Usuarios.find((usuario) => usuario.uid === jugadorUno);
   const { connection } = useContext(SocketContext);
 
   useEffect(() => {
@@ -69,7 +68,7 @@ export const MesaDisponibleCard = ({ mesa }) => {
           className="text-center mt-1"
           style={{ color: "#ffffff", fontSize: "0.68em" }}
         >
-          {!!usuario.nombre && usuario.nombre}
+          {jugadorUno}
         </div>
       </div>
 

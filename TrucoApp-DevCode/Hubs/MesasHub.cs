@@ -144,13 +144,13 @@ namespace Router.Hubs
             List<Carta> CartasRepartidas = JuegoServicio.RepartirCartas(4);
             partida.EquipoUno = new()
             {
-                partida.JugadorUno,
-                partida.JugadorDos
+                1,
+                2
             };
             partida.EquipoDos = new()
             {
-                partida.JugadorTres,
-                partida.JugadorCuatro
+                3,
+                4
             };
 
             List<Carta> cartasJugadorUno = new()
@@ -194,7 +194,7 @@ namespace Router.Hubs
             partida.Envido = envido;
             partida.Truco = truco;
 
-            if (partida.PuntosEquipoUno == 0 && partida.PuntosEquipoDos == 0)
+            if (partida.PuntosJugadorUno == 0 && partida.PuntosJugadorDos == 0)
             {
                 partida.Repartidor = JuegoServicio2vs2.AsignarRepartidor2vs2(true, 0);
                 partida.Turno = JuegoServicio2vs2.AsignarTurno2vs2(partida.Repartidor);

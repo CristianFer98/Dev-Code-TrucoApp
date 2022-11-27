@@ -56,7 +56,7 @@
 
   .player2 {
     position: absolute;
-    bottom: 70px;
+    bottom: 150px;
     right: 15px;
   }
 
@@ -133,9 +133,23 @@
     margin-top: -20px;
     transform: rotate(-0.25turn);
   }
+
+  .divButtons2vs2 {
+    position: relative;
+    top: 400px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    z-index: 555555;
+  }
 }
 
 @media (min-width: 413px) {
+  .divButtons2vs2 {
+    position: relative;
+    top: 450px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    z-index: 555555;
+  }
+
   .divFlop2vs2 {
     width: 20em;
   }
@@ -166,6 +180,13 @@
     height: 90px;
     width: 60px;
     padding: 2px;
+  }
+
+  .divButtons2vs2 {
+    position: relative;
+    top: 450px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    z-index: 555555;
   }
 }
 

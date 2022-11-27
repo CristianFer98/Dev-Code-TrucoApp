@@ -190,3 +190,9 @@ export const getCartasJugadores = (lado, jugador, partida) => {
     }
   }
 };
+
+export const getAntesRepartidor = (repartidor) => {
+  const jugadores = [1, 4, 2, 3];
+  const indexRepartidor = jugadores.indexOf(repartidor);
+  return jugadores[indexRepartidor] === 1 ? 3 : jugadores[indexRepartidor - 1];
+};
