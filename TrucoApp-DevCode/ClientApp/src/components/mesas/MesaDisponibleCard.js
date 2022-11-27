@@ -70,7 +70,6 @@ export const MesaDisponibleCard = ({ mesa }) => {
           className="text-center mt-1"
           style={{ color: "#ffffff", fontSize: "0.68em" }}
         >
-          {!!usuario.nombre && usuario.nombre}
         </div>
       </div>
 
