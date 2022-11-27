@@ -5,8 +5,11 @@ import "./juegoIA.css";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { CDBSidebarMenuItem } from "cdbreact";
+import { useSelector } from 'react-redux';
+import noFoto from './../../assets/no-foto.jpg';
 
 const JuegoIA = () => {
+  const { foto } = useSelector((state) => state.auth);
   const cartas = barajar();
   //Jugador
   const [manoJugador, setManoJugador] = useState(cartas[0]);
@@ -1167,7 +1170,8 @@ const JuegoIA = () => {
             </div>
             <img
               className="userIA"
-              src={"https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+              src={foto!=null?foto:noFoto}
+              style={{ objectFit:'cover' }}
             ></img>
           </div>
 

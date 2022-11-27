@@ -17,10 +17,6 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
-        public void ComprarProducto(int idProducto)
-        {
-            throw new NotImplementedException();
-        }
         public Producto GetProductoPorId(int idProducto)
         {
             return _dbContext.Productos.Find(idProducto);
@@ -31,10 +27,11 @@ namespace Repositorios
             return _dbContext.Productos.Take(4).ToList();
         }
 
-        public void ActualizarStock(int idProducto, int stockActual)
+        public void ActualizarStock(int idProducto, int stockActual, int cantidadAComprar)
         {
             Producto producto = _dbContext.Productos.Find(idProducto);
             producto.Stock = stockActual;
+            producto.CantidadAcomprar = cantidadAComprar;
             _dbContext.SaveChanges();
         }
 

@@ -1,18 +1,89 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import './tienda.css';
 import { Link } from 'react-router-dom';
 import Card from './TiendaAvatarCard';
 
 export function TiendaAvatar() {
+
+    const [lib, setLib] = useState({});
+    const [url1,  setUrl] = useState({});
+    useEffect(() => {
+        setUrl("https://sdk.mercadopago.com/js/v2");
+        const name="MercadoPago";
+        const script = document.createElement('script');
+        script.src = url1;
+        script.async = true;
+        script.onload = () => setLib({ [name]: window[name] });
+  
+        document.body.appendChild(script)
+  
+        return () => {
+            document.body.removeChild(script)
+        }
+    }, [url1]);
+
     const url = "https://localhost:44342/api/Accesorio/ObtenerAccesorios";
 
     const [accesorios, setAccesorios] = useState([]);
+
+    const idsAccesoriosPelo = [1,2,3,4,5,6];
+    const idsAccesoriosRopa = [7,8,9,10,11];
+
+    const getIdPreferencia = async(opcion)=>{
+        
+        fetch(`https://localhost:44342/api/Accesorio/ComprarTodo/${opcion}`)
+        .then((res)=> res.json())
+        .then((data)=>{
+            console.log(data.result);
+            if(lib){
+
+                const mp = new window.MercadoPago('TEST-266fb749-17ee-4759-b90f-ffa5a3e4c8c0', {
+                    locale: 'es-AR'
+                  });
+                  
+                  mp.checkout({
+                    preference: {
+                      id: `${data.result}`
+                    },
+                    autoOpen: true,
+                    render: {
+                      container: '.cho-container',
+                      label: 'Pagar',
+                    }
+                  });
+            }
+                
+              
+                
+
+            });
+        }
+    
+    const comprarTodo= async(arrayAccesorios, opcion)=>{
+        getIdPreferencia(opcion);
+        
+        const url = 'https://localhost:44342/api/Accesorio/ActualizarEstadosComprado';
+        const resp = await fetch(url, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(arrayAccesorios)
+        });
+
+        if(resp.ok){
+             console.log("se envio ids")
+        }else{
+            console.log("no funciono")
+        }
+     
+    }
   
     const getAccesorios = ()=>{
         fetch(url)
         .then(res=> res.json())
         .then(data=>setAccesorios(data));
-        console.table(accesorios);
+        //console.table(accesorios);
     }
     getAccesorios();
 
@@ -55,7 +126,16 @@ export function TiendaAvatar() {
                                 />
                             ))}
             </div> 
-            <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3 text-light" style={{fontWeight: 'bold', color:'white'}}>COMPRAR TODO</a>
+            <button 
+                className="btn btn-danger mt-3 text-light comprar-todo-pelo" 
+                style={{fontWeight: 'bold', color:'white'}}
+                onClick={()=> {
+                    comprarTodo(idsAccesoriosPelo, 1);
+                    document.querySelector('.comprar-todo-ropa').classList.toggle('cho-container');
+                }}
+            >
+                COMPRAR TODO
+            </button>
       </div>
 
       <div className="card p-3 mt-3" style={{width:'80%'}} id="div-ropa">
@@ -74,7 +154,15 @@ export function TiendaAvatar() {
                         />
                     ))}
             </div> 
-            <a href="/inicio/tienda-avatar" className="btn btn-danger mt-3 text-light" style={{fontWeight: 'bold', color:'white'}}>COMPRAR TODO</a>
+            <button 
+                className="btn btn-danger mt-3 text-light comprar-todo-ropa" 
+                style={{fontWeight: 'bold', color:'white'}}
+                onClick={()=> {
+                    comprarTodo(idsAccesoriosRopa, 2);
+                    document.querySelector('.comprar-todo-ropa').classList.toggle('cho-container');
+                }}>
+                    COMPRAR TODO
+            </button>
       </div>
    
       <Link to="/inicio/tienda" className="btn btn-success mt-3 mb-3" style={{textDecoration:'none', color:'white'}}>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MercadoPago.Resource.Preference;
 
 namespace Repositorios
 {
@@ -17,16 +18,31 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
-        public void Comprar(int idAccesorio)
+        public List<Accesorio> GetAccesorios()
         {
-           Accesorio accesorio= _dbContext.Accesorios.Find(idAccesorio);
+            return _dbContext.Accesorios.ToList();
+        }
+
+        public Accesorio GetAccesorioPorId(int idAccesorio)
+        {
+            return _dbContext.Accesorios.Find(idAccesorio);
+        }
+
+        public void ActualizarEstadoComprado(int idAccesorio)
+        {
+            Accesorio accesorio = _dbContext.Accesorios.Find(idAccesorio);
             accesorio.Comprado = true;
             _dbContext.SaveChanges();
         }
 
-        public List<Accesorio> GetAccesorios()
+        public void ActualizarEstadosComprado(List<int> idsAccesorios)
         {
-            return _dbContext.Accesorios.ToList();
+            foreach (int i in idsAccesorios)
+            {
+                Accesorio accesorio = _dbContext.Accesorios.Find(i);
+                accesorio.Comprado = true;
+                _dbContext.SaveChanges();
+            }
         }
     }
 }

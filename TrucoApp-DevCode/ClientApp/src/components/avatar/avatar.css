@@ -484,3 +484,119 @@
     width: 45px;
     height:45px;
 }
+
+@media only screen and (max-width: 1039px) {
+
+    .componente-avatar-modificacion{
+        flex-direction: column;
+        height: 600%;
+        padding-top: 320px;
+        overflow-y: scroll;
+    }
+
+    #opcion1{
+
+        z-index: 99999;
+    }
+
+    #opcion1,#opcion2{
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    .contendor-pelo .pelo-v1-m-negro,
+    .contendor-pelo .pelo-v1-m-castano,
+    .contendor-pelo .pelo-v1-m-rubio,
+    .contendor-pelo .pelo-v1-m-colorado,
+    .contendor-pelo .pelo-v1-m-canoso {
+    
+        width: 122%;
+    }
+
+    .cejas-ojos-nariz-boca-f-1{
+        bottom: 15%;
+    }
+
+    .contendor-pelo .pelo-v2-f-negro,
+    .contendor-pelo .pelo-v2-f-castano,
+    .contendor-pelo .pelo-v2-f-rubio,
+    .contendor-pelo .pelo-v2-f-colorado,
+    .contendor-pelo .pelo-v2-f-canoso{
+        
+        width:150%;
+    
+    }
+
+   .cabeza{
+        height:160px;
+    }
+    .cabeza, .oreja-izq, .oreja-der {
+        border-radius: 100%;
+    }
+
+    .ceja-izq, .ceja-der{
+        width: 40px;
+        height: 30px;
+    }
+     .ojo-izq, .ojo-der, .ojo, .piel, .pelo{
+        width: 48px;
+        height:40px;
+        
+    }
+    
+    .iris-izq, .iris-der, .iris {
+        width: 20px;
+        height:20px;
+        
+    }
+    
+    .pupila-izq, .pupila-der, .pupila {
+        width: 10px;
+        height: 10px;
+        
+    }
+
+    .cejas-ojos-nariz-boca{
+        bottom: 40%;
+    }
+
+    .oreja-der,.oreja-izq{
+        width: 70px;
+        height: 50px;
+    }
+    .cuello{
+        width: 20px;
+        height: 35px;
+    }
+
+    .componente-ropa img {
+        width: 200%;
+        height: auto;
+    }
+
+    .brazo-izq, .brazo-der {
+        border-radius: 50%;
+        width: 60px;
+        height: 90px;
+        position: relative;
+        margin-top: -90px;
+        
+    }
+    
+    .brazo-izq {
+        margin-right: 30px;
+        /*transform: translateX(50px);
+        transform: rotate(40deg) translateY(50px);*/
+        transform: rotate(45deg);
+        
+    }
+    
+    .brazo-der {
+        margin-left: 30px;
+        /*transform: translateX(50px);
+        transform: rotate(-40deg) translateY(50px);*/
+        transform: rotate(-45deg);
+    }
+    
+
+}
