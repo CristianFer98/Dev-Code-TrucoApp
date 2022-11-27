@@ -19,12 +19,12 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
-        public Torneo ObtenerPorId(int idTorneo)
+        public Torneo ObtenerPorId(int torneoId)
         {
             return _dbContext.Torneos
                 .Include(t => t.Participantes)
                 .Include(t => t.Partidas)
-                .Where(t => t.IdTorneo == idTorneo)
+                .Where(t => t.TorneoId == torneoId)
                 .FirstOrDefault();
         }
 
@@ -39,9 +39,9 @@ namespace Repositorios
         {
             return _dbContext.Torneos.Where(t=> t.Terminado == false).ToList();
         }
-        public void SetearRondas(int idTorneo, int ronda)
+        public void SetearRondas(int torneoId, int ronda)
         {
-            var torneo = _dbContext.Torneos.Where(t => t.IdTorneo == idTorneo).FirstOrDefault();
+            var torneo = _dbContext.Torneos.Where(t => t.TorneoId == torneoId).FirstOrDefault();
             torneo.NroRonda = ronda;
             _dbContext.SaveChanges();
         }

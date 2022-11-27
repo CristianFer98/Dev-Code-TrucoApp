@@ -4,7 +4,7 @@ namespace Entidades
 {
     public class Torneo
     {
-        public int IdTorneo { get; set; }
+        public int TorneoId { get; set; }
         public string Nombre { get; set; }
         public int CantidadParticipantes { get; set; }
         public bool Terminado { get; set; }

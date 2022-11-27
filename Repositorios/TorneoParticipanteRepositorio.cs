@@ -22,17 +22,16 @@ namespace Repositorios
             return torneoParticipante;
         }
         
-        public TorneoParticipante ObtenerParticipante(int idTorneo, int idUsuario)
+        public TorneoParticipante ObtenerParticipante(int torneoId, int idUsuario)
         {
             return _dbContext.TorneoParticipantes
-                .Include(tp => tp.Torneo)
                 .Include(tp => tp.Usuario)
-                .FirstOrDefault(tp => tp.IdTorneo == idTorneo && tp.IdUsuario == idUsuario);
+                .FirstOrDefault(tp => tp.TorneoId == torneoId && tp.IdUsuario == idUsuario);
         }
-        public List<TorneoParticipante> ObtenerGanadoresUltimaRonda(int idTorneo)
+        public List<TorneoParticipante> ObtenerGanadoresUltimaRonda(int torneoId)
         {
             return _dbContext.TorneoParticipantes.Include(tp => tp.Usuario)
-                .Where(tp => tp.IdTorneo == idTorneo && tp.NroRonda == tp.Torneo.NroRonda)
+                .Where(tp => tp.TorneoId == torneoId && tp.NroRonda == tp.Torneo.NroRonda)
                 .ToList();
         }
     }

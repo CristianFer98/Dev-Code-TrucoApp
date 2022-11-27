@@ -50,7 +50,7 @@ export const TorneosDisponibles = () => {
                         <BotonCrearTorneo />
 
                         {torneoPartida.map((torneo) => (
-                            <TorneoDisponibleCard key={torneo.idTorneo} torneo={torneo} />
+                            <TorneoDisponibleCard key={torneo.torneoId} torneo={torneo} />
                         ))}
                     </div>
                 </div>

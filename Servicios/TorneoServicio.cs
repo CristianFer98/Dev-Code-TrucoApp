@@ -38,10 +38,10 @@ namespace Servicios
         {
             return _torneoRepositorio.ObtenerPorId(id);
         }
-        public void AgregarParticipante(int idTorneo, int idUsuario)
+        public void AgregarParticipante(int torneoId, int idUsuario)
         {
             // Se obtiene el torneo si no esta llleno
-            var torneo = _torneoRepositorio.ObtenerPorId(idTorneo);
+            var torneo = _torneoRepositorio.ObtenerPorId(torneoId);
             if (torneo is null)
             {
                 throw new ArgumentException("El IdTorneo no es válido");
@@ -52,13 +52,13 @@ namespace Servicios
                 throw new ArgumentException("El torneo está lleno");
             }
             // Se obtiene el TorneoParticipante
-            var participanteExistente = _torneoParticipanteRepositorio.ObtenerParticipante(idTorneo, idUsuario);
+            var participanteExistente = _torneoParticipanteRepositorio.ObtenerParticipante(torneoId, idUsuario);
             // Si no existe se crea y se agrega al torneo
             if (participanteExistente is null)
             {
                 var nuevoParticipante = new TorneoParticipante
                 {
-                    IdTorneo = idTorneo,
+                    TorneoId = torneoId,
                     IdUsuario = idUsuario
                 };
 
@@ -77,7 +77,7 @@ namespace Servicios
                         contador++;
                     }
                     int nroRondas = contador;
-                    _torneoRepositorio.SetearRondas(idTorneo, nroRondas);
+                    _torneoRepositorio.SetearRondas(torneoId, nroRondas);
                     // get the id of the users
                     var idsUsuarios = torneo.Participantes.Select(p => p.IdUsuario).ToList();
                     // create the matches
@@ -85,9 +85,9 @@ namespace Servicios
                 }
             }
         }
-        public Torneo ProximaRonda(int idTorneo)
+        public Torneo ProximaRonda(int torneoId)
         {
-            var torneo = _torneoRepositorio.ObtenerPorId(idTorneo);
+            var torneo = _torneoRepositorio.ObtenerPorId(torneoId);
             if (torneo is null)
             {
                 throw new ArgumentException("El IdTorneo no es válido");
@@ -98,7 +98,7 @@ namespace Servicios
                 throw new ArgumentException("El torneo ha terminado");
             }
 
-            var torneoPartidas = _torneoPartidaRepositorio.ObtenerTorneoPartidasPorRonda(idTorneo, torneo.NroRonda);
+            var torneoPartidas = _torneoPartidaRepositorio.ObtenerTorneoPartidasPorRonda(torneoId, torneo.NroRonda);
             // si hay partidas sin ganador, no se puede avanzar a la siguiente vuelta
             if (torneoPartidas.Any(x => x.Mesa.Ganador is null))
             {
@@ -115,12 +115,12 @@ namespace Servicios
                     // el torneo termino
                     throw new ArgumentException("El torneo termino");
                 }
-                return _torneoRepositorio.ObtenerPorId(idTorneo);
+                return _torneoRepositorio.ObtenerPorId(torneoId);
             }
         }
         private void crearPartidos(Torneo torneo, List<int> idsUsuarios)
         {
-            _torneoRepositorio.SetearRondas(torneo.IdTorneo, torneo.NroRonda - 1);
+            _torneoRepositorio.SetearRondas(torneo.TorneoId, torneo.NroRonda - 1);
             bool esJugadorUno = true;
             int jugadorUnoId = 0;
 
@@ -135,7 +135,7 @@ namespace Servicios
 
                 var torneoPartida = new TorneoPartida()
                 {
-                    IdTorneo = torneo.IdTorneo,
+                    TorneoId = torneo.TorneoId,
                     NroRonda = torneo.NroRonda,
                     Mesa = new Mesa
                     {

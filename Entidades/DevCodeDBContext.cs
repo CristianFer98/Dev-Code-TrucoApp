@@ -47,17 +47,18 @@ namespace Entidades
             modelBuilder.Entity<Torneo>(torneo =>
             {
                 torneo.ToTable("Torneos");
-                torneo.HasKey(t => t.IdTorneo);
+                torneo.HasKey(t => t.TorneoId);
 
                 torneo.Property(t => t.Nombre).IsRequired().HasMaxLength(512);
 
                 torneo.Property(t => t.CantidadParticipantes).IsRequired();
-                
+                torneo.Property(t => t.NroRonda).IsRequired();
+
                 torneo.Property(t => t.Terminado).IsRequired();
 
                 torneo.HasMany(t => t.Participantes)
                     .WithOne(tp => tp.Torneo)
-                    .HasForeignKey(tp => tp.IdTorneo);
+                    .HasForeignKey(tp => tp.TorneoId);
             });
 
             modelBuilder.Entity<TorneoParticipante>(torneoParticipante =>
@@ -65,16 +66,16 @@ namespace Entidades
                 torneoParticipante.ToTable("TorneoParticipantes");
                 torneoParticipante.HasKey(t => t.IdTorneoParticipante);
 
-                torneoParticipante.Property(t => t.IdTorneo).IsRequired();
-                torneoParticipante.Property(t => t.IdTorneoParticipante).IsRequired();
-
+                torneoParticipante.Property(t => t.NroRonda);
                 torneoParticipante.HasOne(tp => tp.Torneo)
                     .WithMany(t => t.Participantes)
-                    .HasForeignKey(tp => tp.IdTorneo);
+                    .HasForeignKey(tp => tp.TorneoId);
 
                 torneoParticipante.HasOne(tp => tp.Usuario)
                     .WithMany()
                     .HasForeignKey(tp => tp.IdUsuario);
+
+                torneoParticipante.Ignore(tp => tp.Torneo);
             });
 
             modelBuilder.Entity<TorneoPartida>(torneoPartida =>
@@ -82,16 +83,17 @@ namespace Entidades
                 torneoPartida.ToTable("TorneoPartidas");
                 torneoPartida.HasKey(t => t.IdTorneoPartida);
 
-                torneoPartida.Property(t => t.IdTorneo).IsRequired();
-                torneoPartida.Property(t => t.IdMesa).IsRequired();
+                torneoPartida.Property(t => t.NroRonda);
 
                 torneoPartida.HasOne(tp => tp.Torneo)
                     .WithMany(t => t.Partidas)
-                    .HasForeignKey(tp => tp.IdTorneo);
+                    .HasForeignKey(tp => tp.TorneoId);
 
                 torneoPartida.HasOne(tp => tp.Mesa)
                     .WithMany()
                     .HasForeignKey(tp => tp.IdMesa);
+
+                torneoPartida.Ignore(tp => tp.Torneo);
             });
 
             modelBuilder.Entity<Accesorio>(entity =>

@@ -5,9 +5,9 @@ namespace Repositorios.Interfaces
 {
     public interface ITorneoRepositorio
     {
-        Torneo ObtenerPorId(int idTorneo);
+        Torneo ObtenerPorId(int torneoId);
         List<Torneo> ObtenerTorneosDisponibles();
         Torneo CrearTorneo(Torneo torneo);
-        void SetearRondas(int idTorneo, int ronda);
+        void SetearRondas(int torneoId, int ronda);
     }
 }

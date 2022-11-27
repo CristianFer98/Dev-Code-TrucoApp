@@ -81,7 +81,7 @@ namespace Router.Controllers
         {
             try
             {
-                _torneoServicio.AgregarParticipante(agregarParticipante.IdTorneo, agregarParticipante.IdUsuario);
+                _torneoServicio.AgregarParticipante(agregarParticipante.TorneoId, agregarParticipante.IdUsuario);
                 return StatusCode(StatusCodes.Status200OK, agregarParticipante);
             }
             catch (Exception ex)

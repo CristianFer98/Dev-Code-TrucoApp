@@ -11,8 +11,8 @@ namespace Servicios.Interfaces
     {
         List<Torneo> ObtenerTorneosDisponibles();
         Torneo CrearTorneo(Torneo torneo);
-        void AgregarParticipante(int idTorneo, int idUsuario);
-        Torneo ObtenerTorneoPorId(int id);
-        Torneo ProximaRonda(int idTorneo);
+        void AgregarParticipante(int torneoId, int idUsuario);
+        Torneo ObtenerTorneoPorId(int torneoId);
+        Torneo ProximaRonda(int torneoId);
     }
 }

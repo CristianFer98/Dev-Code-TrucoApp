@@ -7,13 +7,13 @@ import { entrarATorneo } from "../../helpers/fetchConnection";
 
 export const TorneoDisponibleCard = ({ torneo }) => {
     const { uid } = useSelector((state) => state.auth);
-    const { idTorneo } = torneo;
+    const { torneoId } = torneo;
     const { connection } = useContext(SocketContext);
 
     const handleIngresar = async (e) => {
       //history.push("/inicio/tabla");
       e.preventDefault();
-      entrarATorneo(uid, idTorneo, connection);
+        entrarATorneo(uid, torneoId, connection);
   };
 
   return (

@@ -21,18 +21,18 @@ namespace Repositorios
             _dbContext.SaveChanges();
             return torneoPartida;
         }
-        public List<TorneoPartida> ObtenerTorneoPartidas(int id)
+        public List<TorneoPartida> ObtenerTorneoPartidas(int torneoId)
         {
             return _dbContext.TorneoPartidas
                 .Include(tp => tp.Mesa)
-                .Where(tp => tp.IdTorneo == id)
+                .Where(tp => tp.TorneoId == torneoId)
                 .ToList();
         }
-        public List<TorneoPartida> ObtenerTorneoPartidasPorRonda(int id, int ronda)
+        public List<TorneoPartida> ObtenerTorneoPartidasPorRonda(int torneoId, int ronda)
         {
             return _dbContext.TorneoPartidas
                 .Include(tp => tp.Mesa)
-                .Where(tp => tp.IdTorneo == id && tp.NroRonda == ronda)
+                .Where(tp => tp.TorneoId == torneoId && tp.NroRonda == ronda)
                 .ToList();
         }
     }

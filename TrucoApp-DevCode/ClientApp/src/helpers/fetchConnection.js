@@ -27,14 +27,15 @@ export const entrarATorneo = async (uid, idTorneo, connection) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                IdTorneo: idTorneo,
+                TorneoId: idTorneo,
                 IdUsuario: idJugador,
             }),
         }
     );
 
-    //if (resp.ok) {
-    //    const room = idTorneo;
-    //    await connection.invoke("AgregarParticipante", { room, idJugador });
-    //}
+    if (resp.ok) {
+        const room = idTorneo;
+        //await connection.invoke("AgregarParticipante", { room, idJugador });
+        await connection.invoke("AgregarParticipante");
+    }
 };
