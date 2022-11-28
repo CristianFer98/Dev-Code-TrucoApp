@@ -1,5 +1,26 @@
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 0px) {
+  .divFlop2vs2 {
+    width: 15em;
+  }
+
+  .playerDerecha {
+    position: absolute;
+    right: 16px;
+    bottom: 260px;
+  }
+
+  .playerIzquierda {
+    position: absolute;
+    left: 20px;
+    bottom: 260px;
+  }
+
+  .playerDerechaAvatar {
+    z-index: 2;
+    width: 40px;
+  }
+
   .board {
     height: 80%;
     width: 100%;
@@ -55,6 +76,7 @@
     bottom: 0px;
     left: 0;
     right: 180px;
+    z-index: 1;
   }
 
   .cardTable {
@@ -83,12 +105,58 @@
   .divChant {
     top: 115px;
   }
+
+  .divCardsOponentDerecha {
+    position: relative;
+    left: 15px;
+  }
+
+  .divCardsOponentIzquierda {
+    position: relative;
+    right: 10px;
+    z-index: 1;
+  }
+
+  .divCardOponentDerecha {
+    padding: 0%;
+    width: 30px;
+    height: 52px;
+    margin-top: -20px;
+    transform: rotate(-0.25turn);
+  }
+
+  .divCardOponentIzquierda {
+    padding: 0%;
+    width: 30px;
+    height: 52px;
+    margin-left: -8px;
+    margin-top: -20px;
+    transform: rotate(-0.25turn);
+  }
+
+  .divButtons2vs2 {
+    position: relative;
+    top: 400px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    z-index: 555555;
+  }
 }
 
 @media (min-width: 413px) {
+  .divButtons2vs2 {
+    position: relative;
+    top: 450px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    z-index: 555555;
+  }
+
+  .divFlop2vs2 {
+    width: 20em;
+  }
+
   .player2 {
     position: absolute;
-    bottom: 100px;
+    bottom: 70px;
     right: 15px;
   }
 
@@ -112,6 +180,49 @@
     height: 90px;
     width: 60px;
     padding: 2px;
+  }
+
+  .divButtons2vs2 {
+    position: relative;
+    top: 450px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    z-index: 555555;
+  }
+}
+
+@media (min-width: 470px) {
+  .divCardsOponentDerecha {
+    left: 0px;
+  }
+
+  .divCardsOponentIzquierda {
+    right: 0px;
+  }
+}
+
+/* @media (min-width: 500px) {
+} */
+
+@media (min-width: 600px) {
+  .divCardOponentDerecha {
+    padding: 0%;
+    width: 40px;
+    height: 62px;
+    margin-top: -20px;
+    transform: rotate(-0.25turn);
+  }
+
+  .divCardOponentIzquierda {
+    padding: 0%;
+    width: 40px;
+    height: 62px;
+    margin-left: -8px;
+    margin-top: -20px;
+    transform: rotate(-0.25turn);
+  }
+
+  .divFlop2vs2 {
+    width: 20em;
   }
 }
 
@@ -155,11 +266,15 @@
   .divFlop {
     width: 15em;
     height: 15em;
-    /* position: absolute; */
-    /* bottom: 0;
-      left: 0;
-      right: 0; */
   }
+
+  /* .playerDerecha {
+    right: 80px;
+  } */
+
+  /* .playerIzquierda {
+    left: 80px;
+  } */
 }
 
 /* Medium devices (tablets, 768px and up) */
@@ -172,7 +287,95 @@
   .divChant {
     top: 130px;
   }
+
+  .divFlop2vs2 {
+    width: 30em;
+  }
 }
+
+@media (min-width: 850px) {
+  .playerDerecha {
+    right: 50px;
+  }
+
+  .playerIzquierda {
+    left: 50px;
+  }
+}
+
+@media (min-width: 925px) {
+  .playerDerecha {
+    right: 80px;
+  }
+
+  .playerIzquierda {
+    left: 80px;
+  }
+}
+
+@media (min-width: 965px) {
+  .playerDerecha {
+    right: 100px;
+  }
+
+  .playerIzquierda {
+    left: 100px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .playerDerecha {
+    right: 130px;
+  }
+
+  .playerIzquierda {
+    left: 130px;
+  }
+}
+
+@media (min-width: 1060px) {
+  .playerDerecha {
+    right: 170px;
+  }
+
+  .playerIzquierda {
+    left: 170px;
+  }
+}
+
+@media (min-width: 1120px) {
+  .playerDerecha {
+    right: 210px;
+  }
+
+  .playerIzquierda {
+    left: 210px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .playerDerecha {
+    right: 280px;
+  }
+
+  .playerIzquierda {
+    left: 280px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .playerDerecha {
+    right: 350px;
+  }
+
+  .playerIzquierda {
+    left: 350px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+/* @media (min-width: 850px) {
+} */
 
 /* Large devices (desktops, 992px and up) */
 /* @media (min-width: 992px) {
@@ -183,10 +386,35 @@
 /* @media (min-width: 1400px) {
   } */
 
+/* .playerDerecha {
+  position: relative;
+  bottom: 360px;
+  left: 360px;
+  height: 80px;
+} */
+
+/* .playerIzquierda {
+  position: relative;
+  top: 170px;
+  height: 80px;
+} */
+
 .player1 {
   position: relative;
   bottom: 65px;
   height: 80px;
+}
+
+.player12vs2 {
+  position: absolute;
+  top: 20px;
+  /* bottom: 150px;
+  right: 15px; */
+  /* position: relative;
+  top: -50px; */
+  /* bottom: 65px; 
+   height: 80px;  */
+  /* background-color: blue; */
 }
 
 .player1Img {
@@ -235,6 +463,7 @@
 .divCardsPlayer {
   position: relative;
   left: 13px;
+  z-index: 1;
 }
 
 .divCardPlayerTurn:hover {
@@ -373,12 +602,6 @@
   cursor: pointer;
 }
 
-.divCardOponent {
-  padding: 0%;
-  width: 40px;
-  height: 62px;
-}
-
 .cardOponent {
   width: 100%;
   object-fit: cover;
@@ -386,6 +609,12 @@
   border-radius: 3px;
 
   /* border-radius: 3px; */
+}
+
+.divCardOponent {
+  padding: 0%;
+  width: 40px;
+  height: 62px;
 }
 
 .buttonLeaveTable {
@@ -400,6 +629,18 @@
   margin-top: auto;
   margin-bottom: auto;
 
+  /* position: absolute;
+    top: 150px;
+    bottom: 0; */
+}
+
+.divGame2vs2 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* bottom: 40px; */
+  margin-top: auto;
+  margin-bottom: auto;
   /* position: absolute;
     top: 150px;
     bottom: 0; */

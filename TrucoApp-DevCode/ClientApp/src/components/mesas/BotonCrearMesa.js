@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { SocketContext } from "../../context/SocketContext";
 import Swal from "sweetalert2";
 
-export const BotonCrearMesa = () => {
+export const BotonCrearMesa = ({ cantidadJugadoresMesa }) => {
   const { uid } = useSelector((state) => state.auth);
   const { connection } = useContext(SocketContext);
 
@@ -17,7 +17,7 @@ export const BotonCrearMesa = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        CantidadJugadores: 2,
+        CantidadJugadores: cantidadJugadoresMesa,
         JugadorUno: uid,
         Tipo: "Publica",
         Estado: "Disponible",

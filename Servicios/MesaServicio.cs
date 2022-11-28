@@ -34,9 +34,9 @@ namespace Servicios
             return _mesaRepositorio.GuardarMesa(mesa);
         }
 
-        public void EntrarAJugarAMesa(int idMesa, int idJugador)
+        public Mesa EntrarAJugarAMesa(int idMesa, int idJugador)
         {
-            _mesaRepositorio.EntrarAJugarAMesa(idMesa, idJugador);
+            return _mesaRepositorio.EntrarAJugarAMesa(idMesa, idJugador);
         }
     }
 }

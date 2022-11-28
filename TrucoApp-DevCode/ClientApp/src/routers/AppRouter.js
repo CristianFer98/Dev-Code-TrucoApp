@@ -8,7 +8,6 @@ import { TiendaAvatar } from "../components/tienda/TiendaAvatar";
 import { Reglas } from "../components/reglas/Reglas";
 import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { PrivateRoute } from "./PrivateRoute";
 import { Truco1vs1 } from "../components/juego/Truco1vs1";
@@ -17,10 +16,13 @@ import { Avatar } from "../components/avatar/Avatar";
 import { MesasDisponibles } from "../components/mesas/MesasDisponibles";
 import TablaDeTorneo from "../components/torneo/TablaDeTorneo";
 import { CargarPartida } from "../components/partidaLink/CargarPartida";
-import { TorneosDisponibles } from "../components/torneo/TorneosDisponibles"
+import { TorneosDisponibles } from "../components/torneo/TorneosDisponibles";
+import { MesasDisponibles2vs2 } from "../components/mesas/MesasDisponibles2vs2";
+import { Truco2vs2 } from "../components/juego2vs2/Truco2vs2";
 
 export const AppRouter = () => {
   const { uid, jugando } = useSelector((state) => state.auth);
+  const { partida } = useSelector((state) => state.juego);
 
   return (
     <BrowserRouter>
@@ -47,22 +49,37 @@ export const AppRouter = () => {
                   component={TiendaAvatar}
                 />
                 <Route exact path="/inicio/reglas" component={Reglas} />
-                <Route exact path="/inicio/torneos" component={TorneosDisponibles} />
+                <Route
+                  exact
+                  path="/inicio/torneos"
+                  component={TorneosDisponibles}
+                />
                 <Route exact path="/inicio/tabla" component={TablaDeTorneo} />
                 <Route
                   exact
                   path="/inicio/mesas"
                   component={MesasDisponibles}
                 />
+                <Route
+                  exact
+                  path="/inicio/mesas2vs2"
+                  component={MesasDisponibles2vs2}
+                />
                 <Redirect to="/inicio" />
               </Layout>
-            ) : (
+            ) : partida.cantidadJugadores === 2 ? (
               <Redirect to="/juego" />
+            ) : (
+              <Redirect to="/juego2vs2" />
             )}
           </Route>
 
           <Route path="/juego">
             <Truco1vs1 />
+          </Route>
+
+          <Route path="/juego2vs2">
+            <Truco2vs2 />
           </Route>
 
           <Route exact path="/juegoia" component={JuegoIA} />

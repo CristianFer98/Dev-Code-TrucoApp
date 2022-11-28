@@ -1,40 +1,7 @@
 import { tiposBotones } from "../../types/tiposBotones";
-import { getUserPlayer, isMyTurn } from "./getUserTurno";
+import { getUserPlayer, isMyTurn, isMyTurn2vs2 } from "./getUserTurno";
 
-export const verSiJugadorYaJugoCarta = (
-  uid,
-  jugadorUno,
-  jugadorDos,
-  cartasJugadasJugadorUno,
-  cartasJugadasJugadorDos,
-  cartasJugadasJugadorTres,
-  cartasJugadasJugadorCuatro,
-  jugadorTres,
-  jugadorCuatro
-) => {
-  const numeroJugador = getUserPlayer(
-    uid,
-    jugadorUno,
-    jugadorDos,
-    jugadorTres,
-    jugadorCuatro
-  );
-
-  switch (numeroJugador) {
-    case 1:
-      return cartasJugadasJugadorUno.length > 0 ? true : false;
-    case 2:
-      return cartasJugadasJugadorDos.length > 0 ? true : false;
-    case 3:
-      return cartasJugadasJugadorTres.length > 0 ? true : false;
-    case 4:
-      return cartasJugadasJugadorCuatro.length > 0 ? true : false;
-    default:
-      break;
-  }
-};
-
-export const ocultarBotonesYAcciones = (uid, partida, botones) => {
+export const ocultarBotonesYAcciones2vs2 = (uid, partida, botones) => {
   const {
     jugadorUno,
     jugadorDos,
@@ -63,13 +30,13 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
 
   switch (botones) {
     case tiposBotones.cartas:
-      return isMyTurn(
+      return isMyTurn2vs2(
         uid,
         jugadorUno,
         jugadorDos,
-        turno,
         jugadorTres,
-        jugadorCuatro
+        jugadorCuatro,
+        turno
       ) &&
         !estadoEnvidoCantado &&
         !estadoCantarTantos &&
@@ -78,9 +45,7 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
         : false;
 
     case tiposBotones.envido:
-      if (
-        isMyTurn(uid, jugadorUno, jugadorDos, turno, jugadorTres, jugadorCuatro)
-      ) {
+      if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
         return (
           mano === 1 &&
           !envidosCantados.find((e) => e === "quiero" || e === "no quiero") &&
@@ -134,79 +99,45 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
       );
 
     case tiposBotones.quieroNoQuiero:
-      if (
-        isMyTurn(uid, jugadorUno, jugadorDos, turno, jugadorTres, jugadorCuatro)
-      ) {
+      if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
         return (estadoEnvidoCantado &&
           !estadoCantarTantos &&
-          getUserPlayer(
-            uid,
-            jugadorUno,
-            jugadorDos,
-            jugadorTres,
-            jugadorCuatro
-          ) === jugadorQueDebeResponderEnvido) ||
+          getUserPlayer(uid, jugadorUno, jugadorDos) ===
+            jugadorQueDebeResponderEnvido) ||
           (estadoTrucoCantado &&
             !estadoCantarTantos &&
-            getUserPlayer(
-              uid,
-              jugadorUno,
-              jugadorDos,
-              jugadorTres,
-              jugadorCuatro
-            ) === jugadorQueDebeResponderTruco)
+            getUserPlayer(uid, jugadorUno, jugadorDos) ===
+              jugadorQueDebeResponderTruco)
           ? true
           : false;
       }
 
     case tiposBotones.truco:
-      if (
-        isMyTurn(uid, jugadorUno, jugadorDos, turno, jugadorTres, jugadorCuatro)
-      ) {
+      if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
         return !estadoEnvidoCantado && !estadoCantarTantos && true;
       } else {
         return false;
       }
 
     case tiposBotones.botonTruco:
-      if (
-        isMyTurn(uid, jugadorUno, jugadorDos, turno, jugadorTres, jugadorCuatro)
-      ) {
+      if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
         return !trucosCantados.find((e) => e === "truco") && true;
       } else {
         return false;
       }
 
     case tiposBotones.botonReTruco:
-      if (
-        isMyTurn(uid, jugadorUno, jugadorDos, turno, jugadorTres, jugadorCuatro)
-      ) {
+      if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
         if (!!trucosCantados.find((e) => e === "truco"))
           if (!trucosCantados.find((e) => e === "re truco")) {
             return (
-              (getUserPlayer(
-                uid,
-                jugadorUno,
-                jugadorDos,
-                jugadorTres,
-                jugadorCuatro
-              ) !== jugadorQueCantoTruco &&
+              (getUserPlayer(uid, jugadorUno, jugadorDos) !==
+                jugadorQueCantoTruco &&
                 estadoTrucoCantado) ||
-              (getUserPlayer(
-                uid,
-                jugadorUno,
-                jugadorDos,
-                jugadorTres,
-                jugadorCuatro
-              ) === jugadorQueCantoTruco &&
+              (getUserPlayer(uid, jugadorUno, jugadorDos) ===
+                jugadorQueCantoTruco &&
                 jugadorQueDebeResponderTruco ===
-                  getUserPlayer(
-                    uid,
-                    jugadorUno,
-                    jugadorDos,
-                    jugadorTres,
-                    jugadorCuatro
-                  ) &&
+                  getUserPlayer(uid, jugadorUno, jugadorDos) &&
                 true)
             );
           } else {
@@ -217,38 +148,20 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
       }
 
     case tiposBotones.botonValeCuatro:
-      if (
-        isMyTurn(uid, jugadorUno, jugadorDos, turno, jugadorTres, jugadorCuatro)
-      ) {
+      if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
         if (
           !!trucosCantados.find((e) => e === "truco") &&
           !!trucosCantados.find((e) => e === "re truco") &&
           !trucosCantados.find((e) => e === "vale cuatro")
         ) {
           return (
-            (getUserPlayer(
-              uid,
-              jugadorUno,
-              jugadorDos,
-              jugadorTres,
-              jugadorCuatro
-            ) !== jugadorQueCantoTruco &&
+            (getUserPlayer(uid, jugadorUno, jugadorDos) !==
+              jugadorQueCantoTruco &&
               estadoTrucoCantado) ||
-            (getUserPlayer(
-              uid,
-              jugadorUno,
-              jugadorDos,
-              jugadorTres,
-              jugadorCuatro
-            ) === jugadorQueCantoTruco &&
+            (getUserPlayer(uid, jugadorUno, jugadorDos) ===
+              jugadorQueCantoTruco &&
               jugadorQueDebeResponderTruco ===
-                getUserPlayer(
-                  uid,
-                  jugadorUno,
-                  jugadorDos,
-                  jugadorTres,
-                  jugadorCuatro
-                ) &&
+                getUserPlayer(uid, jugadorUno, jugadorDos) &&
               true)
           );
         }
@@ -257,9 +170,7 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
       }
 
     case tiposBotones.tantos:
-      if (
-        isMyTurn(uid, jugadorUno, jugadorDos, turno, jugadorTres, jugadorCuatro)
-      ) {
+      if (isMyTurn(uid, jugadorUno, jugadorDos, turno)) {
         return (
           !!envidosCantados.find((e) => e === "quiero") &&
           estadoCantarTantos &&
@@ -270,14 +181,7 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
       }
 
     case tiposBotones.irAlMazo:
-      return isMyTurn(
-        uid,
-        jugadorUno,
-        jugadorDos,
-        turno,
-        jugadorTres,
-        jugadorCuatro
-      ) &&
+      return isMyTurn(uid, jugadorUno, jugadorDos, turno) &&
         !estadoEnvidoCantado &&
         !estadoCantarTantos &&
         !estadoTrucoCantado

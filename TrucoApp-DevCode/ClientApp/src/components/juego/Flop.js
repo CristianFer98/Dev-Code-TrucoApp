@@ -1,13 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import mazo from "../../assets/cartas/Mazo.png";
 import { CartaMesa } from "./CartaMesa";
+// import mazo from "../../assets/cartas/Mazo.png";
 
 export const Flop = () => {
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
   const { jugadorUno, cartasJugadasJugadorUno, cartasJugadasJugadorDos } =
     partida;
+  const mazo =
+    "https://res.cloudinary.com/dmvh1zlfc/image/upload/v1668288798/TrucoCartas/Mazo_vhkrcs.png";
 
   return (
     <div className="divGame d-flex flex-row justify-content-center w-100">
