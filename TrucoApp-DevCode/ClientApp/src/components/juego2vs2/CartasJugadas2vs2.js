@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import {
   getCartasJugadas,
-  getUserPlayer2vs2,
+  getUserPlayer,
 } from "../../helpers/truco/getUserTurno";
 import { CartaMesa2vs2 } from "./CartaMesa2vs2";
 
@@ -10,7 +10,7 @@ export const CartasJugadas2vs2 = () => {
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
   const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro } = partida;
-  const jugador = getUserPlayer2vs2(
+  const jugador = getUserPlayer(
     uid,
     jugadorUno,
     jugadorDos,

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../context/SocketContext";
-import { getUserPlayer2vs2 } from "../../helpers/truco/getUserTurno";
+import { getUserPlayer } from "../../helpers/truco/getUserTurno";
 import { Flop2vs2 } from "./Flop2vs2";
 import { Jugador2vs2 } from "./Jugador2vs2";
 import { JugadorCuatro2vs2 } from "./JugadorCuatro2vs2";
@@ -24,7 +24,7 @@ export const Mesa2vs2 = () => {
   useEffect(() => {
     !!ganadorMano &&
       repartidor ===
-        getUserPlayer2vs2(
+        getUserPlayer(
           uid,
           jugadorUno,
           jugadorDos,

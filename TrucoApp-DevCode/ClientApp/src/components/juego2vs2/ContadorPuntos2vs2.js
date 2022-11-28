@@ -1,9 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {
-  getUserPlayer,
-  getUserPlayer2vs2,
-} from "../../helpers/truco/getUserTurno";
+import { getUserPlayer } from "../../helpers/truco/getUserTurno";
 
 export const ContadorPuntos2vs2 = () => {
   const { uid } = useSelector((state) => state.auth);
@@ -16,7 +13,7 @@ export const ContadorPuntos2vs2 = () => {
     puntosJugadorUno,
     puntosJugadorDos,
   } = partida;
-  const numeroJugador = getUserPlayer2vs2(
+  const numeroJugador = getUserPlayer(
     uid,
     jugadorUno,
     jugadorDos,

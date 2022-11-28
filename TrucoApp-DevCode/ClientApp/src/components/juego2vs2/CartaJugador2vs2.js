@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../context/SocketContext";
-import { getUserPlayer2vs2 } from "../../helpers/truco/getUserTurno";
+import { getUserPlayer } from "../../helpers/truco/getUserTurno";
 import { ocultarBotonesYAcciones2vs2 } from "../../helpers/truco/ocultarBotonesYAcciones2vs2";
 import { tiposBotones } from "../../types/tiposBotones";
 // const imagenCarta = require.context("../../assets/cartas", true);
@@ -11,7 +11,7 @@ export const CartaJugador2vs2 = ({ carta, animation }) => {
   const { partida } = useSelector((state) => state.juego);
   const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro } = partida;
   const { connection } = useContext(SocketContext);
-  const numeroJugador = getUserPlayer2vs2(
+  const numeroJugador = getUserPlayer(
     uid,
     jugadorUno,
     jugadorDos,

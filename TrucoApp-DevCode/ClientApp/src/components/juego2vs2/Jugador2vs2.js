@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import noFoto from "../../assets/no-foto.jpg";
 import {
   getAntesRepartidor,
-  getUserPlayer2vs2,
+  getUserPlayer,
 } from "../../helpers/truco/getUserTurno";
 import { Botones2vs2 } from "./botones2vs2/Botones2vs2";
 import { CartaJugador2vs2 } from "./CartaJugador2vs2";
@@ -20,7 +20,7 @@ export const Jugador2vs2 = () => {
     turno,
   } = partida;
   const { uid, nombre } = useSelector((state) => state.auth);
-  const numeroJugador = getUserPlayer2vs2(
+  const numeroJugador = getUserPlayer(
     uid,
     jugadorUno,
     jugadorDos,

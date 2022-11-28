@@ -1,14 +1,4 @@
-export const getUserPlayer = (uid, jugadorUno, jugadorDos) => {
-  if (uid === jugadorUno) {
-    return 1;
-  } else if (uid === jugadorDos) {
-    return 2;
-  } else {
-    return false;
-  }
-};
-
-export const getUserPlayer2vs2 = (
+export const getUserPlayer = (
   uid,
   jugadorUno,
   jugadorDos,
@@ -38,8 +28,18 @@ export const getRivalPlayer = (uid, jugadorUno, jugadorDos) => {
   }
 };
 
-export const isMyTurn = (uid, jugadorUno, jugadorDos, turno) => {
-  if (getUserPlayer(uid, jugadorUno, jugadorDos) === turno) {
+export const isMyTurn = (
+  uid,
+  jugadorUno,
+  jugadorDos,
+  turno,
+  jugadorTres,
+  jugadorCuatro
+) => {
+  if (
+    getUserPlayer(uid, jugadorUno, jugadorDos, jugadorTres, jugadorCuatro) ===
+    turno
+  ) {
     return true;
   } else {
     return false;
@@ -55,13 +55,8 @@ export const isMyTurn2vs2 = (
   turno
 ) => {
   if (
-    getUserPlayer2vs2(
-      uid,
-      jugadorUno,
-      jugadorDos,
-      jugadorTres,
-      jugadorCuatro
-    ) === turno
+    getUserPlayer(uid, jugadorUno, jugadorDos, jugadorTres, jugadorCuatro) ===
+    turno
   ) {
     return true;
   } else {

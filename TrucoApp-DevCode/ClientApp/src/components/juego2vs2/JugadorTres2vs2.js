@@ -3,7 +3,7 @@ import noFoto from "../../assets/no-foto.jpg";
 import { CountdownOtrosJugadores } from "./CountdownOtrosJugadores";
 import {
   getCartasJugadores,
-  getUserPlayer2vs2,
+  getUserPlayer,
 } from "../../helpers/truco/getUserTurno";
 import { useSelector } from "react-redux";
 // import mazo from "../../assets/cartas/Mazo.png";
@@ -12,7 +12,7 @@ export const JugadorTres2vs2 = () => {
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
   const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro } = partida;
-  const jugador = getUserPlayer2vs2(
+  const jugador = getUserPlayer(
     uid,
     jugadorUno,
     jugadorDos,
