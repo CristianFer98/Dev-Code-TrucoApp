@@ -28,9 +28,11 @@ namespace Router.Hubs
         {
             await JoinRoom(partida.JugadorDos, partida.Room);
             string userRoom = Convert.ToString(partida.Room);
+
             await Clients.All.SendAsync("MesasActualizadas");
             await Clients.Group(userRoom).SendAsync("MesaOcupada");
             await InicializarMano(partida);
+
         }
 
         public async Task JoinRoom(int user, int room)
@@ -156,5 +158,30 @@ namespace Router.Hubs
             await Clients.Group(userRoom).SendAsync("TrucoCantado", partidaActualizada);
         }
 
+        #region TorneosHub
+        public async Task CrearTorneo()
+        {
+            await Clients.All.SendAsync("TorneosActualizados");
+        }
+        //public async Task AgregarParticipante(TorneoParticipante torneoParticipante)
+        public async Task AgregarParticipante()
+        {
+            await Clients.All.SendAsync("TorneosActualizados");
+            //await Clients.All.SendAsync("MesaOcupada", torneoParticipante);
+        }
+        public async Task JoinRoomTorneo(int user, int room)
+        {
+            string userRoom = Convert.ToString(room);
+
+            UserConnection userConnection = new()
+            {
+                User = user,
+                Room = userRoom
+            };
+            _connections[Context.ConnectionId] = userConnection;
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, userRoom);
+        }
+        #endregion
     }
 }

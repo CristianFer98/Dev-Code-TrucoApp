@@ -6,7 +6,6 @@ import { Tienda } from "../components/tienda/Tienda";
 import { TiendaDetalle } from "../components/tienda/TiendaDetalle";
 import { TiendaAvatar } from "../components/tienda/TiendaAvatar";
 import { Reglas } from "../components/reglas/Reglas";
-import { Torneo } from "../components/torneo/Torneo";
 import { PublicRoute } from "./PublicRoute";
 import { LoginRegistro } from "../components/auth/LoginRegistro";
 import { useEffect } from "react";
@@ -18,6 +17,7 @@ import { Avatar } from "../components/avatar/Avatar";
 import { MesasDisponibles } from "../components/mesas/MesasDisponibles";
 import TablaDeTorneo from "../components/torneo/TablaDeTorneo";
 import { CargarPartida } from "../components/partidaLink/CargarPartida";
+import { TorneosDisponibles } from "../components/torneo/TorneosDisponibles"
 
 export const AppRouter = () => {
   const { uid, jugando } = useSelector((state) => state.auth);
@@ -47,7 +47,7 @@ export const AppRouter = () => {
                   component={TiendaAvatar}
                 />
                 <Route exact path="/inicio/reglas" component={Reglas} />
-                <Route exact path="/inicio/torneos" component={Torneo} />
+                <Route exact path="/inicio/torneos" component={TorneosDisponibles} />
                 <Route exact path="/inicio/tabla" component={TablaDeTorneo} />
                 <Route
                   exact

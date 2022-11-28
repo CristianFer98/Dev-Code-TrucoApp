@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using Router.Hubs;
 using Servicios;
 using Entidades;
+using TrucoApp.DTOs;
 
 namespace Router.Controllers
 {
@@ -23,19 +24,78 @@ namespace Router.Controllers
         {
             _torneoServicio = torneoServicio;
         }
+        [HttpGet]
+        [Route("ObtenerTorneoPorId/{torneoId:int}")]
+        public ActionResult Get(int torneoId)
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.ObtenerTorneoPorId(torneoId));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpGet]
         [Route("ObtenerTodosLosTorneos")]
-        public IActionResult Get()
+        public ActionResult Get()
         {
-            return Ok(_torneoServicio.ObtenerTorneosDisponibles());
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.ObtenerTorneosDisponibles());
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Torneo torneo)
+        [Route("CrearTorneo")]
+        public ActionResult Post([FromBody] CrearTorneoDto crearTorneo)
         {
-            Torneo torneoCreado = _torneoServicio.CrearTorneo(torneo);
-            return Ok();
+            try
+            {
+                var nuevoTorneo = new Torneo()
+                {
+                    Nombre = crearTorneo.Nombre,
+                    CantidadParticipantes = crearTorneo.CantidadParticipantes
+                };
+                _torneoServicio.CrearTorneo(nuevoTorneo);
+                return StatusCode(StatusCodes.Status200OK, nuevoTorneo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+        [HttpPost]
+        [Route("AgregarParticipante")]
+        public ActionResult Post([FromBody] AgregarParticipanteDto agregarParticipante)
+        {
+            try
+            {
+                _torneoServicio.AgregarParticipante(agregarParticipante.TorneoId, agregarParticipante.IdUsuario);
+                return StatusCode(StatusCodes.Status200OK, agregarParticipante);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
+      
+        [HttpGet]
+        [Route("ProximaRonda/{torneoId:int}")]
+        public IActionResult ProximaRonda([FromRoute] int id)
+        {
+            return Ok(_torneoServicio.ProximaRonda(id));
         }
     }
 }

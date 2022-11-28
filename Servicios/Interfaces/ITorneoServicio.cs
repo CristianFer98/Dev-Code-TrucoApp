@@ -9,7 +9,10 @@ namespace Servicios.Interfaces
 {
     public interface ITorneoServicio
     {
-        IEnumerable<Torneo> ObtenerTorneosDisponibles();
+        List<Torneo> ObtenerTorneosDisponibles();
         Torneo CrearTorneo(Torneo torneo);
+        void AgregarParticipante(int torneoId, int idUsuario);
+        Torneo ObtenerTorneoPorId(int torneoId);
+        Torneo ProximaRonda(int torneoId);
     }
 }
