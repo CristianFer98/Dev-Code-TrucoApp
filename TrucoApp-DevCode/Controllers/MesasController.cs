@@ -82,8 +82,8 @@ namespace Router.Controllers
 
             try
             {
-                _mesaServicio.EntrarAJugarAMesa(idMesa, idJugador);
-                return StatusCode(StatusCodes.Status200OK);
+                Mesa mesa = _mesaServicio.EntrarAJugarAMesa(idMesa, idJugador);
+                return StatusCode(StatusCodes.Status200OK, mesa);
 
             }
             catch (Exception ex)

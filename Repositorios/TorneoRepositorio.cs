@@ -19,16 +19,31 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
+        public Torneo ObtenerPorId(int torneoId)
+        {
+            return _dbContext.Torneos
+                .Include(t => t.Participantes)
+                .Include(t => t.Partidas)
+                .Where(t => t.TorneoId == torneoId)
+                .FirstOrDefault();
+        }
+
         public Torneo CrearTorneo(Torneo torneo)
         {
-            _dbContext.Add(torneo);
+            _dbContext.Torneos.Add(torneo);
             _dbContext.SaveChanges();
             return torneo;
         }
 
-        public IEnumerable<Torneo> ObtenerTorneosDisponibles()
+        public List<Torneo> ObtenerTorneosDisponibles()
         {
-            return null; // _dbContext.Torneos.Where(t=> t.Terminado == false);
+            return _dbContext.Torneos.Where(t=> t.Terminado == false).ToList();
+        }
+        public void SetearRondas(int torneoId, int ronda)
+        {
+            var torneo = _dbContext.Torneos.Where(t => t.TorneoId == torneoId).FirstOrDefault();
+            torneo.NroRonda = ronda;
+            _dbContext.SaveChanges();
         }
     }
 }

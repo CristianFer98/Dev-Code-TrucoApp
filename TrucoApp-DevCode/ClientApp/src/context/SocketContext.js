@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
+import { obtenerTorneos } from "../actions/torneos";
 import {
   cantarEnvido,
   cantarTruco,
@@ -16,7 +17,9 @@ import {
 import {
   checkChantSet,
   setCargandoFalse,
+  setCargandoFalse2vs2,
   setCargandoTrue,
+  setCargandoTrue2vs2,
 } from "../actions/ui";
 import { getUserPlayer } from "../helpers/truco/getUserTurno";
 export const SocketContext = createContext();
@@ -29,6 +32,7 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (!!uid) {
       dispatch(obtenerMesas());
+      dispatch(obtenerTorneos());
     }
   }, [uid, dispatch]);
 
@@ -82,13 +86,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("EmpezarJuego", (juego) => {
-      const {
-        cartasJugadasJugadorUno,
-        cartasJugadasJugadorDos,
-        envido,
-        truco,
-        ...partida
-      } = juego;
+      const { envido, truco, ...partida } = juego;
 
       dispatch(
         repartirCartas({
@@ -111,8 +109,13 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("CartaTirada", (juego) => {
-      const { cartasJugadasJugadorUno, cartasJugadasJugadorDos, ...partida } =
-        juego;
+      const {
+        cartasJugadasJugadorUno,
+        cartasJugadasJugadorDos,
+        cartasJugadasJugadorTres,
+        cartasJugadasJugadorCuatro,
+        ...partida
+      } = juego;
       dispatch(
         tirarCarta({
           ...partida,
@@ -122,6 +125,12 @@ export const SocketProvider = ({ children }) => {
             : [],
           cartasJugadasJugadorDos: !!cartasJugadasJugadorDos
             ? cartasJugadasJugadorDos
+            : [],
+          cartasJugadasJugadorTres: !!cartasJugadasJugadorTres
+            ? cartasJugadasJugadorTres
+            : [],
+          cartasJugadasJugadorCuatro: !!cartasJugadasJugadorCuatro
+            ? cartasJugadasJugadorCuatro
             : [],
         })
       );
@@ -180,6 +189,62 @@ export const SocketProvider = ({ children }) => {
       );
     });
   }, [connection, dispatch]);
+
+  useEffect(() => {
+    connection?.on("TorneosActualizados", () => {
+      dispatch(obtenerTorneos());
+    });
+  }, [connection, dispatch]);
+
+  useEffect(() => {
+    connection?.on("MesaOcupada2vs2", async (partida) => {
+      const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro } = partida;
+
+      if (
+        jugadorUno !== 0 &&
+        jugadorDos !== 0 &&
+        jugadorTres !== 0 &&
+        jugadorCuatro !== 0
+      ) {
+        if (jugadorCuatro === uid) {
+          dispatch(setCargandoFalse2vs2());
+          dispatch(setCargandoTrue());
+        }
+        setTimeout(() => {
+          dispatch(jugar());
+          dispatch(setCargandoFalse2vs2());
+        }, 800);
+      } else {
+        const jugadoresConectados = jugadorTres !== 0 ? 3 : 2;
+        dispatch(setCargandoTrue2vs2(jugadoresConectados));
+      }
+    });
+  }, [connection, dispatch]);
+
+  useEffect(() => {
+    connection?.on("EmpezarJuego2vs2", (juego) => {
+      const { envido, truco, ...partida } = juego;
+
+      dispatch(
+        repartirCartas({
+          ...partida,
+          horarioDeUltimoMovimiento: new Date(),
+          cartasJugadasJugadorUno: [],
+          cartasJugadasJugadorDos: [],
+          cartasJugadasJugadorTres: [],
+          cartasJugadasJugadorCuatro: [],
+          envido: {
+            ...envido,
+            envidosCantados: [],
+          },
+          truco: {
+            ...truco,
+            trucosCantados: [],
+          },
+        })
+      );
+    });
+  }, [connection]);
 
   return (
     <SocketContext.Provider value={{ connection }}>

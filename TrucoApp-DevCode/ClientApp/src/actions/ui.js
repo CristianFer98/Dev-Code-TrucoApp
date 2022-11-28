@@ -49,3 +49,12 @@ export const setCargandoTrue = () => ({
 export const setCargandoFalse = () => ({
   type: types.uiSetCargandoFalse,
 });
+
+export const setCargandoTrue2vs2 = (jugadores) => ({
+  type: types.uiSetCargandoTrue2vs2,
+  payload: jugadores,
+});
+
+export const setCargandoFalse2vs2 = () => ({
+  type: types.uiSetCargandoFalse2vs2,
+});

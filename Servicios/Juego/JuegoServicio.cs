@@ -53,20 +53,37 @@ namespace Servicios.Juego
             new Carta(40, 4, "Basto", 14, 4, "https://res.cloudinary.com/dmvh1zlfc/image/upload/v1668288798/TrucoCartas/Basto/4Basto_r0myx7.png"),
         };
 
-        public static List<Carta> RepartirCartas()
+        public static List<Carta> RepartirCartas(int cantidadJugadores)
         {
             List<Carta> CartasRepartidas = new();
             List<int> Numeros = new();
 
-            for (int i = 0; Numeros.Count < 6; i++)
+            if (cantidadJugadores == 2)
             {
-                Random Objeto = new();
-                int RandomNumero = Objeto.Next(0, 40);
-
-                if (!Numeros.Contains(RandomNumero))
+                for (int i = 0; Numeros.Count < 6; i++)
                 {
-                    Numeros.Add(RandomNumero);
-                    CartasRepartidas.Add(Mazo[RandomNumero]);
+                    Random Objeto = new();
+                    int RandomNumero = Objeto.Next(0, 40);
+
+                    if (!Numeros.Contains(RandomNumero))
+                    {
+                        Numeros.Add(RandomNumero);
+                        CartasRepartidas.Add(Mazo[RandomNumero]);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; Numeros.Count < 12; i++)
+                {
+                    Random Objeto = new();
+                    int RandomNumero = Objeto.Next(0, 40);
+
+                    if (!Numeros.Contains(RandomNumero))
+                    {
+                        Numeros.Add(RandomNumero);
+                        CartasRepartidas.Add(Mazo[RandomNumero]);
+                    }
                 }
             }
             return CartasRepartidas;
@@ -221,9 +238,16 @@ namespace Servicios.Juego
             }
             else
             {
-                if (partida.Truco.TrucosCantados[0] == "no quiero" && partida.Envido.EnvidosCantados.Count == 0 && partida.Mano == 1 && partida.CartasJugadasJugadorUno.Count == 0 && partida.CartasJugadasJugadorDos.Count == 0)
+                if (partida.CantidadJugadores == 2)
                 {
-                    partida = SumarPuntosTruco(partida, ganadorMano, 2);
+                    if (partida.Truco.TrucosCantados[0] == "no quiero" && partida.Envido.EnvidosCantados.Count == 0 && partida.Mano == 1 && partida.CartasJugadasJugadorUno.Count == 0 && partida.CartasJugadasJugadorDos.Count == 0)
+                    {
+                        partida = SumarPuntosTruco(partida, ganadorMano, 2);
+                    }
+                    else
+                    {
+                        partida = SumarPuntosTruco(partida, ganadorMano, PuntosGanadosTruco);
+                    }
                 }
                 else
                 {
