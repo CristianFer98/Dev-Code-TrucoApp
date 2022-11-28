@@ -15,9 +15,13 @@ export const obtenerMesas = () => {
 
     if (resp.ok) {
       const data = await resp.json();
+
+      const mesas1vs1 = data.filter((mesa) => mesa.cantidadJugadores === 2);
+      const mesas2vs2 = data.filter((mesa) => mesa.cantidadJugadores === 4);
+
       dispatch({
         type: types.mesasObtenerMesas,
-        payload: data,
+        payload: { mesas1vs1, mesas2vs2 },
       });
     } else {
       console.log("Status code: " + resp.status);

@@ -17,4 +17,6 @@ export const types = {
   uiSetCargandoTrue: "[ui] Set cargando true",
   uiSetCargandoFalse: "[ui] Set cargando false",
   torneosObtenerTorneos: "[torneos] Obtener torneos",
+  uiSetCargandoTrue2vs2: "[ui] Set cargando true 2vs2",
+  uiSetCargandoFalse2vs2: "[ui] Set cargando false 2vs2",
 };

@@ -8,10 +8,10 @@ import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
 import { useSelector } from "react-redux";
 
-export const MesasDisponibles = () => {
+export const MesasDisponibles2vs2 = () => {
   const history = useHistory();
   const { uid } = useSelector((state) => state.auth);
-  const { mesas1vs1 } = useSelector((state) => state.mesas);
+  const { mesas2vs2 } = useSelector((state) => state.mesas);
 
   const handleVolverInicio = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ export const MesasDisponibles = () => {
     <div style={{ display: "flex", width: "100%" }}>
       <div style={{ display: "flex", width: "80%", flexDirection: "column" }}>
         <InfoDeUsuario />
-        <h2 className="text-light px-5 pt-5">Mesas disponibles</h2>
+        <h2 className="text-light px-5 pt-5">Mesas disponibles 2 vs 2</h2>
         <div>
           <div
             style={{
@@ -47,10 +47,10 @@ export const MesasDisponibles = () => {
               marginTop: "0px",
             }}
           >
-            {!mesas1vs1.find((mesa) => mesa.jugadorUno === uid) && (
-              <BotonCrearMesa cantidadJugadoresMesa={2} />
+            {!mesas2vs2.find((mesa) => mesa.jugadorUno === uid) && (
+              <BotonCrearMesa cantidadJugadoresMesa={4} />
             )}
-            {mesas1vs1.map((mesa) => (
+            {mesas2vs2.map((mesa) => (
               <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
             ))}
           </div>

@@ -9,21 +9,19 @@ import { ModalLink } from "./ModalLink";
 export const MesaDisponibleCard = ({ mesa }) => {
   const { uid, invitado, mesaInvitado } = useSelector((state) => state.auth);
   const { Usuarios } = require("../../usuarios.json");
-  const { idMesa, jugadorUno, tipo } = mesa;
-  const usuario = Usuarios.find((usuario) => usuario.uid === jugadorUno);
+  const { idMesa, jugadorUno, tipo, cantidadJugadores } = mesa;
   const { connection } = useContext(SocketContext);
 
   useEffect(() => {
     invitado &&
       !!mesaInvitado &&
       mesaInvitado === idMesa &&
-      entrarAMesa(uid, idMesa, connection, jugadorUno);
+      entrarAMesa(uid, idMesa, connection, jugadorUno, cantidadJugadores);
   }, [invitado, mesaInvitado]);
 
   const handleJugar = async (e) => {
     e.preventDefault();
-
-    entrarAMesa(uid, idMesa, connection, jugadorUno);
+    entrarAMesa(uid, idMesa, connection, jugadorUno, cantidadJugadores);
   };
 
   return (
@@ -70,6 +68,8 @@ export const MesaDisponibleCard = ({ mesa }) => {
           className="text-center mt-1"
           style={{ color: "#ffffff", fontSize: "0.68em" }}
         >
+          {" "}
+          {jugadorUno}
         </div>
       </div>
 
