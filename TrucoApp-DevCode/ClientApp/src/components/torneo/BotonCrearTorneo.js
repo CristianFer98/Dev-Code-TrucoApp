@@ -19,7 +19,8 @@ export const BotonCrearTorneo = () => {
             },
             body: JSON.stringify({
                 Nombre: "Torneo",
-                CantidadParticipantes: 4
+                CantidadParticipantes: 4,
+                estaLleno: false
             }),
         });
 

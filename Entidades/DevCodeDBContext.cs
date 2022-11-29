@@ -56,6 +56,8 @@ namespace Entidades
 
                 torneo.Property(t => t.Terminado).IsRequired();
 
+                torneo.Property(t => t.estalleno).IsRequired();
+
                 torneo.HasMany(t => t.Participantes)
                     .WithOne(tp => tp.Torneo)
                     .HasForeignKey(tp => tp.TorneoId);

@@ -82,6 +82,7 @@ namespace Servicios
                     var idsUsuarios = torneo.Participantes.Select(p => p.IdUsuario).ToList();
                     // create the matches
                     crearPartidos(torneo, idsUsuarios);
+                    _torneoRepositorio.EstaLleno(torneoId);
                 }
             }
         }
@@ -151,6 +152,10 @@ namespace Servicios
 
                 esJugadorUno = true;
             }
+        }
+        public List<TorneoPartida> ObtenerTorneosPartida(int torneoId)
+        {
+            return _torneoPartidaRepositorio.ObtenerTorneoPartidas(torneoId);
         }
     }
 }

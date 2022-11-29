@@ -9,5 +9,6 @@ namespace Repositorios.Interfaces
         List<Torneo> ObtenerTorneosDisponibles();
         Torneo CrearTorneo(Torneo torneo);
         void SetearRondas(int torneoId, int ronda);
+        void EstaLleno(int torneoId);
     }
 }

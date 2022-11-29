@@ -9,12 +9,16 @@ export const TorneoDisponibleCard = ({ torneo }) => {
     const { uid } = useSelector((state) => state.auth);
     const { torneoId } = torneo;
     const { connection } = useContext(SocketContext);
-
+    console.log(estaLleno)
+    
     const handleIngresar = async (e) => {
-      //history.push("/inicio/tabla");
       e.preventDefault();
         entrarATorneo(uid, torneoId, connection);
   };
+
+    const handleJugar = async (e) => {
+        history.push("/inicio/salaTorneo/{torneoId}");
+    };
 
   return (
     <div className="mesaCarta animate__animated animate__fadeIn m-2 p-3 py-2 d-flex flex-column">
@@ -41,14 +45,24 @@ export const TorneoDisponibleCard = ({ torneo }) => {
         <p style={{ fontSize: "0.8em" }} className="text-white my-0 fw-bolder">
           Sin flor
         </p>
-      </div>
+          </div>
+          {torneo.estalleno === true? (
+              <p
+                  onClick={handleJugar}
+                  className="buttonPlay fw-bolder cursor w-100 text-center rounded"
+              >
+                  Jugar
+              </p>
+          ):
+          (
+              <p
+                  onClick={handleIngresar}
+                  className="buttonPlay fw-bolder cursor w-100 text-center rounded"
+              >
+                  Anotarse
+              </p>
+          )}
 
-      <p
-        onClick={handleIngresar}
-        className="buttonPlay fw-bolder cursor w-100 text-center rounded"
-      >
-        Jugar
-      </p>
     </div>
   );
 };

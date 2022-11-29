@@ -97,5 +97,20 @@ namespace Router.Controllers
         {
             return Ok(_torneoServicio.ProximaRonda(id));
         }
+
+        [HttpGet]
+        [Route("ObtenerTodosLosTorneosPartida/{torneoId:int}")]
+        public ActionResult obtenerTorneoPartida(int torneoId)
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.ObtenerTorneosPartida(torneoId));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

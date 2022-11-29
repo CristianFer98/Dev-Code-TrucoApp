@@ -14,5 +14,6 @@ namespace Servicios.Interfaces
         void AgregarParticipante(int torneoId, int idUsuario);
         Torneo ObtenerTorneoPorId(int torneoId);
         Torneo ProximaRonda(int torneoId);
+        public List<TorneoPartida> ObtenerTorneosPartida(int torneoId);
     }
 }
