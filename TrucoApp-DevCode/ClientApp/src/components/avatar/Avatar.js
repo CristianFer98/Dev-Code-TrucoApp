@@ -142,7 +142,6 @@ export function Avatar() {
                 document.querySelector('.mensaje').innerHTML="<i class='fa-solid fa-xmark'></i> Hubo un error intente más tarde";
               }
          }else{//sino se guarda
-
             const resp = await fetch(url, {
               method: "POST",
               headers: {

@@ -25,7 +25,9 @@ namespace Servicios
                 Pelo = pelo,
                 Ceja = ceja,
                 ColorDeOjos = colorDeOjos,
-                ColorDePiel=colorDePiel
+                ColorDePiel=colorDePiel,
+                Ropa=ropa
+                
             };
 
             _avatarRepositorio.GuardarAvatar(avatar);
