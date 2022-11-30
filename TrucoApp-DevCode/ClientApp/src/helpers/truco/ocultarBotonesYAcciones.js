@@ -1,5 +1,5 @@
 import { tiposBotones } from "../../types/tiposBotones";
-import { getUserPlayer, isMyTurn } from "./getUserTurno";
+import { getAntesRepartidor, getUserPlayer, isMyTurn } from "./getUserTurno";
 
 export const verSiJugadorYaJugoCarta = (
   uid,
@@ -46,6 +46,10 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
     mano,
     cartasJugadasJugadorUno,
     cartasJugadasJugadorDos,
+    cartasJugadasJugadorTres,
+    cartasJugadasJugadorCuatro,
+    cantidadJugadores,
+    repartidor,
   } = partida;
   const {
     envidosCantados,
@@ -60,6 +64,26 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
     trucosCantados,
     jugadorQueCantoTruco,
   } = truco;
+
+  const numeroJugador = getUserPlayer(
+    uid,
+    jugadorUno,
+    jugadorDos,
+    jugadorTres,
+    jugadorCuatro
+  );
+
+  const jugoCarta = verSiJugadorYaJugoCarta(
+    uid,
+    jugadorUno,
+    jugadorDos,
+    cartasJugadasJugadorUno,
+    cartasJugadasJugadorDos,
+    cartasJugadasJugadorTres,
+    cartasJugadasJugadorCuatro,
+    jugadorTres,
+    jugadorCuatro
+  );
 
   switch (botones) {
     case tiposBotones.cartas:
@@ -81,28 +105,23 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
       if (
         isMyTurn(uid, jugadorUno, jugadorDos, turno, jugadorTres, jugadorCuatro)
       ) {
-        return (
-          mano === 1 &&
+        return mano === 1 &&
           !envidosCantados.find((e) => e === "quiero" || e === "no quiero") &&
           !estadoCantarTantos &&
           trucosCantados.length < 2 &&
-          (!verSiJugadorYaJugoCarta(
-            uid,
-            jugadorUno,
-            jugadorDos,
-            cartasJugadasJugadorUno,
-            cartasJugadasJugadorDos
-          ) ||
-            (verSiJugadorYaJugoCarta(
-              uid,
-              jugadorUno,
-              jugadorDos,
-              cartasJugadasJugadorUno,
-              cartasJugadasJugadorDos
-            ) &&
-              estadoEnvidoCantado)) &&
-          true
-        );
+          (!jugoCarta || (jugoCarta && estadoEnvidoCantado)) &&
+          cantidadJugadores === 2
+          ? true
+          : cantidadJugadores === 4 &&
+            !envidosCantados.find((e) => e === "quiero" || e === "no quiero") &&
+            !estadoCantarTantos &&
+            trucosCantados.length < 2 &&
+            (!jugoCarta || (jugoCarta && estadoEnvidoCantado)) &&
+            (getAntesRepartidor(repartidor) === numeroJugador ||
+              repartidor === numeroJugador ||
+              envidosCantados.length > 0)
+          ? true
+          : false;
       } else {
         return false;
       }

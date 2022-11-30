@@ -231,8 +231,15 @@ namespace Router.Hubs
         public async Task CantarEnvido(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
-
-            Partida partidaActualizada = JuegoServicio.EnvidoTurnos(partida);
+            Partida partidaActualizada;
+            if (partida.CantidadJugadores == 2)
+            {
+                partidaActualizada = JuegoServicio.EnvidoTurnos(partida);
+            }
+            else
+            {
+                partidaActualizada = JuegoServicio2vs2.EnvidoTurnos(partida);
+            }
 
             await Clients.Group(userRoom).SendAsync("EnvidoCantado", partidaActualizada);
         }
@@ -240,8 +247,16 @@ namespace Router.Hubs
         public async Task CantarTantos(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
-            Partida partidaActualizada = JuegoServicio.TantosEnvidoTurnos(partida);
+            Partida partidaActualizada;
+            if (partida.CantidadJugadores == 2)
+            {
+                partidaActualizada = JuegoServicio.TantosEnvidoTurnos(partida);
 
+            }
+            else
+            {
+                partidaActualizada = JuegoServicio2vs2.TantosEnvidoTurnos(partida);
+            }
             await Clients.Group(userRoom).SendAsync("TantosCantados", partidaActualizada);
         }
 

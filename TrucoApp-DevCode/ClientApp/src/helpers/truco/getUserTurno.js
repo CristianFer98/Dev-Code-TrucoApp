@@ -74,6 +74,38 @@ export const envidoMasAlto = (repartidor, tantoJugadorUno, tantoJugadorDos) => {
   }
 };
 
+export const envidoMasAlto2vs2 = (
+  repartidor,
+  tantoJugadorUno,
+  tantoJugadorDos,
+  tantoJugadorTres,
+  tantoJugadorCuatro
+) => {
+  const tantosEquipoUno = [tantoJugadorUno, tantoJugadorDos].sort(
+    (a, b) => b - a
+  );
+  const tantosEquipoDos = [tantoJugadorTres, tantoJugadorCuatro].sort(
+    (a, b) => b - a
+  );
+
+  if (tantosEquipoUno[0] > tantosEquipoDos[0]) {
+    return 1;
+  } else if (tantosEquipoUno[0] < tantosEquipoDos[0]) {
+    return 2;
+  } else if (tantosEquipoUno[0] === tantosEquipoDos[0]) {
+    switch (repartidor) {
+      case 1:
+      case 2:
+        return 2;
+      case 3:
+      case 4:
+        return 1;
+      default:
+        break;
+    }
+  }
+};
+
 export const getCartasJugadas = (lado, jugador, partida) => {
   if (lado === "izquierda") {
     switch (jugador) {
