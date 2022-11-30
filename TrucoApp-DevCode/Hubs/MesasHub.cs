@@ -257,11 +257,9 @@ namespace Router.Hubs
         {
             await Clients.All.SendAsync("TorneosActualizados");
         }
-        //public async Task AgregarParticipante(TorneoParticipante torneoParticipante)
-        public async Task AgregarParticipante()
+        public async Task AgregarParticipante(TorneoParticipante torneoParticipante)
         {
             await Clients.All.SendAsync("TorneosActualizados");
-            //await Clients.All.SendAsync("MesaOcupada", torneoParticipante);
         }
         public async Task JoinRoomTorneo(int user, int room)
         {
@@ -275,6 +273,17 @@ namespace Router.Hubs
             _connections[Context.ConnectionId] = userConnection;
 
             await Groups.AddToGroupAsync(Context.ConnectionId, userRoom);
+        }
+        public async Task OcuparMesaTorneo(Partida partida)
+        {
+            await JoinRoomTorneo(partida.JugadorUno, partida.Room);
+            await JoinRoomTorneo(partida.JugadorDos, partida.Room);
+            partida.CantidadJugadores = 2;
+            string userRoom = Convert.ToString(partida.Room);
+         
+            await Clients.All.SendAsync("MesasActualizadas");
+            await Clients.Group(userRoom).SendAsync("MesaOcupada");
+            await InicializarMano(partida);
         }
         #endregion
     }

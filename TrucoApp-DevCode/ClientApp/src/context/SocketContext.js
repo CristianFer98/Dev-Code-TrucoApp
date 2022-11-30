@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
-import { obtenerTorneos } from "../actions/torneos";
+import { obtenerTorneos, obtenerTorneoPartida } from "../actions/torneos";
 import {
   cantarEnvido,
   cantarTruco,
@@ -245,6 +245,12 @@ export const SocketProvider = ({ children }) => {
       );
     });
   }, [connection]);
+
+    useEffect(() => {
+        connection?.on("TorneosPartidaActualizados", (torneoId) => {
+            dispatch(obtenerTorneoPartida(torneoId));
+        });
+    }, [connection, dispatch]);
 
   return (
     <SocketContext.Provider value={{ connection }}>

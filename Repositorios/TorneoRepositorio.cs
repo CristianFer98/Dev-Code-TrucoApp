@@ -48,7 +48,7 @@ namespace Repositorios
         public void EstaLleno(int torneoId)
         {
             var torneo = _dbContext.Torneos.Where(t => t.TorneoId == torneoId).FirstOrDefault();
-            torneo.estalleno = true;
+            torneo.estaLleno = true;
             _dbContext.SaveChanges();
         }
     }

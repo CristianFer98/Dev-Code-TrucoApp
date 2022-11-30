@@ -1,22 +1,45 @@
-﻿import React from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { MesaDisponibleCard } from "../mesas/MesaDisponibleCard";
+import { MesaTorneoCard } from "../mesas/MesaTorneoCard";
 import { ChatGeneral } from "../inicio/chat/ChatGeneral";
 import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+//import { obtenerTorneoPartida } from "../../actions/torneos";
+import { Redirect, useParams } from "react-router";
+import { obtenerTorneoPartida } from "../../helpers/fetchConnection";
 
-export const SalaTorneo = ({ torneo }) => {
+export const SalaTorneo = () => {
     const history = useHistory();
     const { uid } = useSelector((state) => state.auth);
-    const { mesasTorneo } = useSelector((state) => state.mesas);
-    const { torneoPartida } = torneo.
-    console.log("Torneo Partida: " + mesasTorneo)
+    const { torneoId } = useParams();
+    const dispatch = useDispatch();
+    const [torneoPartida, setTorneoPartida] = useState([]);
+
+    useEffect(() => {
+        obtenerMesasDelTorneo();
+    }, []);
+
+    const obtenerMesasDelTorneo = async () => {
+        const respuesta = await fetch(`https://localhost:44342/api/Torneo/ObtenerTodosLosTorneosPartida/${torneoId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+
+        if (respuesta.ok) {
+            const mesas = await respuesta.json();
+            mesas.CantidadJugadores = 2
+            setTorneoPartida(mesas);
+        }
+    }
 
     const handleVolverInicio = async (e) => {
         e.preventDefault();
         history.push("/inicio");
     };
+
 
     return (
         <div style={{ display: "flex", width: "100%" }}>
@@ -46,8 +69,8 @@ export const SalaTorneo = ({ torneo }) => {
                             marginTop: "0px",
                         }}
                     >
-                        {mesasTorneo.map((mesa) => (
-                            <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
+                        {torneoPartida.map((mesa) => (
+                            <MesaTorneoCard key={mesa.idMesa} mesa={mesa} />
                         ))}
                     </div>
                 </div>

@@ -1,23 +1,26 @@
 import React, { useContext } from "react";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import img from "../../assets/no-foto.jpg";
 import { SocketContext } from "../../context/SocketContext";
 import { entrarATorneo } from "../../helpers/fetchConnection";
+import { useHistory } from "react-router";
+import { obtenerTorneoPartida } from "../../helpers/fetchConnection";
 
 export const TorneoDisponibleCard = ({ torneo }) => {
     const { uid } = useSelector((state) => state.auth);
     const { torneoId } = torneo;
     const { connection } = useContext(SocketContext);
-    console.log(estaLleno)
+    const history = useHistory();
     
     const handleIngresar = async (e) => {
       e.preventDefault();
         entrarATorneo(uid, torneoId, connection);
-  };
+    };
 
     const handleJugar = async (e) => {
-        history.push("/inicio/salaTorneo/{torneoId}");
+        //e.preventDefault();
+        //handleObtenerTorneoPartida(torneoId)
+        history.push(`/inicio/salaTorneo/${torneoId}`);
     };
 
   return (
@@ -46,23 +49,22 @@ export const TorneoDisponibleCard = ({ torneo }) => {
           Sin flor
         </p>
           </div>
-          {torneo.estalleno === true? (
+          {torneo.estaLleno === true ? (
               <p
                   onClick={handleJugar}
                   className="buttonPlay fw-bolder cursor w-100 text-center rounded"
               >
-                  Jugar
+                  jugar
               </p>
           ):
           (
-              <p
-                  onClick={handleIngresar}
-                  className="buttonPlay fw-bolder cursor w-100 text-center rounded"
-              >
-                  Anotarse
-              </p>
+                <p
+                    onClick={handleIngresar}
+                    className="buttonPlay fw-bolder cursor w-100 text-center rounded"
+                >
+                  anotarse
+                </p>
           )}
-
     </div>
   );
 };

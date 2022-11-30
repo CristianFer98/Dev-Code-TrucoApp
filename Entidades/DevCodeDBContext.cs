@@ -56,7 +56,7 @@ namespace Entidades
 
                 torneo.Property(t => t.Terminado).IsRequired();
 
-                torneo.Property(t => t.estalleno).IsRequired();
+                torneo.Property(t => t.estaLleno);
 
                 torneo.HasMany(t => t.Participantes)
                     .WithOne(tp => tp.Torneo)
