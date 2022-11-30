@@ -20,8 +20,8 @@ export const obtenerMesas = () => {
       const mesas2vs2 = data.filter((mesa) => mesa.cantidadJugadores === 4);
 
       dispatch({
-        type: types.mesasObtenerMesas,
-        payload: { mesas1vs1, mesas2vs2 },
+          type: types.mesasObtenerMesas,
+          payload: { mesas1vs1, mesas2vs2 },
       });
     } else {
       console.log("Status code: " + resp.status);

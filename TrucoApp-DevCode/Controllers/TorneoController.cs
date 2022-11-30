@@ -24,13 +24,30 @@ namespace Router.Controllers
         {
             _torneoServicio = torneoServicio;
         }
+
+        [HttpPost]
+        [Route("CrearTorneo")]
+        public ActionResult Post([FromBody] CrearTorneoDto crearTorneo)
+        {
+            DateTime today = DateTime.Now;
+
+            TorneoCri torneoNuevo = new TorneoCri();
+
+            torneoNuevo.IdMesaSemiUnoNavigation = new Mesa { CantidadJugadores = 2, JugadorUno=crearTorneo.Usuario, Tipo = "Semi", Estado = "Disponible", Torneo=true, FechaCreacion = today };
+            torneoNuevo.IdMesaFinalNavigation = new Mesa { CantidadJugadores = 2, Tipo = "Final", Estado = "Disponible", Torneo = true, FechaCreacion = today };
+            torneoNuevo.IdMesaSemiDosNavigation = new Mesa { CantidadJugadores = 2, Tipo = "Semi", Estado = "Disponible", Torneo=true, FechaCreacion = today };
+
+            return StatusCode(StatusCodes.Status200OK, _torneoServicio.CrearTorneo(torneoNuevo));
+        }
+
+        
         [HttpGet]
-        [Route("ObtenerTorneoPorId/{torneoId:int}")]
-        public ActionResult Get(int torneoId)
+        [Route("obtenerMesasDelTorneo/{idTorneo:int}")]
+        public ActionResult Get(int idTorneo)
         {
             try
             {
-                return StatusCode(StatusCodes.Status200OK, _torneoServicio.ObtenerTorneoPorId(torneoId));
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.ObtenerMesasDelTorneo(idTorneo));//las quiero con sus jugadores.
             }
             catch (Exception ex)
             {
@@ -39,8 +56,25 @@ namespace Router.Controllers
             }
         }
 
+
         [HttpGet]
-        [Route("ObtenerTodosLosTorneos")]
+        [Route("obtenerParticipantes/{idMesa:int}")]
+        public ActionResult ObtenerParticipantes(int idMesa)
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.ObtenerParticipantes(idMesa));//las quiero con sus jugadores.
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        
+        [HttpGet]
+        [Route("obtenerTorneos")]
         public ActionResult Get()
         {
             try
@@ -53,35 +87,15 @@ namespace Router.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        
+        
         [HttpPost]
-        [Route("CrearTorneo")]
-        public ActionResult Post([FromBody] CrearTorneoDto crearTorneo)
-        {
-            try
-            {
-                var nuevoTorneo = new Torneo()
-                {
-                    Nombre = crearTorneo.Nombre,
-                    CantidadParticipantes = crearTorneo.CantidadParticipantes
-                };
-                _torneoServicio.CrearTorneo(nuevoTorneo);
-                return StatusCode(StatusCodes.Status200OK, nuevoTorneo);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-
-            }
-        }
-
-        [HttpPost]
-        [Route("AgregarParticipante")]
+        [Route("ingresarATorneo")]
         public ActionResult Post([FromBody] AgregarParticipanteDto agregarParticipante)
         {
             try
             {
-                _torneoServicio.AgregarParticipante(agregarParticipante.TorneoId, agregarParticipante.IdUsuario);
+                _torneoServicio.AgregarAUnaMesaDisponible(agregarParticipante.IdTorneo, agregarParticipante.IdUsuario);
                 return StatusCode(StatusCodes.Status200OK, agregarParticipante);
             }
             catch (Exception ex)
@@ -90,12 +104,14 @@ namespace Router.Controllers
 
             }
         }
-      
+        
         [HttpGet]
-        [Route("ProximaRonda/{torneoId:int}")]
-        public IActionResult ProximaRonda([FromRoute] int id)
+        [Route("consultarMesaIniciada/{idMesa:int}")]
+        public IActionResult ProximaRonda([FromRoute] int idMesa)
         {
-            return Ok(_torneoServicio.ProximaRonda(id));
+            return Ok(_torneoServicio.consultarMesaIniciada(idMesa));
         }
+        
     }
+
 }

@@ -2,7 +2,7 @@
 {
     public class AgregarParticipanteDto
     {
-        public int TorneoId { get; set; }
+        public int IdTorneo { get; set; }
         public int IdUsuario { get; set; }
     }
 }

@@ -43,7 +43,10 @@ const MenuPrincipal = () => {
         id="unovsmaquina"
       ></button>
 
-      <Link to="/inicio/torneos" className="boton" id="torneo"></Link>
+          <Link to="/inicio/torneos" className="boton" id="torneo"></Link>
+
+          <Link to="/inicio/torneoscris" className="" id="">Torneo Nuevo</Link>
+
     </div>
   );
 };

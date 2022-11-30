@@ -6,11 +6,13 @@ import { SocketContext } from "../../context/SocketContext";
 import { entrarAMesa } from "../../helpers/fetchConnection";
 import { ModalLink } from "./ModalLink";
 
+//IVAN
 export const MesaDisponibleCard = ({ mesa }) => {
   const { uid, invitado, mesaInvitado } = useSelector((state) => state.auth);
   const { Usuarios } = require("../../usuarios.json");
   const { idMesa, jugadorUno, tipo, cantidadJugadores } = mesa;
   const { connection } = useContext(SocketContext);
+
 
   useEffect(() => {
     invitado &&
@@ -21,7 +23,7 @@ export const MesaDisponibleCard = ({ mesa }) => {
 
   const handleJugar = async (e) => {
     e.preventDefault();
-    entrarAMesa(uid, idMesa, connection, jugadorUno, cantidadJugadores);
+    entrarAMesa(uid, idMesa, connection, jugadorUno, cantidadJugadores); 
   };
 
   return (

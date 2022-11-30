@@ -29,6 +29,8 @@ namespace Entidades
         public virtual DbSet<Torneo> Torneos { get; set; }
         public virtual DbSet<TorneoParticipante> TorneoParticipantes { get; set; }
         public virtual DbSet<TorneoPartida> TorneoPartidas { get; set; }
+        public virtual DbSet<TorneoCri> TorneoCris { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -239,6 +241,36 @@ namespace Entidades
                 entity.Property(e => e.NombreCompleto).HasMaxLength(256);
 
                 entity.Property(e => e.Password).HasMaxLength(1024);
+            });
+
+            modelBuilder.Entity<TorneoCri>(entity =>
+            {
+                entity.HasKey(e => e.IdTorneo)
+                    .HasName("PK__TorneoCr__7757BBA09BE5FD7C");
+
+                entity.Property(e => e.IdMesaFinal).HasColumnName("IdMesaFinal");
+
+                entity.Property(e => e.IdMesaSemiDos).HasColumnName("IdMesaSemiDos");
+
+                entity.Property(e => e.IdMesaSemiUno).HasColumnName("IdMesaSemiUno");
+
+                entity.HasOne(d => d.IdMesaFinalNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.IdMesaFinal)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("IDFK_FINAL_MESA");
+
+                entity.HasOne(d => d.IdMesaSemiDosNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.IdMesaSemiDos)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("IDFK_SEMIFINAL_MESADOS");
+
+                entity.HasOne(d => d.IdMesaSemiUnoNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.IdMesaSemiUno)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("IDFK_SEMIFINAL_MESAUNO");
             });
 
             OnModelCreatingPartial(modelBuilder);

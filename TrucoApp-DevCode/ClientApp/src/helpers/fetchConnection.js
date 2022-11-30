@@ -4,7 +4,7 @@ export const entrarAMesa = async (
   connection,
   jugadorUno,
   cantidadJugadores
-) => {
+) => { 
   const idJugador = uid;
   const resp = await fetch(
     `https://localhost:44342/api/Mesas/EntrarAJugar/${idMesa}`,
@@ -19,7 +19,7 @@ export const entrarAMesa = async (
 
   if (resp.ok) {
     const room = idMesa;
-    var jsonResponse = await resp.json();
+    var jsonResponse = await resp.json();//ver que me devuelve.
     const jugadorUno = jsonResponse.jugadorUno;
     const jugadorDos = jsonResponse.jugadorDos;
     const jugadorTres = jsonResponse.jugadorTres;

@@ -19,31 +19,98 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
-        public Torneo ObtenerPorId(int torneoId)
+        public Boolean AgregarAUnaMesaDisponible(int idTorneo, int idUsuario)
         {
-            return _dbContext.Torneos
-                .Include(t => t.Participantes)
-                .Include(t => t.Partidas)
-                .Where(t => t.TorneoId == torneoId)
-                .FirstOrDefault();
+            //obtengo las mesas de ese torneo. 
+            //verifico cual esta vacia (de semifinal y final)
+            //le asigno a esa mesa el usuario
+
+            List <Mesa> mesasDisponibles = ObtenerMesasDelTorneo(idTorneo);
+
+            foreach (Mesa mesas in mesasDisponibles) {
+                if (mesas.Tipo.Equals("Semi")) {
+                    if (mesas.JugadorUno == null) {
+                        mesas.JugadorUno = idUsuario;
+                        _dbContext.SaveChanges();
+                        return true;
+                    }
+
+                    if (mesas.JugadorDos == null) {
+                        mesas.JugadorDos = idUsuario;
+                        _dbContext.SaveChanges();
+                        return true;
+                    }
+                }
+                
+            }
+            return false;
         }
 
-        public Torneo CrearTorneo(Torneo torneo)
+        public bool ConsultarMesaIniciada(int idMesa)
         {
-            _dbContext.Torneos.Add(torneo);
-            _dbContext.SaveChanges();
-            return torneo;
+            Mesa mesa = _dbContext.Mesas.Where(m=> m.IdMesa == idMesa).FirstOrDefault();
+
+            if (mesa.Estado.Equals("Ocupada"))
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+
         }
 
-        public List<Torneo> ObtenerTorneosDisponibles()
+        public int CrearTorneo(TorneoCri nuevoTorneo)
         {
-            return _dbContext.Torneos.Where(t=> t.Terminado == false).ToList();
-        }
-        public void SetearRondas(int torneoId, int ronda)
-        {
-            var torneo = _dbContext.Torneos.Where(t => t.TorneoId == torneoId).FirstOrDefault();
-            torneo.NroRonda = ronda;
+            _dbContext.TorneoCris.Add(nuevoTorneo);
             _dbContext.SaveChanges();
+
+            return nuevoTorneo.IdTorneo;
+
+        }
+
+        public List<Mesa> ObtenerMesasDelTorneo(int idTorneo)
+        {
+            TorneoCri torneo = _dbContext.TorneoCris
+                .Include(t => t.IdMesaSemiUnoNavigation)
+
+                .Include(t => t.IdMesaSemiDosNavigation)
+
+                .Include(t => t.IdMesaFinalNavigation)
+                .Where(t => t.IdTorneo == idTorneo).SingleOrDefault();
+
+
+
+            List<Mesa> mesas = new List<Mesa>();
+            mesas.Add(torneo.IdMesaSemiUnoNavigation);
+            mesas.Add(torneo.IdMesaSemiDosNavigation);
+            mesas.Add(torneo.IdMesaFinalNavigation);
+
+            return mesas;
+
+        }
+
+
+
+        public List<Usuario> ObtenerParticipantes(int idMesa)
+        {
+            int? usuarioU = (from mesa in _dbContext.Mesas where mesa.IdMesa == idMesa select mesa.JugadorUno).SingleOrDefault();
+            int? usuarioD = (from mesa in _dbContext.Mesas where mesa.IdMesa == idMesa select mesa.JugadorDos).SingleOrDefault();
+
+            Usuario usuarioUno = _dbContext.Usuarios.Where(u => u.IdUsuario == usuarioU).SingleOrDefault();
+            Usuario usuarioDos = _dbContext.Usuarios.Where(u => u.IdUsuario == usuarioD).SingleOrDefault();
+
+            List<Usuario> usuarios = new List<Usuario>();
+            usuarios.Add(usuarioUno);
+            usuarios.Add(usuarioDos);
+
+            return usuarios;
+        }
+
+        public List<TorneoCri> ObtenerTorneosDisponibles()
+        {
+             List <TorneoCri> torneos = _dbContext.TorneoCris.ToList();
+            return torneos;
         }
     }
 }
