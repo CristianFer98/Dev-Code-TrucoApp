@@ -95,6 +95,9 @@ namespace Router.Controllers
         [Route("ProximaRonda/{torneoId:int}")]
         public IActionResult ProximaRonda([FromRoute] int id)
         {
+            //Cuando se termina la partida de UNA mesa, es decir, cuando haya un ganador,
+            //enviar el TorneoPartidaId + ganadorId al backend
+            //settear el ganador en mesa, crear un nuevo torneoPartida y una nueva mesa
             return Ok(_torneoServicio.ProximaRonda(id));
         }
 
