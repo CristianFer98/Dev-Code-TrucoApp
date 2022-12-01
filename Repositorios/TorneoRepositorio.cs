@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using Microsoft.EntityFrameworkCore;
 using Repositorios.Interfaces;
+using Repositorios.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,64 +20,103 @@ namespace Repositorios
             _dbContext = dbContext;
         }
 
-        public Boolean AgregarAUnaMesaDisponible(int idTorneo, int idUsuario)
+        public MesaInvoke AgregarAUnaMesaDisponible(int idTorneo, int idUsuario)
         {
-            //obtengo las mesas de ese torneo. 
-            //verifico cual esta vacia (de semifinal y final)
-            //le asigno a esa mesa el usuario
+            /*ESTE METODO COMPRUEBA DOS COSAS> --
+            1. SI LA SEGUNDA MESA DE LA SEMIFINAL ES NULL, LA CREO. (DEVUELVO UN OBJETO CON INFO DE LA MESA PARA EL CONNECTION.INVOKE)
+            2. SI LA SEGUNDA MESA YA EXISTIA TENGO QUE INICIAR EL JUEGO. (DEVUELVO UN OBJETO CON INFO DE LA MESA PARA EL ENTRAR A MESA)
+            */
 
-            List <Mesa> mesasDisponibles = ObtenerMesasDelTorneo(idTorneo);
+            //Informacion que necesito.
+            DateTime today = DateTime.Now;
+            TorneoCri torneo = ObtenerTorneoPorId(idTorneo);
+            MesaInvoke mesaInvoke = new MesaInvoke();
+            List<Mesa> mesaDisponible = ObtenerMesasDelTorneo(idTorneo);
 
-            foreach (Mesa mesas in mesasDisponibles) {
-                if (mesas.Tipo.Equals("Semi")) {
-                    if (mesas.JugadorUno == null) {
-                        mesas.JugadorUno = idUsuario;
-                        _dbContext.SaveChanges();
-                        return true;
-                    }
 
-                    if (mesas.JugadorDos == null) {
-                        mesas.JugadorDos = idUsuario;
-                        _dbContext.SaveChanges();
-                        return true;
-                    }
-                }
-                
+            //1. SI LA SEMI DOS ES NULO, CREO UNA MESA Y LA AGREGO. CREO EL OBJETO MESAINVOKE CON LA PROPUEDAD INVOKE TRUE
+            if (torneo.IdMesaSemiDos == null)
+            {
+                Mesa semiDos = new Mesa
+                {
+                    CantidadJugadores = 2,
+                    JugadorUno = idUsuario,
+                    Tipo = "Semi",
+                    Estado = "Disponible",
+                    Torneo = true,
+                    FechaCreacion = today
+                };
+
+                torneo.IdMesaSemiDosNavigation = semiDos;
+                _dbContext.SaveChanges();
+
+                mesaInvoke.invoke = true;
+                mesaInvoke.idJugadorUno = idUsuario;
+                mesaInvoke.idMesa = torneo.IdMesaSemiDos;
+
+                return mesaInvoke;
             }
-            return false;
+
+
+            //2. SI NO ERA NULL, ENTONCES EL USUARIO DEBE INGRESAR A JUGAR. RECORRO LAS MESAS Y LAS QUE ESTEN DISPONIBLES
+            //LE ENVIO ESA INFORMACION PARA ENTRAR A LA MESA. 
+            foreach (Mesa mesa in mesaDisponible)
+            {
+                if (mesa.Estado.Equals("Disponible"))
+                {
+                    mesaInvoke.invoke = false;
+                    mesaInvoke.idMesa = mesa.IdMesa;
+                    mesaInvoke.idJugadorUno = mesa.JugadorUno;
+                    return mesaInvoke;
+                }
+            }
+
+            return null;
         }
 
-        public bool ConsultarMesaIniciada(int idMesa)
+        public TorneoCri ObtenerTorneoPorId(int idTorneo)
         {
-            Mesa mesa = _dbContext.Mesas.Where(m=> m.IdMesa == idMesa).FirstOrDefault();
+            return _dbContext.TorneoCris.Where(t => t.IdTorneo == idTorneo).Include(t=> t.IdMesaFinalNavigation).SingleOrDefault();
+        }
 
-            if (mesa.Estado.Equals("Ocupada"))
+        public bool ConsultarMesaLlena(int idMesa)
+        {
+            Mesa mesa = _dbContext.Mesas.Where(m => m.IdMesa == idMesa).FirstOrDefault();
+
+            if (mesa.JugadorUno != null && mesa.JugadorDos != null)
             {
                 return true;
             }
-            else {
+            else
+            {
                 return false;
             }
 
         }
 
-        public int CrearTorneo(TorneoCri nuevoTorneo)
+        public TorneoCri CrearTorneo(TorneoCri nuevoTorneo)
         {
             _dbContext.TorneoCris.Add(nuevoTorneo);
             _dbContext.SaveChanges();
 
-            return nuevoTorneo.IdTorneo;
+            return nuevoTorneo;
 
         }
 
         public List<Mesa> ObtenerMesasDelTorneo(int idTorneo)
         {
             TorneoCri torneo = _dbContext.TorneoCris
-                .Include(t => t.IdMesaSemiUnoNavigation)
+                .Include(t => t.IdMesaSemiUnoNavigation.JugadorUnoNavigation)
+                .Include(t => t.IdMesaSemiUnoNavigation.JugadorDosNavigation)
 
-                .Include(t => t.IdMesaSemiDosNavigation)
 
-                .Include(t => t.IdMesaFinalNavigation)
+                .Include(t => t.IdMesaSemiDosNavigation.JugadorUnoNavigation)
+                .Include(t => t.IdMesaSemiDosNavigation.JugadorDosNavigation)
+
+
+                .Include(t => t.IdMesaFinalNavigation.JugadorUnoNavigation)
+                .Include(t => t.IdMesaFinalNavigation.JugadorDosNavigation)
+
                 .Where(t => t.IdTorneo == idTorneo).SingleOrDefault();
 
 
@@ -109,8 +149,35 @@ namespace Repositorios
 
         public List<TorneoCri> ObtenerTorneosDisponibles()
         {
-             List <TorneoCri> torneos = _dbContext.TorneoCris.ToList();
+            List<TorneoCri> torneos = _dbContext.TorneoCris.ToList();
             return torneos;
+        }
+
+        public JugadoresEnMesa ObtenerJugadores(int idMesa)
+        {
+            Mesa mesa = _dbContext.Mesas.Where(m => m.IdMesa == idMesa).SingleOrDefault();
+
+            string nombreJugadorUno = _dbContext.Usuarios.Where(u => u.IdUsuario == mesa.JugadorUno).Select(u=> u.NombreCompleto).SingleOrDefault();
+            string nombreJugadorDos = _dbContext.Usuarios.Where(u => u.IdUsuario == mesa.JugadorDos).Select(u => u.NombreCompleto).SingleOrDefault();
+
+            JugadoresEnMesa jugadores = new JugadoresEnMesa();
+            jugadores.NombreJugadorUno = nombreJugadorUno;
+            jugadores.NombreJugadorDos = nombreJugadorDos;
+
+            return jugadores;
+        }
+
+        public Mesa CrearMesaFinal(int idTorneo, int uid)
+        {
+            DateTime today = DateTime.Now;
+            TorneoCri torneo = ObtenerTorneoPorId(idTorneo);
+
+            if (torneo.IdMesaFinal == null) {
+                torneo.IdMesaFinalNavigation = new Mesa { CantidadJugadores = 2, JugadorUno = uid, Tipo = "Final", Estado = "Disponible", Torneo = true, FechaCreacion = today };
+                _dbContext.SaveChanges();
+                return torneo.IdMesaFinalNavigation;
+            }
+            return null;
         }
     }
 }

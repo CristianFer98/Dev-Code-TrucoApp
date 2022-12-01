@@ -1,23 +1,30 @@
-﻿import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router";
 import { BotonCrearTorneo } from ".//BotonCrearTorneo";
-import { TorneoDisponibleCard } from "./TorneoDisponibleCard";
 import { ChatGeneral } from "../inicio/chat/ChatGeneral";
 import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
 import { useSelector } from "react-redux";
+import { entrarAMesa } from "../../helpers/fetchConnection";
+import { SocketContext } from "../../context/SocketContext";
+
 
 export const TorneosDisponibles = () => {
+
+    //ATRIBUTOS
     const history = useHistory();
     const { uid } = useSelector((state) => state.auth);
+    const { connection } = useContext(SocketContext);
+    const [torneos, setTorneos] = useState([]);
 
+
+    //METODOS
     const handleVolverInicio = async (e) => {
         e.preventDefault();
         history.push("/inicio");
     };
 
-    const [torneos, setTorneos] = useState([]);
-
+    //OBTENER TORNEOS
     useEffect(() => {
         obtenerTorneos();
     }, []);
@@ -36,7 +43,14 @@ export const TorneosDisponibles = () => {
         }
     }
 
+    const jugar = async (idMesa, idJugadorUno) => {
+        entrarAMesa(uid, idMesa, connection, idJugadorUno, 2);
+    }
+
+
+    //COMPRUEBO SI EL USUARIO VA A CREAR UNA MESA O SI VA A INGRESAR A UNA.
     const ingresarATorneo = async (idtorneo) => {
+        localStorage.setItem("torneo", idtorneo);//esto lo capturo en mesa.
 
         const respuesta = await fetch("https://localhost:44342/api/Torneo/ingresarATorneo", {
             method: "POST",
@@ -50,12 +64,19 @@ export const TorneosDisponibles = () => {
         });
 
         if (respuesta.ok) {
-            var confirmacion = await respuesta.json();    
+            var mesaInvoke = await respuesta.json();
+            const { idJugadorUno, idMesa, invoke } = mesaInvoke;
+
+            if (invoke == true) {
+                await connection.invoke("CrearMesa", idJugadorUno, idMesa);//la clave esta aca, tengo que crear el connection.invoque de las dos mesas creadas. 
+
+            } else {
+                jugar(idMesa, idJugadorUno);
+                console.log('A jugar')
+            }
+            history.push(`/inicio/tabla/${idtorneo}`);
             
         }
-
-        history.push(`/inicio/tabla/${idtorneo}`);
-
     };
 
 
@@ -92,8 +113,8 @@ export const TorneosDisponibles = () => {
 
                         {torneos.map((torneo) => (
                             <div>
-                            <p key={torneo.idTorneo} style={{ height: "100px", width: "100px", backgroundColor: "red", margin: "20px" }}>{torneo.idTorneo}</p>
-                                <button type="button" class="btn btn-primary" onClick={() => ingresarATorneo(torneo.idTorneo)}>Primary</button>
+                                <p key={torneo.idTorneo} style={{ height: "100px", width: "100px", backgroundColor: "red", margin: "20px" }}
+                                onClick={() => ingresarATorneo(torneo.idTorneo)}>Ingresar</p>
                             </div>
 
                         ))}

@@ -159,6 +159,18 @@ namespace Entidades
                 entity.Property(e => e.Tipo)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.HasOne(d => d.JugadorUnoNavigation)
+                   .WithMany()
+                   .HasForeignKey(d => d.JugadorUno)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_MESA_USUARIOJUNO");
+
+                entity.HasOne(d => d.JugadorDosNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.JugadorDos)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MESA_USUARIOJDOS");
             });
 
             modelBuilder.Entity<Producto>(entity =>

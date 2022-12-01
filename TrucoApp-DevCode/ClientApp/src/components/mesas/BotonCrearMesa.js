@@ -29,7 +29,7 @@ export const BotonCrearMesa = ({ cantidadJugadoresMesa }) => {
       var jsonResponse = await resp.json();
       const room = jsonResponse.idMesa;
       const user = jsonResponse.jugadorUno;
-      await connection.invoke("CrearMesa", user, room);
+      await connection.invoke("CrearMesa", user, room);//la clave esta aca, tengo que crear el connection.invoque de las dos mesas creadas. 
       Swal.fire("Se creó la mesa", "", "success");
     }
   };

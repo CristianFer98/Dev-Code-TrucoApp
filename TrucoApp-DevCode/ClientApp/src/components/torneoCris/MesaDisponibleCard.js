@@ -1,101 +1,55 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { SocketContext } from "../../context/SocketContext";
-import { entrarAMesa } from "../../helpers/fetchConnection";
+import { useSelector } from 'react-redux'
 
-//CRIS
+
 
 export const MesaDisponibleCard = ({ mesa }) => {
 
-    const { idMesa, jugadorUno, jugadorDos, cantidadJugadores } = mesa;
+     
+    const [nombreJugadorUno, setNombreJugadorUno] = useState('');
+    const [nombreJugadorDos, setNombreJugadorDos] = useState('');
 
-    const { connection } = useContext(SocketContext);
-    const [nombreJugadorUno, setNombreJugadorUno] = useState(null);
-    const [nombreJugadorDos, setNombreJugadorDos] = useState(null);
-
-    const [idJugadorUno, setIdJugadorUno] = useState(null);
-    const [idJugadorDos, setIdJugadorDos] = useState(null);
-
-    const [mesaHabilitada, setMesaHabilitada] = useState(false);
-    
-
-    const { uid } = useSelector((state) => state.auth);
-
-
-    const jugar = async () => {
-        entrarAMesa(uid, idMesa, connection, jugadorUno, cantidadJugadores);
-    };
-    /*
+    //obtener las mesas cada un cierto tiempo para ver los que se setearon.
     useEffect(() => {
-        localStorage.setItem("jugando", "NO");
+        const { idMesa } = mesa;
 
         setInterval(() => {
-            if (localStorage.getItem("jugando") == "NO") {
-                consultarMesaIniciada(idMesa);
-                console.log("entra")
-            }
-        }, 500)
-    });
-    */
-    const consultarMesaIniciada = async (idMesa) => {
-        const respuesta = await fetch(`https://localhost:44342/api/Torneo/consultarMesaIniciada/${idMesa}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+            obtenerJugadores(idMesa)
+        }, 1500)
 
-        if (respuesta.ok) {
-            const confirmacion = await respuesta.json();
-            if (confirmacion) {
-                jugar();               
-            }
-        }
 
-    }
-
-    useEffect(() => {
-        if (nombreJugadorUno != null && nombreJugadorDos != null) {
-            setMesaHabilitada(true);
-        }
     })
 
-    useEffect(() => {
-        setInterval(() => {
-            obtenerParticipantesDeLaMesa(idMesa);
-        }, 1000)
-    }, []);
+    const obtenerJugadores = async (idMesa) => {
 
-    const obtenerParticipantesDeLaMesa = async (idMesa) => {
-        const respuesta = await fetch(`https://localhost:44342/api/Torneo/obtenerParticipantes/${idMesa}`, {
+        const respuesta = await fetch(`https://localhost:44342/api/Torneo/obtenerJugadores/${idMesa}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
-        })
+
+        });
 
         if (respuesta.ok) {
-            const users = await respuesta.json();
 
-            if (users[0] != null) {
-                setNombreJugadorUno(users[0].nombreCompleto);
-                setIdJugadorUno(users[0].idUsuario)
-            }
-            if (users[1] != null) {
-                setNombreJugadorDos(users[1].nombreCompleto);
-                setIdJugadorDos(users[1].idUsuario)
+            var jugadores = await respuesta.json();//recibe un jugadoresEnMesa
 
-            }
+         
+            setNombreJugadorUno(jugadores.nombreJugadorUno)
+            setNombreJugadorDos(jugadores.nombreJugadorDos)
+            
         }
     }
+
+  
+
+
 
 
     return (
         <div className="mesaCarta animate__animated animate__fadeIn m-2 p-3 py-2 d-flex flex-column">
             <div className="d-flex w-100 justify-content-end">
-                {nombreJugadorUno} <br></br> {nombreJugadorDos}
-                {mesaHabilitada == true ? <button onClick={() => jugar()}>Ingresar</button> : ''}
-
+                {nombreJugadorUno} - {nombreJugadorDos}
             </div>
 
             <div className="d-flex flex-column justify-content-center align-items-center">
@@ -111,3 +65,4 @@ export const MesaDisponibleCard = ({ mesa }) => {
         </div>
     );
 };
+

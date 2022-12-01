@@ -11,6 +11,8 @@ using Router.Hubs;
 using Servicios;
 using Entidades;
 using TrucoApp.DTOs;
+using DTOs;
+using Repositorios.Model;
 
 namespace Router.Controllers
 {
@@ -32,15 +34,11 @@ namespace Router.Controllers
             DateTime today = DateTime.Now;
 
             TorneoCri torneoNuevo = new TorneoCri();
-
-            torneoNuevo.IdMesaSemiUnoNavigation = new Mesa { CantidadJugadores = 2, JugadorUno=crearTorneo.Usuario, Tipo = "Semi", Estado = "Disponible", Torneo=true, FechaCreacion = today };
-            torneoNuevo.IdMesaFinalNavigation = new Mesa { CantidadJugadores = 2, Tipo = "Final", Estado = "Disponible", Torneo = true, FechaCreacion = today };
-            torneoNuevo.IdMesaSemiDosNavigation = new Mesa { CantidadJugadores = 2, Tipo = "Semi", Estado = "Disponible", Torneo=true, FechaCreacion = today };
-
-            return StatusCode(StatusCodes.Status200OK, _torneoServicio.CrearTorneo(torneoNuevo));
+            torneoNuevo.IdMesaSemiUnoNavigation = new Mesa { CantidadJugadores = 2, JugadorUno = crearTorneo.Usuario, Tipo = "Semi", Estado = "Disponible", Torneo = true, FechaCreacion = today };
+            return StatusCode(StatusCodes.Status200OK, _torneoServicio.CrearTorneo(torneoNuevo));//devuelve el torneo con esa mesa semi uno
         }
 
-        
+
         [HttpGet]
         [Route("obtenerMesasDelTorneo/{idTorneo:int}")]
         public ActionResult Get(int idTorneo)
@@ -72,7 +70,7 @@ namespace Router.Controllers
         }
 
 
-        
+
         [HttpGet]
         [Route("obtenerTorneos")]
         public ActionResult Get()
@@ -87,16 +85,17 @@ namespace Router.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
-        
+
+
         [HttpPost]
         [Route("ingresarATorneo")]
         public ActionResult Post([FromBody] AgregarParticipanteDto agregarParticipante)
         {
+            //VOY A INGRESAR AL TORNEO A LOS JUGADOR UNO SOLAMENTE. PERO SIEMPRE ME VA A DEVOLVER UNA MESA, YA SEA PARA USAR INVOKE O PARA ENTRAR
             try
             {
-                _torneoServicio.AgregarAUnaMesaDisponible(agregarParticipante.IdTorneo, agregarParticipante.IdUsuario);
-                return StatusCode(StatusCodes.Status200OK, agregarParticipante);
+
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.AgregarAUnaMesaDisponible(agregarParticipante.IdTorneo, agregarParticipante.IdUsuario));
             }
             catch (Exception ex)
             {
@@ -104,14 +103,46 @@ namespace Router.Controllers
 
             }
         }
-        
+
         [HttpGet]
-        [Route("consultarMesaIniciada/{idMesa:int}")]
-        public IActionResult ProximaRonda([FromRoute] int idMesa)
+        [Route("obtenerJugadores/{idMesa:int}")]
+        public IActionResult ObtenerJugadores([FromRoute] int idMesa)
         {
-            return Ok(_torneoServicio.consultarMesaIniciada(idMesa));
+            try
+            {
+
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.obtenerJugadores(idMesa));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
         }
-        
+
+        [HttpPost]
+        [Route("crearMesaFinal")]
+        public IActionResult CrearMesaFinal([FromBody] CrearMesaFinalDTO mesaFinal)
+        {
+
+
+
+
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.CrearMesaFinal(mesaFinal.IdTorneo, mesaFinal.IdUsuario));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+
+        }
+
+
+
+
     }
 
 }

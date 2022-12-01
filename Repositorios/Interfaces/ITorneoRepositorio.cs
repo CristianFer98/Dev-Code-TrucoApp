@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using Repositorios.Model;
 using System;
 using System.Collections.Generic;
 
@@ -6,11 +7,13 @@ namespace Repositorios.Interfaces
 {
     public interface ITorneoRepositorio
     {
-        int CrearTorneo(TorneoCri nuevoTorneo);
+        TorneoCri CrearTorneo(TorneoCri nuevoTorneo);
         List<Mesa> ObtenerMesasDelTorneo(int idTorneo);
         List<Usuario> ObtenerParticipantes(int idMesa);
         List<TorneoCri> ObtenerTorneosDisponibles();
-        Boolean AgregarAUnaMesaDisponible(int idTorneo, int idUsuario);
-        bool ConsultarMesaIniciada(int idMesa);
+        MesaInvoke AgregarAUnaMesaDisponible(int idTorneo, int idUsuario);
+        bool ConsultarMesaLlena(int idMesa);
+        JugadoresEnMesa ObtenerJugadores(int idMesa);
+        Mesa CrearMesaFinal(int idTorneo, int uid);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using Repositorios;
 using Repositorios.Interfaces;
+using Repositorios.Model;
 using Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,19 +22,29 @@ namespace Servicios
           
         }
 
-        public Boolean AgregarAUnaMesaDisponible(int idTorneo, int idUsuario)
+        public MesaInvoke AgregarAUnaMesaDisponible(int idTorneo, int idUsuario)
         {
            return _torneoRepositorio.AgregarAUnaMesaDisponible(idTorneo, idUsuario);
         }
 
-        public bool consultarMesaIniciada(int idMesa)
+        public bool consultarMesaLlena(int idMesa)
         {
-            return _torneoRepositorio.ConsultarMesaIniciada(idMesa);
+            return _torneoRepositorio.ConsultarMesaLlena(idMesa);
         }
 
-        public int CrearTorneo(TorneoCri nuevoTorneo)
+        public Mesa CrearMesaFinal(int idTorneo, int uid)
+        {
+            return _torneoRepositorio.CrearMesaFinal(idTorneo, uid);
+        }
+
+        public TorneoCri CrearTorneo(TorneoCri nuevoTorneo)
         {
            return _torneoRepositorio.CrearTorneo(nuevoTorneo);
+        }
+
+        public JugadoresEnMesa obtenerJugadores(int idMesa)
+        {
+            return _torneoRepositorio.ObtenerJugadores(idMesa);
         }
 
         public List<Mesa> ObtenerMesasDelTorneo(int idTorneo)

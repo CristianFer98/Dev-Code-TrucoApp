@@ -47,11 +47,12 @@ export const MesasDisponibles = () => {
               marginTop: "0px",
             }}
           >
-            {!mesas1vs1.find((mesa) => mesa.jugadorUno === uid) && (
+          
+            {!mesas1vs1.find((mesa) => mesa.jugadorUno === uid && mesa.torneo != true) && (
               <BotonCrearMesa cantidadJugadoresMesa={2} />
             )}
-            {mesas1vs1.map((mesa) => (
-              <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
+            {mesas1vs1.filter(mesa => mesa.torneo == null).map((mesa) => (
+               <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
             ))}
           </div>
         </div>

@@ -52,11 +52,7 @@ export const AppRouter = () => {
                                 />
                                 <Route exact path="/inicio/reglas" component={Reglas} />
 
-                                { /* <Route
-                                    exact
-                                    path="/inicio/torneos"
-                                    component={TorneosDisponibles}
-                                />*/}
+                              
 
                                 <Route
                                     exact
@@ -86,6 +82,11 @@ export const AppRouter = () => {
 
                     <Route path="/juego">
                         <Truco1vs1 />
+                        <Route
+                            exact
+                            path="/inicio/tabla/:idtorneo"
+                            component={TablaDeTorneo}
+                        />
                     </Route>
 
                     <Route path="/juego2vs2">

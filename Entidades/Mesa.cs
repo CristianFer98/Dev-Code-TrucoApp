@@ -19,6 +19,9 @@ namespace Entidades
         public int? JugadorCuatro { get; set; }
         public bool? Torneo { get; set; }
 
- 
+        public virtual Usuario JugadorUnoNavigation { get; set; }
+        public virtual Usuario JugadorDosNavigation { get; set; }
+
+
     }
 }

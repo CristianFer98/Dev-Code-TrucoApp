@@ -8,20 +8,52 @@ import { getUserPlayer } from "../../helpers/truco/getUserTurno";
 import { Flop } from "./Flop";
 import { Jugador } from "./Jugador";
 import { Rival } from "./Rival";
+import { useHistory } from "react-router";
+
 
 export const Mesa = () => {
   const { uid } = useSelector((state) => state.auth);
-  const { partida, usuariosConectados } = useSelector((state) => state.juego);
+    const { partida, usuariosConectados } = useSelector((state) => state.juego);
+    const history = useHistory();
+
   const {
     ganadorMano,
     repartidor,
     puntosJugadorUno,
     puntosJugadorDos,
     jugadorUno,
-    jugadorDos,
+      jugadorDos,
+      room
   } = partida;
   const { chantBox } = useSelector((state) => state.ui);
   const { connection } = useContext(SocketContext);
+
+
+    const crearMesaFinal = async (idTorneo, uid) => {
+        const respuesta = await fetch(`https://localhost:44342/api/Torneo/crearMesaFinal`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IdTorneo: idTorneo,
+                IdUsuario: uid,
+            }),
+        });
+
+        if (respuesta.ok) {
+
+            var mesa = await respuesta.json();
+            const jugadorUno = mesa.jugadorUno;
+            const idMesa = mesa.idMesa;
+
+
+            await connection.invoke("CrearMesa", jugadorUno, idMesa); 
+            history.push(`/inicio/tabla/${idTorneo}`);
+
+
+        }
+    }
 
   useEffect(() => {
     if (!usuariosConectados) {
@@ -33,7 +65,15 @@ export const Mesa = () => {
           }, 2000);
       } else {
         puntosJugadorUno >= 30
-          ? Swal.fire("Ganador jugador uno", "", "success")
+            ? Swal.fire("Ganador jugador uno", "", "success").then((value) => {
+                let idTorneo = localStorage.getItem("torneo");
+                connection.invoke("DejarMesa", room);
+                if (idTorneo != null) {
+                    crearMesaFinal(idTorneo, uid);    
+                }
+
+           
+            })
           : puntosJugadorDos >= 30 &&
             Swal.fire("Ganador jugador dos", "", "success");
       }
@@ -53,6 +93,9 @@ export const Mesa = () => {
     uid,
     usuariosConectados,
   ]);
+
+
+ 
 
   return (
     <div className="board">

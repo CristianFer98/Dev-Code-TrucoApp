@@ -9,7 +9,10 @@ const TablaDeTorneo = ({ match }) => {
     //tengo que recibir el id del torneo que creo para traerme sus mesas.
 
     const history = useHistory();
-    var idtorneo = match.params.idtorneo;
+    const idtorneo = match.params.idtorneo;
+    const [mesaSemiUno, setMesaSemiUno] = useState([]);
+    const [mesaSemiDos, setMesaSemiDos] = useState([]);
+    const [mesaFinal, setMesaFinal] = useState([]);
 
 
     //tengo que obtener las mesas de ese torneo (el ID del torneo ya lo tengo en la URL)
@@ -18,12 +21,13 @@ const TablaDeTorneo = ({ match }) => {
         history.push("/inicio");
     };
 
-    const [mesas, setMesas] = useState([]);
 
 
     useEffect(() => {
-        obtenerMesasDelTorneo();
-    },[]);
+        setInterval(() => {
+            obtenerMesasDelTorneo();
+        },1000)
+    }, []);
 
     const obtenerMesasDelTorneo = async () => {
         const respuesta = await fetch(`https://localhost:44342/api/Torneo/obtenerMesasDelTorneo/${idtorneo}`, {
@@ -35,12 +39,20 @@ const TablaDeTorneo = ({ match }) => {
 
         if (respuesta.ok) {
             const mesas = await respuesta.json();
-            setMesas(mesas);
+            if (mesas[0] != null) {
+                setMesaSemiUno(mesas[0]);
+            }
+
+            if (mesas[1] != null) {
+                setMesaSemiDos(mesas[1]);
+            }
+
+            if (mesas[2] != null) {
+                setMesaFinal(mesas[2]);
+            }
+           
         }
     }
-
-  
-
 
     return (
 
@@ -71,9 +83,9 @@ const TablaDeTorneo = ({ match }) => {
                 }}
             >
 
-                {mesas.map((mesa) => (
-                    <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
-                ))}
+                <MesaDisponibleCard mesa={mesaSemiUno} />
+                {mesaFinal.length != 0 ? <MesaDisponibleCard mesa={mesaFinal} /> : ''}
+                {mesaSemiDos.length != 0 ? <MesaDisponibleCard mesa={mesaSemiDos} /> : ''}
             </div>
         </>
     );

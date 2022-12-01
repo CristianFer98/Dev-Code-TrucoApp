@@ -22,6 +22,7 @@ import {
   setCargandoTrue2vs2,
 } from "../actions/ui";
 import { getUserPlayer } from "../helpers/truco/getUserTurno";
+
 export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
