@@ -2,11 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../context/SocketContext";
-import {
-  envidoMasAlto,
-  envidoMasAlto2vs2,
-  getUserPlayer,
-} from "../../../helpers/truco/getUserTurno";
+import { getUserPlayer } from "../../../helpers/truco/getUserTurno";
 import { ocultarBotonesYAcciones } from "../../../helpers/truco/ocultarBotonesYAcciones";
 import { tiposBotones } from "../../../types/tiposBotones";
 
@@ -14,14 +10,8 @@ export const BotonTantoEnvido2vs2 = () => {
   const { connection } = useContext(SocketContext);
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
-  const {
-    repartidor,
-    jugadorUno,
-    jugadorDos,
-    jugadorTres,
-    jugadorCuatro,
-    envido,
-  } = partida;
+  const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro, envido } =
+    partida;
   const {
     tantoJugadorUno,
     tantoJugadorDos,
@@ -32,35 +22,15 @@ export const BotonTantoEnvido2vs2 = () => {
     tantoCantadoJugadorTres,
     tantoCantadoJugadorCuatro,
   } = envido;
-  const numeroJugador = getUserPlayer(uid, jugadorUno, jugadorDos);
-  const envidoMasAlto = envidoMasAlto2vs2(
-    repartidor,
-    tantoJugadorUno,
-    tantoJugadorDos,
-    tantoJugadorTres,
-    tantoCantadoJugadorCuatro
+  const numeroJugador = getUserPlayer(
+    uid,
+    jugadorUno,
+    jugadorDos,
+    jugadorTres,
+    jugadorCuatro
   );
 
-  const esMasAlta = () => {
-    if (repartidor !== numeroJugador) {
-      return true;
-    } else if (repartidor === numeroJugador) {
-      switch (numeroJugador) {
-        case 1:
-        case 2:
-          return envidoMasAlto === 1 ? true : false;
-        case 3:
-        case 4:
-          return envidoMasAlto === 2 ? true : false;
-        default:
-          break;
-      }
-    } else {
-      return false;
-    }
-  };
-
-  const tantoJugador = () => {
+  const tantoJugador = (numeroJugador) => {
     switch (numeroJugador) {
       case 1:
         return tantoJugadorUno;
@@ -99,23 +69,13 @@ export const BotonTantoEnvido2vs2 = () => {
 
   return (
     <>
-      {esMasAlta ? (
-        <div
-          className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
-          id={`Tengo ${tantoJugador}`}
-          onClick={handleCantarTantos}
-        >
-          Tengo {tantoJugador}
-        </div>
-      ) : (
-        <div
-          className="d-flex justify-content-center align-items-center buttonPlayer2Mazo text-white m-1"
-          id="Son buenas"
-          onClick={handleCantarTantos}
-        >
-          Son buenas
-        </div>
-      )}
+      <div
+        className="d-flex justify-content-center align-items-center buttonPlayer2 m-1 text-white"
+        id={`Tengo ${tantoJugador(numeroJugador)}`}
+        onClick={handleCantarTantos}
+      >
+        Tengo {tantoJugador(numeroJugador)}
+      </div>
     </>
   );
 };

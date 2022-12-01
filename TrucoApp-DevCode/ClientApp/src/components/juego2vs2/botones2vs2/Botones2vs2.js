@@ -24,10 +24,14 @@ export const Botones2vs2 = () => {
         {ocultarBotonesYAcciones(uid, partida, tiposBotones.tantos) && (
           <BotonTantoEnvido2vs2 />
         )}
-        {/* <>
-          <BotonesTruco2vs2 />
-          <BotonIrAlMazo2vs2 />
-        </> */}
+        {ocultarBotonesYAcciones(uid, partida, tiposBotones.truco) && (
+          <>
+            <BotonesTruco2vs2 />
+            {ocultarBotonesYAcciones(uid, partida, tiposBotones.irAlMazo) && (
+              <BotonIrAlMazo2vs2 />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

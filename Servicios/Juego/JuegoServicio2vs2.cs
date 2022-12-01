@@ -144,8 +144,16 @@ namespace Servicios.Juego
             {
                 if (partida.Turno == partida.Envido.JugadorQueCantoPrimeroEnvido)
                 {
-                    partida.Turno = AsignarTurno2vs2(partida.Envido.JugadorQueCantoPrimeroEnvido);
-                    partida.Envido.JugadorQueDebeResponderEnvido = AsignarTurno2vs2(partida.Envido.JugadorQueCantoPrimeroEnvido);
+                    if (partida.Truco.EstadoTrucoCantado == false)
+                    {
+                        partida.Turno = AsignarTurno2vs2(partida.Envido.JugadorQueCantoPrimeroEnvido);
+                        partida.Envido.JugadorQueDebeResponderEnvido = AsignarTurno2vs2(partida.Envido.JugadorQueCantoPrimeroEnvido);
+                    }
+                    else
+                    {
+                        partida.Turno = partida.Truco.JugadorQueCantoPrimeroTruco;
+                        partida.Envido.JugadorQueDebeResponderEnvido = partida.Truco.JugadorQueCantoPrimeroTruco;
+                    }
                 }
                 else
                 {
@@ -158,6 +166,49 @@ namespace Servicios.Juego
             return partida;
         }
 
+        public static Partida TrucoTurnos(Partida partida)
+        {
+            partida.Truco.JugadorQueCantoTruco = partida.Turno;
+            partida.JugadasRealizadas += 1;
+
+            int jugadorQueCantaTruco = partida.Turno;
+
+            if (partida.Truco.TrucosCantados[^1] == "truco" || partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro")
+            {
+                partida.Truco.EstadoTrucoCantado = true;
+
+
+                if (partida.Truco.TrucosCantados[^1] == "truco" || (partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro") && partida.Truco.TrucosCantados[^2] == "quiero")
+                {
+                    partida.Turno = AsignarTurno2vs2(jugadorQueCantaTruco);
+                    partida.Truco.JugadorQueDebeResponderTruco = AsignarTurno2vs2(jugadorQueCantaTruco);
+                    partida.Truco.JugadorQueCantoPrimeroTruco = jugadorQueCantaTruco;
+                }
+
+                else if ((partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro") && partida.Truco.TrucosCantados[^2] != "quiero")
+                {
+                    partida.Turno = partida.Truco.JugadorQueCantoPrimeroTruco;
+                    partida.Truco.JugadorQueDebeResponderTruco = partida.Truco.JugadorQueCantoPrimeroTruco;
+                }
+            }
+            else
+            {
+                partida.Truco.EstadoTrucoCantado = false;
+
+                if (partida.Truco.TrucosCantados[^1] == "no quiero")
+                {
+                    partida = JuegoServicio.AsignarPuntosAGanadorMano(partida, jugadorQueCantaTruco == 1 || jugadorQueCantaTruco == 2 ? 2 : 1);
+                }
+                else
+                {
+                    partida.Turno = partida.Truco.JugadorQueCantoPrimeroTruco;
+                    partida.Truco.JugadorQueDebeResponderTruco = jugadorQueCantaTruco;
+                }
+            }
+
+            partida = JuegoServicio.VerificarSiAlguienGanoElPartido(partida);
+            return partida;
+        }
 
         public static Partida TantosEnvidoTurnos(Partida partida)
         {

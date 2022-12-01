@@ -263,7 +263,15 @@ namespace Router.Hubs
         public async Task CantarTruco(Partida partida)
         {
             string userRoom = Convert.ToString(partida.Room);
-            Partida partidaActualizada = JuegoServicio.TrucoTurnos(partida);
+            Partida partidaActualizada;
+            if (partida.CantidadJugadores == 2)
+            {
+                partidaActualizada = JuegoServicio.TrucoTurnos(partida);
+            }
+            else
+            {
+                partidaActualizada = JuegoServicio2vs2.TrucoTurnos(partida);
+            }
             await Clients.Group(userRoom).SendAsync("TrucoCantado", partidaActualizada);
         }
 

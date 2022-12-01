@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../context/SocketContext";
@@ -37,10 +36,6 @@ export const BotonesEnvido2vs2 = () => {
         },
       }));
   };
-
-  useEffect(() => {
-    console.log(ocultarBotonesYAcciones(uid, partida, tiposBotones.envido));
-  }, [envidosCantados]);
 
   return (
     <>
