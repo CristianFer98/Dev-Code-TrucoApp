@@ -42,6 +42,18 @@
       rgba(0, 0, 0, 0.09) 0px 32px 16px;
   }
 
+  .divChant2 {
+    z-index: 4;
+    background-color: rgb(199, 203, 2);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+      rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 48%;
+  }
+
   .divCardPlayerTurn {
     padding: 0%;
     width: 60px;
@@ -281,6 +293,10 @@
 @media (min-width: 768px) {
   .board {
     height: 30em;
+    width: 40em;
+  }
+
+  .divChant2 {
     width: 40em;
   }
 
@@ -676,7 +692,6 @@
   height: 45px;
   position: absolute;
   bottom: 0px;
-  margin-right: 130px;
 }
 
 .divChant:before {

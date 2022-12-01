@@ -20,6 +20,7 @@ export const Mesa2vs2 = () => {
     repartidor,
   } = partida;
   const { connection } = useContext(SocketContext);
+  const { chantBox } = useSelector((state) => state.ui);
 
   useEffect(() => {
     !!ganadorMano &&
@@ -54,6 +55,11 @@ export const Mesa2vs2 = () => {
       justify-content-between"
       >
         <Jugador2vs2 />
+        {!!chantBox && (
+          <div className="divChant2 d-flex justify-content-center align-items-center">
+            <h5 className="fw-bold text-dark mt-2">{chantBox}</h5>
+          </div>
+        )}
         <Flop2vs2 />
         <JugadorDos2vs2 />
       </div>
