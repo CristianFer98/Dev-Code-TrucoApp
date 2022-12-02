@@ -251,7 +251,7 @@ export const SocketProvider = ({ children }) => {
 
     useEffect(() => {
         connection?.on("TorneosPartidaActualizados", (torneoId) => {
-            dispatch(obtenerTorneoPartida(torneoId));
+            dispatch(obtenerTorneoPartida(torneoId, connection));
         });
     }, [connection, dispatch]);
 

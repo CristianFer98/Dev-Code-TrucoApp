@@ -1,4 +1,5 @@
 ﻿import { types } from "../types/types";
+
 export const obtenerTorneos = () => {
     return async (dispatch) => {
         const resp = await fetch(
@@ -23,7 +24,7 @@ export const obtenerTorneos = () => {
     };
 };
 
-export const obtenerTorneoPartida = (torneoId) => {
+export const obtenerTorneoPartida = (torneoId, connection) => {
     return async (dispatch) => {
         const resp = await fetch(
             `https://localhost:44342/api/Torneo/ObtenerTodosLosTorneosPartida/${torneoId}`,
@@ -48,3 +49,4 @@ export const obtenerTorneoPartida = (torneoId) => {
         }
     };
 };
+
