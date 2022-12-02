@@ -38,6 +38,14 @@ export const juegoReducer = (state = initialState, action) => {
         ...action.payload,
       };
 
+    case types.juegoAsignarGanador:
+      return {
+        ...state,
+        partida: {
+          ...state.partida,
+          ganadorPartida: action.payload.ganador,
+        },
+      };
     case types.juegoDejarMesa:
       return initialState;
 

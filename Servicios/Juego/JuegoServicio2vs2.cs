@@ -78,14 +78,175 @@ namespace Servicios.Juego
             }
         }
 
+        public static int EnvidoMasAlto(int repartidor, int tantoJugadorUno, int tantoJugadorDos, int tantoJugadorTres, int tantoJugadorCuatro)
+        {
+
+            List<int> tantosEquipoUno = new() { tantoJugadorUno, tantoJugadorDos };
+            List<int> tantosEquipoDos = new() { tantoJugadorTres, tantoJugadorCuatro };
+
+            int masAltaEquipoUno = tantosEquipoUno.OrderByDescending(c => c).ToList()[0];
+            int masAltaEquipoDos = tantosEquipoDos.OrderByDescending(c => c).ToList()[0];
+
+            if (masAltaEquipoUno > masAltaEquipoDos)
+            {
+                return 1;
+            }
+            else if (masAltaEquipoUno < masAltaEquipoDos)
+            {
+                return 2;
+            }
+            else
+            {
+                if (repartidor == 1 || repartidor == 2)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 1;
+                }
+
+            }
+
+        }
+
+        public static Partida EnvidoTurnos(Partida partida)
+        {
+            partida.Envido.JugadorQueCantoEnvido = partida.Turno;
+            partida.JugadasRealizadas += 1;
+            int jugadorQueCantaEnvido = partida.Turno;
+
+            if (partida.Envido.EnvidosCantados[^1] == "quiero")
+            {
+                partida.Turno = AsignarTurno2vs2(partida.Repartidor);
+                partida.Envido.EstadoEnvidoCantado = false;
+                partida.Envido.EstadoCantarTantos = true;
+                partida.Envido.JugadorQueDebeResponderEnvido = AsignarTurno2vs2(partida.Repartidor);
+            }
+            else if (partida.Envido.EnvidosCantados[^1] == "no quiero")
+            {
+                partida.Turno = partida.Envido.JugadorQueCantoPrimeroEnvido;
+                partida.Envido.EstadoEnvidoCantado = false;
+                partida.Envido.EstadoCantarTantos = false;
+                partida.Envido.JugadorQueDebeResponderEnvido = 0;
+                partida.Envido.JugadorQueCantoPrimeroEnvido = 0;
+
+                if (jugadorQueCantaEnvido == 1 || jugadorQueCantaEnvido == 2)
+                {
+                    partida.PuntosJugadorDos += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+                else
+                {
+                    partida.PuntosJugadorUno += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+            }
+            else
+            {
+                if (partida.Turno == partida.Envido.JugadorQueCantoPrimeroEnvido)
+                {
+                    if (partida.Truco.EstadoTrucoCantado == false)
+                    {
+                        partida.Turno = AsignarTurno2vs2(partida.Envido.JugadorQueCantoPrimeroEnvido);
+                        partida.Envido.JugadorQueDebeResponderEnvido = AsignarTurno2vs2(partida.Envido.JugadorQueCantoPrimeroEnvido);
+                    }
+                    else
+                    {
+                        partida.Turno = partida.Truco.JugadorQueCantoPrimeroTruco;
+                        partida.Envido.JugadorQueDebeResponderEnvido = partida.Truco.JugadorQueCantoPrimeroTruco;
+                    }
+                }
+                else
+                {
+                    partida.Turno = partida.Envido.JugadorQueCantoPrimeroEnvido;
+                    partida.Envido.JugadorQueDebeResponderEnvido = partida.Envido.JugadorQueCantoPrimeroEnvido;
+                }
+            }
+
+            partida = JuegoServicio.VerificarSiAlguienGanoElPartido(partida);
+            return partida;
+        }
+
+        public static Partida TrucoTurnos(Partida partida)
+        {
+            partida.Truco.JugadorQueCantoTruco = partida.Turno;
+            partida.JugadasRealizadas += 1;
+
+            int jugadorQueCantaTruco = partida.Turno;
+
+            if (partida.Truco.TrucosCantados[^1] == "truco" || partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro")
+            {
+                partida.Truco.EstadoTrucoCantado = true;
+
+
+                if (partida.Truco.TrucosCantados[^1] == "truco" || (partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro") && partida.Truco.TrucosCantados[^2] == "quiero")
+                {
+                    partida.Turno = AsignarTurno2vs2(jugadorQueCantaTruco);
+                    partida.Truco.JugadorQueDebeResponderTruco = AsignarTurno2vs2(jugadorQueCantaTruco);
+                    partida.Truco.JugadorQueCantoPrimeroTruco = jugadorQueCantaTruco;
+                }
+
+                else if ((partida.Truco.TrucosCantados[^1] == "re truco" || partida.Truco.TrucosCantados[^1] == "vale cuatro") && partida.Truco.TrucosCantados[^2] != "quiero")
+                {
+                    partida.Turno = partida.Truco.JugadorQueCantoPrimeroTruco;
+                    partida.Truco.JugadorQueDebeResponderTruco = partida.Truco.JugadorQueCantoPrimeroTruco;
+                }
+            }
+            else
+            {
+                partida.Truco.EstadoTrucoCantado = false;
+
+                if (partida.Truco.TrucosCantados[^1] == "no quiero")
+                {
+                    partida = JuegoServicio.AsignarPuntosAGanadorMano(partida, jugadorQueCantaTruco == 1 || jugadorQueCantaTruco == 2 ? 2 : 1);
+                }
+                else
+                {
+                    partida.Turno = partida.Truco.JugadorQueCantoPrimeroTruco;
+                    partida.Truco.JugadorQueDebeResponderTruco = jugadorQueCantaTruco;
+                }
+            }
+
+            partida = JuegoServicio.VerificarSiAlguienGanoElPartido(partida);
+            return partida;
+        }
+
+        public static Partida TantosEnvidoTurnos(Partida partida)
+        {
+            partida.Envido.JugadorQueCantoEnvido = partida.Turno;
+            partida.JugadasRealizadas += 1;
+
+            if (partida.Turno == partida.Repartidor)
+            {
+                partida.Turno = partida.Envido.JugadorQueCantoPrimeroEnvido;
+                partida.Envido.JugadorQueDebeResponderEnvido = 0;
+                partida.Envido.JugadorQueCantoPrimeroEnvido = 0;
+                partida.Envido.EstadoCantarTantos = false;
+
+                if (EnvidoMasAlto(partida.Repartidor, partida.Envido.TantoCantadoJugadorUno, partida.Envido.TantoCantadoJugadorDos, partida.Envido.TantoCantadoJugadorTres, partida.Envido.TantoCantadoJugadorCuatro) == 1)
+                {
+                    partida.PuntosJugadorUno += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+                else
+                {
+                    partida.PuntosJugadorDos += JuegoServicio.CalcularPuntosEnvido(partida.Envido.EnvidosCantados, partida.PuntosJugadorUno, partida.PuntosJugadorDos);
+                }
+            }
+            else
+            {
+                partida.Turno = AsignarTurno2vs2(partida.Turno);
+                partida.Envido.JugadorQueDebeResponderEnvido = AsignarTurno2vs2(partida.Turno);
+            }
+
+            partida = JuegoServicio.VerificarSiAlguienGanoElPartido(partida);
+
+            return partida;
+        }
 
         public static Partida ActualizarPartida2vs2(Partida partida)
         {
             int? GanadorManoUno = (partida.CartasJugadasJugadorUno.Count > 0 && partida.CartasJugadasJugadorDos.Count > 0) && partida.CartasJugadasJugadorTres.Count > 0 && partida.CartasJugadasJugadorCuatro.Count > 0 ? CartaGanadora2vs2(partida.CartasJugadasJugadorUno[0], partida.CartasJugadasJugadorDos[0], partida.CartasJugadasJugadorTres[0], partida.CartasJugadasJugadorCuatro[0]) : null;
 
             int? GanadorManoDos = (partida.CartasJugadasJugadorUno.Count > 1 && partida.CartasJugadasJugadorDos.Count > 1) && partida.CartasJugadasJugadorTres.Count > 1 && partida.CartasJugadasJugadorCuatro.Count > 1 ? CartaGanadora2vs2(partida.CartasJugadasJugadorUno[1], partida.CartasJugadasJugadorDos[1], partida.CartasJugadasJugadorTres[1], partida.CartasJugadasJugadorCuatro[0]) : null;
-
-            int? GanadorManoTres = (partida.CartasJugadasJugadorUno.Count > 2 && partida.CartasJugadasJugadorDos.Count > 2) && partida.CartasJugadasJugadorTres.Count > 2 && partida.CartasJugadasJugadorCuatro.Count > 2 ? CartaGanadora2vs2(partida.CartasJugadasJugadorUno[2], partida.CartasJugadasJugadorDos[2], partida.CartasJugadasJugadorTres[2], partida.CartasJugadasJugadorCuatro[0]) : null;
 
             int? EquipoGanadorManoUno = (partida.CartasJugadasJugadorUno.Count > 0 && partida.CartasJugadasJugadorDos.Count > 0) && partida.CartasJugadasJugadorTres.Count > 0 && partida.CartasJugadasJugadorCuatro.Count > 0 ? EquipoGanadorMano(CartaGanadora2vs2(partida.CartasJugadasJugadorUno[0], partida.CartasJugadasJugadorDos[0], partida.CartasJugadasJugadorTres[0], partida.CartasJugadasJugadorCuatro[0]), partida) : null;
 

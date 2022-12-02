@@ -27,8 +27,8 @@ export const ContadorPuntos2vs2 = () => {
         <p className="fw-bold p-0 m-0 align-self-center">Nos</p>
         <p className="p-0 m-0 align-self-center">
           {numeroJugador === 1 || numeroJugador === 2
-            ? puntosJugadorDos
-            : puntosJugadorUno}
+            ? puntosJugadorUno
+            : puntosJugadorDos}
         </p>
       </div>
       <hr style={{ color: "white", height: 2 }} className="w-100" />
@@ -37,8 +37,8 @@ export const ContadorPuntos2vs2 = () => {
         <p className="fw-bold p-0 m-0 align-self-center">Ellos</p>
         <p className="p-0 m-0 align-self-center">
           {numeroJugador === 1 || numeroJugador === 2
-            ? puntosJugadorUno
-            : puntosJugadorDos}
+            ? puntosJugadorDos
+            : puntosJugadorUno}
         </p>
       </div>
     </div>
