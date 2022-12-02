@@ -71,6 +71,7 @@ export const Mesa = () => {
         dispatch,
     ]);
 
+
     return (
         <div className="board">
             <div

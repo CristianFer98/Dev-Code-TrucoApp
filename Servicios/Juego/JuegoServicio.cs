@@ -241,16 +241,9 @@ namespace Servicios.Juego
             }
             else
             {
-                if (partida.CantidadJugadores == 2)
+                if (partida.Truco.TrucosCantados[0] == "no quiero" && partida.Envido.EnvidosCantados.Count == 0 && partida.Mano == 1 && partida.CartasJugadasJugadorUno.Count == 0 && partida.CartasJugadasJugadorDos.Count == 0)
                 {
-                    if (partida.Truco.TrucosCantados[0] == "no quiero" && partida.Envido.EnvidosCantados.Count == 0 && partida.Mano == 1 && partida.CartasJugadasJugadorUno.Count == 0 && partida.CartasJugadasJugadorDos.Count == 0)
-                    {
-                        partida = SumarPuntosTruco(partida, ganadorMano, 2);
-                    }
-                    else
-                    {
-                        partida = SumarPuntosTruco(partida, ganadorMano, PuntosGanadosTruco);
-                    }
+                    partida = SumarPuntosTruco(partida, ganadorMano, 2);
                 }
                 else
                 {

@@ -9,6 +9,7 @@ import { jugar } from "../actions/auth";
 import Swal from "sweetalert2";
 import { obtenerTorneos, obtenerTorneoPartida } from "../actions/torneos";
 import {
+  asignarGanador,
   cantarEnvido,
   cantarTruco,
   repartirCartas,
@@ -82,6 +83,7 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     connection?.on("UsersInRoom", (usuarios) => {
       dispatch(usuariosConectados(usuarios));
+      dispatch(asignarGanador(1));
     });
   }, [connection, dispatch]);
 

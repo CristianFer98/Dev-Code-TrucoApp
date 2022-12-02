@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { removeChantBox } from "../../actions/ui";
 import { SocketContext } from "../../context/SocketContext";
 import { getUserPlayer } from "../../helpers/truco/getUserTurno";
 import { Flop2vs2 } from "./Flop2vs2";
@@ -10,40 +12,60 @@ import { JugadorTres2vs2 } from "./JugadorTres2vs2";
 
 export const Mesa2vs2 = () => {
   const { uid } = useSelector((state) => state.auth);
-  const { partida } = useSelector((state) => state.juego);
+  const { partida, usuariosConectados } = useSelector((state) => state.juego);
   const {
     ganadorMano,
+    repartidor,
+    puntosJugadorUno,
+    puntosJugadorDos,
     jugadorUno,
     jugadorDos,
     jugadorTres,
     jugadorCuatro,
-    repartidor,
   } = partida;
+  const { chantBox } = useSelector((state) => state.ui);
   const { connection } = useContext(SocketContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    !!ganadorMano &&
-      repartidor ===
-        getUserPlayer(
-          uid,
-          jugadorUno,
-          jugadorDos,
-          jugadorTres,
-          jugadorCuatro
-        ) &&
-      setTimeout(async () => {
-        await connection.invoke("InicializarMano2vs2", partida);
-      }, 2000);
+    if (!usuariosConectados) {
+      if (puntosJugadorUno < 30 && puntosJugadorDos < 30) {
+        !!ganadorMano &&
+          repartidor ===
+            getUserPlayer(
+              uid,
+              jugadorUno,
+              jugadorDos,
+              jugadorTres,
+              jugadorCuatro
+            ) &&
+          setTimeout(async () => {
+            await connection.invoke("InicializarMano2vs2", partida);
+          }, 2000);
+      } else {
+        puntosJugadorUno >= 30
+          ? Swal.fire("Ganador equipo uno", "", "success")
+          : puntosJugadorDos >= 30 &&
+            Swal.fire("Ganador equipo dos", "", "success");
+        dispatch(removeChantBox());
+      }
+    } else {
+      !!usuariosConectados.find((u) => u === jugadorUno) &&
+      !!usuariosConectados.find((u) => u === jugadorDos)
+        ? Swal.fire("Ganador equipo uno, rival abandonó", "", "success")
+        : Swal.fire("Ganador equipo dos, rival abandonó", "", "success");
+      dispatch(removeChantBox());
+    }
   }, [
+    puntosJugadorUno,
+    puntosJugadorDos,
     ganadorMano,
-    jugadorUno,
-    jugadorDos,
-    jugadorTres,
-    jugadorCuatro,
+    connection,
     partida,
     repartidor,
     uid,
-    connection,
+    usuariosConectados,
+    dispatch,
   ]);
 
   return (
@@ -54,6 +76,11 @@ export const Mesa2vs2 = () => {
       justify-content-between"
       >
         <Jugador2vs2 />
+        {!!chantBox && (
+          <div className="divChant2 d-flex justify-content-center align-items-center">
+            <h5 className="fw-bold text-dark mt-2">{chantBox}</h5>
+          </div>
+        )}
         <Flop2vs2 />
         <JugadorDos2vs2 />
       </div>
