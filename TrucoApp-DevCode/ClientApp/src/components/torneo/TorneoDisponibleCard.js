@@ -18,8 +18,6 @@ export const TorneoDisponibleCard = ({ torneo }) => {
     };
 
     const handleJugar = async (e) => {
-        //e.preventDefault();
-        //handleObtenerTorneoPartida(torneoId)
         history.push(`/inicio/salaTorneo/${torneoId}`);
     };
 
