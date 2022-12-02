@@ -23,7 +23,7 @@ export const obtenerTorneos = () => {
     };
 };
 
-export const obtenerTorneoPartida = (torneoId) => {
+export const obtenerTorneoPartida = (torneoId, connection) => {
     return async (dispatch) => {
         const resp = await fetch(
             `https://localhost:44342/api/Torneo/ObtenerTodosLosTorneosPartida/${torneoId}`,
