@@ -16,7 +16,7 @@ export const MesaDisponibleCard = ({ mesa }) => {
     invitado &&
       !!mesaInvitado &&
       mesaInvitado === idMesa &&
-      entrarAMesa(uid, idMesa, connection, jugadorUno, cantidadJugadores);
+      entrarAMesa(uid, idMesa, connection, jugadorUno, cantidadJugadores);  
   }, [invitado, mesaInvitado]);
 
   const handleJugar = async (e) => {

@@ -11,7 +11,7 @@ export function ModalLink({ idMesa }) {
   const link = `https://localhost:44342/juego/${idMesa}`;
 
   const copiarLink = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     navigator.clipboard.writeText(link);
     setCopiadoShow(true);
     setTimeout(() => {

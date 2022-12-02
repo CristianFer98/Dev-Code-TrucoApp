@@ -1,28 +1,53 @@
-import React from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { BotonCrearMesa } from ".//BotonCrearMesa";
-import { MesaDisponibleCard } from "./MesaDisponibleCard";
-import "./mesasDisponibles.css";
+import { MesaTorneoCard } from "../mesas/MesaTorneoCard";
 import { ChatGeneral } from "../inicio/chat/ChatGeneral";
 import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+//import { obtenerTorneoPartida } from "../../actions/torneos";
+import { Redirect, useParams } from "react-router";
+import { obtenerTorneoPartida } from "../../helpers/fetchConnection";
 
-export const MesasDisponibles = () => {
+export const SalaTorneo = () => {
     const history = useHistory();
     const { uid } = useSelector((state) => state.auth);
-    const { mesas1vs1 } = useSelector((state) => state.mesas);
+    const { torneoId } = useParams();
+    const dispatch = useDispatch();
+    const [torneoPartida, setTorneoPartida] = useState([]);
+
+    useEffect(() => {
+        obtenerMesasDelTorneo();
+    }, []);
+
+    const obtenerMesasDelTorneo = async () => {
+        const respuesta = await fetch(`https://localhost:44342/api/Torneo/ObtenerTodosLosTorneosPartida/${torneoId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+
+        if (respuesta.ok) {
+            const mesas = await respuesta.json();
+
+            mesas.CantidadJugadores = 2
+            const mesasFiltradas = mesas.filter(mesa => mesa.mesa.tipo === "Privada");
+            //console.log(mesas)
+            setTorneoPartida(mesasFiltradas);
+        }
+    }
 
     const handleVolverInicio = async (e) => {
         e.preventDefault();
         history.push("/inicio");
     };
 
+
     return (
         <div style={{ display: "flex", width: "100%" }}>
             <div style={{ display: "flex", width: "80%", flexDirection: "column" }}>
                 <InfoDeUsuario />
-                <h2 className="text-light px-5 pt-5">Mesas disponibles</h2>
                 <div>
                     <div
                         style={{
@@ -47,11 +72,8 @@ export const MesasDisponibles = () => {
                             marginTop: "0px",
                         }}
                     >
-                        {!mesas1vs1.find((mesa) => mesa.jugadorUno === uid) && (
-                            <BotonCrearMesa cantidadJugadoresMesa={2} />
-                        )}
-                        {mesas1vs1.filter((mesa) => mesa.tipo === "Publica").map((mesa) => (
-                            <MesaDisponibleCard key={mesa.idMesa} mesa={mesa} />
+                        {torneoPartida.filter((mesa) => mesa.mesa.jugadorUno === uid && mesa.mesa.ganador === null || mesa.mesa.jugadorDos === uid && mesa.mesa.ganador === null).map((mesa) => (
+                            <MesaTorneoCard key={mesa.idMesa} mesa={mesa} />
                         ))}
                     </div>
                 </div>

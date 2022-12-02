@@ -90,12 +90,30 @@ namespace Router.Controllers
 
             }
         }
-      
+
+        //[HttpGet]
+        //[Route("ProximaRonda/{torneoId:int}")]
+        //public IActionResult ProximaRonda([FromRoute] int id)
+        //{
+        //    Cuando se termina la partida de UNA mesa, es decir, cuando haya un ganador,
+        //    enviar el TorneoPartidaId +ganadorId al backend
+        //    settear el ganador en mesa, crear un nuevo torneoPartida y una nueva mesa
+        //    return Ok(_torneoServicio.ProximaRonda(id));
+        //}
+
         [HttpGet]
-        [Route("ProximaRonda/{torneoId:int}")]
-        public IActionResult ProximaRonda([FromRoute] int id)
+        [Route("ObtenerTodosLosTorneosPartida/{torneoId:int}")]
+        public ActionResult obtenerTorneoPartida(int torneoId)
         {
-            return Ok(_torneoServicio.ProximaRonda(id));
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _torneoServicio.ObtenerTorneosPartida(torneoId));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -35,5 +35,9 @@ namespace Repositorios
                 .Where(tp => tp.TorneoId == torneoId && tp.NroRonda == ronda)
                 .ToList();
         }
+        public TorneoPartida ObtenerTorneoMedianteMesa(int mesaId)
+        {
+            return _dbContext.TorneoPartidas.Where(tp => tp.IdMesa == mesaId).Single();
+        }
     }
 }

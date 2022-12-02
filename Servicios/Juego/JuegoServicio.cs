@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Servicios.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Servicios.Juego
 {
     public class JuegoServicio
     {
+        private readonly IMesaServicio _mesaServicio;
+
         public static List<Carta> Mazo { get; set; } = new List<Carta>()
         {
             //new Carta(1, 1, "Espada", 1, 1, "./Espada/1Espada.png"),

@@ -8,5 +8,6 @@ namespace Repositorios.Interfaces
         TorneoPartida CrearTorneoPartida(TorneoPartida torneoPartida);
         List<TorneoPartida> ObtenerTorneoPartidas(int id);
         List<TorneoPartida> ObtenerTorneoPartidasPorRonda(int id, int ronda);
+        TorneoPartida ObtenerTorneoMedianteMesa(int mesaId);
     }
 }

@@ -10,11 +10,14 @@ import {
   limit,
 } from 'firebase/firestore';
 import './chatGeneral.css';
+import { useSelector } from 'react-redux'
 
 export function ChatGeneral() {
   const [mensajes, setMensajes] = useState([]);
   const [input, setInput] = useState('');
   const fechaServidor = serverTimestamp();
+    const { nombre } = useSelector((state) => state.auth);
+
 
   //genero una query hacia la BD trayendo la coleccion ChatGeneral con un limite de 10 mensajes.
   useEffect(() => {
@@ -41,7 +44,7 @@ export function ChatGeneral() {
   const enviarMensaje = async (e) => {
     e.preventDefault();
     await addDoc(collection(db, 'ChatGeneral'), {
-      text: input,
+      text: nombre + ": " +input,
       fecha: fechaServidor,
     });
     setInput('');
@@ -56,7 +59,7 @@ export function ChatGeneral() {
       <div>
         {mensajes.map((mensaje) => (
           <p className="mensajes" key={mensaje.id}>
-            Cristian98: {mensaje.text}
+            {mensaje.text}
           </p>
         ))}
 

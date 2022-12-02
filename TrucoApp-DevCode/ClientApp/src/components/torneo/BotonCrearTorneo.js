@@ -19,7 +19,8 @@ export const BotonCrearTorneo = () => {
             },
             body: JSON.stringify({
                 Nombre: "Torneo",
-                CantidadParticipantes: 4
+                CantidadParticipantes: 4,
+                estaLleno: false
             }),
         });
 
@@ -27,7 +28,7 @@ export const BotonCrearTorneo = () => {
             var jsonResponse = await resp.json();
             const participantes = jsonResponse.CantidadParticipantes;
             await connection.invoke("CrearTorneo");
-            Swal.fire("Se cre� el torneo", "", "success");
+            Swal.fire("Se creó el torneo", "", "success");
         }
     };
         return (

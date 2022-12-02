@@ -65,5 +65,11 @@ namespace Repositorios
             return mesa;
 
         }
+        public void SetearGanador(int idMesa, int idJugador)
+        {
+            Mesa mesa = _dbContext.Mesas.Where(m => m.IdMesa == idMesa).Single();
+            mesa.Ganador = idJugador;
+            _dbContext.SaveChanges();
+        }
     }
 }
