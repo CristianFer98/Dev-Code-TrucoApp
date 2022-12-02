@@ -10,5 +10,6 @@ namespace Repositorios.Interfaces
         Torneo CrearTorneo(Torneo torneo);
         void SetearRondas(int torneoId, int ronda);
         void EstaLleno(int torneoId);
+        void TerminarTorneo(int torneoId, int idGanador);
     }
 }

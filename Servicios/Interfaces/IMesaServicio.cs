@@ -13,5 +13,6 @@ namespace Servicios.Interfaces
         public Mesa ObtenerMesaPorId(int id);
         public Mesa GuardarMesa(Mesa mesa);
         public Mesa EntrarAJugarAMesa(int idMesa, int idJugador);
+        public void SetearGanador(int idMesa, int idJugador);
     }
 }

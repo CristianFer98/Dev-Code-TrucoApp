@@ -15,5 +15,7 @@ namespace Servicios.Interfaces
         Torneo ObtenerTorneoPorId(int torneoId);
         Torneo ProximaRonda(int torneoId);
         List<TorneoPartida> ObtenerTorneosPartida(int torneoId);
+        TorneoPartida ObtenerTorneoMedianteMesa(int mesaId);
+        void TerminarTorneo(int torneoId, int idGanador);
     }
 }

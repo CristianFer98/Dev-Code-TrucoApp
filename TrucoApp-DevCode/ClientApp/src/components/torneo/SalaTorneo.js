@@ -30,8 +30,11 @@ export const SalaTorneo = () => {
 
         if (respuesta.ok) {
             const mesas = await respuesta.json();
+
             mesas.CantidadJugadores = 2
-            setTorneoPartida(mesas);
+            const mesasFiltradas = mesas.filter(mesa => mesa.mesa.tipo === "Privada");
+            //console.log(mesas)
+            setTorneoPartida(mesasFiltradas);
         }
     }
 
@@ -69,7 +72,7 @@ export const SalaTorneo = () => {
                             marginTop: "0px",
                         }}
                     >
-                        {torneoPartida.map((mesa) => (
+                        {torneoPartida.filter((mesa) => mesa.mesa.jugadorUno === uid && mesa.mesa.ganador === null || mesa.mesa.jugadorDos === uid && mesa.mesa.ganador === null).map((mesa) => (
                             <MesaTorneoCard key={mesa.idMesa} mesa={mesa} />
                         ))}
                     </div>

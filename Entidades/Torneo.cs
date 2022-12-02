@@ -10,6 +10,7 @@ namespace Entidades
         public bool Terminado { get; set; }
         public int NroRonda { get; set; } = 0;
         public bool estaLleno { get; set; }
+        public int GanadorTorneo { get; set; }
         public virtual ICollection<TorneoPartida> Partidas { get; set; }
         public virtual ICollection<TorneoParticipante> Participantes { get; set; }
 

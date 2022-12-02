@@ -49,7 +49,7 @@ export const TorneosDisponibles = () => {
                        
                         <BotonCrearTorneo />
 
-                        {torneoPartida.map((torneo) => (
+                        {torneoPartida.filter((torneo) => torneo.terminado === false).map((torneo) => (
                             <TorneoDisponibleCard key={torneo.torneoId} torneo={torneo} />
                         ))}
                     </div>

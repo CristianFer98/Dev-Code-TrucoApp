@@ -13,7 +13,7 @@ namespace Servicios
     {
 
         private readonly IMesaRepositorio _mesaRepositorio;
-
+        private readonly ITorneoServicio _torneoServicio;
         public MesaServicio(IMesaRepositorio mesaRepositorio)
         {
             _mesaRepositorio = mesaRepositorio;
@@ -37,6 +37,10 @@ namespace Servicios
         public Mesa EntrarAJugarAMesa(int idMesa, int idJugador)
         {
             return _mesaRepositorio.EntrarAJugarAMesa(idMesa, idJugador);
+        }
+        public void SetearGanador(int idMesa, int idJugador)
+        {
+            _mesaRepositorio.SetearGanador(idMesa, idJugador);
         }
     }
 }

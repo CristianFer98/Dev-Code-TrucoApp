@@ -114,7 +114,8 @@ namespace Servicios
                 if (idsGanadores.Count == 1)
                 {
                     // el torneo termino
-                    throw new ArgumentException("El torneo termino");
+                    //throw new ArgumentException("El torneo termino");
+                    TerminarTorneo(torneoId, idsGanadores.First());
                 }
                 return _torneoRepositorio.ObtenerPorId(torneoId);
             }
@@ -156,6 +157,15 @@ namespace Servicios
         public List<TorneoPartida> ObtenerTorneosPartida(int torneoId)
         {
             return _torneoPartidaRepositorio.ObtenerTorneoPartidas(torneoId);
+        }
+        public TorneoPartida ObtenerTorneoMedianteMesa(int mesaId)
+        {
+            return _torneoPartidaRepositorio.ObtenerTorneoMedianteMesa(mesaId);
+        }
+
+        public void TerminarTorneo(int torneoId , int idGanador)
+        {
+            _torneoRepositorio.TerminarTorneo(torneoId , idGanador);
         }
     }
 }

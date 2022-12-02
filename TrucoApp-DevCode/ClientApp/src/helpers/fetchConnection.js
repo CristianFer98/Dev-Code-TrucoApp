@@ -68,15 +68,13 @@ export const entrarAMesaTorneo = async (
     jugadorUno,
     cantidadJugadores
 ) => {
-    const idJugador = uid;
     const resp = await fetch(
-        `https://localhost:44342/api/Mesas/EntrarAJugar/${idMesa}`,
+        `https://localhost:44342/api/Mesas/ObtenerMesaPorId/${idMesa}`,
         {
-            method: "PUT",
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
-            },
-            body: idJugador,
+            }
         }
     );
 
@@ -95,7 +93,6 @@ export const entrarAMesaTorneo = async (
             jugadorTres: !jugadorTres ? 0 : jugadorTres,
             jugadorCuatro: !jugadorCuatro ? 0 : jugadorCuatro,
             cantidadJugadores,
-            idJugador,
         });
     }
 };

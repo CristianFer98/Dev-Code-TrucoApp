@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
+import Swal from "sweetalert2";
 import { obtenerTorneos, obtenerTorneoPartida } from "../actions/torneos";
 import {
   cantarEnvido,
@@ -249,6 +250,23 @@ export const SocketProvider = ({ children }) => {
     useEffect(() => {
         connection?.on("TorneosPartidaActualizados", (torneoId) => {
             dispatch(obtenerTorneoPartida(torneoId));
+        });
+    }, [connection, dispatch]);
+
+    useEffect(() => {
+        connection?.on("GanadorTorneo", (ganadorTorneo) => {
+            console.log(ganadorTorneo )
+            console.log(uid)
+            console.log(ganadorTorneo === uid)
+                Swal.fire({
+                    title: 'Felicidades campeon!',
+                    text: 'Gracias por participar del torneo Vale Cuatro',
+                    imageUrl: 'https://i.pinimg.com/originals/87/6f/ab/876fab6207f93c293ae77a70f188c402.gif',
+                    imageWidth: 400,
+                    imageHeight: 300,
+                    imageAlt: 'Custom image',
+                })
+            
         });
     }, [connection, dispatch]);
 
