@@ -2,6 +2,7 @@ import React from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useSelector } from "react-redux";
 import { isMyTurn } from "../../helpers/truco/getUserTurno";
+import noFoto from "../../assets/no-foto.jpg";
 
 export const CountdownJugador2vs2 = ({ image }) => {
   const { uid } = useSelector((state) => state.auth);
@@ -15,7 +16,8 @@ export const CountdownJugador2vs2 = ({ image }) => {
           referrerPolicy="no-referrer"
           alt="userFoto"
           className={`rounded-circle w-100 h-100 ${"player2ImgFinishedTimer"}`}
-          src={image}
+          src={image!=null?image:noFoto}
+          style={{ objectFit:'cover' }}
         />
       </div>
     );
