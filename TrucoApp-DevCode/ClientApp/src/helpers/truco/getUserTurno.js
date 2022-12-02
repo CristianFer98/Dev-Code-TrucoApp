@@ -218,6 +218,62 @@ export const getCartasJugadores = (lado, jugador, partida) => {
   }
 };
 
+export const getNumeroJugadores = (lado, jugador) => {
+  if (lado === "izquierda") {
+    switch (jugador) {
+      case 1:
+        return 3;
+      case 2:
+        return 4;
+      case 3:
+        return 2;
+      case 4:
+        return 1;
+      default:
+        break;
+    }
+  } else if (lado === "abajo") {
+    switch (jugador) {
+      case 1:
+        return 1;
+      case 2:
+        return 2;
+      case 3:
+        return 3;
+      case 4:
+        return 4;
+      default:
+        break;
+    }
+  } else if (lado === "derecha") {
+    switch (jugador) {
+      case 1:
+        return 4;
+      case 2:
+        return 3;
+      case 3:
+        return 1;
+      case 4:
+        return 2;
+      default:
+        break;
+    }
+  } else if (lado === "arriba") {
+    switch (jugador) {
+      case 1:
+        return 2;
+      case 2:
+        return 1;
+      case 3:
+        return 4;
+      case 4:
+        return 3;
+      default:
+        break;
+    }
+  }
+};
+
 export const getAntesRepartidor = (repartidor) => {
   const jugadores = [1, 4, 2, 3];
   const indexRepartidor = jugadores.indexOf(repartidor);

@@ -3,6 +3,7 @@ import noFoto from "../../assets/no-foto.jpg";
 import { CountdownOtrosJugadores } from "./CountdownOtrosJugadores";
 import {
   getCartasJugadores,
+  getNumeroJugadores,
   getUserPlayer,
 } from "../../helpers/truco/getUserTurno";
 import { useSelector } from "react-redux";
@@ -11,7 +12,7 @@ import { useSelector } from "react-redux";
 export const JugadorTres2vs2 = () => {
   const { uid } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
-  const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro } = partida;
+  const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro, turno } = partida;
   const jugador = getUserPlayer(
     uid,
     jugadorUno,
@@ -25,7 +26,10 @@ export const JugadorTres2vs2 = () => {
   return (
     <div className="playerIzquierda d-flex align-items-center justify-content-start">
       <div className="playerDerechaAvatar d-flex flex-column align-items-center me-2">
-        <CountdownOtrosJugadores image={noFoto} />
+        <CountdownOtrosJugadores
+          image={noFoto}
+          juega={getNumeroJugadores("izquierda", jugador) === turno}
+        />
         <div className="playerName fw-bolder text-white px-2 py-1">Rival</div>
       </div>
       <div className="d-flex flex-column divCardsOponentIzquierda">

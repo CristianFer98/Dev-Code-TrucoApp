@@ -1,8 +1,9 @@
 import React from "react";
 import { useContext } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { removeChantBox } from "../../actions/ui";
 import { SocketContext } from "../../context/SocketContext";
 import { getUserPlayer } from "../../helpers/truco/getUserTurno";
 import { Flop } from "./Flop";
@@ -22,6 +23,7 @@ export const Mesa = () => {
   } = partida;
   const { chantBox } = useSelector((state) => state.ui);
   const { connection } = useContext(SocketContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!usuariosConectados) {
@@ -36,12 +38,14 @@ export const Mesa = () => {
           ? Swal.fire("Ganador jugador uno", "", "success")
           : puntosJugadorDos >= 30 &&
             Swal.fire("Ganador jugador dos", "", "success");
+        dispatch(removeChantBox());
       }
     } else {
       usuariosConectados[0] === partida.jugadorUno
         ? Swal.fire("Ganador jugador uno, rival abandonó.", "", "success")
         : usuariosConectados[0] === partida.jugadorDos &&
           Swal.fire("Ganador jugador dos, rival abandonó.", "", "success");
+      dispatch(removeChantBox());
     }
   }, [
     puntosJugadorUno,
@@ -52,6 +56,7 @@ export const Mesa = () => {
     repartidor,
     uid,
     usuariosConectados,
+    dispatch,
   ]);
 
   return (
