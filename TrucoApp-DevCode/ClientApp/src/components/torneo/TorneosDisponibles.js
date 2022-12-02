@@ -6,12 +6,12 @@ import { ChatGeneral } from "../inicio/chat/ChatGeneral";
 import InfoDeUsuario from "../inicio/infoUsuario/InfoDeUsuario";
 import Button from "react-bootstrap/Button";
 import { useSelector } from "react-redux";
+//import "../mesas/mesasDisponibles.css";
 
 export const TorneosDisponibles = () => {
     const history = useHistory();
     const { uid } = useSelector((state) => state.auth);
     const { torneoPartida } = useSelector((state) => state.torneos);
-    console.log("Torneo Partida: " + torneoPartida)
 
     const handleVolverInicio = async (e) => {
         e.preventDefault();
@@ -49,7 +49,7 @@ export const TorneosDisponibles = () => {
                        
                         <BotonCrearTorneo />
 
-                        {torneoPartida.map((torneo) => (
+                        {torneoPartida.filter((torneo) => torneo.terminado === false).map((torneo) => (
                             <TorneoDisponibleCard key={torneo.torneoId} torneo={torneo} />
                         ))}
                     </div>

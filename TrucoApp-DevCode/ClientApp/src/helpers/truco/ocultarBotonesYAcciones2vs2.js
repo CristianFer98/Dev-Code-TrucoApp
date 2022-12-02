@@ -1,6 +1,6 @@
 import { tiposBotones } from "../../types/tiposBotones";
 import { getUserPlayer, isMyTurn, isMyTurn2vs2 } from "./getUserTurno";
-
+import { verSiJugadorYaJugoCarta } from "./ocultarBotonesYAcciones";
 export const ocultarBotonesYAcciones2vs2 = (uid, partida, botones) => {
   const {
     jugadorUno,

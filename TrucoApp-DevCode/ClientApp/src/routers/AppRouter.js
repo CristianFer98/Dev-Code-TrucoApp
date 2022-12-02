@@ -19,6 +19,7 @@ import { CargarPartida } from "../components/partidaLink/CargarPartida";
 import { TorneosDisponibles } from "../components/torneo/TorneosDisponibles";
 import { MesasDisponibles2vs2 } from "../components/mesas/MesasDisponibles2vs2";
 import { Truco2vs2 } from "../components/juego2vs2/Truco2vs2";
+import { SalaTorneo } from "../components/torneo/SalaTorneo";
 
 export const AppRouter = () => {
   const { uid, jugando } = useSelector((state) => state.auth);
@@ -59,6 +60,11 @@ export const AppRouter = () => {
                   exact
                   path="/inicio/mesas"
                   component={MesasDisponibles}
+                />
+                <Route
+                    exact
+                    path="/inicio/salaTorneo/:torneoId"
+                    component={SalaTorneo}
                 />
                 <Route
                   exact

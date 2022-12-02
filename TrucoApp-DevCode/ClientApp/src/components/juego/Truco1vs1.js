@@ -18,7 +18,7 @@ export const Truco1vs1 = () => {
 
   const dejarMesa = async (e) => {
     e.preventDefault();
-    if (!ganadorPartida) await connection.invoke("DejarMesa", room);
+      if (!ganadorPartida) await connection.invoke("DejarMesa", room);
 
     dispatch(salirDeMesa());
     history.push("/inicio");

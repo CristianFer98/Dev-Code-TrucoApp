@@ -36,7 +36,7 @@ namespace Entidades
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-5204AT6\\SQLEXPRESS;Database=DevCodeDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=DevCodeDB;Trusted_Connection=True;");
             }
         }
 
@@ -55,6 +55,8 @@ namespace Entidades
                 torneo.Property(t => t.NroRonda).IsRequired();
 
                 torneo.Property(t => t.Terminado).IsRequired();
+
+                torneo.Property(t => t.estaLleno);
 
                 torneo.HasMany(t => t.Participantes)
                     .WithOne(tp => tp.Torneo)

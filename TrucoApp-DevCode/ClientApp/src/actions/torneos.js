@@ -1,6 +1,4 @@
 ﻿import { types } from "../types/types";
-import { startLogin } from "./auth";
-
 export const obtenerTorneos = () => {
     return async (dispatch) => {
         const resp = await fetch(
@@ -25,28 +23,28 @@ export const obtenerTorneos = () => {
     };
 };
 
-//export const obtenerMesa = (mesaId, history) => {
-//    return async (dispatch) => {
-//        const resp = await fetch(
-//            `https://localhost:44342/api/Mesas/ObtenerMesaPorId/${mesaId}`,
-//            {
-//                method: "GET",
-//                headers: {
-//                    "Content-Type": "application/json",
-//                },
-//            }
-//        );
-
-//        if (resp.ok) {
-//            const data = await resp.json();
-//            if (data.jugadorDos == null) {
-//                dispatch(startLogin("usuarioInvitado@hotmail.com", "1234"));
-//            } else {
-//                history.push("/inicio");
-//            }
-//        } else {
-//             console.log("Status code: " + resp.status);
-//            history.push("/inicio");
-//        }
-//    };
-//};
+export const obtenerTorneoPartida = (torneoId, connection) => {
+    return async (dispatch) => {
+        const resp = await fetch(
+            `https://localhost:44342/api/Torneo/ObtenerTodosLosTorneosPartida/${torneoId}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+        console.log("Response: " + resp)
+        if (resp.ok) {
+            const data = await resp.json();
+            await connection.invoke("TorneosPartidaActualizados");
+            console.log("DATA: " + data)
+            dispatch({
+                type: types.obtenerTorneoPartida,
+                payload: data,
+            });
+        } else {
+            console.log("Status code: " + resp.status);
+        }
+    };
+};

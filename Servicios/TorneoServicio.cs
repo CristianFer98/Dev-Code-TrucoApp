@@ -82,6 +82,7 @@ namespace Servicios
                     var idsUsuarios = torneo.Participantes.Select(p => p.IdUsuario).ToList();
                     // create the matches
                     crearPartidos(torneo, idsUsuarios);
+                    _torneoRepositorio.EstaLleno(torneoId);
                 }
             }
         }
@@ -113,7 +114,8 @@ namespace Servicios
                 if (idsGanadores.Count == 1)
                 {
                     // el torneo termino
-                    throw new ArgumentException("El torneo termino");
+                    //throw new ArgumentException("El torneo termino");
+                    TerminarTorneo(torneoId, idsGanadores.First());
                 }
                 return _torneoRepositorio.ObtenerPorId(torneoId);
             }
@@ -151,6 +153,19 @@ namespace Servicios
 
                 esJugadorUno = true;
             }
+        }
+        public List<TorneoPartida> ObtenerTorneosPartida(int torneoId)
+        {
+            return _torneoPartidaRepositorio.ObtenerTorneoPartidas(torneoId);
+        }
+        public TorneoPartida ObtenerTorneoMedianteMesa(int mesaId)
+        {
+            return _torneoPartidaRepositorio.ObtenerTorneoMedianteMesa(mesaId);
+        }
+
+        public void TerminarTorneo(int torneoId , int idGanador)
+        {
+            _torneoRepositorio.TerminarTorneo(torneoId , idGanador);
         }
     }
 }

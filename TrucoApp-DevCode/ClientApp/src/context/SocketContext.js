@@ -6,7 +6,8 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { obtenerMesas } from "../actions/mesas";
 import { jugar } from "../actions/auth";
-import { obtenerTorneos } from "../actions/torneos";
+import Swal from "sweetalert2";
+import { obtenerTorneos, obtenerTorneoPartida } from "../actions/torneos";
 import {
   asignarGanador,
   cantarEnvido,
@@ -81,8 +82,8 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     connection?.on("UsersInRoom", (usuarios) => {
-      dispatch(usuariosConectados(usuarios));
-      dispatch(asignarGanador(1));
+        dispatch(usuariosConectados(usuarios));
+        dispatch(asignarGanador(1));
     });
   }, [connection, dispatch]);
 
@@ -247,6 +248,35 @@ export const SocketProvider = ({ children }) => {
       );
     });
   }, [connection]);
+
+    useEffect(() => {
+        connection?.on("TorneosPartidaActualizados", (torneoId) => {
+            dispatch(obtenerTorneoPartida(torneoId, connection));
+        });
+    }, [connection, dispatch]);
+
+    useEffect(() => {
+        connection?.on("GanadorTorneo", (ganadorTorneo) => {
+            console.log("GANADOR" + ganadorTorneo)
+            console.log("UID" + uid)
+            if (ganadorTorneo === uid) {
+                Swal.fire({
+                    title: 'Felicidades campeon!',
+                    text: 'Gracias por participar del torneo Vale Cuatro',
+                    imageUrl: 'https://i.pinimg.com/originals/87/6f/ab/876fab6207f93c293ae77a70f188c402.gif',
+                    imageWidth: 400,
+                    imageHeight: 300,
+                    imageAlt: 'Custom image',
+                })
+            }
+            else {
+                Swal.fire(
+                    'La próxima será!',
+                    'Gracias por participar del torneo Vale Cuatro'
+                )
+                }
+        });
+    }, [connection, dispatch]);
 
   return (
     <SocketContext.Provider value={{ connection }}>

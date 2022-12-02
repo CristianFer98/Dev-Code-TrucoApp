@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Servicios.Juego;
+using Servicios;
+using Servicios.Interfaces;
+using MercadoPago.Resource.User;
 
 namespace Router.Hubs
 {
@@ -13,9 +16,14 @@ namespace Router.Hubs
 
         private readonly IDictionary<string, UserConnection> _connections;
 
-        public MesasHub(IDictionary<string, UserConnection> connections)
+        private readonly IMesaServicio _mesaServicio;
+        private readonly ITorneoServicio _torneoServicio;
+
+        public MesasHub(IDictionary<string, UserConnection> connections, IMesaServicio mesaServicio, ITorneoServicio torneoServicio)
         {
             _connections = connections;
+            _mesaServicio = mesaServicio;
+            _torneoServicio = torneoServicio;
         }
 
         public async Task CrearMesa(int user, int room)
@@ -280,11 +288,9 @@ namespace Router.Hubs
         {
             await Clients.All.SendAsync("TorneosActualizados");
         }
-        //public async Task AgregarParticipante(TorneoParticipante torneoParticipante)
-        public async Task AgregarParticipante()
+        public async Task AgregarParticipante(TorneoParticipante torneoParticipante)
         {
             await Clients.All.SendAsync("TorneosActualizados");
-            //await Clients.All.SendAsync("MesaOcupada", torneoParticipante);
         }
         public async Task JoinRoomTorneo(int user, int room)
         {
@@ -298,6 +304,29 @@ namespace Router.Hubs
             _connections[Context.ConnectionId] = userConnection;
 
             await Groups.AddToGroupAsync(Context.ConnectionId, userRoom);
+        }
+        public async Task OcuparMesaTorneo(Partida partida)
+        {
+            await JoinRoomTorneo(partida.JugadorUno, partida.Room);
+            await JoinRoomTorneo(partida.JugadorDos, partida.Room);
+            partida.CantidadJugadores = 2;
+            string userRoom = Convert.ToString(partida.Room);
+         
+            await Clients.All.SendAsync("MesasActualizadas");
+            await Clients.Group(userRoom).SendAsync("MesaOcupada");
+            await InicializarMano(partida);
+        }
+        public async Task SetearGanador(Partida partida)
+        {
+            _mesaServicio.SetearGanador(partida.Room, (int)partida.GanadorPartida == 1 ? partida.JugadorUno : partida.JugadorDos);
+            TorneoPartida torneo = _torneoServicio.ObtenerTorneoMedianteMesa(partida.Room);
+            Torneo torneoEnCompetencia = _torneoServicio.ProximaRonda(torneo.TorneoId);
+            if (torneoEnCompetencia.Terminado == true)
+            {
+                string userRoom = Convert.ToString(torneo.IdMesa);
+                await Clients.Group(userRoom).SendAsync("GanadorTorneo", torneoEnCompetencia.GanadorTorneo);
+            }
+            await Clients.All.SendAsync("MesasActualizadas");
         }
         #endregion
     }

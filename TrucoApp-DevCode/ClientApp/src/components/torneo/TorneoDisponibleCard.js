@@ -1,20 +1,25 @@
 import React, { useContext } from "react";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import img from "../../assets/no-foto.jpg";
 import { SocketContext } from "../../context/SocketContext";
 import { entrarATorneo } from "../../helpers/fetchConnection";
+import { useHistory } from "react-router";
+import { obtenerTorneoPartida } from "../../helpers/fetchConnection";
 
 export const TorneoDisponibleCard = ({ torneo }) => {
     const { uid } = useSelector((state) => state.auth);
     const { torneoId } = torneo;
     const { connection } = useContext(SocketContext);
-
+    const history = useHistory();
+    
     const handleIngresar = async (e) => {
-      //history.push("/inicio/tabla");
       e.preventDefault();
         entrarATorneo(uid, torneoId, connection);
-  };
+    };
+
+    const handleJugar = async (e) => {
+        history.push(`/inicio/salaTorneo/${torneoId}`);
+    };
 
   return (
     <div className="mesaCarta animate__animated animate__fadeIn m-2 p-3 py-2 d-flex flex-column">
@@ -41,14 +46,23 @@ export const TorneoDisponibleCard = ({ torneo }) => {
         <p style={{ fontSize: "0.8em" }} className="text-white my-0 fw-bolder">
           Sin flor
         </p>
-      </div>
-
-      <p
-        onClick={handleIngresar}
-        className="buttonPlay fw-bolder cursor w-100 text-center rounded"
-      >
-        Jugar
-      </p>
+          </div>
+          {torneo.estaLleno === true ? (
+              <p
+                  onClick={handleJugar}
+                  className="buttonPlay fw-bolder cursor w-100 text-center rounded"
+              >
+                  jugar
+              </p>
+          ):
+          (
+                <p
+                    onClick={handleIngresar}
+                    className="buttonPlay fw-bolder cursor w-100 text-center rounded"
+                >
+                  anotarse
+                </p>
+          )}
     </div>
   );
 };
