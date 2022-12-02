@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 export function TiendaDetalle() {
     const { id } = useParams();
   
-    const url = `https://localhost:44342/api/Producto/ObtenerProductoPorId/${id}`;
+    const url = `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Producto/ObtenerProductoPorId/${id}`;
 
     const [accesorio, setAccesorio] = useState([]);
     const [colores, setColores] = useState([]);
@@ -22,14 +22,14 @@ export function TiendaDetalle() {
     }
 
     const getColores = ()=>{
-      fetch(`https://localhost:44342/api/Color/ObtenerColoresPorIdProducto/${id}`)
+      fetch(`https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Color/ObtenerColoresPorIdProducto/${id}`)
           .then(res=> res.json())
           .then(data=>setColores(data));
           //console.log("Colores: ",colores);
     }
 
     const getTalles = ()=>{
-      fetch(`https://localhost:44342/api/Talle/ObtenerTallesPorIdProducto/${id}`)
+      fetch(`https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Talle/ObtenerTallesPorIdProducto/${id}`)
           .then(res=> res.json())
           .then(data=>setTalles(data));
           //console.log("Talles: ",talles);

@@ -22,7 +22,7 @@ export function TiendaAvatar() {
         }
     }, [url1]);
 
-    const url = "https://localhost:44342/api/Accesorio/ObtenerAccesorios";
+    const url = "https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Accesorio/ObtenerAccesorios";
 
     const [accesorios, setAccesorios] = useState([]);
 

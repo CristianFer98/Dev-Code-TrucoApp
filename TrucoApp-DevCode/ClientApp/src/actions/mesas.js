@@ -4,7 +4,7 @@ import { startLogin } from "./auth";
 export const obtenerMesas = () => {
   return async (dispatch) => {
     const resp = await fetch(
-      "https://localhost:44342/api/Mesas/obtenertodaslasmesas",
+      "https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Mesas/obtenertodaslasmesas",
       {
         method: "GET",
         headers: {
@@ -33,7 +33,7 @@ export const obtenerMesas = () => {
 export const obtenerMesa = (mesaId, history) => {
   return async (dispatch) => {
     const resp = await fetch(
-      `https://localhost:44342/api/Mesas/ObtenerMesaPorId/${mesaId}`,
+      `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Mesas/ObtenerMesaPorId/${mesaId}`,
       {
         method: "GET",
         headers: {

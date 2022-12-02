@@ -110,7 +110,7 @@ const [precioProducto, setPrecioProducto] = useState([]);
 const comprarProducto = async()=>{
    let stockActual = stock - cantidadAComprarProducto;
    const resp = await fetch(
-        `https://localhost:44342/api/Producto/ActualizarStock/${id}`,
+        `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Producto/ActualizarStock/${id}`,
         {
           method: "PUT",
           headers: {
@@ -129,7 +129,7 @@ const comprarProducto = async()=>{
       }else{
         console.log("no se pudo actualizar stock");
       }
-      const url = "https://localhost:44342/api/Producto/ComprarProducto/";
+    const url = "https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Producto/ComprarProducto/";
       
         checkout(url,id); 
       

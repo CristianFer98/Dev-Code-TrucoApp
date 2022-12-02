@@ -7,7 +7,7 @@ export const entrarAMesa = async (
 ) => {
   const idJugador = uid;
   const resp = await fetch(
-    `https://localhost:44342/api/Mesas/EntrarAJugar/${idMesa}`,
+    `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Mesas/EntrarAJugar/${idMesa}`,
     {
       method: "PUT",
       headers: {
@@ -39,7 +39,7 @@ export const entrarAMesa = async (
 export const entrarATorneo = async (uid, idTorneo, connection) => {
     const idJugador = uid;
     const resp = await fetch(
-        `https://localhost:44342/api/Torneo/AgregarParticipante`,
+        `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Torneo/AgregarParticipante`,
         {
             method: "POST",
             headers: {
@@ -69,7 +69,7 @@ export const entrarAMesaTorneo = async (
     cantidadJugadores
 ) => {
     const resp = await fetch(
-        `https://localhost:44342/api/Mesas/ObtenerMesaPorId/${idMesa}`,
+        `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Mesas/ObtenerMesaPorId/${idMesa}`,
         {
             method: "GET",
             headers: {

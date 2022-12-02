@@ -50,10 +50,10 @@ export function TiendaAvatarCard({ id, imagen, precio, comprado }){
       }
 
     const comprar = async (id) =>{
-      const url="https://localhost:44342/api/Accesorio/ComprarAccesorio/";
+        const url ="https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Accesorio/ComprarAccesorio/";
       checkout(url, id);
       const resp = await fetch(
-            `https://localhost:44342/api/Accesorio/ActualizarEstadoComprado/${id}`,
+            `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Accesorio/ActualizarEstadoComprado/${id}`,
             {
               method: "PUT",
               headers: {

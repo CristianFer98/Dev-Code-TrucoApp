@@ -6,7 +6,7 @@ import imagenes from './TiendaImagenes';
 
 export function Tienda() {
 
-  const url = "https://localhost:44342/api/Producto/ObtenerProductos";
+    const url = "https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Producto/ObtenerProductos";
 
   const [accesorios, setAccesorios] = useState([]);
 

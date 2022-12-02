@@ -21,7 +21,7 @@ export const SalaTorneo = () => {
     }, []);
 
     const obtenerMesasDelTorneo = async () => {
-        const respuesta = await fetch(`https://localhost:44342/api/Torneo/ObtenerTodosLosTorneosPartida/${torneoId}`, {
+        const respuesta = await fetch(`https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Torneo/ObtenerTodosLosTorneosPartida/${torneoId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

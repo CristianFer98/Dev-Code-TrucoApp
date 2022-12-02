@@ -53,7 +53,7 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
     let stockActual = stock - 1;
     console.log("id: ",  localStorage.getItem("preferenceId"));
     const resp = await fetch(
-         `https://localhost:44342/api/Producto/ActualizarStock/${id}`,
+         `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Producto/ActualizarStock/${id}`,
          {
            method: "PUT",
            headers: {
@@ -75,7 +75,7 @@ const Accesorios = ({ id, imagen, descripcion, precio, stock }) => {
          console.log("no se pudo actualizar stock");
        }
        
-       const url = "https://localhost:44342/api/Producto/ComprarProducto/";
+      const url = "https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Producto/ComprarProducto/";
        checkout(url, id);
  }
 

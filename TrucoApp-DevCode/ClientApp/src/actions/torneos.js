@@ -3,7 +3,7 @@
 export const obtenerTorneos = () => {
     return async (dispatch) => {
         const resp = await fetch(
-            "https://localhost:44342/api/Torneo/ObtenerTodosLosTorneos",
+            "https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Torneo/ObtenerTodosLosTorneos",
             {
                 method: "GET",
                 headers: {
@@ -27,7 +27,7 @@ export const obtenerTorneos = () => {
 export const obtenerTorneoPartida = (torneoId, connection) => {
     return async (dispatch) => {
         const resp = await fetch(
-            `https://localhost:44342/api/Torneo/ObtenerTodosLosTorneosPartida/${torneoId}`,
+            `https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Torneo/ObtenerTodosLosTorneosPartida/${torneoId}`,
             {
                 method: "GET",
                 headers: {

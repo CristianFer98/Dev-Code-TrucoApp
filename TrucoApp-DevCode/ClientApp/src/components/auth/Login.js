@@ -21,7 +21,7 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("https://localhost:44342/api/Usuarios/Login", {
+      const response = await fetch("https://dev-code-trucoapp20221119110900.azurewebsites.net/api/Usuarios/Login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

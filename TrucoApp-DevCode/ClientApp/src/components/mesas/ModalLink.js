@@ -8,7 +8,7 @@ export function ModalLink({ idMesa }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const link = `https://localhost:44342/juego/${idMesa}`;
+    const link = `https://dev-code-trucoapp20221119110900.azurewebsites.net/juego/${idMesa}`;
 
   const copiarLink = (e) => {
     e.preventDefault();
