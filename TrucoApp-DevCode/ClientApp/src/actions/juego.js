@@ -38,6 +38,11 @@ export const bloquearTurnos = (partida) => ({
   payload: { partida: { ...partida, turno: 0 } },
 });
 
+export const asignarGanador = (ganador) => ({
+  type: types.juegoAsignarGanador,
+  payload: { ganador },
+});
+
 export const usuariosConectados = (usuarios) => ({
   type: types.juegoUsuariosConectados,
   payload: { usuariosConectados: usuarios },

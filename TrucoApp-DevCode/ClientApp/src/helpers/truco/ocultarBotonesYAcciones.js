@@ -1,5 +1,5 @@
 import { tiposBotones } from "../../types/tiposBotones";
-import { getUserPlayer, isMyTurn } from "./getUserTurno";
+import { getAntesRepartidor, getUserPlayer, isMyTurn } from "./getUserTurno";
 
 export const verSiJugadorYaJugoCarta = (
   uid,
@@ -34,6 +34,30 @@ export const verSiJugadorYaJugoCarta = (
   }
 };
 
+const puedeCantarReTrucoValeCuatro = (
+  jugadorQueDebeResponderTruco,
+  numeroJugador
+) => {
+  switch (jugadorQueDebeResponderTruco) {
+    case 1:
+    case 2:
+      if (numeroJugador === 1 || numeroJugador === 2) {
+        return true;
+      } else {
+        return false;
+      }
+    case 3:
+    case 4:
+      if (numeroJugador === 3 || numeroJugador === 4) {
+        return true;
+      } else {
+        return false;
+      }
+    default:
+      break;
+  }
+};
+
 export const ocultarBotonesYAcciones = (uid, partida, botones) => {
   const {
     jugadorUno,
@@ -46,6 +70,10 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
     mano,
     cartasJugadasJugadorUno,
     cartasJugadasJugadorDos,
+    cartasJugadasJugadorTres,
+    cartasJugadasJugadorCuatro,
+    cantidadJugadores,
+    repartidor,
   } = partida;
   const {
     envidosCantados,
@@ -60,6 +88,26 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
     trucosCantados,
     jugadorQueCantoTruco,
   } = truco;
+
+  const numeroJugador = getUserPlayer(
+    uid,
+    jugadorUno,
+    jugadorDos,
+    jugadorTres,
+    jugadorCuatro
+  );
+
+  const jugoCarta = verSiJugadorYaJugoCarta(
+    uid,
+    jugadorUno,
+    jugadorDos,
+    cartasJugadasJugadorUno,
+    cartasJugadasJugadorDos,
+    cartasJugadasJugadorTres,
+    cartasJugadasJugadorCuatro,
+    jugadorTres,
+    jugadorCuatro
+  );
 
   switch (botones) {
     case tiposBotones.cartas:
@@ -81,28 +129,33 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
       if (
         isMyTurn(uid, jugadorUno, jugadorDos, turno, jugadorTres, jugadorCuatro)
       ) {
-        return (
-          mano === 1 &&
-          !envidosCantados.find((e) => e === "quiero" || e === "no quiero") &&
-          !estadoCantarTantos &&
-          trucosCantados.length < 2 &&
-          (!verSiJugadorYaJugoCarta(
-            uid,
-            jugadorUno,
-            jugadorDos,
-            cartasJugadasJugadorUno,
-            cartasJugadasJugadorDos
-          ) ||
-            (verSiJugadorYaJugoCarta(
-              uid,
-              jugadorUno,
-              jugadorDos,
-              cartasJugadasJugadorUno,
-              cartasJugadasJugadorDos
-            ) &&
-              estadoEnvidoCantado)) &&
-          true
-        );
+        if (cantidadJugadores === 2) {
+          return (
+            mano === 1 &&
+            !envidosCantados.find((e) => e === "quiero" || e === "no quiero") &&
+            !estadoCantarTantos &&
+            trucosCantados.length < 2 &&
+            (!jugoCarta || (jugoCarta && estadoEnvidoCantado)) &&
+            true
+          );
+        } else {
+          if (cantidadJugadores == 4) {
+            return (
+              mano === 1 &&
+              !envidosCantados.find(
+                (e) => e === "quiero" || e === "no quiero"
+              ) &&
+              !estadoCantarTantos &&
+              trucosCantados.length < 2 &&
+              (!jugoCarta || (jugoCarta && estadoEnvidoCantado)) &&
+              (getAntesRepartidor(repartidor) === numeroJugador ||
+                repartidor === numeroJugador ||
+                envidosCantados.length > 0 ||
+                trucosCantados.length > 0) &&
+              true
+            );
+          }
+        }
       } else {
         return false;
       }
@@ -139,22 +192,10 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
       ) {
         return (estadoEnvidoCantado &&
           !estadoCantarTantos &&
-          getUserPlayer(
-            uid,
-            jugadorUno,
-            jugadorDos,
-            jugadorTres,
-            jugadorCuatro
-          ) === jugadorQueDebeResponderEnvido) ||
+          numeroJugador === jugadorQueDebeResponderEnvido) ||
           (estadoTrucoCantado &&
             !estadoCantarTantos &&
-            getUserPlayer(
-              uid,
-              jugadorUno,
-              jugadorDos,
-              jugadorTres,
-              jugadorCuatro
-            ) === jugadorQueDebeResponderTruco)
+            numeroJugador === jugadorQueDebeResponderTruco)
           ? true
           : false;
       }
@@ -183,32 +224,29 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
       ) {
         if (!!trucosCantados.find((e) => e === "truco"))
           if (!trucosCantados.find((e) => e === "re truco")) {
-            return (
-              (getUserPlayer(
-                uid,
-                jugadorUno,
-                jugadorDos,
-                jugadorTres,
-                jugadorCuatro
-              ) !== jugadorQueCantoTruco &&
-                estadoTrucoCantado) ||
-              (getUserPlayer(
-                uid,
-                jugadorUno,
-                jugadorDos,
-                jugadorTres,
-                jugadorCuatro
-              ) === jugadorQueCantoTruco &&
-                jugadorQueDebeResponderTruco ===
-                  getUserPlayer(
-                    uid,
-                    jugadorUno,
-                    jugadorDos,
-                    jugadorTres,
-                    jugadorCuatro
+            if (cantidadJugadores === 2) {
+              return (
+                (numeroJugador !== jugadorQueCantoTruco &&
+                  estadoTrucoCantado) ||
+                (numeroJugador === jugadorQueCantoTruco &&
+                  jugadorQueDebeResponderTruco === numeroJugador &&
+                  true)
+              );
+            } else {
+              return (
+                (numeroJugador !== jugadorQueCantoTruco &&
+                  estadoTrucoCantado) ||
+                (puedeCantarReTrucoValeCuatro(
+                  jugadorQueCantoTruco,
+                  numeroJugador
+                ) &&
+                  puedeCantarReTrucoValeCuatro(
+                    jugadorQueDebeResponderTruco,
+                    numeroJugador
                   ) &&
-                true)
-            );
+                  true)
+              );
+            }
           } else {
             return false;
           }
@@ -225,32 +263,27 @@ export const ocultarBotonesYAcciones = (uid, partida, botones) => {
           !!trucosCantados.find((e) => e === "re truco") &&
           !trucosCantados.find((e) => e === "vale cuatro")
         ) {
-          return (
-            (getUserPlayer(
-              uid,
-              jugadorUno,
-              jugadorDos,
-              jugadorTres,
-              jugadorCuatro
-            ) !== jugadorQueCantoTruco &&
-              estadoTrucoCantado) ||
-            (getUserPlayer(
-              uid,
-              jugadorUno,
-              jugadorDos,
-              jugadorTres,
-              jugadorCuatro
-            ) === jugadorQueCantoTruco &&
-              jugadorQueDebeResponderTruco ===
-                getUserPlayer(
-                  uid,
-                  jugadorUno,
-                  jugadorDos,
-                  jugadorTres,
-                  jugadorCuatro
+          if (cantidadJugadores === 2) {
+            return (
+              (numeroJugador !== jugadorQueCantoTruco && estadoTrucoCantado) ||
+              (numeroJugador === jugadorQueCantoTruco &&
+                jugadorQueDebeResponderTruco === numeroJugador &&
+                true)
+            );
+          } else {
+            return (
+              (numeroJugador !== jugadorQueCantoTruco && estadoTrucoCantado) ||
+              (puedeCantarReTrucoValeCuatro(
+                jugadorQueCantoTruco,
+                numeroJugador
+              ) &&
+                puedeCantarReTrucoValeCuatro(
+                  jugadorQueDebeResponderTruco,
+                  numeroJugador
                 ) &&
-              true)
-          );
+                true)
+            );
+          }
         }
       } else {
         return false;

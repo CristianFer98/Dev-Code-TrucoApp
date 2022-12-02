@@ -12,6 +12,7 @@ export const types = {
   juegoBloquearTurnos: "[juego] Bloquear turnos",
   juegoUsuariosConectados: "[juego] Usuarios conectados",
   juegoDejarMesa: "[juego] Dejar mesa",
+  juegoAsignarGanador: "[juego] Asignar ganador",
   uiSetChantBox: "[ui] Set chant box",
   uiRemoveChantBox: "[ui] Remove chant box",
   uiSetCargandoTrue: "[ui] Set cargando true",

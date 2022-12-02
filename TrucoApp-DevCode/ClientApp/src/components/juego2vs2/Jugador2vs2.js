@@ -1,24 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import noFoto from "../../assets/no-foto.jpg";
-import {
-  getAntesRepartidor,
-  getUserPlayer,
-} from "../../helpers/truco/getUserTurno";
+import { getUserPlayer, isMyTurn } from "../../helpers/truco/getUserTurno";
 import { Botones2vs2 } from "./botones2vs2/Botones2vs2";
 import { CartaJugador2vs2 } from "./CartaJugador2vs2";
 import { CountdownJugador2vs2 } from "./CountdownJugador2vs2";
 
 export const Jugador2vs2 = () => {
   const { partida } = useSelector((state) => state.juego);
-  const {
-    jugadorUno,
-    jugadorDos,
-    jugadorTres,
-    jugadorCuatro,
-    repartidor,
-    turno,
-  } = partida;
+  const { jugadorUno, jugadorDos, jugadorTres, jugadorCuatro, turno } = partida;
   const { uid, nombre } = useSelector((state) => state.auth);
   const numeroJugador = getUserPlayer(
     uid,
@@ -56,9 +46,14 @@ export const Jugador2vs2 = () => {
               ))}
         </div>
       </div>
-      {(getAntesRepartidor(repartidor) === numeroJugador ||
-        repartidor === numeroJugador) &&
-        turno === numeroJugador && <Botones2vs2 />}
+      {isMyTurn(
+        uid,
+        jugadorUno,
+        jugadorDos,
+        turno,
+        jugadorTres,
+        jugadorCuatro
+      ) && <Botones2vs2 />}
     </div>
   );
 };
