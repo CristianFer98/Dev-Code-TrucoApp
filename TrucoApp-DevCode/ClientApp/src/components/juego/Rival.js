@@ -1,11 +1,11 @@
 import React from "react";
-import noFoto from "../../assets/no-foto.jpg";
+//import noFoto from "../../assets/no-foto.jpg";
 import { useSelector } from "react-redux";
 import { CountdownRival } from "./CountdownRival";
 // import mazo from "../../assets/cartas/Mazo.png";
 
 export const Rival = () => {
-  const { uid } = useSelector((state) => state.auth);
+  const { uid, foto } = useSelector((state) => state.auth);
   const { partida } = useSelector((state) => state.juego);
   const { jugadorUno } = partida;
   const mazo =
@@ -14,7 +14,7 @@ export const Rival = () => {
   return (
     <div className="w-100 player1 d-flex align-items-center justify-content-center">
       <div className="player1Avatar d-flex flex-column align-items-center me-2">
-        <CountdownRival image={noFoto} />
+        <CountdownRival image={foto} />
         <div className="playerName fw-bolder text-white px-2 py-1">Rival</div>
       </div>
 
