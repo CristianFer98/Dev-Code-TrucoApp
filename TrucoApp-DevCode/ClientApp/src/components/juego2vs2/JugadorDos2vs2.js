@@ -46,7 +46,7 @@ export const JugadorDos2vs2 = () => {
           image={foto}
           juega={getNumeroJugadores("arriba", jugador) === turno}
         />
-        <div className="playerName fw-bolder text-white px-2 py-1">Rival</div>
+        <div className="playerName fw-bolder text-white px-2 py-1">Compañero</div>
       </div>
 
       <div className="d-flex divCardsOponent">
