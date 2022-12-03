@@ -1,4 +1,5 @@
 import React from "react";
+import noFoto from "../../assets/no-foto.jpg";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 export const CountdownOtrosJugadores = ({ image, juega }) => {
@@ -16,7 +17,8 @@ export const CountdownOtrosJugadores = ({ image, juega }) => {
             "player2Img"
             // : "player2ImgFinishedTimer"
           }`}
-          src={image}
+          src={image!=null?image:noFoto}
+          style={{ objectFit:'cover' }}
         />
       </div>
     );

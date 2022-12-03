@@ -1,15 +1,16 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { startLogin, onLoginSuccess } from '../../actions/auth';
-import { useForm } from '../../hooks/useForm';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { startLogin, onLoginSuccess } from "../../actions/auth";
+import { useForm } from "../../hooks/useForm";
 
 export const Login = () => {
   const dispatch = useDispatch();
 
   const [formLoginValues, handleLoginInputChange] = useForm({
-    lEmail: '',
-    lPassword: '',
+    lEmail: "",
+    lPassword: "",
   });
 
   const { lEmail, lPassword } = formLoginValues;
@@ -28,13 +29,28 @@ export const Login = () => {
       },
       body: JSON.stringify({
         Email: lEmail,
-        Password: lPassword
+        Password: lPassword,
       }),
     });
 
     var jsonResponse = await response.json();
-    localStorage.setItem("token", jsonResponse.jwtToken)
-    dispatch(onLoginSuccess(jsonResponse.id, jsonResponse.email, jsonResponse.nombreCompleto, jsonResponse.fotoPerfil));
+    if (response.ok) {
+      localStorage.setItem("token", jsonResponse.jwtToken);
+      dispatch(
+        onLoginSuccess(
+          jsonResponse.id,
+          jsonResponse.email,
+          jsonResponse.nombreCompleto,
+          jsonResponse.fotoPerfil
+        )
+      );
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Usuario o password incorrecto",
+        text: "Vuelva a intentar",
+      });
+    }
     //dispatch(startLogin(lEmail, lPassword));
   };
 

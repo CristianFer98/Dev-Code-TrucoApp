@@ -7,7 +7,7 @@ import { useHistory } from "react-router";
 import { obtenerTorneoPartida } from "../../helpers/fetchConnection";
 
 export const TorneoDisponibleCard = ({ torneo }) => {
-    const { uid } = useSelector((state) => state.auth);
+    const { uid, foto } = useSelector((state) => state.auth);
     const { torneoId } = torneo;
     const { connection } = useContext(SocketContext);
     const history = useHistory();
@@ -27,9 +27,9 @@ export const TorneoDisponibleCard = ({ torneo }) => {
         <img
           referrerPolicy="no-referrer"
           className="d-flex rounded-circle"
-          style={{ width: "2.5em", height: "2.5em", objectFit: "cover" }}
+          style={{ width: "2.5em", height: "2.5em", objectFit: "cover"}}
           alt=""
-          src={img}
+          src={foto!=null?foto:img}
         />
         <div
           className="text-center mt-1"

@@ -3,6 +3,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useSelector } from "react-redux";
 import { getRivalPlayer, isMyTurn } from "../../helpers/truco/getUserTurno";
 import { SocketContext } from "../../context/SocketContext";
+import noFoto from "../../assets/no-foto.jpg";
 
 export const CountdownRival = ({ image }) => {
   const { uid } = useSelector((state) => state.auth);
@@ -146,7 +147,8 @@ export const CountdownRival = ({ image }) => {
               ? "player2Img"
               : "player2ImgFinishedTimer"
           }`}
-          src={image}
+          src={image!=null?image:noFoto}
+          style={{ objectFit:'cover' }}
         />
       </div>
     );
