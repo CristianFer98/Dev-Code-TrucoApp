@@ -16,7 +16,7 @@ export const MesaDisponibleCard = ({ mesa }) => {
     invitado &&
       !!mesaInvitado &&
       mesaInvitado === idMesa &&
-      entrarAMesa(uid, idMesa, connection, jugadorUno, cantidadJugadores);  
+      entrarAMesa(uid, idMesa, connection, jugadorUno, cantidadJugadores);
   }, [invitado, mesaInvitado]);
 
   const handleJugar = async (e) => {
@@ -65,11 +65,10 @@ export const MesaDisponibleCard = ({ mesa }) => {
           src={img}
         />
         <div
-          className="text-center mt-1"
-          style={{ color: "#ffffff", fontSize: "0.68em" }}
+          className="text-center mt-2"
+          style={{ color: "#ffffff", fontSize: "0.8em" }}
         >
-          {" "}
-          {jugadorUno}
+          {cantidadJugadores === 2 ? `1 vs 1` : `2 vs 2`}
         </div>
       </div>
 
